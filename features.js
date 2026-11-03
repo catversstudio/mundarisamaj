@@ -95,13 +95,37 @@ async function home(){
     sb.onclick=run;gs.onkeydown=e=>{if(e.key==="Enter")run()};
   }
 }
+function galleryFeed(el,d){
+  el.innerHTML=`<div class="fx-gallery-feed" id="gallery-feed"></div><div class="fx-feed-note" id="gallery-more">Keep scrolling — more photos keep coming.</div>`;
+  const feed=el.querySelector("#gallery-feed"),more=el.querySelector("#gallery-more");
+  let pos=0,cycle=0,busy=false;const BATCH=4;
+  function tile(x){
+    if(x.type==="social"&&x.url){
+      if(cycle>0)return `<a class="fx-feed-linkcard" href="${esc(x.url)}" target="_blank" rel="noopener"><span class="fx-feed-linkcard-k">Instagram · @mundarisamaj</span><b>${esc(x.title||"Instagram post")}</b><span>${esc(x.caption||"")}</span><span class="fx-feed-linkcard-go">View on Instagram ↗</span></a>`;
+      return galleryTile(x);
+    }
+    if(x.image&&x.image.src)return `<figure class="fx-feed-item"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
+    return `<div class="fx-feed-note-card"><b>${esc(x.title||"")}</b><span>${esc(x.caption||"")}</span></div>`;
+  }
+  function batch(){
+    if(busy||!d.length)return;busy=true;
+    let html="";
+    for(let i=0;i<BATCH;i++){html+=tile(d[pos]);pos++;if(pos>=d.length){pos=0;cycle++}}
+    let w=document.createElement("div");w.innerHTML=html;
+    while(w.firstChild)feed.appendChild(w.firstChild);
+    busy=false;
+  }
+  batch();batch();
+  if("IntersectionObserver" in window){new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))batch()},{rootMargin:"900px"}).observe(more)}
+  else{more.textContent=""}
+}
 async function listing(k){
   const el=$("#page-list");if(!el)return;
   let d=await load(k),id=new URLSearchParams(location.search).get("id");
   if(id){let x=d.find(y=>y.id===id);if(x)detail(x,k,el,d);else el.innerHTML='<div class="fx-empty-state">Content not found.</div>';return}
   d=d.filter(published);
   if(k==="news"){el.innerHTML=d.map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news.html?id=${x.id}">↗</a></article>`).join("")}
-  else if(k==="gallery"){el.innerHTML='<div class="fx-gallery-grid">'+d.map(galleryTile).join("")+"</div>"}
+  else if(k==="gallery"){galleryFeed(el,d)}
   else if(k==="stories"){el.innerHTML='<div class="fx-card-grid">'+d.map(x=>`<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><a href="stories.html?id=${x.id}">Read story →</a></div></article>`).join("")+"</div>"}
   else el.innerHTML='<div class="fx-card-grid">'+d.map(card).join("")+"</div>";
 }

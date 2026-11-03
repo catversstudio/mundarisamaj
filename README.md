@@ -134,3 +134,15 @@ official methods only — never downloaded or re-uploaded.
 - The homepage "Watch & learn" embeds use the same click-to-play thumbnails
   (class `fx-facade`, attribute `data-yt`); a small handler in features.js
   keeps at most one live player on any page.
+
+
+## v15 (2026-11-03) — the Gallery is now an endless one-photo feed
+- On the Gallery page, photos no longer sit two-to-a-row in narrow cropped
+  tiles. Each photo takes the full width of a single column in its natural
+  shape, with its caption and credit underneath — like an Instagram feed.
+- The feed loads in small batches as the visitor scrolls and, at the end
+  of the set, loops back to the beginning, so it never runs out. From the
+  second pass onward, Instagram items become light link-cards instead of
+  heavy embed iframes, keeping endless scrolling fast.
+- Eight more of the community's own @mundarisamaj Instagram photo posts
+  were added as link previews (24 gallery items in total).

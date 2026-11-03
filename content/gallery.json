@@ -1,12 +1,5 @@
 [
  {
-  "title": "Landscape and place",
-  "caption": "A visual space for community-contributed landscapes and place memories.",
-  "credit": "Illustrative artwork — not a documentary photograph",
-  "tone": "sage",
-  "status": "published"
- },
- {
   "title": "Craft and making",
   "caption": "Sohrai painting by a group of women, Jharkhand.",
   "credit": "Photo: Shreyashprashu · CC BY-SA 4.0 · via Wikimedia Commons",
@@ -128,6 +121,13 @@
   "url": "https://www.instagram.com/p/Db269WZPTwz/"
  },
  {
+  "title": "Landscape and place",
+  "caption": "A visual space for community-contributed landscapes and place memories.",
+  "credit": "Illustrative artwork — not a documentary photograph",
+  "tone": "sage",
+  "status": "published"
+ },
+ {
   "caption": "Our culture, traditions, language and identity — an Adivasi Divas post from our own Instagram, previewed here by link.",
   "credit": "Instagram · @mundarisamaj",
   "platform": "instagram",
@@ -183,5 +183,77 @@
    "caption": "Community members honouring the garlanded portrait of Ol Guru Rohidas Singh Nag at his birthday celebration, Odisha, February 2024.",
    "credit": "Photo: Punasingh123 · CC BY 4.0 · via Wikimedia Commons"
   }
+ },
+ {
+  "title": "Loved by the community",
+  "caption": "One of the most-loved photos on our Instagram — shown here as an official preview; the photo itself stays on Instagram.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DaO0BESzExI/"
+ },
+ {
+  "title": "Community moments — August 2026",
+  "caption": "Shared by the community on our Instagram — shown here as an official preview; the photo itself stays on Instagram.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/Dcq0hYdNZNj/"
+ },
+ {
+  "title": "From our Instagram — September 2026",
+  "caption": "Shared by the community on our Instagram — shown here as an official preview; the photo itself stays on Instagram.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DdTp29Tqgva/"
+ },
+ {
+  "title": "Community love",
+  "caption": "A little love from the community feed — previewed here by link.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DdEZNRPTRKl/"
+ },
+ {
+  "title": "From the community — August 2026",
+  "caption": "Shared by the community on our Instagram — shown here as an official preview; the photo itself stays on Instagram.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/Db-XMStzwpa/"
+ },
+ {
+  "title": "From our Instagram — July 2026",
+  "caption": "Shared by the community on our Instagram — shown here as an official preview; the photo itself stays on Instagram.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DaUnLItOTtT/"
+ },
+ {
+  "title": "Mundari stars",
+  "caption": "From the #mundaring and #mundari_stars series on our Instagram — previewed here by link.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DYBGv5DklT1/"
+ },
+ {
+  "title": "The short story of Birsa Munda",
+  "caption": "A Birsa Munda story post from our Instagram — read his full biography in the People section.",
+  "credit": "Instagram · @mundarisamaj",
+  "platform": "instagram",
+  "status": "published",
+  "type": "social",
+  "url": "https://www.instagram.com/p/DREJUQOjxPn/"
  }
 ]

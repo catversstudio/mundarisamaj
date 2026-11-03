@@ -185,7 +185,8 @@ document.addEventListener("click",e=>{
 document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if($("#rails-mount"))homeRails();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});
 
 /* ---- Stage 2: homepage category rails (History first, then all categories).
-   Two left-right scrollable rows per category, View All at the top-right.
+   One single left-right scrollable row per category (owner's v21 correction:
+   no double rows), View All card at the end of the row and at the top-right.
    Data comes from /api/home (database); if that is unavailable the rails are
    built from the same content/*.json files the site has always used. ---- */
 const RAIL_STATIC={
@@ -204,10 +205,8 @@ function railSection(id,title,viewAll,items){
  if(!items||!items.length)return "";
  items=items.slice(0,10);
  const va={t:"View All",s:"See everything in this section",href:viewAll,viewall:true};
- const rowA=items.filter((_,i)=>i%2===0),rowB=items.filter((_,i)=>i%2===1);
- if(rowB.length)rowB.push(va);else rowA.push(va);
- let rows=`<div class="fx-rail">${rowA.map(railCard).join("")}</div>`;
- if(rowB.length)rows+=`<div class="fx-rail">${rowB.map(railCard).join("")}</div>`;
+ const all=items.concat([va]);
+ const rows=`<div class="fx-rail">${all.map(railCard).join("")}</div>`;
  return `<div class="fx-rail-sec" id="rail-${id}"><div class="fx-rail-head"><h2>${esc(title)}</h2><span class="fx-rail-tools"><span class="fx-rail-hint" aria-hidden="true">slide →</span><a class="fx-viewall" href="${esc(viewAll)}">View All →</a></span></div>${rows}</div>`;
 }
 const toCard=(x,href)=>({t:x.title,s:x.excerpt||x.category||x.date||"",img:x.image&&x.image.src?x.image.src:(x.featured_image||null),href});

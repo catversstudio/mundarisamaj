@@ -561,5 +561,15 @@ if(navToggle && navLinks){
 }
 
 </script>
+<script>
+/* Stage 2: words load from the database API when available; the built-in
+   word list on this page stays as the automatic fallback. */
+fetch("/api/dictionary?per=500").then(function(r){return r.ok?r.json():null}).then(function(j){
+  if(j && j.ok && j.items && j.items.length){
+    WORDS = j.items.map(function(w){ return [w.bani||"", w.word, w.meaning_en||"", w.category||"General"]; });
+    renderDict();
+  }
+}).catch(function(){});
+</script>
 </body>
 </html>

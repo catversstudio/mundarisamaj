@@ -10,7 +10,8 @@
 const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-async function load(k){try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
+const apiType={articles:"article",news:"news",stories:"story",gallery:"gallery",videos:"video"};
+async function load(k){if(apiType[k]){try{let r=await fetch("/api/content?type="+apiType[k]+"&per=200");if(r.ok){let j=await r.json();if(j&&j.ok&&Array.isArray(j.items))return j.items}}catch(e){}}try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
 const published=x=>x.status==="published";
 function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
 function thumb(x){return x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:art(x.tone)}
@@ -172,4 +173,57 @@ document.addEventListener("click",e=>{
   liveFacade=b;liveHtml=b.innerHTML;b.classList.add("is-playing");
   b.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${esc(b.dataset.yt)}?autoplay=1&rel=0&playsinline=1" title="${esc(b.getAttribute("aria-label")||"YouTube video")}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
 });
-document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});
+document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if($("#rails-mount"))homeRails();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});
+
+/* ---- Stage 2: homepage category rails (History first, then all categories).
+   Two left-right scrollable rows per category, View All at the top-right.
+   Data comes from /api/home (database); if that is unavailable the rails are
+   built from the same content/*.json files the site has always used. ---- */
+const RAIL_STATIC={
+ script:[{t:"Mundari Bani Script",s:"The 27-letter script created by Rohidas Singh Nag",img:"assets/img/mundari-bani-script-chart.jpg",href:"script.html"},{t:"Grammar & Structure",s:"How Mundari words and sentences are built",href:"grammar.html"},{t:"Learn Mundari",s:"Everyday words, phrases and practice",href:"learn.html"},{t:"The Alphabet",s:"Every Bani letter with its sound",img:"assets/img/mundari-bani-script-chart.jpg",href:"script.html"}],
+ language:[{t:"The Mundari Language",s:"Horo jagar — history, speakers and status",href:"language.html"},{t:"Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"},{t:"Grammar",s:"Verbs, cases and sentence patterns",href:"grammar.html"},{t:"Learn & Practise",s:"Start speaking with guided lessons",href:"learn.html"}],
+ movement:[{t:"The Language Movement",s:"The living effort to keep Mundari strong",img:"assets/img/nag-birthday-celebration-01.jpg",href:"movement.html"},{t:"History",s:"From early times to the present day",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"People & Leaders",s:"Birsa Munda, Rohidas Singh Nag and more",img:"assets/img/rohidas-singh-nag.jpg",href:"people.html"}],
+ culture:[{t:"Culture & Traditions",s:"Festivals, dance, music, food and craft",img:"assets/img/sarhul-dance-ranchi.jpg",href:"culture.html"},{t:"Festivals",s:"Sarhul, Karam, Mage, Phagu and more",img:"assets/img/karam-festival.jpg",href:"festivals.html"},{t:"Sohrai Wall Art",s:"Harvest painting on village walls",img:"assets/img/sohrai-wall-art-isko.jpg",href:"culture.html"}]
+};
+function railCard(o){
+ const media=o.img?`<img src="${esc(o.img)}" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">`:"";
+ const art=`<span class="fx-rail-art">${o.bani?`<span class="fx-rail-bani">${esc(o.bani)}</span>`:"✳"}</span>`;
+ return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b><small>${esc(o.s||"")}</small></span></a>`;
+}
+function railSection(id,title,viewAll,items){
+ if(!items||!items.length)return "";
+ const rowA=items.filter((_,i)=>i%2===0),rowB=items.filter((_,i)=>i%2===1);
+ let rows=`<div class="fx-rail">${rowA.map(railCard).join("")}</div>`;
+ if(rowB.length)rows+=`<div class="fx-rail">${rowB.map(railCard).join("")}</div>`;
+ return `<div class="fx-rail-sec" id="rail-${id}"><div class="fx-rail-head"><h2>${esc(title)}</h2><a class="fx-viewall" href="${esc(viewAll)}">View All →</a></div>${rows}</div>`;
+}
+const toCard=(x,href)=>({t:x.title,s:x.excerpt||x.category||x.date||"",img:x.image&&x.image.src?x.image.src:(x.featured_image||null),href});
+async function homeRails(){
+ const mount=$("#rails-mount");if(!mount)return;
+ let groups=null,dict=[];
+ try{let r=await fetch("/api/home");if(r.ok){let j=await r.json();if(j&&j.ok){groups=j.groups;dict=j.dictionary||[]}}}catch(e){}
+ if(!groups){
+   const [a,n,st,v,g]=await Promise.all([load("articles"),load("news"),load("stories"),load("videos"),load("gallery")]);
+   const pub=x=>x.status==="published";
+   groups={articles:a.filter(pub),news:n.filter(pub),stories:st.filter(pub),videos:v.filter(pub),gallery:g.filter(pub),books:[],people:a.filter(x=>pub(x)&&x.category==="People & Personalities"),history:a.filter(x=>pub(x)&&x.category==="History")};
+ }
+ const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article.html?id=birsa-munda"}];
+ const histItems=[...histPinned,...(groups.history||[]).map(x=>toCard(x,"article.html?id="+x.id))].filter((v,i,a)=>a.findIndex(y=>y.href===v.href)===i);
+ const dictCards=dict.length?dict.map(w=>({t:w.word,s:w.meaning_en||"",bani:w.bani||"",href:"dictionary.html"})):[{t:"Open the Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"}];
+ const bookCards=(groups.books&&groups.books.length)?groups.books.map(x=>toCard(x,"books.html")):[{t:"Books & Publications",s:"Research in progress — verified titles are being collected",href:"books.html"}];
+ mount.innerHTML=[
+  railSection("history","History","history.html",histItems),
+  railSection("script","Script & Writing","script.html",RAIL_STATIC.script),
+  railSection("dictionary","Dictionary","dictionary.html",dictCards),
+  railSection("language","Language","language.html",RAIL_STATIC.language),
+  railSection("people","People & Leaders","people.html",(groups.people||[]).map(x=>toCard(x,"article.html?id="+x.id))),
+  railSection("movement","The Movement","movement.html",RAIL_STATIC.movement),
+  railSection("culture","Culture & Traditions","culture.html",RAIL_STATIC.culture),
+  railSection("articles","Articles","articles.html",(groups.articles||[]).map(x=>toCard(x,"article.html?id="+x.id))),
+  railSection("news","News & Updates","news.html",(groups.news||[]).map(x=>toCard(x,"news.html?id="+x.id))),
+  railSection("stories","Community Stories","stories.html",(groups.stories||[]).map(x=>toCard(x,"stories.html?id="+x.id))),
+  railSection("videos","Music & Videos","videos.html",(groups.videos||[]).map(x=>({t:x.title,s:x.channel||x.category||"",img:"https://i.ytimg.com/vi/"+x.youtube+"/hqdefault.jpg",href:"videos.html"}))),
+  railSection("gallery","Gallery","gallery.html",(groups.gallery||[]).map(x=>({t:x.title,s:x.caption||x.credit||"",img:x.image&&x.image.src?x.image.src:null,href:"gallery.html"}))),
+  railSection("books","Books & Publications","books.html",bookCards)
+ ].join("");
+}

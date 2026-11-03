@@ -146,3 +146,13 @@ official methods only — never downloaded or re-uploaded.
   heavy embed iframes, keeping endless scrolling fast.
 - Eight more of the community's own @mundarisamaj Instagram photo posts
   were added as link previews (24 gallery items in total).
+
+
+## v16 (2026-11-03) — Instagram items show their photos in the feed
+- In the Gallery feed, Instagram items are now photo-preview cards built
+  from each post's own thumbnail link (the image stays on Instagram;
+  nothing is downloaded or re-hosted), and they look the same on every
+  pass of the endless loop. If a thumbnail link ever expires, the card
+  falls back to a styled link-card so the layout never breaks.
+- Feed batches are throttled so the loop advances at scroll pace, and
+  the homepage gallery strip is capped at 8 tiles.

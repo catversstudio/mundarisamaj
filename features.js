@@ -88,7 +88,7 @@ async function home(){
   const sg=$("#story-grid");
   if(sg)sg.innerHTML=s.filter(published).slice(0,2).map(x=>`<article class="fx-story-card">${x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:""}<span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></article>`).join("");
   const gg=$("#gallery-grid");
-  if(gg)gg.innerHTML=g.filter(published).map(galleryTile).join("");
+  if(gg)gg.innerHTML=g.filter(published).slice(0,8).map(galleryTile).join("");
   const gs=$("#global-search"),sb=$("#search-button"),sr=$("#search-results");
   if(gs&&sb&&sr){
     let run=()=>{let q=gs.value.toLowerCase().trim();let all=[...a.map(x=>({...x,t:"Article",u:"article.html"})),...n.map(x=>({...x,t:"News",u:"news.html"})),...s.map(x=>({...x,t:"Story",u:"stories.html"}))].filter(x=>published(x)&&q&&(x.title+" "+x.excerpt+" "+x.category).toLowerCase().includes(q));sr.innerHTML=all.map(x=>`<a href="${x.u}?id=${x.id}"><b>${esc(x.title)}</b> — ${x.t}</a>`).join("")||(q?"<p>No results found.</p>":"")};
@@ -101,7 +101,7 @@ function galleryFeed(el,d){
   let pos=0,cycle=0,busy=false;const BATCH=4;
   function tile(x){
     if(x.type==="social"&&x.url){
-      if(cycle>0)return `<a class="fx-feed-linkcard" href="${esc(x.url)}" target="_blank" rel="noopener"><span class="fx-feed-linkcard-k">Instagram · @mundarisamaj</span><b>${esc(x.title||"Instagram post")}</b><span>${esc(x.caption||"")}</span><span class="fx-feed-linkcard-go">View on Instagram ↗</span></a>`;
+      if(x.thumb)return `<figure class="fx-feed-item fx-feed-ig"><img src="${esc(x.thumb)}" alt="${esc(x.title||"Instagram post")}" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('no-thumb');this.remove()"><figcaption><span class="fx-feed-kicker">Instagram · @mundarisamaj</span><b>${esc(x.title||"")}</b><span>${esc(x.caption||"")}</span><a class="fx-feed-ig-link" href="${esc(x.url)}" target="_blank" rel="noopener">View on Instagram ↗</a></figcaption></figure>`;
       return galleryTile(x);
     }
     if(x.image&&x.image.src)return `<figure class="fx-feed-item"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
@@ -113,10 +113,10 @@ function galleryFeed(el,d){
     for(let i=0;i<BATCH;i++){html+=tile(d[pos]);pos++;if(pos>=d.length){pos=0;cycle++}}
     let w=document.createElement("div");w.innerHTML=html;
     while(w.firstChild)feed.appendChild(w.firstChild);
-    busy=false;
+    setTimeout(()=>{busy=false},250);
   }
   batch();batch();
-  if("IntersectionObserver" in window){new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))batch()},{rootMargin:"900px"}).observe(more)}
+  if("IntersectionObserver" in window){new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))batch()},{rootMargin:"700px"}).observe(more)}
   else{more.textContent=""}
 }
 async function listing(k){

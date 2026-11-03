@@ -1,0 +1,121 @@
+[
+  {
+    "title": "Landscape and place",
+    "caption": "A visual space for community-contributed landscapes and place memories.",
+    "credit": "Illustrative artwork — not a documentary photograph",
+    "tone": "sage",
+    "status": "published"
+  },
+  {
+    "title": "Craft and making",
+    "caption": "Sohrai painting by a group of women, Jharkhand.",
+    "credit": "Photo: Shreyashprashu · CC BY-SA 4.0 · via Wikimedia Commons",
+    "tone": "clay",
+    "status": "published",
+    "image": {
+      "src": "assets/img/sohrai-painting-women.jpg",
+      "caption": "Sohrai painting by a group of women, Jharkhand.",
+      "credit": "Photo: Shreyashprashu · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Sohrai_painting,_Jharkhand.jpg",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "title": "Gatherings and festivals",
+    "caption": "Sarhul folk dance at the Central University of Jharkhand, Brambe campus, Ranchi — dancers in red-and-white sarees, with drummers.",
+    "credit": "Photo: Rohitmahali01 · CC0 1.0 · via Wikimedia Commons",
+    "tone": "gold",
+    "status": "published",
+    "image": {
+      "src": "assets/img/sarhul-dance-ranchi.jpg",
+      "caption": "Sarhul folk dance at the Central University of Jharkhand, Brambe campus, Ranchi — dancers in red-and-white sarees, with drummers.",
+      "credit": "Photo: Rohitmahali01 · CC0 1.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Sarhul_Festival_Celebration_In_Central_University_Of_Jharkhand_,Brambe_Campus,_Ranchi.jpg",
+      "license": "CC0 1.0"
+    }
+  },
+  {
+    "title": "Language in use",
+    "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
+    "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+    "tone": "blue",
+    "status": "published",
+    "image": {
+      "src": "assets/img/mundari-bani-script-chart.jpg",
+      "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
+      "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "title": "Sarhul at the sarna grove",
+    "caption": "Worshippers gathered under a sarna tree during Sarhul, on the outskirts of Ranchi, Jharkhand.",
+    "credit": "Photo: Gurpreet Singh Ranchi · CC BY-SA 4.0 · via Wikimedia Commons",
+    "tone": "sage",
+    "status": "published",
+    "image": {
+      "src": "assets/img/sarhul-sarna-grove.jpg",
+      "caption": "Worshippers gathered under a sarna tree during Sarhul, on the outskirts of Ranchi, Jharkhand.",
+      "credit": "Photo: Gurpreet Singh Ranchi · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Holy_Prayer.jpg",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "title": "Sohrai wall art at Isko village",
+    "caption": "Sohrai wall art at Isko village, Hazaribagh — a Munda man sitting in front of a wall decorated with Munda-style Sohrai painting.",
+    "credit": "Photo: Kingshuk Mondal · CC BY 4.0 · via Wikimedia Commons",
+    "tone": "sage",
+    "status": "published",
+    "image": {
+      "src": "assets/img/sohrai-wall-art-isko.jpg",
+      "caption": "Sohrai wall art at Isko village, Hazaribagh — a Munda man sitting in front of a wall decorated with Munda-style Sohrai painting.",
+      "credit": "Photo: Kingshuk Mondal · CC BY 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:A_Munda_tribesman_sitting_in_front_of_wall_decorated_with_Munda_style_Sohrai_Painting_at_Isko_Village,_Hazaribagh.jpg",
+      "license": "CC BY 4.0"
+    }
+  },
+  {
+    "title": "Karam festival",
+    "caption": "Karam festival — women gathered around baskets of young seedlings grown for the festival, in Bhado (August–September).",
+    "credit": "Photo: 18susmita · CC BY-SA 4.0 · via Wikimedia Commons",
+    "tone": "sage",
+    "status": "published",
+    "image": {
+      "src": "assets/img/karam-festival.jpg",
+      "caption": "Karam festival — women gathered around baskets of young seedlings grown for the festival, in Bhado (August–September).",
+      "credit": "Photo: 18susmita · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:KARAM_FESTIVAL.jpg",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "title": "Birsa Munda (1875–1900)",
+    "caption": "Birsa Munda — the well-known early photograph of him, reproduced in S. C. Roy (1912).",
+    "credit": "Photo: Unknown photographer (reproduced in S. C. Roy, 1912) · Public domain · via Wikimedia Commons",
+    "tone": "sage",
+    "status": "published",
+    "image": {
+      "src": "assets/img/birsa-munda-portrait.jpg",
+      "caption": "Birsa Munda — the well-known early photograph of him, reproduced in S. C. Roy (1912).",
+      "credit": "Photo: Unknown photographer (reproduced in S. C. Roy, 1912) · Public domain · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Birsa_Munda,_photograph_in_Roy_(1912-72).JPG",
+      "license": "Public domain"
+    }
+  },
+  {
+    "title": "Birsa Munda statue, Patna",
+    "caption": "Statue of Birsa Munda near the Bihar Legislative Assembly, Patna.",
+    "credit": "Photo: Heba Aisha · CC BY-SA 4.0 · via Wikimedia Commons",
+    "tone": "sage",
+    "status": "published",
+    "image": {
+      "src": "assets/img/birsa-munda-statue-patna.jpg",
+      "caption": "Statue of Birsa Munda near the Bihar Legislative Assembly, Patna.",
+      "credit": "Photo: Heba Aisha · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Birsa_Munda_statue_patna.jpg",
+      "license": "CC BY-SA 4.0"
+    }
+  }
+]

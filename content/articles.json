@@ -1,0 +1,114 @@
+[
+  {
+    "id": "mundari-language",
+    "title": "Mundari: language, identity and living knowledge",
+    "category": "Language",
+    "date": "2026-11-02",
+    "author": "Mundari Samaj Editorial Desk",
+    "readTime": "5 min read",
+    "tone": "sage",
+    "excerpt": "An introduction to the language and the importance of documenting it with care, context and community voices.",
+    "status": "published",
+    "verified": false,
+    "body": [
+      {
+        "type": "p",
+        "text": "Mundari is a language of the Munda communities, with speakers across parts of eastern and central India and beyond. Like every living language, it carries ways of describing relationships, land, work, memory and the world."
+      },
+      {
+        "type": "h2",
+        "text": "A language lives through its speakers"
+      },
+      {
+        "type": "p",
+        "text": "Language preservation is not only about recording words. It also means supporting everyday use, intergenerational learning, songs, oral histories, local expressions and the many contexts in which people communicate."
+      },
+      {
+        "type": "h2",
+        "text": "Document with care"
+      },
+      {
+        "type": "p",
+        "text": "Spelling, pronunciation and usage can vary by region and speaker. A responsible language resource should record who shared a word, where it is used, how it is pronounced and whether a native-speaker review has taken place."
+      }
+    ],
+    "image": {
+      "src": "assets/img/mundari-bani-script-chart.jpg",
+      "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
+      "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    "media": [
+      {
+        "type": "youtube",
+        "id": "1G3e4PMwJ0w",
+        "caption": "Mundari Tutorial For Beginners — Leonard Topno (Mundariversity)"
+      }
+    ],
+    "related": [
+      "oral-history",
+      "community-archive"
+    ]
+  },
+  {
+    "id": "oral-history",
+    "title": "Why oral histories matter",
+    "category": "Heritage",
+    "date": "2026-11-02",
+    "author": "Mundari Samaj Editorial Desk",
+    "readTime": "4 min read",
+    "tone": "clay",
+    "excerpt": "Family memories and community accounts can preserve details that formal archives may not contain.",
+    "status": "published",
+    "verified": false,
+    "body": [
+      {
+        "type": "p",
+        "text": "An oral history is a recorded account of a person's memories and experiences. It can help future generations understand how people remember places, livelihoods, celebrations, change and community life."
+      },
+      {
+        "type": "h2",
+        "text": "Listen before recording"
+      },
+      {
+        "type": "p",
+        "text": "Explain how a recording may be used, ask what should remain private, and allow the speaker to pause or withdraw permission. Do not assume every story is intended for public sharing."
+      }
+    ],
+    "related": [
+      "mundari-language",
+      "community-archive"
+    ]
+  },
+  {
+    "id": "community-archive",
+    "title": "Building a respectful community archive",
+    "category": "Culture",
+    "date": "2026-11-02",
+    "author": "Mundari Samaj Editorial Desk",
+    "readTime": "4 min read",
+    "tone": "gold",
+    "excerpt": "A practical guide to credit, consent and context when sharing photographs, documents and cultural knowledge.",
+    "status": "published",
+    "verified": false,
+    "body": [
+      {
+        "type": "p",
+        "text": "A community archive can bring together photographs, documents, recordings and stories that help people explore their heritage. The value of an archive depends on how material was collected and described."
+      },
+      {
+        "type": "h2",
+        "text": "Ask permission and give credit"
+      },
+      {
+        "type": "p",
+        "text": "Before publishing a photograph, recording or document, confirm who owns it and whether the project has permission to display it. Credit the creator or contributor in the way they request."
+      }
+    ],
+    "related": [
+      "mundari-language",
+      "oral-history"
+    ]
+  }
+]

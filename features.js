@@ -1,0 +1,103 @@
+/* Mundari Samaj v5 — feature loader (Articles / News / Stories / Gallery).
+   Extends the v4 loader with the v5 media schema: optional featured image
+   ("image"), ordered "media" items (image / youtube / instagram / x /
+   facebook / link, official embed methods only, lazy, with fallback
+   links), "related" records rendered as Related reading cards, and share
+   buttons on detail views. Gallery tiles show real photos when a record
+   has one and keep the tone-tile fallback otherwise. Only
+   status==="published" records render; unverified articles keep the
+   Editorial note. */
+const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function load(k){try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
+const published=x=>x.status==="published";
+function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
+function thumb(x){return x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:art(x.tone)}
+function card(x){return `<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.category)} · ${esc(x.readTime)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><div class="fx-card-foot"><span>${esc(x.date)}</span><a href="article.html?id=${encodeURIComponent(x.id)}">Read article ↗</a></div></div></article>`}
+function galleryTile(x){
+  if(x.image&&x.image.src)return `<figure class="fx-gallery-tile has-img"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption)}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
+  return `<div class="fx-gallery-tile"><b>${esc(x.title)}</b></div>`;
+}
+function ytId(m){
+  if(m.id)return String(m.id);
+  let u=String(m.url||"");let r=u.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+  return r?r[1]:(/^[\w-]{6,}$/.test(u)?u:"");
+}
+function igCode(m){
+  let u=String(m.url||m.id||"");let r=u.match(/instagram\.com\/(p|reel|reels)\/([\w-]+)/);
+  if(r)return{kind:r[1]==="p"?"p":"reel",code:r[2]};
+  return{kind:"p",code:u};
+}
+function xId(m){
+  let u=String(m.url||m.id||"");let r=u.match(/status\/(\d+)/);
+  return r?r[1]:(/^\d+$/.test(u)?u:"");
+}
+function mediaItem(m){
+  if(!m||!m.type)return"";
+  let cap=m.caption?`<figcaption>${esc(m.caption)}${m.credit?` <span class="fx-credit">${esc(m.credit)}</span>`:""}</figcaption>`:"";
+  if(m.type==="image"&&m.url)return `<figure class="fx-figure"><img src="${esc(m.url)}" alt="${esc(m.caption||"")}" loading="lazy" decoding="async">${cap}</figure>`;
+  if(m.type==="youtube"){let id=ytId(m);if(!id)return"";
+    return `<figure class="fx-figure"><div class="fx-embed"><iframe src="https://www.youtube-nocookie.com/embed/${esc(id)}" title="${esc(m.caption||"YouTube video")}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>${cap}<p class="fx-fallback"><a href="https://www.youtube.com/watch?v=${esc(id)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></figure>`}
+  if(m.type==="instagram"){let g=igCode(m);if(!g.code)return"";let eu=`https://www.instagram.com/${g.kind}/${g.code}/embed`;let ou=String(m.url||`https://www.instagram.com/${g.kind}/${g.code}/`);
+    return `<figure class="fx-figure"><div class="fx-embed fx-embed-tall"><iframe src="${esc(eu)}" title="${esc(m.caption||"Instagram post")}" loading="lazy" allowfullscreen></iframe></div>${cap}<p class="fx-fallback"><a href="${esc(ou)}" target="_blank" rel="noopener">View on Instagram ↗</a></p></figure>`}
+  if(m.type==="x"){let id=xId(m);if(!id)return"";let ou=String(m.url||`https://twitter.com/i/web/status/${id}`);
+    return `<figure class="fx-figure"><div class="fx-embed fx-embed-tall"><iframe src="https://platform.twitter.com/embed/Tweet.html?id=${esc(id)}" title="${esc(m.caption||"Post on X")}" loading="lazy"></iframe></div>${cap}<p class="fx-fallback"><a href="${esc(ou)}" target="_blank" rel="noopener">View post on X ↗</a></p></figure>`}
+  if(m.type==="facebook"){let u=String(m.url||"");if(!u)return"";let plug=/video|watch/.test(u)?"video.php":"post.php";let eu=`https://www.facebook.com/plugins/${plug}?href=${encodeURIComponent(u)}&show_text=true`;
+    return `<figure class="fx-figure"><div class="fx-embed"><iframe src="${esc(eu)}" title="${esc(m.caption||"Facebook post")}" loading="lazy" allowfullscreen></iframe></div>${cap}<p class="fx-fallback"><a href="${esc(u)}" target="_blank" rel="noopener">View on Facebook ↗</a></p></figure>`}
+  if(m.type==="link"&&m.url)return `<p class="fx-media-link"><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.caption||m.url)} ↗</a></p>`;
+  return"";
+}
+function shareBlock(x,k){
+  let page=k==="articles"?"article.html":k+".html";
+  let url=`https://mundarisamaj.pages.dev/${page}?id=${encodeURIComponent(x.id)}`;
+  let t=encodeURIComponent(x.title),u=encodeURIComponent(url);
+  return `<div class="fx-share" aria-label="Share this"><span>Share:</span>`+
+   `<a href="https://wa.me/?text=${t}%20${u}" target="_blank" rel="noopener">WhatsApp</a>`+
+   `<a href="https://www.facebook.com/sharer/sharer.php?u=${u}" target="_blank" rel="noopener">Facebook</a>`+
+   `<a href="https://twitter.com/intent/tweet?text=${t}&url=${u}" target="_blank" rel="noopener">X</a>`+
+   `<a href="https://t.me/share/url?url=${u}&text=${t}" target="_blank" rel="noopener">Telegram</a></div>`;
+}
+function detail(x,k,el,all){
+  let b=Array.isArray(x.body)?x.body.map(v=>v.type==="h2"?`<h2>${esc(v.text)}</h2>`:`<p>${esc(v.text)}</p>`).join(""):`<p>${esc(x.body)}</p>`;
+  let feat=x.image&&x.image.src?`<figure class="fx-figure fx-featured"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption>${esc(x.image.caption||"")}${x.image.credit?` <span class="fx-credit">${esc(x.image.credit)}</span>`:""}</figcaption></figure>`:"";
+  let media=Array.isArray(x.media)?x.media.map(mediaItem).join(""):"";
+  let rel="";
+  if(Array.isArray(x.related)&&all){let cards=x.related.map(id=>(all||[]).find(y=>y.id===id)).filter(y=>y&&published(y)).map(y=>{
+     if(k==="articles")return card(y);
+     if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="stories.html?id=${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
+     return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news.html?id=${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
+   if(cards)rel=`<h2 class="fx-related-h">Related reading</h2><div class="fx-card-grid">${cards}</div>`}
+  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1>${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">By ${esc(x.author||x.contributor||"Mundari Samaj")} · ${esc(x.readTime||"")}</p>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}<div class="fx-body-copy">${b}</div>${media}${shareBlock(x,k)}${rel}</article>`;
+}
+async function home(){
+  const grid=$("#article-grid");if(!grid)return;
+  let [a,n,s,g]=await Promise.all(["articles","news","stories","gallery"].map(load));
+  let f="all";
+  function show(){let list=a.filter(x=>published(x)&&(f==="all"||x.category===f));grid.innerHTML=list.slice(0,3).map(card).join("");const c=$("#article-count");if(c)c.textContent=list.length+" articles"}
+  show();
+  const flt=$("#article-filters");
+  if(flt)flt.onclick=e=>{let b=e.target.closest("[data-filter]");if(!b)return;f=b.dataset.filter;document.querySelectorAll(".fx-chip").forEach(x=>x.classList.toggle("active",x===b));show()};
+  const nl=$("#news-list");
+  if(nl)nl.innerHTML=n.filter(published).map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}<br>${esc(x.category)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news.html?id=${x.id}">↗</a></article>`).join("");
+  const sg=$("#story-grid");
+  if(sg)sg.innerHTML=s.filter(published).slice(0,2).map(x=>`<article class="fx-story-card">${x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:""}<span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></article>`).join("");
+  const gg=$("#gallery-grid");
+  if(gg)gg.innerHTML=g.filter(published).map(galleryTile).join("");
+  const gs=$("#global-search"),sb=$("#search-button"),sr=$("#search-results");
+  if(gs&&sb&&sr){
+    let run=()=>{let q=gs.value.toLowerCase().trim();let all=[...a.map(x=>({...x,t:"Article",u:"article.html"})),...n.map(x=>({...x,t:"News",u:"news.html"})),...s.map(x=>({...x,t:"Story",u:"stories.html"}))].filter(x=>published(x)&&q&&(x.title+" "+x.excerpt+" "+x.category).toLowerCase().includes(q));sr.innerHTML=all.map(x=>`<a href="${x.u}?id=${x.id}"><b>${esc(x.title)}</b> — ${x.t}</a>`).join("")||(q?"<p>No results found.</p>":"")};
+    sb.onclick=run;gs.onkeydown=e=>{if(e.key==="Enter")run()};
+  }
+}
+async function listing(k){
+  const el=$("#page-list");if(!el)return;
+  let d=await load(k),id=new URLSearchParams(location.search).get("id");
+  if(id){let x=d.find(y=>y.id===id);if(x)detail(x,k,el,d);else el.innerHTML='<div class="fx-empty-state">Content not found.</div>';return}
+  d=d.filter(published);
+  if(k==="news"){el.innerHTML=d.map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news.html?id=${x.id}">↗</a></article>`).join("")}
+  else if(k==="gallery"){el.innerHTML='<div class="fx-gallery-grid">'+d.map(galleryTile).join("")+"</div>"}
+  else if(k==="stories"){el.innerHTML='<div class="fx-card-grid">'+d.map(x=>`<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><a href="stories.html?id=${x.id}">Read story →</a></div></article>`).join("")+"</div>"}
+  else el.innerHTML='<div class="fx-card-grid">'+d.map(card).join("")+"</div>";
+}
+document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if(document.body.dataset.page)listing(document.body.dataset.page)});

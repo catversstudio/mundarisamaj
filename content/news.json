@@ -1,0 +1,26 @@
+[
+  {
+    "id": "platform-update",
+    "title": "Mundari Samaj introduces its articles and community publishing hub",
+    "date": "2026-11-02",
+    "category": "Platform update",
+    "excerpt": "The updated platform brings articles, news, community stories, a media gallery and a searchable knowledge hub into one place.",
+    "status": "published",
+    "body": "This is a platform announcement. The new editorial structure is designed to make community knowledge easier to discover.",
+    "related": [
+      "call-for-contributions"
+    ]
+  },
+  {
+    "id": "call-for-contributions",
+    "title": "Invitation: share language resources and community histories",
+    "date": "2026-11-02",
+    "category": "Community call",
+    "excerpt": "We welcome carefully documented words, memories, photographs and references, shared with permission.",
+    "status": "published",
+    "body": "Contributors are invited to share material they have the right to provide. Include context, preferred credit and any restrictions.",
+    "related": [
+      "platform-update"
+    ]
+  }
+]

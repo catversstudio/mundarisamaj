@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Editorial workspace — Mundari Samaj</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="../features.css"><style>.wrap{max-width:850px;margin:auto;padding:40px 6vw}.panel{background:#f5f3eb;padding:24px;margin:20px 0;border:1px solid #dfe3d9}label{display:block;font-size:12px;font-weight:700;margin:13px 0 5px}input,textarea,select{width:100%;padding:12px;border:1px solid #ccd5ca;background:white;font:14px 'DM Sans'}textarea{min-height:150px}.warning{background:#f4efe2;padding:15px;border-left:3px solid #b66b4d;font-size:12px}button{background:#173d32;color:white;border:0;padding:13px 18px;margin:15px 8px 0 0}</style></head><body><div class="v3-announce"><span class="v3-dot" aria-hidden="true"></span> A growing digital home for language, culture and heritage</div>
+<header class="v3-header"><a class="v3-brand" href="../index.html" aria-label="Mundari Samaj home"><img src="../assets/mark.svg" alt="" width="42" height="42" /><span><strong>MUNDARI SAMAJ</strong><small>LANGUAGE · IDENTITY · HERITAGE</small></span></a><button class="v3-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button><nav class="v3-links" id="navLinks" aria-label="Main navigation"><a href="../index.html">Home</a><a href="../discover.html">Discover</a><a href="../language.html">Language</a><a href="../culture.html">Culture</a><a href="../history.html">History</a><a href="../community.html">Community</a><a href="../library.html">Library</a><a href="../about.html">About</a><a href="../search.html">Search</a><a class="v3-cta" href="../contribute.html">Contribute <span aria-hidden="true">↗</span></a></nav></header><main class="wrap"><p class="section-kicker">PRIVATE EDITORIAL WORKFLOW</p><h1 style="font:600 42px 'Playfair Display'">Create a content draft.</h1><p>This helper creates a JSON draft file for the website's content folder. It does not publish directly.</p><div class="warning"><b>Security:</b> This page is a local draft helper, not a login or security system. Anyone who opens it can create a draft, but a draft changes nothing on the website — publishing happens only when Mira adds it to the site files and deploys the update, using the site owner's access. Never place a password or token in this website.</div><section class="panel"><h2 style="font:27px 'Playfair Display'">New content</h2>
+<label>Collection</label><select id="type"><option value="articles">Article</option><option value="news">News update</option><option value="stories">Community story</option><option value="gallery">Gallery item</option></select>
+<label>Title</label><input id="title" placeholder="Write a clear title">
+<label>Category / topic</label><input id="category" placeholder="Language, History, Culture…">
+<label>Date</label><input id="date" type="date">
+<label>Author / contributor</label><input id="author" placeholder="Name or preferred credit">
+<label>Place (stories only)</label><input id="place" placeholder="e.g. Community-wide">
+<label>Short summary / gallery caption</label><textarea id="excerpt" style="min-height:75px"></textarea>
+<label>Main content (not used for gallery)</label><textarea id="body" placeholder="Write paragraphs. Separate paragraphs with a blank line. Use ## Heading for section headings (articles only)."></textarea>
+<label>Status for the exported record</label><select id="statusSel"><option value="draft">draft (recommended)</option><option value="published">published</option></select>
+<label><input type="checkbox" id="verified" style="width:auto"> Review completed (tick only when actually completed)</label>
+<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Featured image</h3>
+<p class="muted" style="font-size:12px">Use only public-domain / CC-licensed images (Wikimedia Commons first). Save the file into <code>assets/img/</code> and write its path, e.g. <code>assets/img/sarhul.jpg</code>. Credits are mandatory.</p>
+<label>Image path or URL</label><input id="imgSrc" placeholder="assets/img/example.jpg">
+<label>Image caption</label><input id="imgCaption" placeholder="What the photo actually shows">
+<label>Image credit</label><input id="imgCredit" placeholder="Photo: Author name · via Wikimedia Commons">
+<label>Image source (photo page URL)</label><input id="imgSource" placeholder="https://commons.wikimedia.org/wiki/File:…">
+<label>Image licence</label><input id="imgLicense" placeholder="CC BY-SA 4.0">
+<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Media items (videos &amp; embeds)</h3>
+<p class="muted" style="font-size:12px">Add a row per video or post. Paste the full YouTube / Instagram / X / Facebook URL — the website turns it into the official embed automatically. Nothing is downloaded from social media.</p>
+<div id="mediaRows"></div>
+<button id="addMedia" type="button" style="background:#dce5d8;color:#173d32">+ Add media item</button>
+<label>Related record ids (comma-separated, same collection)</label><input id="related" placeholder="e.g. oral-history, community-archive">
+<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Live preview</h3>
+<div id="preview" style="background:white;border:1px solid #dfe3d9;padding:18px"></div>
+<button id="download">Download record JSON</button><button id="copy" type="button">Copy JSON</button><button id="clear" style="background:#dce5d8;color:#173d32">Clear</button>
+<p id="status" class="muted"></p></section><section class="panel"><h2 style="font:25px 'Playfair Display'">How publishing works</h2><ol><li>Download the JSON draft from this page.</li><li>Send the downloaded file to Mira.</li><li>Mira adds the record to the matching file in <code>content/</code> and reviews it.</li><li>The record's <code>"status"</code> is changed from <code>"draft"</code> to <code>"published"</code> only after that review.</li><li>Mira deploys the updated site to Cloudflare Pages — that is what makes it live — and mirrors the same code to the GitHub repository. (This site is not connected to GitHub for automatic deployment.)</li></ol><a class="text-link" href="README.html">Full publishing guide →</a></section></main>
+<footer class="v3-footer" style="background:#102F29;color:#e9e2cd;margin-top:64px;padding:44px 0 28px">
+ <div class="wrap" style="max-width:1120px;margin:0 auto;padding:0 20px">
+  <p style="margin:0 0 6px;display:flex;align-items:center;gap:12px"><img src="../assets/mark.svg" alt="" width="38" height="38" style="border-radius:9px" /><span class="serif" style="font-size:1.35rem;font-weight:700;color:#fff">Mundari Samaj</span></p>
+  <p style="margin:0 0 22px;max-width:44rem">Our Language. Our Identity. Our Heritage. Mundari Samaj is a digital platform dedicated to preserving, documenting, promoting and sharing the Mundari language and the histories, cultures, traditions and knowledge of Munda communities.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:22px">
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Explore</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../discover.html">Discover</a><br><a style="color:#e9e2cd;text-decoration:none" href="../language.html">Language</a><br><a style="color:#e9e2cd;text-decoration:none" href="../culture.html">Culture &amp; Traditions</a><br><a style="color:#e9e2cd;text-decoration:none" href="../festivals.html">Festivals</a><br><a style="color:#e9e2cd;text-decoration:none" href="../history.html">History</a><br><a style="color:#e9e2cd;text-decoration:none" href="../articles.html">Articles</a><br><a style="color:#e9e2cd;text-decoration:none" href="../news.html">News</a><br><a style="color:#e9e2cd;text-decoration:none" href="../stories.html">Stories</a><br><a style="color:#e9e2cd;text-decoration:none" href="../gallery.html">Gallery</a></p></div>
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Learn &amp; Library</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../script.html">Mundari Bani Script</a><br><a style="color:#e9e2cd;text-decoration:none" href="../learn.html">Learn Mundari</a><br><a style="color:#e9e2cd;text-decoration:none" href="../dictionary.html">Dictionary</a><br><a style="color:#e9e2cd;text-decoration:none" href="../grammar.html">Grammar</a><br><a style="color:#e9e2cd;text-decoration:none" href="../library.html">Digital Library</a></p></div>
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">About &amp; Community</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../about.html">About &amp; Editorial Policy</a><br><a style="color:#e9e2cd;text-decoration:none" href="../community.html">Community</a><br><a style="color:#e9e2cd;text-decoration:none" href="../people.html">People</a><br><a style="color:#e9e2cd;text-decoration:none" href="../contribute.html">Contribute</a><br><a style="color:#e9e2cd;text-decoration:none" href="../search.html">Search</a></p></div>
+  </div>
+  <p style="margin:0 0 6px;font-size:.92rem">Follow: <a style="color:#f3d98b" href="https://www.instagram.com/mundarisamaj">Instagram @mundarisamaj</a> &middot; <a style="color:#f3d98b" href="https://www.threads.net/@mundaricommunity">Threads @mundaricommunity</a> &middot; Email: mundarisamaj@outlook.com</p>
+  <p style="margin:0;font-size:.88rem;color:#bdb69e">Content on this platform is reviewed for accuracy; unverified material is labelled &ldquo;Research in progress&rdquo;. Corrections are welcome &mdash; see <a style="color:#f3d98b" href="../about.html">About</a>. &copy; <span id="year">2026</span> Mundari Samaj.</p>
+ </div>
+</footer><script>
+const $=id=>document.getElementById(id);
+const escH=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function slug(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"new-content"}
+function addMediaRow(type,url,caption,credit){
+  const row=document.createElement("div");row.className="media-row";row.style.cssText="border:1px dashed #ccd5ca;padding:10px;margin:8px 0;background:#fff";
+  row.innerHTML='<label style="margin-top:2px">Type</label><select class="m-type"><option value="youtube">YouTube</option><option value="instagram">Instagram</option><option value="x">X (Twitter)</option><option value="facebook">Facebook</option><option value="image">Image</option><option value="link">Link</option></select><label>URL or ID</label><input class="m-url" placeholder="Paste the full URL"><label>Caption</label><input class="m-caption" placeholder="Short caption"><label>Credit (optional)</label><input class="m-credit" placeholder="Credit line"><button type="button" class="m-del" style="background:#b66b4d;padding:8px 12px;margin-top:10px">Remove</button>';
+  row.querySelector(".m-type").value=type||"youtube";
+  row.querySelector(".m-url").value=url||"";
+  row.querySelector(".m-caption").value=caption||"";
+  row.querySelector(".m-credit").value=credit||"";
+  row.querySelector(".m-del").onclick=()=>{row.remove();preview()};
+  row.addEventListener("input",preview);
+  $("mediaRows").appendChild(row);
+}
+function buildRecord(){
+  const type=$("type").value,title=$("title").value.trim(),body=$("body").value.trim();
+  const item={id:slug(title),title,category:$("category").value.trim()||"Community",
+    date:$("date").value||new Date().toISOString().slice(0,10),
+    excerpt:$("excerpt").value.trim(),status:$("statusSel").value,verified:$("verified").checked};
+  if(type==="articles"){item.author=$("author").value.trim()||"Contributor";
+    item.readTime=Math.max(1,Math.ceil(body.split(/\s+/).filter(Boolean).length/200))+" min read";item.tone="sage";
+    item.body=body.split(/\n\s*\n/).filter(Boolean).map(x=>x.startsWith("## ")?{type:"h2",text:x.slice(3)}:{type:"p",text:x});}
+  else if(type==="stories"){item.contributor=$("author").value.trim()||"Contributor";item.place=$("place").value.trim()||"Community contribution";item.body=body;}
+  else if(type==="gallery"){delete item.id;delete item.category;delete item.verified;item.caption=$("excerpt").value.trim();delete item.excerpt;item.credit=$("imgCredit").value.trim();item.tone="sage";delete item.body;}
+  else{item.author=$("author").value.trim()||"Mundari Samaj";item.body=body;}
+  const src=$("imgSrc").value.trim();
+  if(src&&(type!=="gallery"||true)){const img={src,caption:$("imgCaption").value.trim(),credit:$("imgCredit").value.trim(),source:$("imgSource").value.trim(),license:$("imgLicense").value.trim()};item.image=img;}
+  if(type!=="gallery"){
+    const media=[...document.querySelectorAll(".media-row")].map(r=>{const o={type:r.querySelector(".m-type").value,url:r.querySelector(".m-url").value.trim(),caption:r.querySelector(".m-caption").value.trim()};const cr=r.querySelector(".m-credit").value.trim();if(cr)o.credit=cr;return o}).filter(o=>o.url);
+    if(media.length)item.media=media;
+    const rel=$("related").value.split(",").map(s=>s.trim()).filter(Boolean);
+    if(rel.length)item.related=rel;
+  }
+  return item;
+}
+function preview(){
+  const it=buildRecord();const pv=$("preview");if(!pv)return;
+  let h="";
+  if(it.image&&it.image.src)h+='<img src="'+escH(it.image.src)+'" alt="'+escH(it.image.caption||"")+'" style="width:100%;height:auto;border-radius:8px" onerror="this.remove()"><p style="font-size:12px;color:#69766c">'+escH(it.image.caption||"")+' '+escH(it.image.credit||"")+'</p>';
+  h+='<h3 style="font:600 24px Georgia,serif;margin:8px 0">'+escH(it.title||"(untitled)")+'</h3><p style="color:#59685d">'+escH(it.excerpt||it.caption||"")+'</p>';
+  if(Array.isArray(it.body))h+=it.body.map(b=>b.type==="h2"?'<h4>'+escH(b.text)+'</h4>':'<p>'+escH(b.text)+'</p>').join("");
+  else if(it.body)h+='<p>'+escH(it.body)+'</p>';
+  (it.media||[]).forEach(m=>{h+='<p style="font-size:12px;border:1px dashed #ccd5ca;padding:8px">Media · '+escH(m.type)+': '+escH(m.caption||m.url)+'</p>'});
+  if(it.related&&it.related.length)h+='<p style="font-size:12px;color:#69766c">Related: '+escH(it.related.join(", "))+'</p>';
+  h+='<p style="font-size:12px;color:#69766c">Share buttons (WhatsApp · Facebook · X · Telegram) appear automatically on the live detail page.</p>';
+  pv.innerHTML=h;
+}
+$("addMedia").onclick=()=>addMediaRow();
+$("download").onclick=()=>{const it=buildRecord();if(!it.title){$("status").textContent="Please add a title first.";return}
+  const type=$("type").value;const blob=new Blob([JSON.stringify(it,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=u;a.download=({articles:"article",news:"news",stories:"story",gallery:"gallery"})[type]+"-"+(it.id||slug(it.title))+".json";a.click();URL.revokeObjectURL(u);
+  $("status").textContent="Record downloaded. Send this file to Mira — she will add it to content/"+type+".json, review it, and publish it with the next site update."};
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(buildRecord(),null,2));$("status").textContent="JSON copied to clipboard."}catch(e){$("status").textContent="Copy failed in this browser — use Download instead."}};
+$("clear").onclick=()=>{["title","category","author","place","excerpt","body","imgSrc","imgCaption","imgCredit","imgSource","imgLicense","related"].forEach(x=>$(x).value="");$("mediaRows").innerHTML="";$("verified").checked=false;$("statusSel").value="draft";$("status").textContent="Cleared.";preview()};
+document.querySelector("main").addEventListener("input",preview);
+$("date").value=new Date().toISOString().slice(0,10);
+preview();
+</script><script>
+"use strict";
+
+var navToggle = document.getElementById("navToggle");
+var navLinks = document.getElementById("navLinks");
+function closeNav(){
+  if(!navLinks || !navToggle) return;
+  navLinks.classList.remove("open");
+  navToggle.setAttribute("aria-expanded","false");
+  navToggle.setAttribute("aria-label","Open menu");
+}
+if(navToggle && navLinks){
+  navToggle.addEventListener("click", function(){
+    var open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeNav(); });
+}
+
+</script>
+</body></html>

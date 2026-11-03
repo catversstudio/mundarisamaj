@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Mundari — the language of the Munda people: its identity, its own script Mundari Bani with the full 27-letter alphabet, grammar, flashcards, sentences, a searchable dictionary, culture and the movement for recognition." />
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+<title>Dictionary — Mundari</title><meta name="description" content="Searchable Mundari dictionary — search in Bani, Roman or English." /><meta property="og:title" content="Dictionary — Mundari" /><meta property="og:description" content="Searchable Mundari dictionary — search in Bani, Roman or English." /><meta property="og:type" content="website" /><meta property="og:url" content="https://mundarisamaj.pages.dev/dictionary.html" /><meta property="og:image" content="https://mundarisamaj.pages.dev/assets/preview-banner.png" /><meta name="twitter:card" content="summary_large_image" /><link rel="canonical" href="https://mundarisamaj.pages.dev/dictionary.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+@font-face{
+  font-family:"Noto Nag Mundari";
+  src:url("data:application/octet-stream;base64,d09GMgABAAAAABGcABAAAAAAH3AAABE8AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbh0wcOgZgP1NUQVQuAIEYEQgKpFSeFAtcAAE2AiQDgS4EIAWEYgeFSAwHG7wao6KctGaC4C8ObHCeWlA4SGzgcsdAypY2AQvUP8OkS3wewSMK/3gtdXR5NkKSWYiHdXwzb8H/fQSr0MmQriSGdPlSFqO4P/9u+ueQ1HKTURVmTjtRQyaGDYKEmk3YnpaJSk0khSf2pfq5DuC22leiclSPUTWilAVsIOpIseu8iEi++qLreT7Z2Lt/IQRCBzYK02gwZHO3dN20WrwGBCAQ+PNzpm36xiQPUE64dmqyc/Mz5t/L7yXvXiHtEaUdHQAkA1LtFKA8fUIxuc0BKyKpJty8m/ET0kzXSJ34381hpOkcy3JWo8wMqYZguVSet/VCoIVWia9DxkPmmIVCoGa3eB7bN25XgHzLSLSC/Eg0WEB+apIFkF80RhvI0ADdWAkgoYaIJGe0qfS4qzXNBuE7n5QMgdJHJ0QgB48TVjQhAzWp/H9bIp/5CvIOy3jdWtWrVCzXS4/ddd1FlT5xVrZU8cz0jtpvr+02Wi3bUkehfQA9DICWArQOoF8AVAagSgD0GAC6AQBNBECXAuhcAP0IoFcBehag7wAaCKAHAND7AI0G0N0A6DYANAsAFQDQRQCByHiAQI4AiMxLw96D5MrG7hkThfLH2moMb0m3OM9s973z5ycgQ3Ia+gWRADXYD2KnocEcM0D2fuc75dO7HKdfp2a1yhV667mHbrvqvI+ckSmZwETrMJXdtrpqvZUWQ4tR8LQaDsNduAVxoAI7bAcNrIBY+Ahuw2vIggcwCfZCCXwIByEB0uGqsl4m2m0c1osi80koCZ5gkMf9Gx667aIPgubjTHq/lkIackoqGvro5ydAmBgTIdPHDJk54TyJ7n9M189PtIBpFTL9wixH0df9ynf+F6YJm/JZdT8gjiv+S0hiSVcKO1KAg1XXT6WHEzKqS5FBvKOlrDbDJNEwch8qmiwwM3msaSjy0ko4YfL/uqYPrrYYJoEMZBtlDtDWsapaMHLrMg+Ie9kPwL734XgS4gqFB48k4IXsWnZtgkayGfuC/18C6RLlAEMAYnSkAZOp4rJ1DvdmPMkNoykZ7b27ROfwMoinGNHov6ii6Y2V+ynqvSz497vDGZx8VmZtvJ84G755Vr8AWnpH+iBljvJVfrUT0MzmEKerqHSyx8mR72VF98nqlTLL4T4VLyjpaDx6A8j+gXJ7aQnko2SxZz9xarguzEilF1rrfmElaEFRJZ80PY/oTzByp3zd7DBflg4PWBS4nF4YG0gHThi/eDbt6x0wwdeXnhcaul0+TrZiEU3TXqwv6+nt7cnSkQeyuAwt58NqclyuGfvqRonT3YKOYRfD4CdRmuSIClWPG04wOgpEcT6WjZaPrVahFFglQQIaD0JrKSKx5IiNIoyhHG73SF8aavi5xNXsAjJd6GghjE0Vmt0A5iBUd4zi6tqrMhcUTY+/7YgjVM1mCkZ6cm5XH2QPcX2rWAuacC6wb0+uKGqcbvfMvYMiM7nDnbV0NBm5lSODASSB0AtTFIHoGn5Lf/GoBe9qKggnYZDNqRxjeQYdT5v93tJTEKrvrvs2q2pUF84Mzo9uK8MWSU+zoSWC2kQZavJjDNHmaPLYmary6noX+oI0mqqyOMkjSB0qd69Uub0YETZbthxACy2teSpnTNCqVrXWuMYCP90Y9RqFipr8urM10HUpzhTVdRFnTwg68qvLmZzOXlEzaveSGJVirXrH/ccPjL75R2LAtWoCVgNWRVQ0Xq8c39E/OhI4M0ScHTUhheQw4WdQZotAr6amJUJ5uzEQvY6ghh8FYbyfRx1RpxGaMZ8ZJQSG/sZ8iZ1bY5S5Y+dtgtg4B4qXKLpLuLPWEzWCMgCn+6bD3cJlIKAJyioaTqAU9MRbBArs026fcY9+UESHzK7be2KfYSi3GselwMpYuY/XRvXbvCjdFsWWyFGjq2mRIbSUOXbrHte7XPOginDK2XGC6Ko1rwfd3TAcmQovu/9AjfgOjb3ipErRLX3XQRjGCByonD0t6GjulpzOSE7QRSyEZ8zExB1arFLvUbx+TNmdiFITWesSDbZxi0a+FTY0eGzV6CHnQIkYxf14S29hi6I+BUphMpWUaxedw1sUaUQnvVndONhz1Z7XoiilHC7PHxWhOhcxZ7OJLGE3uyRl2PBclm4pFHOKFgmX2OEnbkj1hUm352Xcflc4uV1Y23lsn7LufM0gV1HIbUZmH4U+5OHkC+7lju5hkBxhjhFg9h3W9Q2ti0oFa3IJK3GrcUXrU3FO0qzeGUpKGnoakRIJ8SC0yi3MDvaVTMV58+UqJH5dnLLxhdXvdlLc5IYjr4twwK78/O3iUhnJg6O1nAd7jGY8NK3km3hIWbTMjqNwYJrDHTvAHCL7RMl+5uC7WO6lOIxIWAl3ChNYmgxCFJGIlKHYjs4V8uDWkpVTj44G4qwDtV4r1SsyNz76847YNvlFGXE2xPjvN3aW0dunvCxncmpjQfDYe1l/40diZ/2uhdi+hTqLy48af7SO66mx5kTlc8T6jYUSTZR0eWLQXhEcC4WYtd9hEp7vXFeOzt9ocafssDe31HBGHs/nYwYVrnMRpb1gYLy7/SzBJ3/Cp0B9qCMfudNUevHPb6m3wG2yJwi1fo8LfqT+4H3nl/j3lslQVOt7gYBVvD+oHwWM3kr+CwwU09BaIQZLcUjd168o4TlvF7OCCg0K6yCfXq3zKiil/s8XXHbWRyz+FpcfKpJFNPoFmFjJ9WVdKrc4u2znsqo5Ij+M2VIl9o6S8T8l+TckomNJUU5kpDOQ9Wu5ty8EdKM5qoT5pt7WT6pBhyEGIWGwUzBh7JqLRwUSCSL40SQI7cW/M10mz5srMnNVWtLu85TVW3KyO5uLKi1ji7rGlo8vBJg0C8WdcEbM+eJ89b+cGxlUehq4VAKGHdnWKGjADNwLqYDcGSJDzv9GdRAXpEFmMe0iB7ndytOBocxXEGoWcdDFr4Ijw6iixoEFa3vagVWnZWGEVLKf2Lw+Kk2F7j5J+AwaXHmgs/rPVpQlyUyfLmViBjeVY+zwRxb9gRSBZcBVzwkBr6rQbFQWhwL1qhxqQtgQv36EtAUZInOZxpVvtyPR5948OG42JWGrKRE3w9aY2ZSwwqZkzAwTegSBLQiq1yOY2YKgfwc6lzMGAbL/pFhWiyRkvydc3i25vk+BmfNkdgmHqYrwcacy5Q6jbW3uysf6hy+q2OC9txuhicHG75kRlsgHTKFF6rONtS6l4rFgQXWv033K354R2HRoQKgQYsx1YOfiRsNY3C/hKDR2d16twosS7fI8VJk0WpQYIpXbY6izM38sifEH5NQ0uYCtt+/tnCiR+5jfclFdNVVtz4ClA3vMks6KTdJn+DyhkFBhwiApAhktBeWuweKC1uWu8movBCI3lTJEqibsanYMDHf8E1MdSYE4GxdpHvCFrXzZ8QqwlW4M9IAITMtXKDWlmX6AOk2lqT2QIT+7yElGND4+DEk/RngWe4U5nG9N/YVqS7HqokRHK+pvUnuiLruRjCiZ8jNRuQWBDRD6OkQHdW28/zjIxWIaE0wXAJNprkZDtNYwv91BOdrhOZUFKI/gYqimR1m9qMdXRjpLBbk8pbU2D0q06/PylZUmswq9InYmLa5Kwcg4CY4INrdlA8NopnpVohie3BgzDo+WN5rt7kYzVa4fHmu0TE4W16vGdHZudqZUfIKNIdo+VVGoPRsNCWRCQoCi6vZolbYPhhBswEAL1BsdhS4y3Bl32Hpp1T29JXr+l4jcYkHkX/L13pKeWnUvhw0PdyZdjsJ6I6CbLI3RUBHPV9rMgd3N2lixcWRJq2VKKtUGuVN9ctZYC1J9ZAVs//x/T2U7goYFgIjmKYT1KbvX0bE0WW8u8lJqJakxf8AEQu7r+zZWaRcW1YXFlX2t7sFmSWVZt37UTPmSKNY19CHs7rBHRWrmXe/3a5gPJGlopfS1CBPrtThuDIp2fb5ttfKVzGxLlMA2exFsTVpVvN4+4d1FUZMVUYLPo0Kro0n93fXdlKlKSHZ2vne+dAgXpCAIHicRr/VDUGoDQJOd7rV7JM5bLX5No1EKBguUall+8vEz1cunPW500PXTLaYTQJzm72EiS7I9nnC5ivnFGb9OgevczkSF3uWqwhpuPa7ya898waQEuRJPNlnS0+QnLHGRW2XwxoVmsza9BpUmf/u2avOMUXzxP0f0+hP/8vij/7pptcE2IEzL7QUTpS4dhP8fHo/Lz5QavLmw3Z1qtPh1XTnneD5MUvsdMxQLwaK9ccjtIqOaqKRCL54Tk2dbe2n6WffFjDV8YMsHxTfYKJ32Vgam+J36T/p9UOkLKlzugELm+yYo/eyMS8RauJNLn1MPFBnofzrdfxnoAEXx+waMNBNuAuM2kJ4/UbCgmn20T3lJZp5YU2mlM3afMjRTXcFkOYv7vzCxrlE01BjU0tlKjd0dXsPfFmSN5Tg7CaYlnLRuihq/x2Z6KMK9EGgO9wdiM3ut2z7aWy/tmu0RFaYQrsQW8xm6hHL1E/P71ZS1WC0mymhsr/qXOtHRXGaQRw1UBGmGenhgbjxDovSEo7hz7FgAerZ9axs58OYk4a45hOy0tf+RAtY9+RUBdXtOwDnMHF5JHpZgMoIZ1uVjlWEVCRqLP4k8p9KUv1OWvwkHDBv1Wd3UvfC6Gi9mylWoCYPih1tTBcaEPhcjcEwvtQyh0kP1seLp+/Wg4gQomarRBWBrXFqbUQVhovrVGkm+hoiNIUAxUVzdYLb4KjHbMIC0W7tS85eijFV8W6jZ5EzYpaKCkvoUuu1rnryHUjVWxdvvlmcEJKaI1hg2mQx5lM5kLFAbQialMsT2OwuCX8lUDQQfqE1fS08lcBcOXO9KU2mg5PTGH5eQx9PAgefk+nLwMPk8sKESPAIMdh2JCH+JVKepzvQ9xsI9fuYIKg3svT1p2pPZ5O0h04DZQG36BbliCFA7MlyUjEgCJEVOG0K5pgHFeawV5AsAfSI/wec96rzOrwt4Zi9ePBv4BgvkNb7GBDJhRS9bSaZQU52XHLNQKszuTeTSA5P3kBQwB/w5BIB+0DW8/561w0NAtt7/69pSIV3+zbupHwE8uw4rAXj1eKSdkP+XiV+qA8gJAIT/D4zkLrVlQnCw/eF9mlvPxKUPTMsT0XnEmq9sTJ7leWx5I7A298zOGnG5JrSzWd4cNrYHnG0CC1IJE7PQ5FwWnRHrhN9II7dZusOaFtjRZhCYR3anBPh7wrpfJGccjIa+UMabuUCfulCz1lG+NfWc+6xWUZ2gxHSExlyRQ8reC+xG06JSe/BeF6u4jMLUB+BxbVelytySpga9BqYm7NWdmrLW5dSMsVJTc5Zbm9LLSmwIQcaHQwx4RibJz0Iyx0uy1Fyy52oDwYlMAlFrxdMZKGlFc4QSz0A7LSXr0n00HWhnqjbaIQWSXijx6OLZ9jYyemxtSQUp8RjmAaaTiTWHnFzspEGZ9MvkjWTyGDLrVNXLbLJLPfhNlqG0K68UMl6XOM6oZWKrZeLINc0DpHAUg2Xa4t0SLZld1g0pXSOFDEwvgt14GjFkjNhxoRRac+jY2cwlTKzRxUkmRHribLbT00l4OGV3H+L8QRYAAymk0QM90Qu90QcZJMgih+NQir5mmiXdDjJkypItR648+QoUKlKsRKkyQeVCKqCcpkq1GrVNu6Ax2lIEvSaRZ+3xH92sLhmPcHbBKGKJxj5OY65ctDq3uC5DXmsayZWP5ZOGevJ6fRyfXNkq15S4FN1HN72bxSUxlhigPQ2CEGcwlm6264TeccnJ5+Os1qHj7Ga7XuCvMntMbU54JKfZWfpVyjoGfrOy1XF86tkziU9Xf9dZz+ovOOvZU+AFwyslJsiNa+S020z2RFfC9oxSK/fyFt4CdlJKcoqpZaVjHxbSFwAAAAA=") format("woff2");
+  font-weight:400 700;
+  unicode-range:U+1E4D0-1E4FF;
+  font-display:swap;
+}
+:root{
+  color-scheme:light dark;
+  --bg:#F7F3E9;
+  --panel:#FFFFFF;
+  --panel2:#efe8d8;
+  --ink:#252A27;
+  --muted:#5a625c;
+  --accent:#B65F43;
+  --accent-ink:#8f4a34;
+  --forest:#173F35;
+  --forest-deep:#102F29;
+  --gold:#79543A;
+  --line:#ddd3bd;
+  --chip:#efe8d8;
+  --shadow:0 10px 30px rgba(37,51,30,.12);
+  --hero-ink:#fdf8ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12180f;
+    --panel:#1b2415;
+    --panel2:#232f1c;
+    --ink:#ece4cd;
+    --muted:#a7b194;
+    --accent:#e07c4c;
+    --accent-ink:#eda075;
+    --forest:#8fc07f;
+    --forest-deep:#0d1409;
+    --gold:#dfa93e;
+    --line:#37452c;
+    --chip:#232f1c;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"DM Sans","Noto Nag Mundari",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.6;
+}
+.bani{font-family:"Noto Nag Mundari","DM Sans",sans-serif}
+h1,h2,h3,.serif{font-family:"Playfair Display",Georgia,serif}
+button,input{font-family:"DM Sans","Noto Nag Mundari",system-ui,sans-serif}
+img{max-width:100%;display:block}
+a{color:var(--accent-ink)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* ---------- nav ---------- */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+nav.top .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding-top:10px;padding-bottom:10px}
+nav.top .links{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+nav.top a{
+  color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;
+  padding:7px 13px;border-radius:999px;white-space:nowrap;
+}
+nav.top a:hover{background:var(--chip)}
+nav.top a.brand{font-family:"Playfair Display",serif;font-weight:800;font-size:1.1rem;color:var(--forest);padding-left:2px}
+.nav-toggle{
+  display:none;margin-left:auto;align-items:center;gap:9px;cursor:pointer;
+  font:inherit;font-weight:700;font-size:.95rem;color:var(--ink);
+  background:var(--panel);border:1.5px solid var(--line);border-radius:999px;
+  padding:9px 18px;min-height:44px;
+}
+.nav-toggle:hover{border-color:var(--gold)}
+.nav-toggle .bars{display:flex;flex-direction:column;gap:3.5px}
+.nav-toggle .bars span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor}
+@media (max-width:1020px){
+  .nav-toggle{display:inline-flex}
+  nav.top .links{display:none;width:100%;padding:8px 0 4px}
+  nav.top .links.open{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  nav.top .links a{
+    display:flex;align-items:center;min-height:48px;padding:10px 16px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;white-space:normal;
+  }
+  nav.top .links a.active{border-color:var(--forest)}
+}
+
+/* ---------- hero ---------- */
+header.hero{
+  position:relative;color:var(--hero-ink);
+  background:var(--forest-deep);
+  overflow:hidden;
+}
+header.hero .bgimg{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;
+}
+header.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,25,14,.35) 0%,rgba(13,25,14,.62) 55%,rgba(13,25,14,.88) 100%)}
+header.hero .inner{position:relative;padding:84px 0 64px}
+.hero .bani-line{font-size:clamp(1.3rem,3.4vw,2rem);letter-spacing:.06em;color:#f3d98b;margin:0 0 6px}
+.hero h1{
+  font-size:clamp(3rem,9vw,5.6rem);line-height:.98;margin:0 0 14px;font-weight:800;
+}
+.hero h1 .thin{font-weight:400;font-style:italic}
+.hero p.lede{font-size:clamp(1.05rem,2.4vw,1.3rem);max-width:44rem;margin:0 0 26px;color:#f0e9d2}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:700;border-radius:10px;
+  padding:12px 22px;font-size:1rem;border:2px solid transparent;cursor:pointer;
+}
+.btn.solid{background:var(--accent);color:#fff}
+.btn.solid:hover{background:#9a5138}
+.btn.ghost{background:transparent;color:var(--hero-ink);border-color:rgba(253,248,236,.65)}
+.btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.hero .stats{display:flex;flex-wrap:wrap;gap:10px}
+.hero .stat{
+  background:rgba(16,30,17,.55);border:1px solid rgba(243,217,139,.35);
+  border-radius:12px;padding:10px 16px;min-width:150px;
+}
+.hero .stat b{display:block;font-family:"Playfair Display",serif;font-size:1.45rem;line-height:1.1;color:#fff}
+.hero .stat span{font-size:.85rem;color:#e6dcba}
+
+/* ---------- hero alphabet strip: the full 27-letter chart, up front ---------- */
+.alpha-strip{
+  display:block;text-decoration:none;margin-top:22px;
+  background:rgba(16,30,17,.55);border:1px solid rgba(243,217,139,.35);border-radius:12px;
+  padding:14px 16px 10px;color:var(--hero-ink);
+}
+.alpha-strip:hover{border-color:#f3d98b}
+.alpha-strip .letters-big{
+  font-family:"Noto Nag Mundari",sans-serif;font-size:clamp(1.35rem,3.6vw,1.8rem);
+  line-height:1.7;letter-spacing:.14em;color:#fff;word-break:break-all;
+}
+.alpha-strip .cap{font-size:.85rem;color:#e6dcba;margin-top:2px;display:block}
+
+/* ---------- sections ---------- */
+section{padding:64px 0 8px}
+.sec-head{max-width:46rem;margin-bottom:26px}
+.sec-head .kicker{
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;
+  color:var(--accent);margin:0 0 8px;
+}
+.sec-head h2{font-size:clamp(1.9rem,4.6vw,2.7rem);margin:0 0 10px;line-height:1.12;font-weight:800}
+.sec-head p{color:var(--muted);margin:0;font-size:1.05rem}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:22px;box-shadow:var(--shadow);
+}
+.grid{display:grid;gap:16px}
+.grid.c2{grid-template-columns:repeat(2,1fr)}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:860px){.grid.c3,.grid.c4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid.c2,.grid.c3,.grid.c4{grid-template-columns:1fr}}
+.fact b.num{display:block;font-family:"Playfair Display",serif;font-size:1.9rem;color:var(--forest);line-height:1.15}
+.fact h3{margin:0 0 6px;font-size:1.15rem}
+.fact p{margin:0;color:var(--muted);font-size:.97rem}
+.callout{
+  border-left:5px solid var(--gold);background:var(--panel2);
+  border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;
+}
+.callout p{margin:0}
+.callout strong{color:var(--accent-ink)}
+
+/* tables */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.98rem}
+th,td{padding:10px 14px;text-align:left;vertical-align:top}
+thead th{background:var(--panel2);font-weight:700;border-bottom:2px solid var(--line);white-space:nowrap}
+tbody tr+tr td{border-top:1px solid var(--line)}
+@media (max-width:560px){
+  table{font-size:.88rem}
+  th,td{padding:8px 9px}
+  thead th{white-space:normal}
+}
+td.mun{font-weight:700}
+.small{font-size:.88rem;color:var(--muted)}
+.tag{
+  display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;
+  background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);
+}
+
+/* timeline */
+.timeline{position:relative;margin:8px 0 0;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:3px;background:var(--line);border-radius:2px}
+.tl-item{position:relative;padding:0 0 20px}
+.tl-item::before{
+  content:"";position:absolute;left:-25px;top:7px;width:13px;height:13px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--bg);
+}
+.tl-item .yr{font-family:"Playfair Display",serif;font-weight:800;font-size:1.25rem;color:var(--forest)}
+.tl-item p{margin:2px 0 0;color:var(--muted)}
+
+/* ---------- lipi chart ---------- */
+.lipi-layout{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+@media (max-width:860px){.lipi-layout{grid-template-columns:1fr}}
+.rowlabel{
+  font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--forest);margin:18px 0 8px;
+}
+.rowlabel:first-child{margin-top:0}
+.letters{display:flex;flex-wrap:wrap;gap:8px}
+button.letter{
+  font-family:inherit;background:var(--panel);border:1.5px solid var(--line);border-radius:12px;
+  width:64px;height:72px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  color:var(--ink);transition:border-color .15s, background .15s;
+}
+button.letter:hover{border-color:var(--gold)}
+button.letter.sel{border-color:var(--accent);background:var(--panel2);box-shadow:var(--shadow)}
+button.letter .g{font-family:"Noto Nag Mundari",sans-serif;font-size:1.7rem;line-height:1}
+button.letter .r{font-size:.78rem;font-weight:700;color:var(--muted)}
+.letter-detail{position:sticky;top:76px}
+.letter-detail .big{font-family:"Noto Nag Mundari",sans-serif;font-size:4.2rem;line-height:1.1;color:var(--forest)}
+.letter-detail h3{margin:6px 0 2px;font-size:1.5rem}
+.letter-detail dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.97rem}
+.letter-detail dt{font-weight:700;color:var(--muted)}
+.letter-detail dd{margin:0}
+.digits{display:flex;flex-wrap:wrap;gap:8px}
+.digit{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:10px 6px;width:82px;text-align:center;
+}
+.digit .g{font-family:"Noto Nag Mundari",sans-serif;font-size:1.8rem;display:block;line-height:1.2}
+.digit .n{font-weight:700;font-size:.85rem}
+.digit .w{font-size:.78rem;color:var(--muted);display:block}
+.tong h3{margin:0 0 4px;font-size:1.1rem}
+.tong .mark{font-family:"Noto Nag Mundari",sans-serif;font-size:2rem;color:var(--accent);line-height:1.2}
+.tong p{margin:0;color:var(--muted);font-size:.95rem}
+.udhr{
+  background:var(--forest-deep);color:#f2ecd8;border-radius:14px;padding:26px;margin-top:22px;
+}
+.udhr .bani{font-size:1.25rem;line-height:2;color:#f7efc9}
+.udhr p{margin:10px 0 0}
+.udhr .en{color:#cfd8bd;font-style:italic}
+
+/* ---------- sikho ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chipbtn{
+  font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;
+  background:var(--panel);color:var(--ink);border:1.5px solid var(--line);
+  border-radius:999px;padding:7px 16px;
+}
+.chipbtn:hover{border-color:var(--gold)}
+.chipbtn.on{background:var(--forest);border-color:var(--forest);color:#fff}
+@media (prefers-color-scheme: dark){.chipbtn.on{background:var(--forest);color:#10160c}}
+.flash-zone{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media (max-width:860px){.flash-zone{grid-template-columns:1fr}}
+.flashcard{
+  display:block;height:260px;cursor:pointer;background:none;border:none;padding:0;width:100%;
+  font:inherit;color:inherit;text-align:inherit;
+}
+.flash-inner{display:block;position:relative;width:100%;height:100%}
+.flash-face{
+  position:absolute;inset:0;
+  border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;text-align:center;border:1px solid var(--line);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.flash-front{background:var(--forest-deep);color:#f5efdb}
+.flash-front .w{font-family:"Noto Nag Mundari",sans-serif;font-size:2.6rem;font-weight:700;line-height:1.2}
+.flash-front .rom{font-family:"Playfair Display",serif;font-size:1.35rem;font-style:italic;color:#f3d98b;margin-top:4px}
+.flash-front .hint{font-size:.85rem;color:#c9d4b4;margin-top:12px}
+.flash-back{background:var(--panel);box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:scale(.97)}
+.flashcard.flipped .flash-front{opacity:0;pointer-events:none;transform:scale(.97)}
+.flashcard.flipped .flash-back{opacity:1;pointer-events:auto;transform:none}
+.flash-back .w{font-family:"Playfair Display",serif;font-size:1.9rem;font-weight:700}
+.flash-back .cat{color:var(--muted);margin-top:6px}
+.flash-nav{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.flash-nav .count{color:var(--muted);font-weight:600}
+.btn.small{padding:9px 18px;font-size:.95rem}
+.btn.line{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.btn.line:hover{border-color:var(--gold)}
+.sent{border-top:1px solid var(--line);padding:14px 2px}
+.sent:first-of-type{border-top:none}
+.sent .b{font-family:"Noto Nag Mundari",sans-serif;font-size:1.08rem;color:var(--forest);line-height:1.9}
+.sent .m{font-family:"Playfair Display",serif;font-size:1.3rem;font-weight:600}
+.sent .e{color:var(--muted)}
+.sent .src{font-size:.8rem;color:var(--muted)}
+
+/* ---------- dictionary ---------- */
+.dict-tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.dict-tools input[type=search]{
+  font:inherit;flex:1 1 260px;padding:12px 16px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--panel);color:var(--ink);
+}
+.dict-tools input[type=search]:focus{border-color:var(--gold);outline:none}
+.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:860px){.word-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.word-grid{grid-template-columns:1fr}}
+.word{
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+}
+.word .b{font-family:"Noto Nag Mundari",sans-serif;font-size:1.45rem;line-height:1.3;color:var(--forest)}
+.word .m{font-weight:700;font-size:1.08rem}
+.word .e{color:var(--muted);font-size:.94rem}
+.word .c{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.noresult{padding:26px;text-align:center;color:var(--muted)}
+
+/* ---------- culture / news ---------- */
+figure.photo{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+figure.photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+figure.photo figcaption{padding:10px 14px;background:var(--panel);font-size:.9rem;color:var(--muted)}
+.fest h3{margin:0 0 2px;font-size:1.2rem}
+.fest .when{font-weight:700;color:var(--accent);font-size:.9rem}
+.fest p{margin:6px 0 0;color:var(--muted);font-size:.97rem}
+.news-item .date{font-weight:700;color:var(--accent)}
+.news-item h3{margin:2px 0 6px;font-size:1.25rem}
+.news-item p{margin:0 0 8px;color:var(--muted)}
+.news-item p:last-child{margin-bottom:0}
+.flag{
+  display:inline-block;font-size:.78rem;font-weight:700;border-radius:6px;padding:2px 9px;
+  background:#f3e2c2;color:#7a5410;border:1px solid #dfc287;
+}
+@media (prefers-color-scheme: dark){.flag{background:#3d3012;color:#ecc978;border-color:#6b551f}}
+
+/* ---------- resources / footer ---------- */
+.reslist{list-style:none;margin:0;padding:0}
+.reslist li{padding:14px 0;border-top:1px solid var(--line)}
+.reslist li:first-child{border-top:none;padding-top:2px}
+.reslist .t{font-weight:700;font-size:1.05rem}
+.reslist p{margin:2px 0 4px;color:var(--muted);font-size:.96rem}
+footer{
+  margin-top:70px;background:var(--forest-deep);color:#d9dfc6;padding:44px 0 54px;
+}
+footer h3{color:#fff;margin:0 0 10px}
+footer p{margin:0 0 10px;font-size:.95rem;max-width:52rem}
+footer a{color:#f3d98b}
+footer .fine{font-size:.85rem;color:#a9b494}
+
+/* ---------- multi-page views ---------- */
+.page{display:block}
+nav.top a.active{background:var(--forest);color:#fff}
+@media (prefers-color-scheme: dark){nav.top a.active{color:#10160c}}
+.bani-line{display:block;font-family:"Noto Nag Mundari",sans-serif;font-weight:400;font-size:1.28rem;line-height:1.55;color:var(--forest)}
+td .bani-line{font-size:1.2rem}
+.fest h3 .bani-line{font-size:1.05rem}
+.pg-link{display:block;text-decoration:none;color:var(--ink)}
+.pg-link:hover{border-color:var(--gold)}
+.pg-link .go{font-weight:700;color:var(--accent-ink);font-size:.92rem}
+
+/* ---------- small screens: fit every device width, no sideways scroll ---------- */
+body{overflow-x:clip}
+td{overflow-wrap:break-word}
+@media (max-width:860px){
+  .letter-detail{position:static}
+  thead th{white-space:normal}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  section{padding:44px 0 4px}
+  header.hero .inner{padding:52px 0 42px}
+  .hero .stat{flex:1 1 132px;min-width:0}
+  .card{padding:18px 16px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px}
+  .chipbtn{min-height:40px}
+  .udhr{padding:20px 18px}
+  footer{padding:36px 0 44px;margin-top:48px}
+  /* counting table: stack each row with labels instead of scrolling sideways */
+  table.count-tbl thead{display:none}
+  table.count-tbl,table.count-tbl tbody,table.count-tbl tr{display:block;width:100%}
+  table.count-tbl tr{padding:10px 14px}
+  table.count-tbl tr+tr{border-top:1px solid var(--line)}
+  table.count-tbl td{
+    display:flex;align-items:baseline;gap:12px;width:100%;
+    border-top:none;padding:4px 0;
+  }
+  table.count-tbl td::before{
+    content:"";font-weight:700;color:var(--muted);font-size:.78rem;
+    letter-spacing:.05em;text-transform:uppercase;margin-right:auto;text-align:left;flex:0 0 auto;
+  }
+  table.count-tbl td:nth-child(1)::before{content:"Number"}
+  table.count-tbl td:nth-child(2)::before{content:"Counting form"}
+  table.count-tbl td:nth-child(3)::before{content:"Short form"}
+  table.count-tbl td:nth-child(4)::before{content:"Number"}
+  table.count-tbl td:nth-child(5)::before{content:"Counting form"}
+  table.count-tbl td .bani-line{display:inline;font-size:1.15rem}
+}
+@media (max-width:380px){
+  body{font-size:16px}
+  button.letter{width:56px;height:66px}
+  .digit{width:72px}
+  .hero .cta .btn{flex:1 1 100%}
+}
+</style>
+<style>
+/* ===== Mundari Samaj v3 — starter-aesthetic override (shared, CSS-only) ===== */
+body{font-family:"DM Sans","Noto Nag Mundari",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,.serif{font-family:"Playfair Display",Georgia,serif;letter-spacing:-.015em}
+button,input,select,textarea{font-family:"DM Sans","Noto Nag Mundari",system-ui,sans-serif}
+.bani{font-family:"Noto Nag Mundari","DM Sans",sans-serif !important}
+::selection{background:#B65F43;color:#fff}
+:focus-visible{outline:3px solid #B65F43;outline-offset:2px;border-radius:4px}
+.sec-head h2{letter-spacing:-.02em}
+.kicker{letter-spacing:.17em}
+main a:hover{color:#B65F43}
+.card{transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(23,63,53,.16)}
+.btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease;letter-spacing:.02em}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(23,63,53,.18)}
+.chipbtn{transition:background .2s ease,color .2s ease,transform .2s ease}
+.chipbtn:hover{transform:translateY(-1px)}
+/* --- v3 announcement bar + header (starter look) --- */
+.v3-announce{background:#102F29;color:#e9e5d9;text-align:center;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:9px;padding:8px 12px;font-family:"DM Sans",sans-serif}
+.v3-announce .v3-dot{width:6px;height:6px;border-radius:50%;background:#c98560;flex:0 0 auto}
+.v3-header{position:sticky;top:0;z-index:60;background:#f7f4eb;border-bottom:1px solid #e6e1d5;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 4.5%}
+.v3-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#1d2b26}
+.v3-brand img{border-radius:10px;display:block}
+.v3-brand strong{display:block;font-family:"DM Sans",sans-serif;font-size:.88rem;letter-spacing:.15em;line-height:1.3;color:#173F35}
+.v3-brand small{display:block;font-size:.5rem;letter-spacing:.13em;color:#78847a;margin-top:3px;font-family:"DM Sans",sans-serif}
+.v3-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.v3-links a{color:#4d5c53;text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:8px 10px;border-radius:3px;white-space:nowrap}
+.v3-links a:hover{color:#B65F43;background:transparent}
+.v3-links a.active{color:#B65F43;box-shadow:inset 0 -2px 0 #B65F43}
+.v3-links a.v3-cta{background:#173F35;color:#fff;padding:11px 16px;margin-left:8px;border-radius:3px}
+.v3-links a.v3-cta:hover{background:#B65F43;color:#fff;box-shadow:none}
+.v3-toggle{display:none;background:none;border:0;font-size:1.55rem;color:#173F35;cursor:pointer;line-height:1;padding:6px 4px}
+@media (max-width:1020px){
+  .v3-toggle{display:block}
+  .v3-links{display:none;position:absolute;top:100%;left:0;right:0;background:#f7f4eb;padding:14px 5%;box-shadow:0 15px 20px rgba(21,45,32,.12);flex-direction:column;align-items:stretch;gap:0}
+  .v3-header{position:sticky}
+  .v3-links.open{display:flex}
+  .v3-links a{padding:12px 6px;border-bottom:1px solid #e7e2d7;font-size:.85rem}
+  .v3-links a.active{box-shadow:none}
+  .v3-links a.v3-cta{margin:10px 0 4px;text-align:center}
+}
+/* --- v3 footer helpers (structure is inline-styled) --- */
+.v3-footer a:hover{color:#fff !important}
+.v3-footer .v3-fcol a{display:inline-block;padding:2px 0}
+</style>
+</head>
+<body>
+
+<div class="v3-announce"><span class="v3-dot" aria-hidden="true"></span> A growing digital home for language, culture and heritage</div>
+<header class="v3-header"><a class="v3-brand" href="index.html" aria-label="Mundari Samaj home"><img src="assets/mark.svg" alt="" width="42" height="42" /><span><strong>MUNDARI SAMAJ</strong><small>LANGUAGE · IDENTITY · HERITAGE</small></span></a><button class="v3-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button><nav class="v3-links" id="navLinks" aria-label="Main navigation"><a href="index.html">Home</a><a href="discover.html">Discover</a><a href="language.html" class="active" aria-current="page">Language</a><a href="culture.html">Culture</a><a href="history.html">History</a><a href="community.html">Community</a><a href="library.html">Library</a><a href="about.html">About</a><a href="search.html">Search</a><a class="v3-cta" href="contribute.html">Contribute <span aria-hidden="true">↗</span></a></nav></header>
+
+<main>
+
+<section id="shabdakosh" class="page" data-page="dictionary">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Dictionary</p>
+      <h2>Search a word — in Mundari or in English</h2>
+      <p>Attested words from Osada's course, Mundariversity, and Wikipedia's kinship vocabulary. Spelling changes with dialect — where two forms are common, the second form is also given. Each word is shown in Mundari Bani, in Roman letters, and with its English meaning — type any of the three to search.</p>
+    </div>
+    <div class="dict-tools">
+      <input type="search" id="dictSearch" placeholder="Search: pani, mother, jom, water…" aria-label="Search the dictionary" />
+    </div>
+    <div class="chips" id="dictChips" role="group" aria-label="Dictionary categories"></div>
+    <p class="small" id="dictCount" aria-live="polite"></p>
+    <div class="word-grid" id="dictGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="v3-footer" style="background:#102F29;color:#e9e2cd;margin-top:64px;padding:44px 0 28px">
+ <div class="wrap" style="max-width:1120px;margin:0 auto;padding:0 20px">
+  <p style="margin:0 0 6px;display:flex;align-items:center;gap:12px"><img src="assets/mark.svg" alt="" width="38" height="38" style="border-radius:9px" /><span class="serif" style="font-size:1.35rem;font-weight:700;color:#fff">Mundari Samaj</span></p>
+  <p style="margin:0 0 22px;max-width:44rem">Our Language. Our Identity. Our Heritage. Mundari Samaj is a digital platform dedicated to preserving, documenting, promoting and sharing the Mundari language and the histories, cultures, traditions and knowledge of Munda communities.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:22px">
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Explore</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="discover.html">Discover</a><br><a style="color:#e9e2cd;text-decoration:none" href="language.html">Language</a><br><a style="color:#e9e2cd;text-decoration:none" href="culture.html">Culture &amp; Traditions</a><br><a style="color:#e9e2cd;text-decoration:none" href="festivals.html">Festivals</a><br><a style="color:#e9e2cd;text-decoration:none" href="history.html">History</a><br><a style="color:#e9e2cd;text-decoration:none" href="articles.html">Articles</a><br><a style="color:#e9e2cd;text-decoration:none" href="news.html">News</a><br><a style="color:#e9e2cd;text-decoration:none" href="stories.html">Stories</a><br><a style="color:#e9e2cd;text-decoration:none" href="gallery.html">Gallery</a></p></div>
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Learn &amp; Library</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="script.html">Mundari Bani Script</a><br><a style="color:#e9e2cd;text-decoration:none" href="learn.html">Learn Mundari</a><br><a style="color:#e9e2cd;text-decoration:none" href="dictionary.html">Dictionary</a><br><a style="color:#e9e2cd;text-decoration:none" href="grammar.html">Grammar</a><br><a style="color:#e9e2cd;text-decoration:none" href="library.html">Digital Library</a></p></div>
+   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">About &amp; Community</h3>
+    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="about.html">About &amp; Editorial Policy</a><br><a style="color:#e9e2cd;text-decoration:none" href="community.html">Community</a><br><a style="color:#e9e2cd;text-decoration:none" href="people.html">People</a><br><a style="color:#e9e2cd;text-decoration:none" href="contribute.html">Contribute</a><br><a style="color:#e9e2cd;text-decoration:none" href="search.html">Search</a></p></div>
+  </div>
+  <p style="margin:0 0 6px;font-size:.92rem">Follow: <a style="color:#f3d98b" href="https://www.instagram.com/mundarisamaj">Instagram @mundarisamaj</a> &middot; <a style="color:#f3d98b" href="https://www.threads.net/@mundaricommunity">Threads @mundaricommunity</a> &middot; Email: mundarisamaj@outlook.com</p>
+  <p style="margin:0;font-size:.88rem;color:#bdb69e">Content on this platform is reviewed for accuracy; unverified material is labelled &ldquo;Research in progress&rdquo;. Corrections are welcome &mdash; see <a style="color:#f3d98b" href="about.html">About</a>. &copy; <span id="year">2026</span> Mundari Samaj.</p>
+ </div>
+</footer>
+
+
+
+<script>
+"use strict";
+
+"use strict";
+/* ============ Script data: Mundari Bani is used only where the script itself is the content — letters, words and example sentences. All interface text is English. ============ */
+var LETTER_ROWS = [{"row": "O row — begins with the vowel O", "letters": [{"g": "𞓐", "name": "O", "roman": "o", "ipa": "/ɔ/ (sometimes /o/)", "u": "U+1E4D0", "kind": "Vowel (Munu Bani)"}, {"g": "𞓑", "name": "OP", "roman": "p", "ipa": "/p/", "u": "U+1E4D1", "kind": "Consonant (Boja Bani)"}, {"g": "𞓒", "name": "OL", "roman": "l", "ipa": "/l/", "u": "U+1E4D2", "kind": "Consonant (Boja Bani)"}, {"g": "𞓓", "name": "OY", "roman": "y", "ipa": "/j/", "u": "U+1E4D3", "kind": "Consonant (Boja Bani)"}, {"g": "𞓔", "name": "ONG", "roman": "ng / ṅ", "ipa": "/ŋ/", "u": "U+1E4D4", "kind": "Consonant (Boja Bani)"}]}, {"row": "A row — begins with the vowel A", "letters": [{"g": "𞓕", "name": "A", "roman": "a / ā", "ipa": "/a/", "u": "U+1E4D5", "kind": "Vowel (Munu Bani)"}, {"g": "𞓖", "name": "AJ", "roman": "j", "ipa": "/d͡ʑ/", "u": "U+1E4D6", "kind": "Consonant (Boja Bani)"}, {"g": "𞓗", "name": "AB", "roman": "b", "ipa": "/b/ (checked /pˀ/ at the end of a word)", "u": "U+1E4D7", "kind": "Consonant (Boja Bani)"}, {"g": "𞓘", "name": "ANY", "roman": "ny / ñ", "ipa": "/ɲ/", "u": "U+1E4D8", "kind": "Consonant (Boja Bani)"}, {"g": "𞓙", "name": "AH", "roman": "ḥ / h", "ipa": "/h/", "u": "U+1E4D9", "kind": "Consonant (Boja Bani)"}]}, {"row": "I row — begins with the vowel I", "letters": [{"g": "𞓚", "name": "I", "roman": "i", "ipa": "/i/", "u": "U+1E4DA", "kind": "Vowel (Munu Bani)"}, {"g": "𞓛", "name": "IS", "roman": "s", "ipa": "/s̪/", "u": "U+1E4DB", "kind": "Consonant (Boja Bani)"}, {"g": "𞓜", "name": "IDD", "roman": "ḍ", "ipa": "/ɖ/", "u": "U+1E4DC", "kind": "Consonant (Boja Bani)"}, {"g": "𞓝", "name": "IT", "roman": "t", "ipa": "/t̪/", "u": "U+1E4DD", "kind": "Consonant (Boja Bani)"}, {"g": "𞓞", "name": "IH", "roman": "h", "ipa": "/h/ — also used to make aspirates: kh = k+h", "u": "U+1E4DE", "kind": "Consonant (Boja Bani)"}]}, {"row": "U row — begins with the vowel U", "letters": [{"g": "𞓟", "name": "U", "roman": "u", "ipa": "/u/", "u": "U+1E4DF", "kind": "Vowel (Munu Bani)"}, {"g": "𞓠", "name": "US", "roman": "ch / c", "ipa": "/tʃ/", "u": "U+1E4E0", "kind": "Consonant (Boja Bani)"}, {"g": "𞓡", "name": "UD", "roman": "d", "ipa": "/d̪/ (checked /tˀ/ at the end of a word)", "u": "U+1E4E1", "kind": "Consonant (Boja Bani)"}, {"g": "𞓢", "name": "UK", "roman": "k", "ipa": "/k/", "u": "U+1E4E2", "kind": "Consonant (Boja Bani)"}, {"g": "𞓣", "name": "UR", "roman": "r", "ipa": "/r/ ~ /ɾ/", "u": "U+1E4E3", "kind": "Consonant (Boja Bani)"}]}, {"row": "E row — begins with the vowel E (7 letters)", "letters": [{"g": "𞓤", "name": "E", "roman": "e", "ipa": "/e/", "u": "U+1E4E4", "kind": "Vowel (Munu Bani)"}, {"g": "𞓥", "name": "ENN", "roman": "ṇ", "ipa": "/ɳ/", "u": "U+1E4E5", "kind": "Consonant (Boja Bani)"}, {"g": "𞓦", "name": "EG", "roman": "g", "ipa": "/g/ (checked /kˀ/ at the end of a word)", "u": "U+1E4E6", "kind": "Consonant (Boja Bani)"}, {"g": "𞓧", "name": "EM", "roman": "m", "ipa": "/m/", "u": "U+1E4E7", "kind": "Consonant (Boja Bani)"}, {"g": "𞓨", "name": "EN", "roman": "n", "ipa": "/n/", "u": "U+1E4E8", "kind": "Consonant (Boja Bani)"}, {"g": "𞓩", "name": "ETT", "roman": "ṭ", "ipa": "/ʈ/", "u": "U+1E4E9", "kind": "Consonant (Boja Bani)"}, {"g": "𞓪", "name": "ELL", "roman": "ṛ / ḷ", "ipa": "/ɽ/ ~ /ɭ/", "u": "U+1E4EA", "kind": "Consonant (Boja Bani)"}]}];
+var DIGITS = [["𞓰", "0", "Sūn"], ["𞓱", "1", "Mod'"], ["𞓲", "2", "Bar'"], ["𞓳", "3", "Āpī"], ["𞓴", "4", "Upun'"], ["𞓵", "5", "Moñe"], ["𞓶", "6", "Turī"], ["𞓷", "7", "Eyā"], ["𞓸", "8", "Irāl'"], ["𞓹", "9", "Āre"]];
+var TONGS = [{"m": "𞓫", "name": "OJOD · U+1E4EB", "text": "For checked (closed-mouth) sounds or doubling — it is placed before the consonant, as in laṭaˀb, “scissors”. Its use depends on the writer; not everyone uses it."}, {"m": "𞓕𞓬", "name": "MUHOR · U+1E4EC", "text": "Nasalisation of a vowel (◌̃) — written at the vowel's upper right: a + MUHOR = ã. As in mũː “nose”, tuãː “milk”."}, {"m": "𞓕𞓭", "name": "TOYOR · U+1E4ED", "text": "A long vowel sound (ː) — a + TOYOR = ā. A vowel without TOYOR is not necessarily short — many writers leave it out."}, {"m": "𞓕𞓮", "name": "IKIR · U+1E4EE", "text": "For the lip-rounded sound /ʷ/ — as in kaw. In native Mundari, /w/ does not occur at the start of a word."}, {"m": "𞓛𞓯", "name": "SUTUH · U+1E4EF", "text": "A dot for sounds that come from outside — used to write ś/ṣ, v, and sounds like the /o/ of Odia and Bangla."}, {"m": "𞓢𞓞", "name": "Aspirates — add IH", "text": "No separate letters were made — in Naguri and Kera, add IH for aspirates: kh, gh, ph, bh."}];
+var FLASH = [["𞓖𞓐𞓕𞓣", "joar", "Hello / greeting; also thank you", "Greetings"], ["𞓗𞓤𞓛 𞓦𞓤", "bes ge", "Fine / good — 'how are you?'", "Greetings"], ["𞓤𞓔𞓦𞓕", "eŋga", "Mother", "Family"], ["𞓕𞓑𞓟", "apu", "Father", "Family"], ["𞓞𞓕𞓦𞓕", "haga", "Brother (elder / in general)", "Family"], ["𞓧𞓚𞓛𞓚", "misi", "Sister", "Family"], ["𞓞𞓐𞓨", "hon", "Child", "Family"], ["𞓡𞓕𞓙", "daʔ", "Water", "Food & Drink"], ["𞓧𞓕𞓨𞓡𞓚", "mandi", "Cooked rice / food", "Food & Drink"], ["𞓚𞓒𞓚", "ili", "Rice-beer (handia)", "Food & Drink"], ["𞓗𞓟𞓒𞓟𞓔", "buluŋ", "Salt", "Food & Drink"], ["𞓐𞓣𞓕𞓙", "oraʔ", "House", "Home & Village"], ["𞓞𞓕𞓝𞓟", "hatu", "Village", "Home & Village"], ["𞓕𞓢𞓞𞓣𞓕", "akhra", "Open dancing ground", "Home & Village"], ["𞓛𞓚𞓔𞓦𞓚", "siŋgi", "Sun / day", "Nature"], ["𞓗𞓟𞓣𞓟", "buru", "Mountain / hill", "Nature"], ["𞓡𞓕𞓣𞓟", "daru", "Tree", "Nature"], ["𞓛𞓤𞓝𞓕", "seta", "Dog", "Animals"], ["𞓟𞓣𞓚", "uriʔ", "Cow", "Animals"], ["𞓞𞓕𞓢𞓟", "haku", "Fish", "Animals"], ["𞓞𞓚𞓛𞓚", "hisi", "Twenty (20) — the base of counting", "Numbers"], ["𞓦𞓕𞓑𞓕", "gapa", "Tomorrow", "Time"]];
+var SENTS = [["𞓖𞓐𞓕𞓣, 𞓗𞓤𞓛 𞓦𞓤?", "Joar, bes ge?", "Hello, how are you?", "Meeting & Names", "Osada course"], ["𞓕𞓧𞓕𞓙 𞓨𞓟𞓝𞓟𞓧 𞓡𞓐 𞓢𞓕𞓨𞓕𞓙?", "Amaʔ nutum do canaʔ?", "What is your name?", "Meeting & Names", "Osada course"], ["𞓕𞓘 𞓡𞓐 𞓛𞓐𞓧𞓕 𞓝𞓕𞓨-𞓚𞓙.", "Añ do Soma tan-iʔ.", "I am Soma.", "Meeting & Names", "Osada course"], ["𞓕𞓧 𞓡𞓐 𞓐𞓢𞓐𞓤 𞓝𞓕𞓨-𞓚𞓙?", "Am do okoe tan-iʔ?", "Who are you?", "Meeting & Names", "Osada course"], ["𞓨𞓚𞓚𞓙 𞓡𞓐 𞓧𞓟𞓨𞓡𞓕 𞓞𞓐𞓣𞓐.", "Niiʔ do Munda horo.", "This person is a Munda.", "Meeting & Names", "Osada course"], ["𞓨𞓤𞓕 𞓡𞓐 𞓢𞓕𞓨𞓕𞓙? — 𞓨𞓤𞓕 𞓡𞓐 𞓧𞓤𞓡.", "Nea do canaʔ? — Nea do med.", "What is this? — This is an eye.", "Meeting & Names", "Osada course"], ["𞓕𞓧𞓕𞓙 𞓐𞓣𞓕𞓙 𞓡𞓐 𞓢𞓐𞓝𞓕𞓙-𞓣𞓤 𞓧𞓤𞓨𞓕𞓙?", "Amaʔ oraʔ do kotaʔ-re menaʔ?", "Where is your house?", "Home & Family", "Osada course"], ["𞓕𞓘𞓕𞓙 𞓞𞓕𞓝𞓟 𞓡𞓐 𞓢𞓤𞓐𞓣𞓕.", "Añaʔ hatu do Keora.", "My village is Keora.", "Home & Family", "Osada course"], ["𞓕𞓑𞓟-𞓧 𞓐𞓣𞓕𞓙-𞓣𞓤 𞓧𞓤𞓨𞓕𞓙-𞓚-𞓕 𞓛𞓚?", "Apu-m oraʔ-re menaʔ-i-a ci?", "Is your father at home?", "Home & Family", "Osada course"], ["𞓢𞓕𞓢𞓕-𞓘 𞓡𞓐 𞓗𞓕𞓔𞓦𞓕𞓚𞓙-𞓕.", "Kaka-ñ do baŋgaiʔ-a.", "My uncle (father's younger brother) is not there.", "Home & Family", "Osada course"], ["𞓕𞓧-𞓝𞓕𞓙-𞓣𞓤 𞓢𞓚𞓝𞓕𞓗 𞓧𞓤𞓨𞓕𞓙?", "Am-taʔ-re kitab menaʔ?", "Do you have a book?", "Home & Family", "Osada course"], ["𞓕𞓘-𞓝𞓕𞓙-𞓣𞓤 𞓛𞓤𞓝𞓕-𞓢𞓐 𞓧𞓤𞓨𞓕𞓙-𞓢𞓐-𞓕.", "Añ-taʔ-re seta-ko menaʔ-ko-a.", "I have dogs.", "Home & Family", "Osada course"], ["𞓕𞓒𞓤-𞓕𞓙 𞓐𞓣𞓕𞓙-𞓣𞓤-𞓐 𞓟𞓣𞓚𞓙-𞓧𞓤𞓣𞓐𞓧-𞓢𞓐 𞓧𞓤𞓨𞓕𞓙-𞓢𞓐-𞓕.", "Ale-aʔ oraʔ-re-o uriʔ-merom-ko menaʔ-ko-a.", "Our house also has cows and goats.", "Home & Family", "Osada course"], ["𞓧𞓕𞓨𞓡𞓚-𞓘 𞓖𞓐𞓧-𞓝𞓕-𞓨-𞓕.", "Mandi-ñ jom-ta-n-a.", "I am eating.", "Food", "Osada course"], ["𞓢𞓕𞓨𞓕 𞓟𞓝𞓟? — 𞓛𞓚𞓧 𞓖𞓚𞓒𞓟.", "Cana utu? — Sim jilu.", "What is the curry / main dish? — Chicken.", "Food", "Osada course"], ["𞓕𞓟𞓣𞓚-𞓘 𞓖𞓐𞓧-𞓤-𞓕.", "Auri-ñ jom-e-a.", "I have not eaten yet.", "Food", "Osada course"], ["𞓝𞓐𞓗𞓤, 𞓨𞓤-𞓝𞓕𞓙-𞓣𞓤 𞓦𞓤 𞓖𞓐𞓧-𞓤-𞓧𞓤.", "Tobe, ne-taʔ-re ge jom-e-me.", "Well then, eat right here.", "Food", "Osada course"], ["𞓕𞓧 𞓧𞓕𞓨𞓡𞓚 𞓖𞓐𞓧 𞓢𞓤𞓡𞓕𞓧?", "Am mandi jom kedam?", "Have you eaten food?", "Food", "Mundariversity"], ["𞓢𞓐-𞓝𞓤-𞓧 𞓛𞓤𞓨𞓐𞓙-𞓝𞓕-𞓨-𞓕?", "Ko-te-m senoʔ-ta-n-a?", "Where are you going?", "Travel & Time", "Osada course"], ["𞓣𞓕𞓨𞓛𞓚-𞓝𞓤-𞓘 𞓛𞓤𞓨𞓐𞓙-𞓝𞓕-𞓨-𞓕.", "Ranci-te-ñ senoʔ-ta-n-a.", "I am going to Ranchi.", "Travel & Time", "Osada course"], ["𞓦𞓕𞓑𞓕-𞓘 𞓛𞓤𞓨𞓐𞓦-𞓕.", "Gapa-ñ senog-a.", "I will go tomorrow.", "Travel & Time", "Osada course"], ["𞓝𞓐𞓗𞓤, 𞓧𞓐𞓛𞓕-𞓝𞓤 𞓦𞓤-𞓒𞓕𞓔 𞓛𞓤𞓨𞓐𞓦-𞓕.", "Tobe, mosa-te ge-laŋ senog-a.", "Well then, let us go together.", "Travel & Time", "Osada course"], ["𞓧𞓐𞓛𞓕-𞓝𞓤 𞓡𞓐 𞓢𞓕-𞓘 𞓡𞓕𞓣𞓚-𞓕. — 𞓛𞓚𞓒𞓚𞓢𞓕𞓝𞓤?", "Mosa-te do ka-ñ dari-a. — Cilikate?", "I cannot go along. — Why?", "Travel & Time", "Osada course"], ["𞓛𞓚𞓧𞓚𞓨𞓕𞓔 𞓛𞓕𞓧𞓕𞓤 𞓞𞓐𞓗𞓕-𞓕𞓢𞓕𞓨-𞓕?", "Ciminaŋ samae hoba-akan-a?", "What time is it? (Literally: how much time has passed?)", "Travel & Time", "Osada course"], ["𞓗𞓕𞓖𞓕𞓣-𞓝𞓤-𞓒𞓕𞓔 𞓛𞓤𞓨𞓐𞓦-𞓕.", "Bajar-te-laŋ senog-a.", "Let us go to the market.", "Travel & Time", "Osada course"], ["𞓗𞓕𞓖𞓕𞓣-𞓝𞓤-𞓘 𞓛𞓤𞓨𞓐𞓦-𞓕. 𞓢𞓕𞓨𞓕-𞓧 𞓢𞓚𞓣𞓚𞓔-𞓝𞓕-𞓨-𞓕?", "Bajar-te-ñ senog-a. Cana-m kiriŋ-ta-n-a?", "I am going to the market. What are you buying?", "Travel & Time", "† pattern — check with a speaker"], ["𞓕𞓘𞓕𞓙 𞓐𞓣𞓕𞓙 𞓡𞓐 𞓗𞓤𞓛𞓤 𞓞𞓟𞓣𞓚𞓔-𞓦𞓤-𞓕.", "Añaʔ oraʔ do bese huriŋ-ge-a.", "My house is very small.", "Home & Family", "Osada course"]];
+var WORDS = [["𞓖𞓐𞓕𞓣", "joar", "Hello / greeting; also thank you", "Greetings"], ["𞓗𞓤𞓛 𞓦𞓤", "bes ge", "Fine / good — 'how are you?' (with ?)", "Greetings"], ["𞓞𞓚𞓭", "hee", "Yes", "Greetings"], ["𞓢𞓕", "ka", "No / not", "Greetings"], ["𞓕𞓟𞓣𞓚", "auri", "Not yet", "Greetings"], ["𞓝𞓐𞓗𞓤", "tobe", "Well then / okay then", "Greetings"], ["𞓤𞓔𞓦𞓕", "eŋga", "Mother", "Family"], ["𞓕𞓑𞓟", "apu", "Father", "Family"], ["𞓞𞓕𞓦𞓕", "haga", "Brother", "Family"], ["𞓧𞓚𞓛𞓚", "misi", "Sister", "Family"], ["𞓞𞓐𞓨", "hon", "Child", "Family"], ["𞓢𞓐𞓣𞓕", "kora", "Boy / son", "Family"], ["𞓢𞓟𞓣𞓚", "kuri", "Girl / daughter", "Family"], ["𞓗𞓐𞓢𞓐", "boko", "Younger sibling", "Family"], ["𞓕𞓖𞓚", "aji", "Elder sister", "Family"], ["𞓗𞓕𞓟 / 𞓡𞓕𞓡𞓕", "bau / dada", "Elder brother", "Family"], ["𞓢𞓕𞓢𞓕", "kaka", "Younger paternal uncle", "Family"], ["𞓢𞓕𞓢𞓚", "kaki", "Younger paternal aunt", "Family"], ["𞓗𞓕𞓡𞓕", "bada", "Elder paternal uncle", "Family"], ["𞓗𞓕𞓡𞓚", "badi", "Elder paternal aunt", "Family"], ["𞓧𞓕𞓧𞓟", "mamu", "Maternal uncle", "Family"], ["𞓧𞓕𞓧𞓚", "mami", "Maternal aunt", "Family"], ["𞓢𞓟𞓑𞓟𞓒", "kupul", "Guest", "Family"], ["𞓦𞓕𞓝𞓚𞓔", "gatiŋ", "Friend", "Family"], ["𞓞𞓐𞓣𞓐", "horo", "Person", "Family"], ["𞓞𞓐𞓣𞓐𞓢𞓐", "horoko", "People", "Family"], ["𞓟𞓗", "ub", "Hair", "Body"], ["𞓗𞓟𞓭𞓙", "booʔ", "Head", "Body"], ["𞓧𞓤𞓡", "med", "Eye", "Body"], ["𞓧𞓟𞓟", "muu", "Nose", "Body"], ["𞓧𞓐𞓢𞓕", "moca", "Mouth", "Body"], ["𞓒𞓟𞓝𞓟𞓣", "lutur", "Ear", "Body"], ["𞓧𞓐𞓒𞓐𞓔", "moloŋ", "Forehead", "Body"], ["𞓖𞓐𞓟𞓕", "jowa", "Cheek", "Body"], ["𞓢𞓚𞓟𞓕", "kiwa", "Chin", "Body"], ["𞓦𞓟𞓢𞓟", "gucu", "Beard", "Body"], ["𞓞𞓐𞓝𞓐𞓙", "hotoʔ", "Throat", "Body"], ["𞓝𞓕𞓣𞓕𞓨", "taran", "Shoulder", "Body"], ["𞓛𞓟𞓑𞓟", "supu", "Upper arm", "Body"], ["𞓝𞓚𞓚", "tii", "Hand", "Body"], ["𞓝𞓕𞓒𞓢𞓕", "talka", "Palm", "Body"], ["𞓢𞓕𞓝𞓟𞓙", "katuʔ", "Finger", "Body"], ["𞓒𞓕𞓚𞓙", "laiʔ", "Belly", "Body"], ["𞓗𞓟𞓝𞓚", "buti", "Navel", "Body"], ["𞓧𞓕𞓓𞓕𞓔", "mayaŋ", "Waist", "Body"], ["𞓢𞓕𞓝𞓕", "kata", "Foot", "Body"], ["𞓧𞓟𞓢𞓟𞓨𞓚", "mukuni", "Knee", "Body"], ["𞓗𞓟𞓒𞓟", "bulu", "Thigh", "Body"], ["𞓞𞓐𞓡𞓐𞓧𞓐", "hodomo", "Body", "Body"], ["𞓖𞓐𞓧", "jom", "To eat", "Food"], ["𞓨𞓟𞓟", "nuu", "To drink", "Food"], ["𞓧𞓕𞓨𞓡𞓚", "mandi", "Cooked rice / food", "Food"], ["𞓢𞓕𞓗𞓯𞓒𞓚", "cavli", "Uncooked rice", "Food"], ["𞓟𞓝𞓟", "utu", "Curry", "Food"], ["𞓡𞓕𞓚𞓒", "dail", "Dal / lentils", "Food"], ["𞓖𞓚𞓒𞓟", "jilu", "Meat", "Food"], ["𞓞𞓕𞓢𞓟", "haku", "Fish", "Food"], ["𞓢𞓕𞓝𞓢𞓐𞓧", "katkom", "Crab", "Food"], ["𞓕𞓪𞓕𞓙", "aṛaʔ", "Vegetable (generic)", "Food"], ["𞓗𞓟𞓒𞓟𞓔", "buluŋ", "Salt", "Food"], ["𞓛𞓟𞓨𞓟𞓧", "sunum", "Oil", "Food"], ["𞓡𞓕𞓙", "daʔ", "Water", "Food"], ["𞓝𞓟𞓕", "tua", "Milk", "Food"], ["𞓚𞓒𞓚", "ili", "Rice-beer", "Food"], ["𞓛𞓕𞓛𞓕𞓔", "sasaŋ", "Turmeric", "Food"], ["𞓖𞓐", "jo", "Fruit", "Food"], ["𞓛𞓚𞓗𞓯𞓚𞓒", "sivil", "Tasty", "Food"], ["𞓖𞓐𞓖𞓐", "jojo", "Sour", "Food"], ["𞓞𞓕𞓣𞓕𞓙", "haraʔ", "Spicy / hot (taste)", "Food"], ["𞓧𞓤𞓞𞓤𞓣", "meher", "Bitter", "Food"], ["𞓝𞓚𞓢𞓚𞓨 𞓧𞓕𞓨𞓡𞓚", "tikin mandi", "Lunch (midday meal)", "Food"], ["𞓕𞓓𞓟𞓗 𞓧𞓕𞓨𞓡𞓚", "ayub mandi", "Dinner (evening meal)", "Food"], ["𞓚𞓛𞓚𞓨", "isin", "To cook", "Food"], ["𞓐𞓣𞓕𞓙", "oraʔ", "House", "Home & Village"], ["𞓞𞓕𞓝𞓟", "hatu", "Village", "Home & Village"], ["𞓡𞓚𞓛𞓟𞓧", "disum", "Country / land", "Home & Village"], ["𞓞𞓐𞓣𞓕", "hora", "Road / path", "Home & Village"], ["𞓗𞓕𞓖𞓕𞓣", "bajar", "Market", "Home & Village"], ["𞓕𞓢𞓞𞓣𞓕 / 𞓕𞓢𞓞𞓕𞓣𞓕", "akhra / akhara", "Dancing ground", "Home & Village"], ["𞓛𞓚𞓒𞓑𞓚", "silpi", "Door", "Home & Village"], ["𞓛𞓤𞓝𞓕𞓨", "cetan", "Above", "Home & Village"], ["𞓒𞓕𞓝𞓕𞓣", "latar", "Below", "Home & Village"], ["𞓕𞓓𞓕𞓣", "ayar", "In front", "Home & Village"], ["𞓝𞓕𞓓𞓐𞓧", "tayom", "Behind", "Home & Village"], ["𞓢𞓚𞓝𞓕𞓗", "kitab", "Book (loanword)", "Home & Village"], ["𞓑𞓕𞓚𞓛𞓕", "paisa", "Money (loanword)", "Home & Village"], ["𞓢𞓕𞓧𞓚", "kami", "Work", "Home & Village"], ["𞓛𞓚𞓔𞓦𞓚", "siŋgi", "Sun", "Nature"], ["𞓢𞓕𞓨𞓡𞓟", "candu", "Moon", "Nature"], ["𞓛𞓚𞓣𞓧𞓕", "sirma", "Sky", "Nature"], ["𞓚𞓑𞓚𞓒", "ipil", "Star", "Nature"], ["𞓗𞓟𞓣𞓟", "buru", "Mountain / hill", "Nature"], ["𞓦𞓕𞓣𞓕", "gara", "River", "Nature"], ["𞓡𞓕𞓣𞓟", "daru", "Tree", "Nature"], ["𞓛𞓕𞓢𞓕𞓧", "sakam", "Leaf", "Nature"], ["𞓗𞓕𞓭", "baa", "Flower", "Nature"], ["𞓝𞓕𞓛𞓕𞓡", "tasad", "Grass", "Nature"], ["𞓣𞓚𞓧𞓗𞓚𞓒", "rimbil", "Cloud", "Nature"], ["𞓞𞓐𞓓𞓐", "hoyo", "Wind / air", "Nature"], ["𞓦𞓚𞓝𞓚𞓒", "gitil", "Sand", "Nature"], ["𞓐𞓝𞓤", "ote", "Earth / soil", "Nature"], ["𞓒𞓐𞓛𞓐𞓡", "losod", "Mud", "Nature"], ["𞓗𞓚𞓣", "bir", "Forest", "Nature"], ["𞓛𞓤𞓝𞓕", "seta", "Dog", "Animals"], ["𞓟𞓣𞓚", "uri", "Cow", "Animals"], ["𞓧𞓤𞓣𞓐𞓧", "merom", "Goat", "Animals"], ["𞓑𞓟𞓛𞓚", "pusi", "Cat", "Animals"], ["𞓛𞓚𞓧", "sim", "Chicken", "Animals"], ["𞓗𞓚𞓔", "biŋ", "Snake", "Animals"], ["𞓧𞓕𞓣𞓕𞓙", "maraʔ", "Peacock", "Animals"], ["𞓢𞓕𞓟𞓟𞓕", "kauwa", "Crow (loanword)", "Animals"], ["𞓑𞓟𞓨𞓡𞓚", "pundi", "White", "Colours"], ["𞓞𞓤𞓨𞓡𞓤", "hende", "Black", "Colours"], ["𞓕𞓣𞓕𞓙", "araʔ", "Red", "Colours"], ["𞓞𞓕𞓣𞓚𞓓𞓕𞓣", "hariyar", "Green", "Colours"], ["𞓛𞓕𞓛𞓕𞓔𞓕", "sasaŋa", "Yellow (from turmeric)", "Colours"], ["𞓛𞓚𞓣𞓧𞓕𞓭", "sirmaa", "Blue (from sky)", "Colours"], ["𞓨𞓕𞓭𞓙", "naaʔ", "Now", "Time"], ["𞓦𞓕𞓑𞓕", "gapa", "Tomorrow", "Time"], ["𞓞𞓐𞓒𞓕", "hola", "Yesterday", "Time"], ["𞓕𞓓𞓟𞓗", "ayub", "Evening", "Time"], ["𞓨𞓚𞓡𞓕", "nida", "Night", "Time"], ["𞓝𞓕𞓒𞓕 𞓨𞓚𞓡𞓕", "tala nida", "Midnight", "Time"], ["𞓝𞓚𞓢𞓚𞓨", "tikin", "Midday", "Time"], ["𞓛𞓕𞓧𞓕𞓤", "samae", "Time (loanword)", "Time"], ["𞓣𞓕𞓗𞓕𞓔", "rabaŋ", "Winter", "Time"], ["𞓦𞓚𞓣𞓛𞓟𞓧", "girsum", "Summer", "Time"], ["𞓡𞓕𞓞", "dah", "Rainy season", "Time"]];
+
+/* ============ Dictionary ============ */
+var DICT_CATS = ["All","Greetings","Family","Body","Food","Home & Village","Nature","Animals","Colours","Time"];
+var dictChips = document.getElementById("dictChips"), dictGrid = document.getElementById("dictGrid");
+var dictCat = "All";
+DICT_CATS.forEach(function(c){
+  var b = document.createElement("button"); b.type = "button";
+  b.className = "chipbtn" + (c === "All" ? " on" : ""); b.textContent = c;
+  b.addEventListener("click", function(){
+    dictCat = c;
+    dictChips.querySelectorAll(".chipbtn").forEach(function(x){ x.classList.toggle("on", x === b); });
+    renderDict();
+  });
+  dictChips.appendChild(b);
+});
+function norm(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ʔ/g,"").replace(/ŋ/g,"ng"); }
+function renderDict(){
+  var q = norm(document.getElementById("dictSearch").value.trim());
+  var list = WORDS.filter(function(w){
+    if(dictCat !== "All" && w[3] !== dictCat) return false;
+    if(!q) return true;
+    return norm(w[0]).indexOf(q) !== -1 || norm(w[1]).indexOf(q) !== -1 || norm(w[2]).indexOf(q) !== -1;
+  });
+  dictGrid.innerHTML = "";
+  document.getElementById("dictCount").textContent = list.length + " words found" + (dictCat !== "All" ? " · Category: " + dictCat : "");
+  if(!list.length){
+    var d = document.createElement("div"); d.className = "noresult";
+    d.textContent = "No word found. Spelling varies by dialect — try a shorter form, for example search ŋ as ng, or ʔ without the mark.";
+    dictGrid.appendChild(d); return;
+  }
+  list.forEach(function(w){
+    var div = document.createElement("div"); div.className = "word";
+    div.innerHTML = '<div class="c"></div><div class="b"></div><div class="m"></div><div class="e"></div>';
+    div.querySelector(".c").textContent = w[3];
+    div.querySelector(".b").textContent = w[0];
+    div.querySelector(".m").textContent = w[1];
+    div.querySelector(".e").textContent = w[2];
+    dictGrid.appendChild(div);
+  });
+}
+document.getElementById("dictSearch").addEventListener("input", renderDict);
+renderDict();
+
+</script>
+
+<script>
+"use strict";
+
+var navToggle = document.getElementById("navToggle");
+var navLinks = document.getElementById("navLinks");
+function closeNav(){
+  if(!navLinks || !navToggle) return;
+  navLinks.classList.remove("open");
+  navToggle.setAttribute("aria-expanded","false");
+  navToggle.setAttribute("aria-label","Open menu");
+}
+if(navToggle && navLinks){
+  navToggle.addEventListener("click", function(){
+    var open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeNav(); });
+}
+
+</script>
+</body>
+</html>

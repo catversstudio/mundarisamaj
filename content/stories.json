@@ -1,0 +1,26 @@
+[
+  {
+    "id": "story-voices",
+    "title": "Everyday voices deserve a place in the archive",
+    "contributor": "Editorial note",
+    "place": "Community-wide",
+    "excerpt": "A community archive should make room for everyday experience, not only famous names and major events.",
+    "body": "This editorial note invites contributors to document everyday experiences: learning a language at home, remembering a village, practising a craft, teaching songs, or describing how community life changes. Share each account with consent.",
+    "status": "published",
+    "related": [
+      "story-memory"
+    ]
+  },
+  {
+    "id": "story-memory",
+    "title": "Remembering places through family stories",
+    "contributor": "Editorial note",
+    "place": "Community-wide",
+    "excerpt": "Family memories can help younger generations ask better questions about the places they belong to.",
+    "body": "Ask relatives what a place was called, how people travelled, what work shaped the seasons and which memories they wish to pass on. Record different accounts without forcing them into one single version.",
+    "status": "published",
+    "related": [
+      "story-voices"
+    ]
+  }
+]

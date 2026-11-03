@@ -120,3 +120,17 @@ official methods only — never downloaded or re-uploaded.
   {id, title, channel, category, youtube: "<video id>", note, status: "published"}.
   Videos play through YouTube's official embedded player (youtube-nocookie).
   To add a video: append a record with its YouTube video ID and redeploy.
+
+
+## v14 (2026-11-03) — faster videos, one player, restricted queue
+- The Videos page no longer loads 12 YouTube iframes. Cards show lightweight
+  YouTube thumbnails; clicking one opens a single watch player at the top of
+  the page (player, then description, then the other videos below). Only one
+  video can play at a time.
+- The watch player is restricted to this site's own list: it is loaded with
+  `playlist=<all curated video ids>` and `rel=0`, so Up Next / end-screen
+  suggestions stay inside `content/videos.json` instead of drifting to
+  unrelated videos.
+- The homepage "Watch & learn" embeds use the same click-to-play thumbnails
+  (class `fx-facade`, attribute `data-yt`); a small handler in features.js
+  keeps at most one live player on any page.

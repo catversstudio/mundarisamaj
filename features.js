@@ -108,12 +108,44 @@ async function listing(k){
 async function videosPage(){
   const el=$("#page-list");if(!el)return;
   let d=(await load("videos")).filter(published);
-  let cats=["All",...new Set(d.map(v=>v.category))];let f="All";
-  function render(){let list=d.filter(v=>f==="All"||v.category===f);
-    el.innerHTML=`<div class="fx-chips" id="video-filters">${cats.map(c=>`<button class="fx-chip${c===f?" active":""}" data-vf="${esc(c)}">${esc(c)}</button>`).join("")}</div>`+
-    `<div class="fx-card-grid">`+list.map(v=>`<article class="fx-content-card fx-video-card"><div class="fx-embed"><iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div></article>`).join("")+`</div>`+
-    `<p class="fx-video-note">All videos play here through YouTube's official embedded player — nothing is downloaded, copied or re-uploaded. Channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
-    const fl=$("#video-filters");if(fl)fl.onclick=e=>{let b=e.target.closest("[data-vf]");if(!b)return;f=b.dataset.vf;render()};}
-  render();
+  let cats=["All",...new Set(d.map(v=>v.category))];let f="All";let current=null;
+  let queue=d.map(v=>v.youtube).join(",");
+  el.innerHTML=`<div class="fx-watchbox" id="watch-box" hidden><div class="fx-embed" id="watch-player"></div><div class="fx-watch-desc"><div class="fx-watch-desc-head"><h2 id="watch-title"></h2><button class="fx-close" id="watch-close" type="button" aria-label="Close player">✕</button></div><p class="fx-watch-meta" id="watch-meta"></p><p id="watch-note"></p><p><a id="watch-link" href="#" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div></div>`+
+  `<div class="fx-chips" id="video-filters">${cats.map(c=>`<button class="fx-chip" data-vf="${esc(c)}">${esc(c)}</button>`).join("")}</div>`+
+  `<div class="fx-card-grid" id="video-grid"></div>`+
+  `<p class="fx-video-note">Only one video plays at a time — starting another stops the first, so the page stays fast. The player queue is restricted to the videos listed on this page. All videos play through YouTube's official embedded player; nothing is downloaded, copied or re-uploaded, and channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
+  const grid=$("#video-grid"),box=$("#watch-box"),player=$("#watch-player");
+  function cardHtml(v){
+    return `<article class="fx-content-card fx-video-card${current===v.id?" is-active":""}"><div class="fx-embed"><button class="fx-facade" data-vid="${esc(v.id)}" aria-label="Play: ${esc(v.title)}"><img src="https://i.ytimg.com/vi/${esc(v.youtube)}/hqdefault.jpg" alt="${esc(v.title)}" loading="lazy" decoding="async"><span class="fx-play-badge" aria-hidden="true">▶</span></button></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}${current===v.id?" · Now playing":""}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div></article>`;
+  }
+  function renderGrid(){
+    grid.innerHTML=d.filter(v=>f==="All"||v.category===f).map(cardHtml).join("");
+    document.querySelectorAll("#video-filters .fx-chip").forEach(c=>c.classList.toggle("active",c.dataset.vf===f));
+  }
+  function play(v,scroll=true){
+    current=v.id;
+    player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0&playsinline=1&playlist=${esc(queue)}" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    box.hidden=false;
+    $("#watch-title").textContent=v.title;
+    $("#watch-meta").textContent=v.channel+" · "+v.category;
+    $("#watch-note").textContent=v.note||"";
+    $("#watch-link").href="https://www.youtube.com/watch?v="+v.youtube;
+    renderGrid();
+    if(scroll)box.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  $("#video-filters").onclick=e=>{let b=e.target.closest("[data-vf]");if(!b)return;f=b.dataset.vf;renderGrid()};
+  grid.onclick=e=>{let b=e.target.closest("[data-vid]");if(!b)return;let v=d.find(x=>x.id===b.dataset.vid);if(v)play(v)};
+  $("#watch-close").onclick=()=>{player.innerHTML="";box.hidden=true;current=null;renderGrid()};
+  renderGrid();
 }
+/* Click-to-play facades (e.g. homepage Watch & learn): only ONE live player
+   on the page — activating a facade restores the previous one to its
+   thumbnail, so two videos can never play at once. */
+let liveFacade=null,liveHtml="";
+document.addEventListener("click",e=>{
+  let b=e.target.closest(".fx-facade[data-yt]");if(!b||liveFacade===b)return;
+  if(liveFacade){liveFacade.innerHTML=liveHtml;liveFacade.classList.remove("is-playing")}
+  liveFacade=b;liveHtml=b.innerHTML;b.classList.add("is-playing");
+  b.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${esc(b.dataset.yt)}?autoplay=1&rel=0&playsinline=1" title="${esc(b.getAttribute("aria-label")||"YouTube video")}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+});
 document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});

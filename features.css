@@ -140,3 +140,19 @@ a{color:inherit}
 .fx-video-note{margin:22px 0 0;padding:16px 18px;background:#F7F3E9;border:1px dashed #B65F43;border-radius:12px;color:#252A27}
 .fx-video-card .fx-card-body{padding:14px 16px 16px}
 @media (max-width:640px){.fx-gallery-tile.has-embed iframe{height:400px}}
+
+/* v14: click-to-play facades, single watch player, restricted queue */
+.fx-facade{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;background:#102F29;display:block}
+.fx-facade img{width:100%;height:100%;object-fit:cover;display:block}
+.fx-play-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;background:rgba(182,95,67,.94);color:#fff;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.35);transition:transform .15s ease}
+.fx-facade:hover .fx-play-badge,.fx-facade:focus-visible .fx-play-badge{transform:translate(-50%,-50%) scale(1.08)}
+.fx-watchbox{margin:0 0 26px;background:#fff;border:1px solid #e7dfc9;border-radius:16px;overflow:hidden}
+.fx-watchbox .fx-embed{border-radius:0}
+.fx-watch-desc{padding:16px 20px 18px}
+.fx-watch-desc-head{display:flex;align-items:flex-start;gap:12px}
+.fx-watch-desc-head h2{margin:0;font-size:1.35rem;color:#173F35;flex:1}
+.fx-close{border:1px solid #e7dfc9;background:#F7F3E9;color:#252A27;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:15px;flex:none}
+.fx-close:hover{background:#B65F43;color:#fff;border-color:#B65F43}
+.fx-watch-meta{margin:6px 0 8px;font-weight:700;color:#79543A}
+.fx-video-card.is-active{outline:2px solid #B65F43;outline-offset:2px}
+.fx-video-card .fx-card-body{padding:14px 16px 16px}

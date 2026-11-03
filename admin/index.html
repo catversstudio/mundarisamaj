@@ -1,123 +1,668 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Editorial workspace — Mundari Samaj</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="../features.css"><style>.wrap{max-width:850px;margin:auto;padding:40px 6vw}.panel{background:#f5f3eb;padding:24px;margin:20px 0;border:1px solid #dfe3d9}label{display:block;font-size:12px;font-weight:700;margin:13px 0 5px}input,textarea,select{width:100%;padding:12px;border:1px solid #ccd5ca;background:white;font:14px 'DM Sans'}textarea{min-height:150px}.warning{background:#f4efe2;padding:15px;border-left:3px solid #b66b4d;font-size:12px}button{background:#173d32;color:white;border:0;padding:13px 18px;margin:15px 8px 0 0}</style></head><body><div class="v3-announce"><span class="v3-dot" aria-hidden="true"></span> A growing digital home for language, culture and heritage</div>
-<header class="v3-header"><a class="v3-brand" href="../index.html" aria-label="Mundari Samaj home"><img src="../assets/mark.svg" alt="" width="42" height="42" /><span><strong>MUNDARI SAMAJ</strong><small>LANGUAGE · IDENTITY · HERITAGE</small></span></a><button class="v3-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button><nav class="v3-links" id="navLinks" aria-label="Main navigation"><a href="../index.html">Home</a><a href="../discover.html">Discover</a><a href="../language.html">Language</a><a href="../culture.html">Culture</a><a href="../history.html">History</a><a href="../community.html">Community</a><a href="../library.html">Library</a><a href="../about.html">About</a><a href="../search.html">Search</a><a class="v3-cta" href="../contribute.html">Contribute <span aria-hidden="true">↗</span></a></nav></header><main class="wrap"><p class="section-kicker">PRIVATE EDITORIAL WORKFLOW</p><h1 style="font:600 42px 'Playfair Display'">Create a content draft.</h1><p>This helper creates a JSON draft file for the website's content folder. It does not publish directly.</p><div class="warning"><b>Security:</b> This page is a local draft helper, not a login or security system. Anyone who opens it can create a draft, but a draft changes nothing on the website — publishing happens only when Mira adds it to the site files and deploys the update, using the site owner's access. Never place a password or token in this website.</div><section class="panel"><h2 style="font:27px 'Playfair Display'">New content</h2>
-<label>Collection</label><select id="type"><option value="articles">Article</option><option value="news">News update</option><option value="stories">Community story</option><option value="gallery">Gallery item</option></select>
-<label>Title</label><input id="title" placeholder="Write a clear title">
-<label>Category / topic</label><input id="category" placeholder="Language, History, Culture…">
-<label>Date</label><input id="date" type="date">
-<label>Author / contributor</label><input id="author" placeholder="Name or preferred credit">
-<label>Place (stories only)</label><input id="place" placeholder="e.g. Community-wide">
-<label>Short summary / gallery caption</label><textarea id="excerpt" style="min-height:75px"></textarea>
-<label>Main content (not used for gallery)</label><textarea id="body" placeholder="Write paragraphs. Separate paragraphs with a blank line. Use ## Heading for section headings (articles only)."></textarea>
-<label>Status for the exported record</label><select id="statusSel"><option value="draft">draft (recommended)</option><option value="published">published</option></select>
-<label><input type="checkbox" id="verified" style="width:auto"> Review completed (tick only when actually completed)</label>
-<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Featured image</h3>
-<p class="muted" style="font-size:12px">Use only public-domain / CC-licensed images (Wikimedia Commons first). Save the file into <code>assets/img/</code> and write its path, e.g. <code>assets/img/sarhul.jpg</code>. Credits are mandatory.</p>
-<label>Image path or URL</label><input id="imgSrc" placeholder="assets/img/example.jpg">
-<label>Image caption</label><input id="imgCaption" placeholder="What the photo actually shows">
-<label>Image credit</label><input id="imgCredit" placeholder="Photo: Author name · via Wikimedia Commons">
-<label>Image source (photo page URL)</label><input id="imgSource" placeholder="https://commons.wikimedia.org/wiki/File:…">
-<label>Image licence</label><input id="imgLicense" placeholder="CC BY-SA 4.0">
-<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Media items (videos &amp; embeds)</h3>
-<p class="muted" style="font-size:12px">Add a row per video or post. Paste the full YouTube / Instagram / X / Facebook URL — the website turns it into the official embed automatically. Nothing is downloaded from social media.</p>
-<div id="mediaRows"></div>
-<button id="addMedia" type="button" style="background:#dce5d8;color:#173d32">+ Add media item</button>
-<label>Related record ids (comma-separated, same collection)</label><input id="related" placeholder="e.g. oral-history, community-archive">
-<h3 style="font:22px 'Playfair Display';margin:22px 0 4px">Live preview</h3>
-<div id="preview" style="background:white;border:1px solid #dfe3d9;padding:18px"></div>
-<button id="download">Download record JSON</button><button id="copy" type="button">Copy JSON</button><button id="clear" style="background:#dce5d8;color:#173d32">Clear</button>
-<p id="status" class="muted"></p></section><section class="panel"><h2 style="font:25px 'Playfair Display'">How publishing works</h2><ol><li>Download the JSON draft from this page.</li><li>Send the downloaded file to Mira.</li><li>Mira adds the record to the matching file in <code>content/</code> and reviews it.</li><li>The record's <code>"status"</code> is changed from <code>"draft"</code> to <code>"published"</code> only after that review.</li><li>Mira deploys the updated site to Cloudflare Pages — that is what makes it live — and mirrors the same code to the GitHub repository. (This site is not connected to GitHub for automatic deployment.)</li></ol><a class="text-link" href="README.html">Full publishing guide →</a></section></main>
-<footer class="v3-footer" style="background:#102F29;color:#e9e2cd;margin-top:64px;padding:44px 0 28px">
- <div class="wrap" style="max-width:1120px;margin:0 auto;padding:0 20px">
-  <p style="margin:0 0 6px;display:flex;align-items:center;gap:12px"><img src="../assets/mark.svg" alt="" width="38" height="38" style="border-radius:9px" /><span class="serif" style="font-size:1.35rem;font-weight:700;color:#fff">Mundari Samaj</span></p>
-  <p style="margin:0 0 22px;max-width:44rem">Our Language. Our Identity. Our Heritage. Mundari Samaj is a digital platform dedicated to preserving, documenting, promoting and sharing the Mundari language and the histories, cultures, traditions and knowledge of Munda communities.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-bottom:22px">
-   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Explore</h3>
-    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../discover.html">Discover</a><br><a style="color:#e9e2cd;text-decoration:none" href="../language.html">Language</a><br><a style="color:#e9e2cd;text-decoration:none" href="../culture.html">Culture &amp; Traditions</a><br><a style="color:#e9e2cd;text-decoration:none" href="../festivals.html">Festivals</a><br><a style="color:#e9e2cd;text-decoration:none" href="../history.html">History</a><br><a style="color:#e9e2cd;text-decoration:none" href="../articles.html">Articles</a><br><a style="color:#e9e2cd;text-decoration:none" href="../news.html">News</a><br><a style="color:#e9e2cd;text-decoration:none" href="../stories.html">Stories</a><br><a style="color:#e9e2cd;text-decoration:none" href="../gallery.html">Gallery</a></p></div>
-   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">Learn &amp; Library</h3>
-    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../script.html">Mundari Bani Script</a><br><a style="color:#e9e2cd;text-decoration:none" href="../learn.html">Learn Mundari</a><br><a style="color:#e9e2cd;text-decoration:none" href="../dictionary.html">Dictionary</a><br><a style="color:#e9e2cd;text-decoration:none" href="../grammar.html">Grammar</a><br><a style="color:#e9e2cd;text-decoration:none" href="../library.html">Digital Library</a></p></div>
-   <div><h3 style="margin:0 0 8px;color:#fff;font-family:'Playfair Display',Georgia,serif">About &amp; Community</h3>
-    <p style="margin:0;line-height:2"><a style="color:#e9e2cd;text-decoration:none" href="../about.html">About &amp; Editorial Policy</a><br><a style="color:#e9e2cd;text-decoration:none" href="../community.html">Community</a><br><a style="color:#e9e2cd;text-decoration:none" href="../people.html">People</a><br><a style="color:#e9e2cd;text-decoration:none" href="../contribute.html">Contribute</a><br><a style="color:#e9e2cd;text-decoration:none" href="../search.html">Search</a></p></div>
-  </div>
-  <p style="margin:0 0 6px;font-size:.92rem">Follow: <a style="color:#f3d98b" href="https://www.instagram.com/mundarisamaj">Instagram @mundarisamaj</a> &middot; <a style="color:#f3d98b" href="https://www.threads.net/@mundaricommunity">Threads @mundaricommunity</a> &middot; Email: mundarisamaj@outlook.com</p>
-  <p style="margin:0;font-size:.88rem;color:#bdb69e">Content on this platform is reviewed for accuracy; unverified material is labelled &ldquo;Research in progress&rdquo;. Corrections are welcome &mdash; see <a style="color:#f3d98b" href="../about.html">About</a>. &copy; <span id="year">2026</span> Mundari Samaj.</p>
- </div>
-</footer><script>
-const $=id=>document.getElementById(id);
-const escH=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function slug(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"new-content"}
-function addMediaRow(type,url,caption,credit){
-  const row=document.createElement("div");row.className="media-row";row.style.cssText="border:1px dashed #ccd5ca;padding:10px;margin:8px 0;background:#fff";
-  row.innerHTML='<label style="margin-top:2px">Type</label><select class="m-type"><option value="youtube">YouTube</option><option value="instagram">Instagram</option><option value="x">X (Twitter)</option><option value="facebook">Facebook</option><option value="image">Image</option><option value="link">Link</option></select><label>URL or ID</label><input class="m-url" placeholder="Paste the full URL"><label>Caption</label><input class="m-caption" placeholder="Short caption"><label>Credit (optional)</label><input class="m-credit" placeholder="Credit line"><button type="button" class="m-del" style="background:#b66b4d;padding:8px 12px;margin-top:10px">Remove</button>';
-  row.querySelector(".m-type").value=type||"youtube";
-  row.querySelector(".m-url").value=url||"";
-  row.querySelector(".m-caption").value=caption||"";
-  row.querySelector(".m-credit").value=credit||"";
-  row.querySelector(".m-del").onclick=()=>{row.remove();preview()};
-  row.addEventListener("input",preview);
-  $("mediaRows").appendChild(row);
-}
-function buildRecord(){
-  const type=$("type").value,title=$("title").value.trim(),body=$("body").value.trim();
-  const item={id:slug(title),title,category:$("category").value.trim()||"Community",
-    date:$("date").value||new Date().toISOString().slice(0,10),
-    excerpt:$("excerpt").value.trim(),status:$("statusSel").value,verified:$("verified").checked};
-  if(type==="articles"){item.author=$("author").value.trim()||"Contributor";
-    item.readTime=Math.max(1,Math.ceil(body.split(/\s+/).filter(Boolean).length/200))+" min read";item.tone="sage";
-    item.body=body.split(/\n\s*\n/).filter(Boolean).map(x=>x.startsWith("## ")?{type:"h2",text:x.slice(3)}:{type:"p",text:x});}
-  else if(type==="stories"){item.contributor=$("author").value.trim()||"Contributor";item.place=$("place").value.trim()||"Community contribution";item.body=body;}
-  else if(type==="gallery"){delete item.id;delete item.category;delete item.verified;item.caption=$("excerpt").value.trim();delete item.excerpt;item.credit=$("imgCredit").value.trim();item.tone="sage";delete item.body;}
-  else{item.author=$("author").value.trim()||"Mundari Samaj";item.body=body;}
-  const src=$("imgSrc").value.trim();
-  if(src&&(type!=="gallery"||true)){const img={src,caption:$("imgCaption").value.trim(),credit:$("imgCredit").value.trim(),source:$("imgSource").value.trim(),license:$("imgLicense").value.trim()};item.image=img;}
-  if(type!=="gallery"){
-    const media=[...document.querySelectorAll(".media-row")].map(r=>{const o={type:r.querySelector(".m-type").value,url:r.querySelector(".m-url").value.trim(),caption:r.querySelector(".m-caption").value.trim()};const cr=r.querySelector(".m-credit").value.trim();if(cr)o.credit=cr;return o}).filter(o=>o.url);
-    if(media.length)item.media=media;
-    const rel=$("related").value.split(",").map(s=>s.trim()).filter(Boolean);
-    if(rel.length)item.related=rel;
-  }
-  return item;
-}
-function preview(){
-  const it=buildRecord();const pv=$("preview");if(!pv)return;
-  let h="";
-  if(it.image&&it.image.src)h+='<img src="'+escH(it.image.src)+'" alt="'+escH(it.image.caption||"")+'" style="width:100%;height:auto;border-radius:8px" onerror="this.remove()"><p style="font-size:12px;color:#69766c">'+escH(it.image.caption||"")+' '+escH(it.image.credit||"")+'</p>';
-  h+='<h3 style="font:600 24px Georgia,serif;margin:8px 0">'+escH(it.title||"(untitled)")+'</h3><p style="color:#59685d">'+escH(it.excerpt||it.caption||"")+'</p>';
-  if(Array.isArray(it.body))h+=it.body.map(b=>b.type==="h2"?'<h4>'+escH(b.text)+'</h4>':'<p>'+escH(b.text)+'</p>').join("");
-  else if(it.body)h+='<p>'+escH(it.body)+'</p>';
-  (it.media||[]).forEach(m=>{h+='<p style="font-size:12px;border:1px dashed #ccd5ca;padding:8px">Media · '+escH(m.type)+': '+escH(m.caption||m.url)+'</p>'});
-  if(it.related&&it.related.length)h+='<p style="font-size:12px;color:#69766c">Related: '+escH(it.related.join(", "))+'</p>';
-  h+='<p style="font-size:12px;color:#69766c">Share buttons (WhatsApp · Facebook · X · Telegram) appear automatically on the live detail page.</p>';
-  pv.innerHTML=h;
-}
-$("addMedia").onclick=()=>addMediaRow();
-$("download").onclick=()=>{const it=buildRecord();if(!it.title){$("status").textContent="Please add a title first.";return}
-  const type=$("type").value;const blob=new Blob([JSON.stringify(it,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");
-  a.href=u;a.download=({articles:"article",news:"news",stories:"story",gallery:"gallery"})[type]+"-"+(it.id||slug(it.title))+".json";a.click();URL.revokeObjectURL(u);
-  $("status").textContent="Record downloaded. Send this file to Mira — she will add it to content/"+type+".json, review it, and publish it with the next site update."};
-$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(JSON.stringify(buildRecord(),null,2));$("status").textContent="JSON copied to clipboard."}catch(e){$("status").textContent="Copy failed in this browser — use Download instead."}};
-$("clear").onclick=()=>{["title","category","author","place","excerpt","body","imgSrc","imgCaption","imgCredit","imgSource","imgLicense","related"].forEach(x=>$(x).value="");$("mediaRows").innerHTML="";$("verified").checked=false;$("statusSel").value="draft";$("status").textContent="Cleared.";preview()};
-document.querySelector("main").addEventListener("input",preview);
-$("date").value=new Date().toISOString().slice(0,10);
-preview();
-</script><script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Mundari Samaj</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--forest:#173F35;--deep:#102F29;--cream:#F7F3E9;--paper:#FFFDF7;--earth:#79543A;--terra:#B65F43;--ink:#252A27;--mut:#68756B;--line:#E2DCC9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.55 "DM Sans",system-ui,sans-serif}
+.bani{font-family:"Noto Nag Mundari","DM Sans",sans-serif}
+button{font:inherit;cursor:pointer}
+.topbar{position:sticky;top:0;z-index:20;background:var(--deep);color:#F3EDD8;display:flex;align-items:center;gap:10px;padding:10px 14px}
+.topbar img{width:30px;height:30px}
+.topbar b{font-size:13px;letter-spacing:.12em}
+.topbar .who{margin-left:auto;font-size:12px;color:#CBBfa5;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .logout{background:transparent;border:1px solid #547064;color:#F3EDD8;border-radius:999px;padding:6px 12px;font-size:12px}
+.wrap{max-width:760px;margin:0 auto;padding:18px 14px 60px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+h1{font:600 26px "Playfair Display",Georgia,serif;margin:4px 0 8px;color:var(--forest)}
+h2{font:600 20px "Playfair Display",Georgia,serif;margin:0 0 10px;color:var(--forest)}
+p.sub{color:var(--mut);font-size:13.5px;margin:0 0 12px}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--earth);margin:14px 0 5px}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid #CCD5CA;border-radius:12px;background:#fff;font:inherit;font-size:15px}
+textarea{min-height:110px;resize:vertical}
+textarea.code{font:12.5px/1.5 ui-monospace,Menlo,monospace;min-height:170px}
+input:focus,select:focus,textarea:focus{border-color:var(--terra);outline:0;box-shadow:0 0 0 3px rgba(182,95,67,.15)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--forest);color:#fff;border:0;border-radius:999px;padding:13px 20px;font-weight:700;font-size:14px;min-height:48px}
+.btn.block{width:100%}
+.btn.ghost{background:transparent;color:var(--forest);border:1px solid var(--forest)}
+.btn.danger{background:#A03D2A}
+.btn.small{min-height:40px;padding:8px 14px;font-size:13px}
+.err{background:#FBEDE8;border:1px solid #E5B4A4;color:#8C2F1B;border-radius:12px;padding:11px 13px;font-size:13.5px;margin:12px 0;display:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--deep);color:#F3EDD8;padding:11px 18px;border-radius:999px;font-size:13.5px;box-shadow:0 10px 30px rgba(16,47,41,.35);display:none;z-index:50;max-width:92vw;text-align:center}
+.tabs{position:sticky;top:51px;z-index:15;display:flex;gap:8px;background:var(--cream);padding:10px 0 6px}
+.tabs button{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:10px 6px;font-weight:700;font-size:13.5px;color:var(--forest)}
+.tabs button.on{background:var(--forest);color:#fff;border-color:var(--forest)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--earth)}
+.chips button.on{background:var(--terra);border-color:var(--terra);color:#fff}
+.row{display:flex;align-items:center;gap:10px}
+.searchrow{display:flex;gap:8px;margin:8px 0 4px}
+.searchrow input{flex:1}
+.list{margin:10px 0}
+.item{display:flex;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin:0 0 9px;text-align:left;width:100%}
+.item .grow{flex:1;min-width:0}
+.item b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item small{color:var(--mut);font-size:12px}
+.pill{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+.pill.pub{background:#DDEBD8;color:#2C5B2A}
+.pill.draft{background:#EFE9DA;color:#8A6D3B}
+.addbar{position:sticky;bottom:14px;display:flex;justify-content:flex-end;pointer-events:none}
+.addbar button{pointer-events:auto;box-shadow:0 10px 24px rgba(16,47,41,.3)}
+details{margin-top:14px}
+summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
+.hint{font-size:12px;color:var(--mut);margin-top:5px}
+.hidden{display:none!important}
+.center{text-align:center;padding:40px 10px;color:var(--mut)}
+.bigmark{width:54px;height:54px;margin:6px auto 10px;display:block}
+.foot{margin-top:26px;font-size:12px;color:var(--mut);text-align:center}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <img src="../assets/mark.svg" alt="">
+  <b>MUNDARI SAMAJ · ADMIN</b>
+  <span class="who" id="who"></span>
+  <button class="logout hidden" id="logoutBtn" type="button">Logout</button>
+</header>
+
+<main class="wrap">
+
+  <!-- loading -->
+  <section id="view-loading" class="center">
+    <img class="bigmark" src="../assets/mark.svg" alt="">
+    <p>Admin panel khul raha hai…</p>
+  </section>
+
+  <!-- API unreachable (e.g. GitHub preview copy) -->
+  <section id="view-unavailable" class="card hidden">
+    <h1>Admin yahan nahi chalega</h1>
+    <p class="sub">Yeh copy sirf preview hai. Asli admin panel main website par chalega —
+    <b>mundarisamaj.pages.dev/admin</b> — jab naya version wahan chadh jayega.
+    Wahan aapko pehle apna password set karna hoga (one-time setup), phir login karke
+    saara content phone se badal sakenge.</p>
+  </section>
+
+  <!-- one-time setup -->
+  <section id="view-setup" class="card hidden">
+    <h1>Pehla setup — apna password banaiye</h1>
+    <p class="sub">Yeh sirf <b>ek baar</b> hoga. Mira ne aapko ek one-time setup code diya hai —
+    woh code, apna email aur apna naya password yahan daliye. Password sirf aapko pata hoga;
+    woh database mein bhi band (hashed) roop mein save hota hai, koi use padh nahi sakta.</p>
+    <div class="err" id="setupErr"></div>
+    <form id="setupForm">
+      <label for="setupCode">One-time setup code</label>
+      <input id="setupCode" autocomplete="off" placeholder="Mira se mila code" required>
+      <label for="setupEmail">Aapka email</label>
+      <input id="setupEmail" type="email" autocomplete="username" placeholder="you@example.com" required>
+      <label for="setupPass">Naya password (kam se kam 8 akshar)</label>
+      <input id="setupPass" type="password" autocomplete="new-password" minlength="8" required>
+      <label for="setupPass2">Password dobara likhiye</label>
+      <input id="setupPass2" type="password" autocomplete="new-password" minlength="8" required>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Password set karo aur login karo</button></p>
+    </form>
+  </section>
+
+  <!-- login -->
+  <section id="view-login" class="card hidden">
+    <h1>Admin login</h1>
+    <p class="sub">Apne email aur password se login kijiye. Login 7 din tak yaad rehta hai.</p>
+    <div class="err" id="loginErr"></div>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input id="loginEmail" type="email" autocomplete="username" required>
+      <label for="loginPass">Password</label>
+      <input id="loginPass" type="password" autocomplete="current-password" required>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Login</button></p>
+    </form>
+  </section>
+
+  <!-- the panel -->
+  <section id="view-app" class="hidden">
+    <nav class="tabs" aria-label="Admin sections">
+      <button type="button" data-tab="content" class="on">Content</button>
+      <button type="button" data-tab="dict">Dictionary</button>
+      <button type="button" data-tab="backup">Backup</button>
+    </nav>
+
+    <!-- content tab -->
+    <div id="tab-content">
+      <div id="contentListView">
+        <div class="chips" id="typeChips"></div>
+        <div class="searchrow">
+          <input id="contentSearch" type="search" placeholder="Title se khojein…" aria-label="Search content">
+        </div>
+        <div class="list" id="contentList"></div>
+        <p class="hint" id="contentCount"></p>
+        <div class="addbar"><button class="btn" id="addContentBtn" type="button">＋ Add new</button></div>
+      </div>
+
+      <form id="contentEditor" class="card hidden">
+        <h2 id="ceHeading">Edit</h2>
+        <div class="err" id="ceErr"></div>
+        <label for="ceType">Type</label>
+        <select id="ceType">
+          <option value="article">Article</option>
+          <option value="news">News</option>
+          <option value="story">Story</option>
+          <option value="gallery">Gallery</option>
+          <option value="video">Video</option>
+          <option value="book">Book</option>
+        </select>
+        <label for="ceTitle">Title</label>
+        <input id="ceTitle" required>
+        <label for="ceSlug">Page address (slug) — khali chhodein to title se banega</label>
+        <input id="ceSlug" placeholder="auto">
+        <div class="row">
+          <div style="flex:1">
+            <label for="ceStatus">Status</label>
+            <select id="ceStatus">
+              <option value="published">Published (sabko dikhega)</option>
+              <option value="draft">Draft (sirf aapko)</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label for="ceDate">Date</label>
+            <input id="ceDate" type="date">
+          </div>
+        </div>
+        <div id="ceShortWrap">
+          <label for="ceShort" id="ceShortLabel">Short text</label>
+          <textarea id="ceShort" style="min-height:70px"></textarea>
+        </div>
+        <div id="ceImageWrap">
+          <label for="ceImage">Photo ka path / URL</label>
+          <input id="ceImage" placeholder="assets/img/example.jpg">
+        </div>
+        <div id="ceVideoWrap" class="hidden">
+          <label for="ceYoutube">YouTube video ID</label>
+          <input id="ceYoutube" placeholder="jaise cTCYynrgjqM">
+          <label for="ceChannel">Channel ka naam</label>
+          <input id="ceChannel">
+        </div>
+        <label for="ceCategory">Category / topic</label>
+        <input id="ceCategory" placeholder="History, Culture, Language…">
+        <label for="ceAuthor">Author</label>
+        <input id="ceAuthor">
+        <div id="ceBodyWrap">
+          <label for="ceBody">Poora text</label>
+          <textarea id="ceBody" style="min-height:190px" placeholder="Har khali line ke baad naya paragraph. Heading ke liye line ki shuruaat mein ## likhein."></textarea>
+          <p class="hint">Khali line = naya paragraph · <b>## </b> se shuru line = heading</p>
+        </div>
+        <details>
+          <summary>Advanced — poora record (JSON)</summary>
+          <textarea id="ceJson" class="code" spellcheck="false"></textarea>
+          <p class="hint">Upar wale khaane is JSON par bhaari padte hain. Galat JSON save nahi hoga.</p>
+        </details>
+        <p class="row" style="margin-top:18px;flex-wrap:wrap">
+          <button class="btn" type="submit">Save karo</button>
+          <button class="btn ghost" type="button" id="ceCancel">Wapas</button>
+          <button class="btn danger hidden" type="button" id="ceDelete" style="margin-left:auto">Delete</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- dictionary tab -->
+    <div id="tab-dict" class="hidden">
+      <div id="dictListView">
+        <div class="searchrow">
+          <input id="dictSearch" type="search" placeholder="Shabd khojein… (word, meaning)" aria-label="Search dictionary">
+        </div>
+        <div class="list" id="dictList"></div>
+        <p class="hint" id="dictCount"></p>
+        <div class="addbar"><button class="btn" id="addDictBtn" type="button">＋ Add word</button></div>
+      </div>
+
+      <form id="dictEditor" class="card hidden">
+        <h2 id="deHeading">Edit word</h2>
+        <div class="err" id="deErr"></div>
+        <label for="deWord">Word (Roman)</label>
+        <input id="deWord" required>
+        <label for="deBani">Mundari Bani mein</label>
+        <input id="deBani" class="bani">
+        <label for="deMeaning">Meaning (English)</label>
+        <input id="deMeaning">
+        <label for="deMeaningHi">Meaning (Hindi)</label>
+        <input id="deMeaningHi">
+        <label for="deMeaningOd">Meaning (Odia)</label>
+        <input id="deMeaningOd">
+        <div class="row">
+          <div style="flex:1">
+            <label for="dePos">Word type</label>
+            <input id="dePos" placeholder="noun, verb…">
+          </div>
+          <div style="flex:1">
+            <label for="deCategory">Category</label>
+            <input id="deCategory" list="dictCats" placeholder="Family, Food…">
+            <datalist id="dictCats"></datalist>
+          </div>
+        </div>
+        <label for="deExample">Example sentence</label>
+        <input id="deExample">
+        <label for="deExampleMeaning">Example ka meaning</label>
+        <input id="deExampleMeaning">
+        <label for="deStatus">Status</label>
+        <select id="deStatus">
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+        </select>
+        <p class="row" style="margin-top:18px;flex-wrap:wrap">
+          <button class="btn" type="submit">Save karo</button>
+          <button class="btn ghost" type="button" id="deCancel">Wapas</button>
+          <button class="btn danger hidden" type="button" id="deDelete" style="margin-left:auto">Delete</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- backup tab -->
+    <div id="tab-backup" class="hidden">
+      <div class="card">
+        <h2>Backup download</h2>
+        <p class="sub">Poora content + dictionary ek JSON file mein download ho jayega.
+        Is file ko sambhal kar rakhein — yahi aapka backup hai.</p>
+        <button class="btn" id="exportBtn" type="button">Backup download karo</button>
+      </div>
+      <div class="card">
+        <h2>Backup wapas daalein (restore)</h2>
+        <p class="sub">Pehle wali backup file chunein. Jo cheez pehle se hai woh update hogi,
+        nayi cheez jud jayegi. Kuch delete nahi hoga.</p>
+        <input type="file" id="importFile" accept=".json,application/json">
+        <p style="margin-top:14px"><button class="btn ghost" id="importBtn" type="button">Import karo</button></p>
+        <p class="hint" id="importResult"></p>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Mundari Samaj admin · Content badalne par website khud update ho jati hai — dobara upload nahi karna padta.</p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
 "use strict";
-
-var navToggle = document.getElementById("navToggle");
-var navLinks = document.getElementById("navLinks");
-function closeNav(){
-  if(!navLinks || !navToggle) return;
-  navLinks.classList.remove("open");
-  navToggle.setAttribute("aria-expanded","false");
-  navToggle.setAttribute("aria-label","Open menu");
+const $ = (id) => document.getElementById(id);
+const VIEWS = ["view-loading", "view-unavailable", "view-setup", "view-login", "view-app"];
+function show(id) { VIEWS.forEach((v) => $(v).classList.toggle("hidden", v !== id)); }
+function toast(msg) {
+  const t = $("toast"); t.textContent = msg; t.style.display = "block";
+  clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = "none"; }, 3200);
 }
-if(navToggle && navLinks){
-  navToggle.addEventListener("click", function(){
-    var open = navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+function showErr(id, msg) { const e = $(id); e.textContent = msg || ""; e.style.display = msg ? "block" : "none"; }
+
+const ERR = {
+  wrong_setup_code: "Setup code galat hai. Mira se mila code jaanch kar dobara daliye.",
+  setup_already_done: "Setup pehle ho chuka hai. Login kijiye.",
+  password_too_short: "Password kam se kam 8 akshar ka hona chahiye.",
+  invalid_email: "Email sahi nahi lag raha.",
+  wrong_email_or_password: "Email ya password galat hai.",
+  too_many_attempts: "Bahut baar galat koshish ho gayi. 15 minute ruk kar phir koshish kijiye.",
+  login_required: "Login khatm ho gaya hai. Dobara login kijiye.",
+  title_required: "Title likhna zaroori hai.",
+  word_required: "Word likhna zaroori hai.",
+};
+const errText = (d, fallback) => ERR[d && d.error] || fallback || "Kuchh galat ho gaya. Dobara koshish kijiye.";
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    credentials: "same-origin",
+    ...opts,
+    headers: { "x-requested-with": "fetch", "content-type": "application/json", ...(opts.headers || {}) },
   });
-  document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeNav(); });
+  let data = null;
+  try { data = await res.json(); } catch (e) { /* not JSON */ }
+  return { status: res.status, data };
+}
+const apiGet = (p) => api(p);
+const apiSend = (method, p, body) => api(p, { method, body: body ? JSON.stringify(body) : undefined });
+
+/* ---------- boot ---------- */
+let myEmail = "";
+async function boot() {
+  show("view-loading");
+  let me = null, st = null;
+  try { me = await apiGet("/api/admin/me"); } catch (e) {}
+  if (me && me.data && me.data.ok) { enterApp(me.data.email); return; }
+  try { st = await apiGet("/api/admin/setup-status"); } catch (e) {}
+  if (st && st.data && st.data.ok) {
+    show(st.data.setupNeeded ? "view-setup" : "view-login");
+    return;
+  }
+  show("view-unavailable");
 }
 
+function enterApp(email) {
+  myEmail = email || "";
+  $("who").textContent = myEmail;
+  $("logoutBtn").classList.remove("hidden");
+  show("view-app");
+  loadContent();
+}
+
+/* ---------- setup + login ---------- */
+$("setupForm").addEventListener("submit", async (e) => {
+  e.preventDefault(); showErr("setupErr", "");
+  if ($("setupPass").value !== $("setupPass2").value) {
+    showErr("setupErr", "Dono password ek jaise nahi hain."); return;
+  }
+  const { data } = await apiSend("POST", "/api/admin/setup", {
+    code: $("setupCode").value.trim(),
+    email: $("setupEmail").value.trim(),
+    password: $("setupPass").value,
+  }).catch(() => ({ data: null }));
+  if (data && data.ok) { toast("Password set ho gaya. Swagat hai!"); enterApp(data.email); }
+  else showErr("setupErr", errText(data));
+});
+
+$("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault(); showErr("loginErr", "");
+  const { data } = await apiSend("POST", "/api/admin/login", {
+    email: $("loginEmail").value.trim(),
+    password: $("loginPass").value,
+  }).catch(() => ({ data: null }));
+  if (data && data.ok) { toast("Login ho gaya."); enterApp(data.email); }
+  else showErr("loginErr", errText(data));
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+  await apiSend("POST", "/api/admin/logout").catch(() => {});
+  $("who").textContent = ""; $("logoutBtn").classList.add("hidden");
+  toast("Logout ho gaya."); boot();
+});
+
+/* ---------- tabs ---------- */
+document.querySelectorAll(".tabs button").forEach((b) => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach((x) => x.classList.toggle("on", x === b));
+    ["content", "dict", "backup"].forEach((t) => $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab));
+    if (b.dataset.tab === "dict" && !$("dictList").dataset.loaded) loadDict();
+  });
+});
+
+/* ---------- content ---------- */
+const TYPES = [["", "All"], ["article", "Articles"], ["news", "News"], ["story", "Stories"], ["gallery", "Gallery"], ["video", "Videos"], ["book", "Books"]];
+let curType = "", curItem = null;
+const chipsEl = $("typeChips");
+TYPES.forEach(([v, label]) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = label; b.dataset.v = v;
+  if (v === "") b.classList.add("on");
+  b.addEventListener("click", () => {
+    curType = v;
+    chipsEl.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+    loadContent();
+  });
+  chipsEl.appendChild(b);
+});
+let contentTimer = null;
+$("contentSearch").addEventListener("input", () => {
+  clearTimeout(contentTimer); contentTimer = setTimeout(loadContent, 250);
+});
+
+async function guarded(promise) {
+  const r = await promise.catch(() => ({ data: null }));
+  if (r.data && r.data.error === "login_required") { boot(); throw new Error("login"); }
+  return r;
+}
+
+async function loadContent() {
+  const qs = new URLSearchParams();
+  if (curType) qs.set("type", curType);
+  const q = $("contentSearch").value.trim(); if (q) qs.set("q", q);
+  qs.set("per", "100");
+  const { data } = await guarded(apiGet("/api/admin/content?" + qs.toString()));
+  const list = $("contentList"); list.innerHTML = "";
+  if (!data || !data.ok) { list.innerHTML = '<p class="center">List nahi khuli. Dobara koshish kijiye.</p>'; return; }
+  $("contentCount").textContent = data.total + " item" + (data.total === 1 ? "" : "s");
+  if (!data.items.length) { list.innerHTML = '<p class="center">Yahan abhi kuch nahi hai.</p>'; }
+  data.items.forEach((it) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "item";
+    const grow = document.createElement("span"); grow.className = "grow";
+    const t = document.createElement("b"); t.textContent = it.title || "(no title)";
+    const sm = document.createElement("small");
+    sm.textContent = it.type + (it.published_at ? " · " + String(it.published_at).slice(0, 10) : "");
+    grow.append(t, sm);
+    const pill = document.createElement("span");
+    pill.className = "pill " + (it.status === "published" ? "pub" : "draft");
+    pill.textContent = it.status === "published" ? "Published" : "Draft";
+    b.append(grow, pill);
+    b.addEventListener("click", () => openEditor(it));
+    list.appendChild(b);
+  });
+}
+
+const SHORT_KEYS = { article: "excerpt", news: "excerpt", story: "excerpt", book: "excerpt", gallery: "caption", video: "note" };
+const BODY_TYPES = ["article", "news", "story", "book"];
+const TEMPLATES = {
+  article: () => ({ excerpt: "", category: "", author: "Mundari Samaj Editorial Desk", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
+  news: () => ({ excerpt: "", category: "", author: "Mundari Samaj Editorial Desk", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
+  story: () => ({ excerpt: "", category: "", author: "", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
+  book: () => ({ excerpt: "", category: "", author: "", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
+  gallery: () => ({ caption: "", credit: "", tone: "clay", image: { src: "", caption: "", credit: "" } }),
+  video: () => ({ youtube: "", channel: "", category: "", note: "" }),
+};
+const dirty = {};
+["ceShort", "ceImage", "ceYoutube", "ceChannel", "ceCategory", "ceAuthor", "ceBody"].forEach((id) => {
+  $(id).addEventListener("input", () => { dirty[id] = true; });
+});
+
+function bodyToText(body) {
+  if (!Array.isArray(body)) return "";
+  return body.map((b) => (b.type === "h2" ? "## " + (b.text || "") : (b.text || ""))).join("\n\n");
+}
+function textToBody(text) {
+  return String(text || "").split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean)
+    .map((s) => s.startsWith("## ") ? { type: "h2", text: s.slice(3).trim() } : { type: "p", text: s });
+}
+
+function adaptEditorFields() {
+  const t = $("ceType").value;
+  $("ceVideoWrap").classList.toggle("hidden", t !== "video");
+  $("ceImageWrap").classList.toggle("hidden", t === "video");
+  $("ceBodyWrap").classList.toggle("hidden", !BODY_TYPES.includes(t));
+  $("ceShortLabel").textContent = t === "gallery" ? "Caption" : (t === "video" ? "Note" : "Short text (excerpt)");
+}
+$("ceType").addEventListener("change", adaptEditorFields);
+
+function openEditor(item) {
+  curItem = item || null;
+  Object.keys(dirty).forEach((k) => delete dirty[k]);
+  showErr("ceErr", "");
+  const t = item ? item.type : (curType || "article");
+  $("ceType").value = t;
+  $("ceType").disabled = !!item;
+  const meta = item ? (item.meta || {}) : TEMPLATES[t]();
+  $("ceHeading").textContent = item ? "Edit — " + (item.title || "") : "Naya " + t;
+  $("ceTitle").value = item ? (item.title || "") : "";
+  $("ceSlug").value = item ? (item.slug || "") : "";
+  $("ceStatus").value = item ? item.status : "draft";
+  $("ceDate").value = item ? String(item.published_at || meta.date || "").slice(0, 10) : new Date().toISOString().slice(0, 10);
+  $("ceShort").value = meta[SHORT_KEYS[t]] || "";
+  $("ceImage").value = meta.image && typeof meta.image === "object" ? (meta.image.src || "") : (typeof meta.image === "string" ? meta.image : "");
+  $("ceYoutube").value = meta.youtube || "";
+  $("ceChannel").value = meta.channel || "";
+  $("ceCategory").value = meta.category || "";
+  $("ceAuthor").value = meta.author || "";
+  $("ceBody").value = bodyToText(meta.body);
+  $("ceJson").value = JSON.stringify(meta, null, 1);
+  $("ceDelete").classList.toggle("hidden", !item);
+  adaptEditorFields();
+  $("contentListView").classList.add("hidden");
+  $("contentEditor").classList.remove("hidden");
+  window.scrollTo({ top: 0 });
+}
+function closeEditor() {
+  $("contentEditor").classList.add("hidden");
+  $("contentListView").classList.remove("hidden");
+}
+$("ceCancel").addEventListener("click", closeEditor);
+$("addContentBtn").addEventListener("click", () => openEditor(null));
+
+$("contentEditor").addEventListener("submit", async (e) => {
+  e.preventDefault(); showErr("ceErr", "");
+  const t = $("ceType").value;
+  let meta;
+  try { meta = JSON.parse($("ceJson").value || "{}"); }
+  catch (err) { showErr("ceErr", "JSON galat hai — use theek karke dobara save kijiye."); return; }
+  if (!meta || typeof meta !== "object" || Array.isArray(meta)) { showErr("ceErr", "JSON ek object hona chahiye."); return; }
+  if (dirty.ceShort || !curItem) meta[SHORT_KEYS[t]] = $("ceShort").value;
+  if (t !== "video" && (dirty.ceImage || !curItem)) {
+    if (meta.image && typeof meta.image === "object") meta.image.src = $("ceImage").value;
+    else meta.image = $("ceImage").value;
+    if (t === "gallery" && meta.image && typeof meta.image === "object" && dirty.ceShort) meta.image.caption = $("ceShort").value;
+  }
+  if (t === "video") {
+    if (dirty.ceYoutube || !curItem) meta.youtube = $("ceYoutube").value.trim();
+    if (dirty.ceChannel || !curItem) meta.channel = $("ceChannel").value;
+  }
+  if (dirty.ceCategory || !curItem) meta.category = $("ceCategory").value;
+  if (dirty.ceAuthor || !curItem) meta.author = $("ceAuthor").value;
+  if (BODY_TYPES.includes(t) && (dirty.ceBody || !curItem)) meta.body = textToBody($("ceBody").value);
+  const payload = {
+    type: t,
+    title: $("ceTitle").value.trim(),
+    slug: $("ceSlug").value.trim(),
+    status: $("ceStatus").value,
+    published_at: $("ceDate").value || null,
+    meta,
+  };
+  const r = curItem
+    ? await guarded(apiSend("PUT", "/api/admin/content/" + curItem.id, payload))
+    : await guarded(apiSend("POST", "/api/admin/content", payload));
+  if (r.data && r.data.ok) { toast("Save ho gaya ✓"); closeEditor(); loadContent(); }
+  else showErr("ceErr", errText(r.data));
+});
+
+$("ceDelete").addEventListener("click", async () => {
+  if (!curItem) return;
+  if (!confirm("Delete karein? \"" + (curItem.title || "") + "\" — yeh wapas nahi aayega.")) return;
+  const r = await guarded(apiSend("DELETE", "/api/admin/content/" + curItem.id));
+  if (r.data && r.data.ok) { toast("Delete ho gaya."); closeEditor(); loadContent(); }
+  else showErr("ceErr", errText(r.data));
+});
+
+/* ---------- dictionary ---------- */
+let curWord = null, dictTimer = null;
+$("dictSearch").addEventListener("input", () => {
+  clearTimeout(dictTimer); dictTimer = setTimeout(loadDict, 250);
+});
+
+async function loadDict() {
+  const qs = new URLSearchParams(); qs.set("per", "500");
+  const q = $("dictSearch").value.trim(); if (q) qs.set("q", q);
+  const { data } = await guarded(apiGet("/api/admin/dictionary?" + qs.toString()));
+  const list = $("dictList"); list.innerHTML = "";
+  list.dataset.loaded = "1";
+  if (!data || !data.ok) { list.innerHTML = '<p class="center">Dictionary nahi khuli.</p>'; return; }
+  $("dictCount").textContent = data.total + " words";
+  const dl = $("dictCats"); dl.innerHTML = "";
+  (data.categories || []).forEach((c) => { const o = document.createElement("option"); o.value = c; dl.appendChild(o); });
+  if (!data.items.length) { list.innerHTML = '<p class="center">Koi shabd nahi mila.</p>'; }
+  data.items.forEach((w) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "item";
+    const grow = document.createElement("span"); grow.className = "grow";
+    const t = document.createElement("b"); t.textContent = w.word || "";
+    const sm = document.createElement("small");
+    sm.textContent = (w.meaning_en || "") + (w.category ? " · " + w.category : "");
+    grow.append(t, sm);
+    const pill = document.createElement("span");
+    pill.className = "pill " + (w.status === "published" ? "pub" : "draft");
+    pill.textContent = w.status === "published" ? "Published" : "Draft";
+    b.append(grow, pill);
+    b.addEventListener("click", () => openWord(w));
+    list.appendChild(b);
+  });
+}
+
+function openWord(w) {
+  curWord = w || null;
+  showErr("deErr", "");
+  $("deHeading").textContent = w ? "Edit — " + w.word : "Naya shabd";
+  $("deWord").value = w ? (w.word || "") : "";
+  $("deBani").value = w ? (w.bani || "") : "";
+  $("deMeaning").value = w ? (w.meaning_en || "") : "";
+  $("deMeaningHi").value = w ? (w.meaning_hi || "") : "";
+  $("deMeaningOd").value = w ? (w.meaning_od || "") : "";
+  $("dePos").value = w ? (w.part_of_speech || "") : "";
+  $("deCategory").value = w ? (w.category || "") : "";
+  $("deExample").value = w ? (w.example || "") : "";
+  $("deExampleMeaning").value = w ? (w.example_meaning || "") : "";
+  $("deStatus").value = w ? w.status : "published";
+  $("deDelete").classList.toggle("hidden", !w);
+  $("dictListView").classList.add("hidden");
+  $("dictEditor").classList.remove("hidden");
+  window.scrollTo({ top: 0 });
+}
+function closeWord() {
+  $("dictEditor").classList.add("hidden");
+  $("dictListView").classList.remove("hidden");
+}
+$("deCancel").addEventListener("click", closeWord);
+$("addDictBtn").addEventListener("click", () => openWord(null));
+
+$("dictEditor").addEventListener("submit", async (e) => {
+  e.preventDefault(); showErr("deErr", "");
+  const payload = {
+    word: $("deWord").value.trim(), bani: $("deBani").value,
+    meaning_en: $("deMeaning").value, meaning_hi: $("deMeaningHi").value,
+    meaning_od: $("deMeaningOd").value, part_of_speech: $("dePos").value,
+    category: $("deCategory").value, example: $("deExample").value,
+    example_meaning: $("deExampleMeaning").value, status: $("deStatus").value,
+  };
+  const r = curWord
+    ? await guarded(apiSend("PUT", "/api/admin/dictionary/" + curWord.id, payload))
+    : await guarded(apiSend("POST", "/api/admin/dictionary", payload));
+  if (r.data && r.data.ok) { toast("Save ho gaya ✓"); closeWord(); loadDict(); }
+  else showErr("deErr", errText(r.data));
+});
+
+$("deDelete").addEventListener("click", async () => {
+  if (!curWord) return;
+  if (!confirm("Delete karein? \"" + (curWord.word || "") + "\" — yeh wapas nahi aayega.")) return;
+  const r = await guarded(apiSend("DELETE", "/api/admin/dictionary/" + curWord.id));
+  if (r.data && r.data.ok) { toast("Delete ho gaya."); closeWord(); loadDict(); }
+  else showErr("deErr", errText(r.data));
+});
+
+/* ---------- backup ---------- */
+$("exportBtn").addEventListener("click", async () => {
+  const { data } = await guarded(apiGet("/api/admin/export"));
+  if (!data || !data.ok) { toast("Backup nahi bana. Dobara koshish kijiye."); return; }
+  const blob = new Blob([JSON.stringify(data, null, 1)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "mundarisamaj-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("Backup download ho gaya ✓");
+});
+
+$("importBtn").addEventListener("click", async () => {
+  const f = $("importFile").files[0];
+  $("importResult").textContent = "";
+  if (!f) { $("importResult").textContent = "Pehle backup file chunein."; return; }
+  let parsed;
+  try { parsed = JSON.parse(await f.text()); }
+  catch (e) { $("importResult").textContent = "File sahi JSON nahi hai."; return; }
+  if (!confirm("Backup import karein? Maujooda cheezein update hongi, nayi jud jayengi.")) return;
+  const r = await guarded(apiSend("POST", "/api/admin/import", { confirm: true, data: parsed }));
+  if (r.data && r.data.ok) {
+    const x = r.data.result;
+    $("importResult").textContent =
+      "Import ho gaya — Content: " + x.content.inserted + " naye, " + x.content.updated +
+      " update · Dictionary: " + x.dictionary.inserted + " naye, " + x.dictionary.updated + " update.";
+    toast("Import ho gaya ✓");
+  } else {
+    $("importResult").textContent = errText(r.data, "Import nahi hua.");
+  }
+});
+
+boot();
 </script>
-</body></html>
+</body>
+</html>

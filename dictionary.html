@@ -571,5 +571,5 @@ fetch("/api/dictionary?per=500").then(function(r){return r.ok?r.json():null}).th
   }
 }).catch(function(){});
 </script>
-</body>
+<script>(function(){var pq=new URLSearchParams(location.search).get("q");if(!pq)return;var inp=document.getElementById("dictSearch");if(!inp)return;inp.value=pq;var fire=function(){inp.dispatchEvent(new Event("input",{bubbles:true}));};fire();setTimeout(fire,1500);})();</script></body>
 </html>

@@ -6,7 +6,46 @@ const searchItems=[
 ['Sarhul — the festival of flowers','Culture','sarhul.html'],['Karam festival','Culture','karam.html'],['Mage Parab — honouring the ancestors','Culture','mage-parab.html'],['Phagu — hunting and colours','Culture','phagu.html'],['Sohrai — harvest and wall art','Culture','sohrai.html'],['Music, dance and oral traditions','Culture','culture.html'],['Community stories and regions','Community','community.html'],['Digital library and archive','Library','library.html'],['Books and learning resources','Library','resources.html'],['About Mundari Samaj','About','about.html'],['How to contribute','Community','contribute.html'],
 ['Books & publications','Library','books.html'],['News & updates','News','news.html'],['Media gallery — photographs & videos','Media','gallery.html'],['Articles — read everything','Library','articles.html'],['Today\'s Mundari Bulletin','News','index.html']
 ];
-const searchInput=document.getElementById('site-search');const results=document.getElementById('search-results');
-searchInput.addEventListener('input',()=>{const q=searchInput.value.trim().toLowerCase();results.innerHTML='';if(!q)return;const matches=searchItems.filter(x=>(x[0]+' '+x[1]).toLowerCase().includes(q));if(!matches.length){results.innerHTML='<p class="search-result">No matching topics yet. Try another search.</p>';return;}matches.forEach(x=>{const el=document.createElement('a');el.className='search-result';el.href=x[2];el.innerHTML='<b></b><small></small>';el.querySelector('b').textContent=x[0];el.querySelector('small').textContent=x[1]+' · Open page';results.appendChild(el);});});
+const searchInput=document.getElementById('site-search');const results=document.getElementById('search-results');const clearBtn=document.getElementById('search-clear');
+if(searchInput&&results){
+const escS=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const markS=(t,q)=>{const i=String(t).toLowerCase().indexOf(q);if(i<0||!q)return escS(t);return escS(t.slice(0,i))+'<mark>'+escS(t.slice(i,i+q.length))+'</mark>'+escS(t.slice(i+q.length));};
+let sTimer=null,sActive=-1,sLastQ='';
+const QUICK=[['Mundari dictionary — 128 words','dictionary.html'],['Mundari Bani script — 27 letters','script.html'],['People and personalities — Birsa Munda','people.html'],['Sarhul — the festival of flowers','sarhul.html'],['Articles — read everything','articles.html'],['Learn Mundari — flashcards and sentences','learn.html']];
+function closeResults(){results.hidden=true;results.innerHTML='';sActive=-1;}
+function mkLink(href,title,sub,q){const a=document.createElement('a');a.className='search-result';a.href=href;a.innerHTML='<b></b><small></small>';a.querySelector('b').innerHTML=markS(title,q);a.querySelector('small').textContent=sub;return a;}
+function mkGroup(t){const d=document.createElement('div');d.className='search-group';d.textContent=t;return d;}
+function showQuick(){results.innerHTML='';sActive=-1;results.appendChild(mkGroup('Popular on Mundari Samaj'));QUICK.forEach(x=>results.appendChild(mkLink(x[1],x[0],'Open page','')));results.hidden=false;}
+function typeLink(t,id){return ({article:'article.html?id='+encodeURIComponent(id),news:'news.html',story:'stories.html',video:'videos.html',gallery:'gallery.html',book:'books.html'})[t]||'articles.html';}
+function typeName(t){return ({article:'Article',news:'News',story:'Story',video:'Video',gallery:'Gallery',book:'Book'})[t]||'Page';}
+async function runSearch(q){
+  results.innerHTML='<p class="search-note">Searching…</p>';results.hidden=false;sActive=-1;
+  const local=searchItems.filter(x=>(x[0]+' '+x[1]).toLowerCase().includes(q)).slice(0,6);
+  let apiContent=[],apiDict=[];
+  try{const r=await fetch('/api/search?q='+encodeURIComponent(q));if(r.ok){const d=await r.json();apiContent=d.content||[];apiDict=d.dictionary||[];}}catch(e){}
+  if(sLastQ!==q)return;
+  results.innerHTML='';
+  const seen=new Set(local.map(x=>x[2]));
+  if(local.length){results.appendChild(mkGroup('Pages & topics'));local.forEach(x=>results.appendChild(mkLink(x[2],x[0],x[1]+' · Open page',q)));}
+  const extra=apiContent.filter(it=>!seen.has(typeLink(it._type,it.id))).slice(0,5);
+  if(extra.length){results.appendChild(mkGroup('Articles, news & more'));extra.forEach(it=>results.appendChild(mkLink(typeLink(it._type,it.id),it.title,typeName(it._type)+(it._published?' · '+String(it._published).slice(0,10):''),q)));}
+  if(apiDict.length){results.appendChild(mkGroup('Dictionary words'));apiDict.slice(0,4).forEach(w=>results.appendChild(mkLink('dictionary.html?q='+encodeURIComponent(w.word),w.word+(w.bani?' · '+w.bani:''),(w.meaning_en||'Mundari word')+' · Dictionary',q)));}
+  if(!local.length&&!extra.length&&!apiDict.length){const p=document.createElement('p');p.className='search-note';p.innerHTML='No match found. Try another word — or open the <a href="dictionary.html?q='+encodeURIComponent(q)+'">Dictionary</a>.';results.appendChild(p);}
+  const foot=document.createElement('a');foot.className='search-foot';foot.href='search.html?q='+encodeURIComponent(q);foot.textContent='See all results →';results.appendChild(foot);
+  results.hidden=false;
+}
+searchInput.addEventListener('input',()=>{const q=searchInput.value.trim().toLowerCase();sLastQ=q;if(clearBtn)clearBtn.hidden=!q;clearTimeout(sTimer);if(!q){showQuick();return;}sTimer=setTimeout(()=>runSearch(q),180);});
+searchInput.addEventListener('focus',()=>{if(!searchInput.value.trim())showQuick();});
+if(clearBtn)clearBtn.addEventListener('click',()=>{searchInput.value='';clearBtn.hidden=true;searchInput.focus();showQuick();});
+searchInput.addEventListener('keydown',e=>{
+  const items=[...results.querySelectorAll('a.search-result')];
+  if(e.key==='Escape'){closeResults();return;}
+  if(!items.length)return;
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();sActive=e.key==='ArrowDown'?Math.min(sActive+1,items.length-1):Math.max(sActive-1,0);items.forEach((el,i)=>el.classList.toggle('active',i===sActive));if(items[sActive])items[sActive].scrollIntoView({block:'nearest'});}
+  else if(e.key==='Enter'&&sActive>=0){e.preventDefault();items[sActive].click();}
+});
+document.addEventListener('click',e=>{if(!results.hidden&&!e.target.closest('.header-search'))closeResults();});
+results.hidden=true;
+}
 
 document.getElementById('contribution-form').addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget;const data=new FormData(f);const subject=encodeURIComponent('Mundari Samaj contribution: '+data.get('type'));const body=encodeURIComponent('Name: '+data.get('name')+'\nEmail: '+(data.get('email')||'Not provided')+'\nType: '+data.get('type')+'\n\nContribution:\n'+data.get('message')+'\n\nI confirm I have permission to share this material and understand it will be reviewed.');const status=document.getElementById('form-status');status.textContent='Your email app should open with a prepared draft. This site does not store submissions.';window.location.href='mailto:mundarisamaj@outlook.com?subject='+subject+'&body='+body;});

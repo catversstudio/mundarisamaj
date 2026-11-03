@@ -120,15 +120,21 @@ function galleryFeed(el,d){
   if("IntersectionObserver" in window){new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))batch()},{rootMargin:"700px"}).observe(more)}
   else{more.textContent=""}
 }
+
+function feedCard(x,href,tag){
+ const img=(x.image&&x.image.src)||x.featured_image||null;
+ const media=img?`<a class="fx-feed-media" href="${esc(href)}"><img src="${esc(img)}" alt="${esc(x.title||"")}" loading="lazy" decoding="async"></a>`:"";
+ return `<article class="fx-feed-card">${media}<div class="fx-feed-body"><span class="fx-tag">${esc(tag||x.category||"")}${x.date?" · "+esc(x.date):""}</span><h3><a href="${esc(href)}">${esc(x.title)}</a></h3><p>${esc(x.excerpt||x.summary||"")}</p><a class="fx-feed-more" href="${esc(href)}">Read in full →</a></div></article>`;
+}
 async function listing(k){
   const el=$("#page-list");if(!el)return;
   let d=await load(k),id=new URLSearchParams(location.search).get("id");
   if(id){let x=d.find(y=>y.id===id);if(x)detail(x,k,el,d);else el.innerHTML='<div class="fx-empty-state">Content not found.</div>';return}
   d=d.filter(published);
-  if(k==="news"){el.innerHTML=d.map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news.html?id=${x.id}">↗</a></article>`).join("")}
+  if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>`<article class="fx-feed-card"><div class="fx-feed-body"><span class="fx-tag">${esc(x.date||"")} · ${esc(x.category||"Update")}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt||"")}</p><a class="fx-feed-more" href="news.html?id=${x.id}">Read the full update →</a></div></article>`).join("")+"</div>"}
   else if(k==="gallery"){galleryFeed(el,d)}
-  else if(k==="stories"){el.innerHTML='<div class="fx-card-grid">'+d.map(x=>`<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><a href="stories.html?id=${x.id}">Read story →</a></div></article>`).join("")+"</div>"}
-  else el.innerHTML='<div class="fx-card-grid">'+d.map(card).join("")+"</div>";
+  else if(k==="stories"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"stories.html?id="+x.id,x.place)).join("")+"</div>"}
+  else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+".html?id="+x.id,x.category)).join("")+"</div>";
 }
 async function videosPage(){
   const el=$("#page-list");if(!el)return;
@@ -138,7 +144,10 @@ async function videosPage(){
   el.innerHTML=`<div class="fx-watchbox" id="watch-box" hidden><div class="fx-embed" id="watch-player"></div><div class="fx-watch-desc"><div class="fx-watch-desc-head"><h2 id="watch-title"></h2><button class="fx-close" id="watch-close" type="button" aria-label="Close player">✕</button></div><p class="fx-watch-meta" id="watch-meta"></p><p id="watch-note"></p><p><a id="watch-link" href="#" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div></div>`+
   `<div class="fx-chips" id="video-filters">${cats.map(c=>`<button class="fx-chip" data-vf="${esc(c)}">${esc(c)}</button>`).join("")}</div>`+
   `<div class="fx-card-grid" id="video-grid"></div>`+
-  `<p class="fx-video-note">Only one video plays at a time — starting another stops the first, so the page stays fast. The player queue is restricted to the videos listed on this page. All videos play through YouTube's official embedded player; nothing is downloaded, copied or re-uploaded, and channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
+  `<p class="fx-video-note">Only one video plays at a time — starting another stops the first, so the page stays fast. Videos play in YouTube's standard player with full controls — you can also continue to YouTube from inside the player for related videos and everything else YouTube offers. Nothing is downloaded, copied or re-uploaded, and channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
+  const hub=`<div class="fx-ythub"><h2>Search all of YouTube</h2><p>Looking for more? Search the whole of YouTube from here — results open on YouTube itself, where you have full control.</p><form class="fx-ytsearch" id="yt-search"><input type="search" id="yt-q" placeholder="Search YouTube — try: Mundari song" aria-label="Search YouTube"><button type="submit">Search YouTube ↗</button></form><div class="fx-ytchips"><a href="https://www.youtube.com/results?search_query=mundari+song" target="_blank" rel="noopener">Mundari songs</a><a href="https://www.youtube.com/results?search_query=mundari+karma+song" target="_blank" rel="noopener">Karma songs</a><a href="https://www.youtube.com/results?search_query=mundari+dance" target="_blank" rel="noopener">Mundari dance</a><a href="https://www.youtube.com/results?search_query=birsa+munda" target="_blank" rel="noopener">Birsa Munda</a><a href="https://www.youtube.com/results?search_query=mundari+language" target="_blank" rel="noopener">Mundari language</a></div></div>`;
+  el.innerHTML=hub+el.innerHTML;
+  const yf=$("#yt-search");if(yf)yf.addEventListener("submit",e=>{e.preventDefault();const q=($("#yt-q").value||"").trim();window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(q||"mundari"),"_blank","noopener")});
   const grid=$("#video-grid"),box=$("#watch-box"),player=$("#watch-player");
   function cardHtml(v){
     return `<article class="fx-content-card fx-video-card${current===v.id?" is-active":""}"><div class="fx-embed"><button class="fx-facade" data-vid="${esc(v.id)}" aria-label="Play: ${esc(v.title)}"><img src="https://i.ytimg.com/vi/${esc(v.youtube)}/hqdefault.jpg" alt="${esc(v.title)}" loading="lazy" decoding="async"><span class="fx-play-badge" aria-hidden="true">▶</span></button></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}${current===v.id?" · Now playing":""}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div></article>`;
@@ -149,7 +158,7 @@ async function videosPage(){
   }
   function play(v,scroll=true){
     current=v.id;
-    player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0&playsinline=1&playlist=${esc(queue)}" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
     box.hidden=false;
     $("#watch-title").textContent=v.title;
     $("#watch-meta").textContent=v.channel+" · "+v.category;
@@ -186,16 +195,20 @@ const RAIL_STATIC={
  culture:[{t:"Culture & Traditions",s:"Festivals, dance, music, food and craft",img:"assets/img/sarhul-dance-ranchi.jpg",href:"culture.html"},{t:"Festivals",s:"Sarhul, Karam, Mage, Phagu and more",img:"assets/img/karam-festival.jpg",href:"festivals.html"},{t:"Sohrai Wall Art",s:"Harvest painting on village walls",img:"assets/img/sohrai-wall-art-isko.jpg",href:"culture.html"}]
 };
 function railCard(o){
+ if(o.viewall)return `<a class="fx-rail-card fx-rail-viewall" href="${esc(o.href||"#")}"><span class="fx-rail-media"><span class="fx-rail-art"><span class="fx-rail-arrow">→</span></span></span><span class="fx-rail-body"><b>View All</b><small>${esc(o.s||"")}</small></span></a>`;
  const media=o.img?`<img src="${esc(o.img)}" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">`:"";
  const art=`<span class="fx-rail-art">${o.bani?`<span class="fx-rail-bani">${esc(o.bani)}</span>`:"✳"}</span>`;
  return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b><small>${esc(o.s||"")}</small></span></a>`;
 }
 function railSection(id,title,viewAll,items){
  if(!items||!items.length)return "";
+ items=items.slice(0,10);
+ const va={t:"View All",s:"See everything in this section",href:viewAll,viewall:true};
  const rowA=items.filter((_,i)=>i%2===0),rowB=items.filter((_,i)=>i%2===1);
+ if(rowB.length)rowB.push(va);else rowA.push(va);
  let rows=`<div class="fx-rail">${rowA.map(railCard).join("")}</div>`;
  if(rowB.length)rows+=`<div class="fx-rail">${rowB.map(railCard).join("")}</div>`;
- return `<div class="fx-rail-sec" id="rail-${id}"><div class="fx-rail-head"><h2>${esc(title)}</h2><a class="fx-viewall" href="${esc(viewAll)}">View All →</a></div>${rows}</div>`;
+ return `<div class="fx-rail-sec" id="rail-${id}"><div class="fx-rail-head"><h2>${esc(title)}</h2><span class="fx-rail-tools"><span class="fx-rail-hint" aria-hidden="true">slide →</span><a class="fx-viewall" href="${esc(viewAll)}">View All →</a></span></div>${rows}</div>`;
 }
 const toCard=(x,href)=>({t:x.title,s:x.excerpt||x.category||x.date||"",img:x.image&&x.image.src?x.image.src:(x.featured_image||null),href});
 async function homeRails(){
@@ -207,7 +220,7 @@ async function homeRails(){
    const pub=x=>x.status==="published";
    groups={articles:a.filter(pub),news:n.filter(pub),stories:st.filter(pub),videos:v.filter(pub),gallery:g.filter(pub),books:[],people:a.filter(x=>pub(x)&&x.category==="People & Personalities"),history:a.filter(x=>pub(x)&&x.category==="History")};
  }
- const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article.html?id=birsa-munda"}];
+ const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article.html?id=birsa-munda"},{t:"Rohidas Singh Nag",s:"Ol Guru — creator of the Mundari Bani script",img:"assets/img/rohidas-singh-nag.jpg",href:"article.html?id=rohidas-singh-nag"}];
  const histItems=[...histPinned,...(groups.history||[]).map(x=>toCard(x,"article.html?id="+x.id))].filter((v,i,a)=>a.findIndex(y=>y.href===v.href)===i);
  const dictCards=dict.length?dict.map(w=>({t:w.word,s:w.meaning_en||"",bani:w.bani||"",href:"dictionary.html"})):[{t:"Open the Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"}];
  const bookCards=(groups.books&&groups.books.length)?groups.books.map(x=>toCard(x,"books.html")):[{t:"Books & Publications",s:"Research in progress — verified titles are being collected",href:"books.html"}];

@@ -200,3 +200,35 @@ a{color:inherit}
 .fx-rail-body b{display:block;font-size:15px;line-height:1.3;margin-bottom:3px}
 .fx-rail-body small{color:#6B6F6A;font-size:12.5px;line-height:1.35;display:block}
 @media(max-width:640px){.fx-rail-card{flex-basis:186px}.fx-rail-head h2{font-size:22px}}
+
+/* v19 — rails inside the Six Doors section, hardened phone scrolling,
+   feed-style listing pages, YouTube hub */
+.fx-rails-wrap{margin-top:44px;border-top:1px solid #E3DCC8;padding-top:30px}
+.fx-rails-h{font-family:Marcellus,serif;font-size:24px;margin:0 0 6px;color:#173F35}
+.fx-rails-sub{color:#6B6F6A;font-size:13.5px;margin:0 0 8px;max-width:640px}
+.fx-rail{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+.fx-rail-card{flex:0 0 auto;width:232px}
+.fx-rail-media{height:158px;aspect-ratio:auto}
+.fx-rail-tools{display:flex;align-items:center;gap:14px}
+.fx-rail-hint{font-size:12px;color:#A08C6B;white-space:nowrap}
+.fx-rail-viewall{border:1.5px dashed #C9A227;background:#FBF7EC}
+.fx-rail-viewall .fx-rail-art{background:transparent;font-size:40px}
+.fx-rail-arrow{font-size:40px;color:#B65F43}
+.fx-feed-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+.fx-feed-card{background:#fff;border:1px solid #E7DFC9;border-radius:16px;overflow:hidden;box-shadow:0 6px 22px rgba(23,63,53,.07)}
+.fx-feed-media{display:block;background:#EFE8D8}
+.fx-feed-media img{width:100%;max-height:380px;object-fit:cover;display:block}
+.fx-feed-body{padding:18px 20px 20px}
+.fx-feed-body h3{font-family:Marcellus,serif;font-size:23px;line-height:1.25;margin:6px 0 8px}
+.fx-feed-body h3 a{color:#173F35;text-decoration:none}
+.fx-feed-body p{color:#4A4F4A;margin:0 0 12px}
+.fx-feed-more{font-weight:700;color:#B65F43;text-decoration:none}
+.fx-ythub{background:#102F29;color:#F7F3E9;border-radius:16px;padding:24px;margin:0 0 30px}
+.fx-ythub h2{font-family:Marcellus,serif;margin:0 0 6px;font-size:25px}
+.fx-ythub p{color:#C8D4CA;margin:0 0 16px;font-size:14px}
+.fx-ytsearch{display:flex;gap:10px;flex-wrap:wrap}
+.fx-ytsearch input{flex:1 1 240px;padding:13px 15px;border-radius:10px;border:1px solid #3D5A50;background:#fff;color:#252A27;font-size:15px}
+.fx-ytsearch button{padding:13px 20px;border-radius:10px;border:0;background:#B65F43;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.fx-ytchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.fx-ytchips a{color:#F7F3E9;border:1px solid #547064;border-radius:999px;padding:6px 13px;font-size:13px;text-decoration:none}
+@media(max-width:640px){.fx-rail-card{width:188px}.fx-rail-media{height:132px}.fx-feed-body h3{font-size:20px}}

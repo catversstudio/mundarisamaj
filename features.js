@@ -196,10 +196,10 @@ const RAIL_STATIC={
  culture:[{t:"Culture & Traditions",s:"Festivals, dance, music, food and craft",img:"assets/img/sarhul-dance-ranchi.jpg",href:"culture.html"},{t:"Sarhul",s:"The festival of flowers at the Sarna grove",img:"assets/img/sarhul-sarna-grove.jpg",href:"sarhul.html"},{t:"Karam",s:"The Karam branch, song and all-night dance",img:"assets/img/karam-festival.jpg",href:"karam.html"},{t:"Sohrai",s:"Harvest lamps and wall painting",img:"assets/img/sohrai-wall-art-isko.jpg",href:"sohrai.html"}]
 };
 function railCard(o){
- if(o.viewall)return `<a class="fx-rail-card fx-rail-viewall" href="${esc(o.href||"#")}"><span class="fx-rail-media"><span class="fx-rail-art"><span class="fx-rail-arrow">→</span></span></span><span class="fx-rail-body"><b>View All</b><small>${esc(o.s||"")}</small></span></a>`;
+ if(o.viewall)return `<a class="fx-rail-card fx-rail-viewall" href="${esc(o.href||"#")}"><span class="fx-rail-media"><span class="fx-rail-art"><span class="fx-rail-arrow">→</span></span></span><span class="fx-rail-body"><b>View All</b></span></a>`;
  const media=o.img?`<img src="${esc(o.img)}" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">`:"";
  const art=`<span class="fx-rail-art">${o.bani?`<span class="fx-rail-bani">${esc(o.bani)}</span>`:"✳"}</span>`;
- return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b><small>${esc(o.s||"")}</small></span></a>`;
+ return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b></span></a>`;
 }
 function railSection(id,title,viewAll,items){
  if(!items||!items.length)return "";

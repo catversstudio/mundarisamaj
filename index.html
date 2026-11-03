@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=24">
-<link rel="stylesheet" href="features.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=25">
+<link rel="stylesheet" href="features.css?v=25">
 <style>
 /* ===== Mundari Samaj v3 homepage additions ===== */
 @font-face{
@@ -56,12 +56,18 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
 @media (max-width:700px){.v3-real .grid.c2{grid-template-columns:1fr}}
 </style>
 <style>
-.site-header{flex-wrap:wrap;height:auto;min-height:70px;padding-top:8px;padding-bottom:10px;row-gap:6px}
-.header-search{flex:1 1 100%;position:relative}
-.header-search .search-box{max-width:100%;background:#fffdf7;border:1px solid #ddd9ce;box-shadow:0 4px 14px rgba(23,63,53,.08)}
+.site-header{flex-wrap:nowrap;height:72px;min-height:72px;padding:0 4.5%;row-gap:0;box-shadow:0 2px 14px rgba(23,63,53,.07)}
+.header-search{flex:1 1 auto;max-width:480px;margin:0 16px;position:relative}
+.header-search .search-box{max-width:100%;background:#fffdf7;border:1px solid #ddd9ce;box-shadow:0 4px 14px rgba(23,63,53,.08);padding:6px 14px}
 .header-search .search-results{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:80;max-width:100%}
-#bani-showcase{padding-bottom:10px}
-#categories{padding-top:10px}
+@media(max-width:700px){.brand small{display:none}.brand strong{font-size:11px;letter-spacing:.1em}.brand img{width:30px;height:30px}.header-search{margin:0 10px}.header-search .search-box{padding:5px 10px}}
+.section-wrap{padding-top:22px;padding-bottom:22px}
+.section-kicker{margin-bottom:12px}
+.editorial,.festival-section,.library-section{padding-top:34px;padding-bottom:34px}
+.language-band{padding-top:42px;padding-bottom:42px}
+.about-strip{padding-top:42px;padding-bottom:42px}
+#bani-showcase{padding-bottom:4px}
+#categories{padding-top:4px}
 #categories .fx-rails-wrap{margin-top:0;padding-top:0;border-top:none}
 .bani-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
 .bani-tile{display:block;background:#fffdf7;border:1px solid #e6e1d5;border-radius:12px;padding:12px 4px 9px;text-align:center;text-decoration:none;transition:border-color .2s,transform .2s}
@@ -79,9 +85,9 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
       <img src="assets/mark.svg" alt="" width="42" height="42">
       <span><strong>MUNDARI SAMAJ</strong><small>LANGUAGE · IDENTITY · HERITAGE</small></span>
     </a>
+    <div class="header-search"><div class="search-box"><span>⌕</span><input id="site-search" type="search" placeholder="Search…" aria-label="Search this website"></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="main-nav" aria-label="Main navigation"><a href="index.html" class="active" aria-current="page">Home</a><a href="language.html">Our Language</a><a href="history.html">Our Heritage</a><a href="library.html">Knowledge Library</a><a href="news.html">News & Updates</a><a href="gallery.html">Media Gallery</a><a href="about.html">About Us</a><a href="search.html">Search</a><a class="nav-cta" href="contribute.html">Contribute <span>↗</span></a></nav>
-    <div class="header-search"><div class="search-box"><span>⌕</span><input id="site-search" type="search" placeholder="Search language, history, books, news…" aria-label="Search this website"></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
   </header>
 
   <main id="main">
@@ -204,8 +210,8 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
   <p style="margin:0;font-size:.88rem;color:#bdb69e">Content on this platform is reviewed for accuracy; unverified material is labelled &ldquo;Research in progress&rdquo;. Corrections are welcome &mdash; see <a style="color:#f3d98b" href="about.html">About</a>. &copy; <span id="year">2026</span> Mundari Samaj.</p>
  </div>
 </footer>
-  <script src="app.js?v=24"></script>
-  <script src="features.js?v=24"></script>
+  <script src="app.js?v=25"></script>
+  <script src="features.js?v=25"></script>
 <script>
 (function(){
   var d = document.getElementById('bulletin-date');

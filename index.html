@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=22">
-<link rel="stylesheet" href="features.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="features.css?v=23">
 <style>
 /* ===== Mundari Samaj v3 homepage additions ===== */
 @font-face{
@@ -55,6 +55,18 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
 .bani-greeting{font-size:17px;color:#31483d}
 @media (max-width:700px){.v3-real .grid.c2{grid-template-columns:1fr}}
 </style>
+<style>
+.site-header{flex-wrap:wrap;height:auto;min-height:70px;padding-top:8px;padding-bottom:10px;row-gap:6px}
+.header-search{flex:1 1 100%;position:relative}
+.header-search .search-box{max-width:100%;background:#fffdf7;border:1px solid #ddd9ce;box-shadow:0 4px 14px rgba(23,63,53,.08)}
+.header-search .search-results{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:80;max-width:100%}
+.bani-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
+.bani-tile{display:block;background:#fffdf7;border:1px solid #e6e1d5;border-radius:12px;padding:12px 4px 9px;text-align:center;text-decoration:none;transition:border-color .2s,transform .2s}
+.bani-tile:hover{border-color:#B65F43;transform:translateY(-2px)}
+.bani-tile .g{font-size:30px;line-height:1.3;color:#173F35;display:block}
+.bani-tile .r{font-weight:700;font-size:13px;color:#252A27;display:block;margin-top:2px}
+.bani-tile .n{font-size:10px;letter-spacing:.08em;color:#79543A;display:block;text-transform:uppercase}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -66,6 +78,7 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
     </a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="main-nav" aria-label="Main navigation"><a href="index.html" class="active" aria-current="page">Home</a><a href="language.html">Our Language</a><a href="history.html">Our Heritage</a><a href="library.html">Knowledge Library</a><a href="news.html">News & Updates</a><a href="gallery.html">Media Gallery</a><a href="about.html">About Us</a><a href="search.html">Search</a><a class="nav-cta" href="contribute.html">Contribute <span>↗</span></a></nav>
+    <div class="header-search"><div class="search-box"><span>⌕</span><input id="site-search" type="search" placeholder="Search language, history, books, news…" aria-label="Search this website"></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
   </header>
 
   <main id="main">
@@ -78,8 +91,8 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
     <p class="hero-pro-greet">JOHAR! JAY MUNDARI!</p>
     <p class="bani hero-pro-bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</p>
     <p class="hero-pro-mission">Preserving the Mundari language, documenting our history, protecting our cultural heritage and connecting the Mundari community through one digital platform.</p>
-    <div class="search-box hero-pro-search"><span>⌕</span><input id="site-search" type="search" placeholder="Search language, history, books, news…" aria-label="Search this website"></div>
-    <div id="search-results" class="search-results" aria-live="polite"></div>
+    
+    
     <p class="hero-pro-links"><a href="search.html">Search all pages &rarr;</a> &middot; <a href="articles.html">Browse all reading &rarr;</a> &middot; <a href="dictionary.html">Open the dictionary &rarr;</a></p>
     <p class="hero-pro-credit">Photograph: Sarhul at a sarna grove — Gurpreet Singh Ranchi · CC BY-SA 4.0</p>
   </div>
@@ -92,7 +105,8 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
       </div>
     </section>
 
-    <section class="section-wrap" id="categories"><div class="fx-rails-wrap"><h3 class="fx-rails-h">Explore by category</h3><p class="fx-rails-sub">Slide each row sideways — up to ten highlights per category, with a View All card at the end for everything.</p><div id="rails-mount"><p class="fx-muted">Loading categories…</p></div></div></section>
+    <section class="section-wrap" id="bani-showcase"><div class="section-heading"><div><div class="section-kicker">MUNDARI BANI <span>✳</span></div><h2>The Mundari Bani<br><em>script.</em></h2></div><p>Mundari has its own script — 27 letters created by Rohidas Singh Nag. Every letter of the alphabet is below; tap any letter to open the full script page, with the complete chart, sounds and writing practice.</p></div><div class="bani-tiles"><a class="bani-tile" href="script.html" aria-label="Letter O, sound o"><span class="g bani">𞓐</span><span class="r">o</span><span class="n">O</span></a><a class="bani-tile" href="script.html" aria-label="Letter OP, sound p"><span class="g bani">𞓑</span><span class="r">p</span><span class="n">OP</span></a><a class="bani-tile" href="script.html" aria-label="Letter OL, sound l"><span class="g bani">𞓒</span><span class="r">l</span><span class="n">OL</span></a><a class="bani-tile" href="script.html" aria-label="Letter OY, sound y"><span class="g bani">𞓓</span><span class="r">y</span><span class="n">OY</span></a><a class="bani-tile" href="script.html" aria-label="Letter ONG, sound ng / ṅ"><span class="g bani">𞓔</span><span class="r">ng / ṅ</span><span class="n">ONG</span></a><a class="bani-tile" href="script.html" aria-label="Letter A, sound a / ā"><span class="g bani">𞓕</span><span class="r">a / ā</span><span class="n">A</span></a><a class="bani-tile" href="script.html" aria-label="Letter AJ, sound j"><span class="g bani">𞓖</span><span class="r">j</span><span class="n">AJ</span></a><a class="bani-tile" href="script.html" aria-label="Letter AB, sound b"><span class="g bani">𞓗</span><span class="r">b</span><span class="n">AB</span></a><a class="bani-tile" href="script.html" aria-label="Letter ANY, sound ny / ñ"><span class="g bani">𞓘</span><span class="r">ny / ñ</span><span class="n">ANY</span></a><a class="bani-tile" href="script.html" aria-label="Letter AH, sound ḥ / h"><span class="g bani">𞓙</span><span class="r">ḥ / h</span><span class="n">AH</span></a><a class="bani-tile" href="script.html" aria-label="Letter I, sound i"><span class="g bani">𞓚</span><span class="r">i</span><span class="n">I</span></a><a class="bani-tile" href="script.html" aria-label="Letter IS, sound s"><span class="g bani">𞓛</span><span class="r">s</span><span class="n">IS</span></a><a class="bani-tile" href="script.html" aria-label="Letter IDD, sound ḍ"><span class="g bani">𞓜</span><span class="r">ḍ</span><span class="n">IDD</span></a><a class="bani-tile" href="script.html" aria-label="Letter IT, sound t"><span class="g bani">𞓝</span><span class="r">t</span><span class="n">IT</span></a><a class="bani-tile" href="script.html" aria-label="Letter IH, sound h"><span class="g bani">𞓞</span><span class="r">h</span><span class="n">IH</span></a><a class="bani-tile" href="script.html" aria-label="Letter U, sound u"><span class="g bani">𞓟</span><span class="r">u</span><span class="n">U</span></a><a class="bani-tile" href="script.html" aria-label="Letter US, sound ch / c"><span class="g bani">𞓠</span><span class="r">ch / c</span><span class="n">US</span></a><a class="bani-tile" href="script.html" aria-label="Letter UD, sound d"><span class="g bani">𞓡</span><span class="r">d</span><span class="n">UD</span></a><a class="bani-tile" href="script.html" aria-label="Letter UK, sound k"><span class="g bani">𞓢</span><span class="r">k</span><span class="n">UK</span></a><a class="bani-tile" href="script.html" aria-label="Letter UR, sound r"><span class="g bani">𞓣</span><span class="r">r</span><span class="n">UR</span></a><a class="bani-tile" href="script.html" aria-label="Letter E, sound e"><span class="g bani">𞓤</span><span class="r">e</span><span class="n">E</span></a><a class="bani-tile" href="script.html" aria-label="Letter ENN, sound ṇ"><span class="g bani">𞓥</span><span class="r">ṇ</span><span class="n">ENN</span></a><a class="bani-tile" href="script.html" aria-label="Letter EG, sound g"><span class="g bani">𞓦</span><span class="r">g</span><span class="n">EG</span></a><a class="bani-tile" href="script.html" aria-label="Letter EM, sound m"><span class="g bani">𞓧</span><span class="r">m</span><span class="n">EM</span></a><a class="bani-tile" href="script.html" aria-label="Letter EN, sound n"><span class="g bani">𞓨</span><span class="r">n</span><span class="n">EN</span></a><a class="bani-tile" href="script.html" aria-label="Letter ETT, sound ṭ"><span class="g bani">𞓩</span><span class="r">ṭ</span><span class="n">ETT</span></a><a class="bani-tile" href="script.html" aria-label="Letter ELL, sound ṛ / ḷ"><span class="g bani">𞓪</span><span class="r">ṛ / ḷ</span><span class="n">ELL</span></a></div><p style="margin-top:20px"><a class="under-link" href="script.html">Open the full Mundari Bani script page <span>→</span></a></p></section>
+<section class="section-wrap" id="categories"><div class="fx-rails-wrap"><h3 class="fx-rails-h">Explore by category</h3><p class="fx-rails-sub">Slide each row sideways — up to ten highlights per category, with a View All card at the end for everything.</p><div id="rails-mount"><p class="fx-muted">Loading categories…</p></div></div></section>
 <section class="section-wrap" id="bulletin"><div class="section-heading"><div>
 <div class="section-kicker">TODAY'S MUNDARI BULLETIN <span>✳</span></div>
 <h2>Today's Mundari<br><em>Bulletin.</em></h2></div>
@@ -187,8 +201,8 @@ a.library-item:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,6
   <p style="margin:0;font-size:.88rem;color:#bdb69e">Content on this platform is reviewed for accuracy; unverified material is labelled &ldquo;Research in progress&rdquo;. Corrections are welcome &mdash; see <a style="color:#f3d98b" href="about.html">About</a>. &copy; <span id="year">2026</span> Mundari Samaj.</p>
  </div>
 </footer>
-  <script src="app.js?v=22"></script>
-  <script src="features.js?v=22"></script>
+  <script src="app.js?v=23"></script>
+  <script src="features.js?v=23"></script>
 <script>
 (function(){
   var d = document.getElementById('bulletin-date');

@@ -16,6 +16,11 @@ const published=x=>x.status==="published";
 function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
 function thumb(x){return x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:art(x.tone)}
 function card(x){return `<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.category)} · ${esc(x.readTime)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><div class="fx-card-foot"><span>${esc(x.date)}</span><a href="article.html?id=${encodeURIComponent(x.id)}">Read article ↗</a></div></div></article>`}
+function photoSlug(x){return x._slug||x.id||String(x.title||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
+function photoFrame(x){
+  const src=x.image&&x.image.src;if(!src)return "";
+  return `<a class="fx-photo-frame" href="photo.html?id=${encodeURIComponent(photoSlug(x))}"><span class="fx-photo-img"><img src="${esc(src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></span><span class="fx-photo-title">${esc(x.title)}</span></a>`;
+}
 function galleryTile(x){
   if(x.type==="social"&&x.url){let emb="";
     if(x.platform==="instagram"){let g=igCode(x);if(g.code)emb=`<div class="fx-embed fx-embed-tall"><iframe src="https://www.instagram.com/${g.kind}/${g.code}/embed" title="${esc(x.title||"Instagram post")}" loading="lazy" allowfullscreen></iframe></div>`}
@@ -89,7 +94,7 @@ async function home(){
   const sg=$("#story-grid");
   if(sg)sg.innerHTML=s.filter(published).slice(0,2).map(x=>`<article class="fx-story-card">${x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:""}<span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></article>`).join("");
   const gg=$("#gallery-grid");
-  if(gg)gg.innerHTML=g.filter(published).slice(0,8).map(galleryTile).join("");
+  if(gg)gg.innerHTML=g.filter(x=>published(x)&&x.image&&x.image.src).slice(0,8).map(photoFrame).join("");
   const gs=$("#global-search"),sb=$("#search-button"),sr=$("#search-results");
   if(gs&&sb&&sr){
     let run=()=>{let q=gs.value.toLowerCase().trim();let all=[...a.map(x=>({...x,t:"Article",u:"article.html"})),...n.map(x=>({...x,t:"News",u:"news.html"})),...s.map(x=>({...x,t:"Story",u:"stories.html"}))].filter(x=>published(x)&&q&&(x.title+" "+x.excerpt+" "+x.category).toLowerCase().includes(q));sr.innerHTML=all.map(x=>`<a href="${x.u}?id=${x.id}"><b>${esc(x.title)}</b> — ${x.t}</a>`).join("")||(q?"<p>No results found.</p>":"")};
@@ -139,36 +144,68 @@ async function listing(k){
 async function videosPage(){
   const el=$("#page-list");if(!el)return;
   let d=(await load("videos")).filter(published);
-  let cats=["All",...new Set(d.map(v=>v.category))];let f="All";let current=null;
-  let queue=d.map(v=>v.youtube).join(",");
-  el.innerHTML=`<div class="fx-watchbox" id="watch-box" hidden><div class="fx-embed" id="watch-player"></div><div class="fx-watch-desc"><div class="fx-watch-desc-head"><h2 id="watch-title"></h2><button class="fx-close" id="watch-close" type="button" aria-label="Close player">✕</button></div><p class="fx-watch-meta" id="watch-meta"></p><p id="watch-note"></p><p><a id="watch-link" href="#" target="_blank" rel="noopener">Watch on YouTube ↗</a></p></div></div>`+
+  let cats=["All",...new Set(d.map(v=>v.category))];let f="All";let q="";let current=null;
+  el.innerHTML=
+  `<div class="fx-watchbox" id="watch-box" hidden>
+    <div class="fx-watch-layout">
+      <div class="fx-watch-main">
+        <div class="fx-embed" id="watch-player"></div>
+        <h2 class="fx-w-title" id="w-title"></h2>
+        <div class="fx-w-row">
+          <div class="fx-w-channel"><span class="fx-avatar" id="w-avatar">M</span><span class="fx-w-chmeta"><b id="w-channel"></b><small id="w-cat"></small></span></div>
+          <div class="fx-w-actions">
+            <span class="fx-like-pill"><a id="w-like" href="#" target="_blank" rel="noopener" title="Like on YouTube">\u{1F44D} Like</a><span class="fx-like-sep"></span><a id="w-dislike" href="#" target="_blank" rel="noopener" title="Dislike on YouTube">\u{1F44E}</a></span>
+            <button class="fx-w-btn" id="w-share" type="button">\u{2197} Share</button>
+            <button class="fx-w-btn" id="watch-close" type="button">\u{2715} Band</button>
+          </div>
+        </div>
+        <p class="fx-w-hint">Video YouTube ke asli player mein chal raha hai. Asli likes, views aur comments ke liye video ko YouTube par kholein.</p>
+        <div class="fx-about-box"><b id="w-about-head"></b><p id="w-note"></p><p><a id="w-ytlink" href="#" target="_blank" rel="noopener">Watch on YouTube \u{2197}</a></p></div>
+        <div class="fx-comments-box"><h3>Comments</h3><div class="fx-comment-row"><span class="fx-avatar fx-avatar-user">\u{270E}</span><p>Is video par apni baat YouTube ke comments mein likhein \u{2014} wahan channel aur poori community padhti aur jawab deti hai.<br><a class="fx-comments-link" id="w-comments" href="#" target="_blank" rel="noopener">YouTube par comments padhein / likhein \u{2197}</a></p></div></div>
+      </div>
+      <aside class="fx-upnext"><h3>Up next</h3><div id="upnext-list"></div></aside>
+    </div>
+  </div>`+
+  `<div class="fx-vsearch"><span>\u{2315}</span><input type="search" id="v-q" placeholder="Search our videos \u{2014} title, channel, topic\u{2026}" aria-label="Search our videos"><span class="fx-vcount" id="v-count"></span></div>`+
   `<div class="fx-chips" id="video-filters">${cats.map(c=>`<button class="fx-chip" data-vf="${esc(c)}">${esc(c)}</button>`).join("")}</div>`+
   `<div class="fx-card-grid" id="video-grid"></div>`+
-  `<p class="fx-video-note">Only one video plays at a time — starting another stops the first, so the page stays fast. Videos play in YouTube's standard player with full controls — you can also continue to YouTube from inside the player for related videos and everything else YouTube offers. Nothing is downloaded, copied or re-uploaded, and channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
-  const hub=`<div class="fx-ythub"><h2>Search all of YouTube</h2><p>Looking for more? Search the whole of YouTube from here — results open on YouTube itself, where you have full control.</p><form class="fx-ytsearch" id="yt-search"><input type="search" id="yt-q" placeholder="Search YouTube — try: Mundari song" aria-label="Search YouTube"><button type="submit">Search YouTube ↗</button></form><div class="fx-ytchips"><a href="https://www.youtube.com/results?search_query=mundari+song" target="_blank" rel="noopener">Mundari songs</a><a href="https://www.youtube.com/results?search_query=mundari+karma+song" target="_blank" rel="noopener">Karma songs</a><a href="https://www.youtube.com/results?search_query=mundari+dance" target="_blank" rel="noopener">Mundari dance</a><a href="https://www.youtube.com/results?search_query=birsa+munda" target="_blank" rel="noopener">Birsa Munda</a><a href="https://www.youtube.com/results?search_query=mundari+language" target="_blank" rel="noopener">Mundari language</a></div></div>`;
-  el.innerHTML=hub+el.innerHTML;
-  const yf=$("#yt-search");if(yf)yf.addEventListener("submit",e=>{e.preventDefault();const q=($("#yt-q").value||"").trim();window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(q||"mundari"),"_blank","noopener")});
+  `<p class="fx-video-note">Ek samay par ek hi video chalta hai \u{2014} dusra chalane par pehla ruk jata hai, taaki page tez rahe. Saare videos YouTube ke asli player mein chalte hain; kuch bhi download, copy ya re-upload nahi hota \u{2014} views aur credit channel ko hi milte hain. Koi Mundari video yahan hona chahiye? Contribute page se uska YouTube link bhejiye.</p>`;
   const grid=$("#video-grid"),box=$("#watch-box"),player=$("#watch-player");
+  function matches(v){return (f==="All"||v.category===f)&&(!q||(v.title+" "+v.channel+" "+v.category+" "+(v.note||"")).toLowerCase().includes(q));}
   function cardHtml(v){
-    return `<article class="fx-content-card fx-video-card${current===v.id?" is-active":""}"><div class="fx-embed"><button class="fx-facade" data-vid="${esc(v.id)}" aria-label="Play: ${esc(v.title)}"><img src="https://i.ytimg.com/vi/${esc(v.youtube)}/hqdefault.jpg" alt="${esc(v.title)}" loading="lazy" decoding="async"><span class="fx-play-badge" aria-hidden="true">▶</span></button></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}${current===v.id?" · Now playing":""}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div></article>`;
+    return `<article class="fx-content-card fx-video-card${current===v.id?" is-active":""}"><div class="fx-embed"><button class="fx-facade" data-vid="${esc(v.id)}" aria-label="Play: ${esc(v.title)}"><img src="https://i.ytimg.com/vi/${esc(v.youtube)}/hqdefault.jpg" alt="${esc(v.title)}" loading="lazy" decoding="async"><span class="fx-play-badge" aria-hidden="true">\u{25B6}</span></button></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}${current===v.id?" \u{B7} Now playing":""}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube \u{2197}</a></div></div></article>`;
   }
   function renderGrid(){
-    grid.innerHTML=d.filter(v=>f==="All"||v.category===f).map(cardHtml).join("");
+    const list=d.filter(matches);
+    grid.innerHTML=list.length?list.map(cardHtml).join(""):`<p class="fx-noresult">Hamari library mein is naam ka video nahi mila. Kuch aur likh kar dekhein \u{2014} ya <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q||"mundari")}" target="_blank" rel="noopener">poora YouTube yahan se khojein \u{2197}</a></p>`;
+    $("#v-count").textContent=list.length+" video"+(list.length===1?"":"s");
     document.querySelectorAll("#video-filters .fx-chip").forEach(c=>c.classList.toggle("active",c.dataset.vf===f));
+  }
+  function renderUpnext(v){
+    const others=d.filter(x=>x.id!==v.id).slice().sort((a,b)=>((b.category===v.category)?1:0)-((a.category===v.category)?1:0));
+    $("#upnext-list").innerHTML=others.map(x=>`<button class="fx-upnext-item" data-up="${esc(x.id)}"><span class="fx-upnext-thumb"><img src="https://i.ytimg.com/vi/${esc(x.youtube)}/hqdefault.jpg" alt="" loading="lazy" decoding="async"></span><span class="fx-upnext-meta"><b>${esc(x.title)}</b><small>${esc(x.channel)} \u{B7} ${esc(x.category)}</small></span></button>`).join("");
   }
   function play(v,scroll=true){
     current=v.id;
-    player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    const yt="https://www.youtube.com/watch?v="+v.youtube;
+    player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1&rel=0&playsinline=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
     box.hidden=false;
-    $("#watch-title").textContent=v.title;
-    $("#watch-meta").textContent=v.channel+" · "+v.category;
-    $("#watch-note").textContent=v.note||"";
-    $("#watch-link").href="https://www.youtube.com/watch?v="+v.youtube;
+    $("#w-title").textContent=v.title;
+    $("#w-channel").textContent=v.channel;
+    $("#w-cat").textContent=v.category;
+    $("#w-avatar").textContent=(v.channel||"M").trim().charAt(0).toUpperCase();
+    $("#w-note").textContent=v.note||"";
+    $("#w-about-head").textContent=v.category+" \u{B7} "+v.channel;
+    ["w-like","w-dislike","w-ytlink","w-comments"].forEach(id=>{const a=document.getElementById(id);if(a)a.href=yt;});
+    renderUpnext(v);
     renderGrid();
     if(scroll)box.scrollIntoView({behavior:"smooth",block:"start"});
   }
   $("#video-filters").onclick=e=>{let b=e.target.closest("[data-vf]");if(!b)return;f=b.dataset.vf;renderGrid()};
+  $("#v-q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();renderGrid()});
   grid.onclick=e=>{let b=e.target.closest("[data-vid]");if(!b)return;let v=d.find(x=>x.id===b.dataset.vid);if(v)play(v)};
+  $("#upnext-list").onclick=e=>{let b=e.target.closest("[data-up]");if(!b)return;let v=d.find(x=>x.id===b.dataset.up);if(v)play(v)};
+  $("#w-share").onclick=async()=>{const v=d.find(x=>x.id===current);if(!v)return;const url="https://www.youtube.com/watch?v="+v.youtube;try{await navigator.clipboard.writeText(url);const b=$("#w-share");b.textContent="\u{2713} Link copy";setTimeout(()=>{b.textContent="\u{2197} Share"},1800);}catch(e){window.open(url,"_blank","noopener");}};
   $("#watch-close").onclick=()=>{player.innerHTML="";box.hidden=true;current=null;renderGrid()};
   renderGrid();
 }

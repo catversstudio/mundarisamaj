@@ -1,114 +1,353 @@
 [
-  {
-    "id": "mundari-language",
-    "title": "Mundari: language, identity and living knowledge",
-    "category": "Language",
-    "date": "2026-11-02",
-    "author": "Mundari Samaj Editorial Desk",
-    "readTime": "5 min read",
-    "tone": "sage",
-    "excerpt": "An introduction to the language and the importance of documenting it with care, context and community voices.",
-    "status": "published",
-    "verified": false,
-    "body": [
-      {
-        "type": "p",
-        "text": "Mundari is a language of the Munda communities, with speakers across parts of eastern and central India and beyond. Like every living language, it carries ways of describing relationships, land, work, memory and the world."
-      },
-      {
-        "type": "h2",
-        "text": "A language lives through its speakers"
-      },
-      {
-        "type": "p",
-        "text": "Language preservation is not only about recording words. It also means supporting everyday use, intergenerational learning, songs, oral histories, local expressions and the many contexts in which people communicate."
-      },
-      {
-        "type": "h2",
-        "text": "Document with care"
-      },
-      {
-        "type": "p",
-        "text": "Spelling, pronunciation and usage can vary by region and speaker. A responsible language resource should record who shared a word, where it is used, how it is pronounced and whether a native-speaker review has taken place."
-      }
-    ],
-    "image": {
-      "src": "assets/img/mundari-bani-script-chart.jpg",
-      "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
-      "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
-      "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
-      "license": "CC BY-SA 4.0"
-    },
-    "media": [
-      {
-        "type": "youtube",
-        "id": "1G3e4PMwJ0w",
-        "caption": "Mundari Tutorial For Beginners — Leonard Topno (Mundariversity)"
-      }
-    ],
-    "related": [
-      "oral-history",
-      "community-archive"
-    ]
+ {
+  "author": "Mundari Samaj Editorial Desk",
+  "body": [
+   {
+    "text": "Full name: Birsa Munda · Born: 15 November 1875, Ulihatu village (then Ranchi district, Bengal Presidency; now Khunti district, Jharkhand) · Father: Sugana Munda · Mother: Karmi Hatu · Died: 9 June 1900, Ranchi jail (aged 24) · Known as: Dharti Aaba, “Father of the Earth” · Movement: the Ulgulan (1899–1900)",
+    "type": "p"
+   },
+   {
+    "text": "Early life and family",
+    "type": "h2"
+   },
+   {
+    "text": "Birsa was born into a poor Munda family that moved from village to village in search of work as labourers and crop-sharers — from Ulihatu to Kurumbda and Bamba, where his elder brother Komta and his sisters were born. By the custom of the time he was named after the day of the week on which he was born. As a boy he grazed sheep in the Bohonda forest, learned the flute and the one-stringed tuila, and spent his evenings at the akhara, the village wrestling ground. For a time he lived at Ayubhatu, his maternal uncle's village.",
+    "type": "p"
+   },
+   {
+    "text": "Schooling and the mission years",
+    "type": "h2"
+   },
+   {
+    "text": "Birsa began school at Salga, under the teacher Jaipal Nag, who saw his sharpness and recommended him to the German Mission School. To join it, Birsa converted to Christianity and took the name Birsa David, later Daud. After a few years he left the school. The years at Chaibasa (1886–1890) were formative: the Sardar agitation against the erosion of Munda land rights was in the air, and around 1890 Birsa and his family gave up mission membership and returned to their traditional tribal faith.",
+    "type": "p"
+   },
+   {
+    "text": "The land question",
+    "type": "h2"
+   },
+   {
+    "text": "Under the traditional khuntkatti system, the descendants of a village's founding families held the land together. Colonial rule — and the landlords, thikadars and moneylenders who came with it — broke that system down: rents, forced dues and forest restrictions (protected forests were declared under the Indian Forest Act in 1893–94) pushed many Mundas from owners of their land to labourers on it. Birsa had seen this dispossession with his own eyes as his family moved in search of work, and it shaped everything he did next.",
+    "type": "p"
+   },
+   {
+    "text": "The Birsait faith",
+    "type": "h2"
+   },
+   {
+    "text": "In 1895, at Chalkad in Tamar, Birsa renounced Christianity and began preaching: worship one God, give up the worship of bongas (spirits), and return to the community's own path. Followers — Mundas, Oraons and Kharias — flocked to Chalkad; he gained a reputation as a healer and preacher, and the new faith took his name: Birsait. His people called him Dharti Aaba. His slogan, remembered across the region to this day, was “Abua raj seter jana, maharani raj tundu jana” — “Let our rule begin; let the Queen's rule end.”",
+    "type": "p"
+   },
+   {
+    "text": "Arrest and prison, 1895–1897",
+    "type": "h2"
+   },
+   {
+    "text": "The colonial administration moved quickly. Birsa was arrested on 24 August 1895 and sentenced to two years' imprisonment. After his release he spent about two years moving between villages, holding secret meetings and rebuilding the movement, while missionaries and officials pressed for his arrest again.",
+    "type": "p"
+   },
+   {
+    "text": "The Ulgulan — the Great Tumult",
+    "type": "h2"
+   },
+   {
+    "text": "Around Christmas 1899, some 7,000 men and women assembled to herald the Ulgulan — the “Great Tumult” — a rising for Munda self-rule and the recovery of their land, forests and water. The rising spread across Khunti, Tamar, Basia and Ranchi. On Christmas Eve 1899, followers attacked missions at Murhu and Sarwada and tried to burn churches in Ranchi and Singhbhum districts. On 5 January 1900 two police constables were killed at Etkedih, and on 7 January the Khunti police station was attacked. The administration set a reward of Rs 500 on Birsa's head.",
+    "type": "p"
+   },
+   {
+    "text": "Dombari Buru, 9 January 1900",
+    "type": "h2"
+   },
+   {
+    "text": "Thousands of Birsa's followers gathered at Dombari Buru, a hill in Khunti, armed largely with bows and arrows. Colonial troops under Commissioner A. Fobes and Deputy Commissioner H. C. Streattfield surrounded the hill and opened fire. In community memory it was a massacre: The Statesman reported around 400 killed, and the Mundas named the hill Topped Buru — “the mound of the dead”. Birsa himself escaped into the Singhbhum hills.",
+    "type": "p"
+   },
+   {
+    "text": "Capture and death",
+    "type": "h2"
+   },
+   {
+    "text": "Birsa was arrested on 3 February 1900 in the Jamkopai forest in Chakradharpur and brought to Ranchi. Some 460 tribals were accused in 15 cases; 63 were convicted. Birsa died in Ranchi jail on 9 June 1900, aged 24. Colonial records attributed his death to cholera and dysentery; among his followers, suspicion of poisoning has persisted ever since.",
+    "type": "p"
+   },
+   {
+    "text": "Legacy",
+    "type": "h2"
+   },
+   {
+    "text": "The movement faded after his death, but its pressure contributed to the Chotanagpur Tenancy Act of 1908, which prohibited the transfer of tribal land to non-tribals — a protection that still matters today. Birsa's portrait hangs in the Indian Parliament Museum, and the old Ranchi jail where he died is now the Birsa Munda Smriti Sangrahalaya (memorial museum), opened in 2021. Jharkhand state was formed on his birthday, 15 November 2000, and since 2021 the day is observed across India as Janjatiya Gaurav Diwas. The standard scholarly study of his life remains K. S. Singh's “Birsa Munda and His Movement”.",
+    "type": "p"
+   }
+  ],
+  "category": "People & Personalities",
+  "date": "2026-11-03",
+  "excerpt": "Birsa Munda (1875–1900), revered as Dharti Aaba — “Father of the Earth” — led the Ulgulan, the great Munda uprising of 1899–1900, against colonial rule and the loss of tribal land. His full story: family, schooling, faith, prison, rebellion and legacy, compiled from published histories.",
+  "id": "birsa-munda",
+  "image": {
+   "caption": "Birsa Munda — the well-known early photograph of him, reproduced in S. C. Roy's “The Mundas and Their Country” (1912).",
+   "credit": "Photo: Unknown photographer · Public domain · via Wikimedia Commons",
+   "src": "assets/img/birsa-munda-portrait.jpg"
   },
-  {
-    "id": "oral-history",
-    "title": "Why oral histories matter",
-    "category": "Heritage",
-    "date": "2026-11-02",
-    "author": "Mundari Samaj Editorial Desk",
-    "readTime": "4 min read",
-    "tone": "clay",
-    "excerpt": "Family memories and community accounts can preserve details that formal archives may not contain.",
-    "status": "published",
-    "verified": false,
-    "body": [
-      {
-        "type": "p",
-        "text": "An oral history is a recorded account of a person's memories and experiences. It can help future generations understand how people remember places, livelihoods, celebrations, change and community life."
-      },
-      {
-        "type": "h2",
-        "text": "Listen before recording"
-      },
-      {
-        "type": "p",
-        "text": "Explain how a recording may be used, ask what should remain private, and allow the speaker to pause or withdraw permission. Do not assume every story is intended for public sharing."
-      }
-    ],
-    "related": [
-      "mundari-language",
-      "community-archive"
-    ]
-  },
-  {
-    "id": "community-archive",
-    "title": "Building a respectful community archive",
-    "category": "Culture",
-    "date": "2026-11-02",
-    "author": "Mundari Samaj Editorial Desk",
-    "readTime": "4 min read",
-    "tone": "gold",
-    "excerpt": "A practical guide to credit, consent and context when sharing photographs, documents and cultural knowledge.",
-    "status": "published",
-    "verified": false,
-    "body": [
-      {
-        "type": "p",
-        "text": "A community archive can bring together photographs, documents, recordings and stories that help people explore their heritage. The value of an archive depends on how material was collected and described."
-      },
-      {
-        "type": "h2",
-        "text": "Ask permission and give credit"
-      },
-      {
-        "type": "p",
-        "text": "Before publishing a photograph, recording or document, confirm who owns it and whether the project has permission to display it. Credit the creator or contributor in the way they request."
-      }
-    ],
-    "related": [
-      "mundari-language",
-      "oral-history"
-    ]
+  "media": [
+   {
+    "caption": "Statue of Birsa Munda at Patna.",
+    "credit": "Photo · CC BY-SA · via Wikimedia Commons",
+    "type": "image",
+    "url": "assets/img/birsa-munda-statue-patna.jpg"
+   },
+   {
+    "caption": "Birsa Munda: Ulgulan Ke Mahanayak — NCERT documentary (Janjatiya Diwas special)",
+    "id": "VIgF0cfgVPA",
+    "type": "youtube"
+   }
+  ],
+  "readTime": "9 min read",
+  "related": [
+   "rohidas-singh-nag",
+   "mundari-language"
+  ],
+  "sources": [
+   {
+    "label": "Indian Express — Birsa Munda: his legacy, Ulgulan and the Adivasi identity debate",
+    "url": "https://indianexpress.com/article/explained/explained-history/birsa-munda-legacy-ulgulan-adivasi-identity-explained-10733209/"
+   },
+   {
+    "label": "Wikipedia — Birsa Munda (with references to S. C. Roy and K. S. Singh)",
+    "url": "https://en.wikipedia.org/wiki/Birsa_Munda"
+   },
+   {
+    "label": "The Shillong Times — Who was Birsa Munda, whose 'Ulgulan' declared the end of British rule in Jharkhand?",
+    "url": "https://theshillongtimes.com/2024/11/15/who-was-birsa-munda-whose-ulgulan-declared-the-end-of-british-rule-in-jharkhand/"
+   },
+   {
+    "label": "Vajiram & Ravi — Birsa Munda and the Adivasi identity debate (NCERT-based summary)",
+    "url": "https://vajiramandravi.com/current-affairs/birsa-munda-and-the-adivasi-identity-debate/"
+   },
+   {
+    "label": "NCERT documentary on YouTube — Birsa Munda: Ulgulan Ke Mahanayak",
+    "url": "https://www.youtube.com/watch?v=VIgF0cfgVPA"
+   }
+  ],
+  "status": "published",
+  "title": "Birsa Munda (1875–1900) — Dharti Aaba, Father of the Earth",
+  "tone": "earth",
+  "verified": true
+ },
+ {
+  "author": "Mundari Samaj Editorial Desk",
+  "body": [
+   {
+    "text": "Full name: Rohidas Singh Nag · Born: 5 February 1934, Chandua village, Mayurbhanj district, Odisha · Died: 30 December 2012, Salbani, Mayurbhanj (aged 78) · Occupation: writer and linguist · Known for: inventing the Mundari Bani script · Revered as: Ol Guru",
+    "type": "p"
+   },
+   {
+    "text": "A schoolboy's invention, 1949",
+    "type": "h2"
+   },
+   {
+    "text": "In 1949, Rohidas Singh Nag was a class III student in Mayurbhanj. Mundari was spoken all around him but had no script of its own — it was written, when written at all, in Devanagari, Bengali, Odia or Roman letters. The young student began designing letters for the sounds of his language and wrote the first Mundari Bani alphabet on the wall of his school, using clay.",
+    "type": "p"
+   },
+   {
+    "text": "Thirty-five letters, 1953",
+    "type": "h2"
+   },
+   {
+    "text": "He kept working through his school years. By 1953 the set had grown to 35 characters — a complete first form of the script, its letterforms drawn, as they still suggest today, from shapes found in nature and daily life.",
+    "type": "p"
+   },
+   {
+    "text": "The 27-letter script, 1980",
+    "type": "h2"
+   },
+   {
+    "text": "Nag later simplified his own creation. In 1980 a set of 27 letters was selected for use — the core alphabet taught today. That same year he presented the script to the then Chief Minister of Odisha, Shri J. B. Pattnaik, and submitted a memorandum seeking constitutional recognition for the Munda language. In 1996 he was felicitated by the Academy of Tribal Languages and Culture.",
+    "type": "p"
+   },
+   {
+    "text": "Carrying the demand to Delhi, 1999",
+    "type": "h2"
+   },
+   {
+    "text": "In 1999, Nag went with others to submit a memorandum to the President of India, again appealing for constitutional recognition of the Munda language. Around him, organisations such as the Mundari Samaj Sanwar Jamda of Poda Astia, Mayurbhanj, pressed the community's wider demands: a place for Mundari in the Eighth Schedule of the Constitution, broadcasts on All India Radio, and a department for the language at North Odisha University.",
+    "type": "p"
+   },
+   {
+    "text": "The 2008 reform",
+    "type": "h2"
+   },
+   {
+    "text": "In 2008 the Bharat Munda Samaj and the Mundari Samaj Sanwar Jamda worked with Nag himself to reform the script: letterforms that were confusing or hard to read and write were restyled, and new glyphs were added. This reformed version is the script in use today.",
+    "type": "p"
+   },
+   {
+    "text": "Into Unicode, 2022",
+    "type": "h2"
+   },
+   {
+    "text": "A formal proposal to encode Mundari Bani in the Unicode Standard was prepared by Lawrence Wolf-Sonkin and Biswajit Mandal in 2021. The script was accepted and published in Unicode 15.0 in September 2022 (block U+1E4D0–U+1E4FF) — ten years after Nag's death. That is why Mundari Bani can now be typed on phones and computers, and why it appears beside every Mundari word on this website.",
+    "type": "p"
+   },
+   {
+    "text": "Legacy",
+    "type": "h2"
+   },
+   {
+    "text": "Nag is remembered as Ol Guru — the teacher. A writer and poet as well as the script's creator, he spent more than six decades on a single conviction: that a community survives through its language, and a language survives through its own script. The full alphabet chart, with every letter, is on this site's Script page.",
+    "type": "p"
+   }
+  ],
+  "category": "People & Personalities",
+  "date": "2026-11-03",
+  "excerpt": "Rohidas Singh Nag (1934–2012), revered as Ol Guru, gave the Mundari language its own script. As a class III schoolboy in 1949 he wrote the first Mundari Bani letters in clay on his school wall; the script he shaped across his lifetime entered Unicode in 2022 — and it is the script beside every Mundari word on this website.",
+  "id": "rohidas-singh-nag",
+  "media": [
+   {
+    "type": "image",
+    "url": "assets/img/mundari-bani-script-chart.jpg",
+    "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
+    "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons"
+   }
+  ],
+  "readTime": "6 min read",
+  "related": [
+   "birsa-munda",
+   "mundari-language"
+  ],
+  "sources": [
+   {
+    "label": "Wikipedia — Rohidas Singh Nag",
+    "url": "https://en.wikipedia.org/wiki/Rohidas_Singh_Nag"
+   },
+   {
+    "label": "Wikipedia — Mundari Bani",
+    "url": "https://en.wikipedia.org/wiki/Nag_Mundari"
+   },
+   {
+    "label": "Research paper — Revitalizing Tribal Linguistic Heritage: Preserving the Bhumij and Mundari Languages in Mayurbhanj",
+    "url": "https://www.academia.edu/104832915/Revitalizing_Tribal_Linguistic_Heritage_Preserving_The_Bhumij_And_Mundari_Languages_In_Mayurbhanj"
+   }
+  ],
+  "status": "published",
+  "title": "Rohidas Singh Nag (1934–2012) — Ol Guru, creator of Mundari Bani",
+  "tone": "sage",
+  "verified": true,
+  "image": {
+   "src": "assets/img/rohidas-singh-nag.jpg",
+   "caption": "Rohidas Singh Nag (1934–2012), inventor of the Mundari Bani script.",
+   "credit": "Photo: Baidyanathsingh · CC BY-SA 4.0 · via Wikimedia Commons"
   }
+ },
+ {
+  "id": "mundari-language",
+  "title": "Mundari: language, identity and living knowledge",
+  "category": "Language",
+  "date": "2026-11-02",
+  "author": "Mundari Samaj Editorial Desk",
+  "readTime": "5 min read",
+  "tone": "sage",
+  "excerpt": "An introduction to the language and the importance of documenting it with care, context and community voices.",
+  "status": "published",
+  "verified": false,
+  "body": [
+   {
+    "type": "p",
+    "text": "Mundari is a language of the Munda communities, with speakers across parts of eastern and central India and beyond. Like every living language, it carries ways of describing relationships, land, work, memory and the world."
+   },
+   {
+    "type": "h2",
+    "text": "A language lives through its speakers"
+   },
+   {
+    "type": "p",
+    "text": "Language preservation is not only about recording words. It also means supporting everyday use, intergenerational learning, songs, oral histories, local expressions and the many contexts in which people communicate."
+   },
+   {
+    "type": "h2",
+    "text": "Document with care"
+   },
+   {
+    "type": "p",
+    "text": "Spelling, pronunciation and usage can vary by region and speaker. A responsible language resource should record who shared a word, where it is used, how it is pronounced and whether a native-speaker review has taken place."
+   }
+  ],
+  "image": {
+   "src": "assets/img/mundari-bani-script-chart.jpg",
+   "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
+   "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  "media": [
+   {
+    "type": "youtube",
+    "id": "1G3e4PMwJ0w",
+    "caption": "Mundari Tutorial For Beginners — Leonard Topno (Mundariversity)"
+   }
+  ],
+  "related": [
+   "oral-history",
+   "community-archive"
+  ]
+ },
+ {
+  "id": "oral-history",
+  "title": "Why oral histories matter",
+  "category": "Heritage",
+  "date": "2026-11-02",
+  "author": "Mundari Samaj Editorial Desk",
+  "readTime": "4 min read",
+  "tone": "clay",
+  "excerpt": "Family memories and community accounts can preserve details that formal archives may not contain.",
+  "status": "published",
+  "verified": false,
+  "body": [
+   {
+    "type": "p",
+    "text": "An oral history is a recorded account of a person's memories and experiences. It can help future generations understand how people remember places, livelihoods, celebrations, change and community life."
+   },
+   {
+    "type": "h2",
+    "text": "Listen before recording"
+   },
+   {
+    "type": "p",
+    "text": "Explain how a recording may be used, ask what should remain private, and allow the speaker to pause or withdraw permission. Do not assume every story is intended for public sharing."
+   }
+  ],
+  "related": [
+   "mundari-language",
+   "community-archive"
+  ]
+ },
+ {
+  "id": "community-archive",
+  "title": "Building a respectful community archive",
+  "category": "Culture",
+  "date": "2026-11-02",
+  "author": "Mundari Samaj Editorial Desk",
+  "readTime": "4 min read",
+  "tone": "gold",
+  "excerpt": "A practical guide to credit, consent and context when sharing photographs, documents and cultural knowledge.",
+  "status": "published",
+  "verified": false,
+  "body": [
+   {
+    "type": "p",
+    "text": "A community archive can bring together photographs, documents, recordings and stories that help people explore their heritage. The value of an archive depends on how material was collected and described."
+   },
+   {
+    "type": "h2",
+    "text": "Ask permission and give credit"
+   },
+   {
+    "type": "p",
+    "text": "Before publishing a photograph, recording or document, confirm who owns it and whether the project has permission to display it. Credit the creator or contributor in the way they request."
+   }
+  ],
+  "related": [
+   "mundari-language",
+   "oral-history"
+  ]
+ }
 ]

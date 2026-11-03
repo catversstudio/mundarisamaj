@@ -106,3 +106,17 @@ Photographs are from Wikimedia Commons under the licences credited on
 each page and in About ("Photo & media credits"). Videos are embedded
 with YouTube's official player; social posts are linked or embedded by
 official methods only — never downloaded or re-uploaded.
+
+
+## v13 additions (2026-11-03)
+- Full sourced biographies of Birsa Munda and Rohidas Singh Nag are records in
+  `content/articles.json` (category "People & Personalities"). A record may carry a
+  `sources` array of {label, url} — rendered as a "Sources & further reading" block
+  at the end of the article.
+- The Gallery accepts social-preview records in `content/gallery.json`:
+  {type: "social", platform: "instagram"|"facebook", url, title, caption, credit,
+  status: "published"}. The post is embedded by link only — media is never copied.
+- Music & Videos page (`videos.html`) reads `content/videos.json`:
+  {id, title, channel, category, youtube: "<video id>", note, status: "published"}.
+  Videos play through YouTube's official embedded player (youtube-nocookie).
+  To add a video: append a record with its YouTube video ID and redeploy.

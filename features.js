@@ -7,7 +7,7 @@
    has one and keep the tone-tile fallback otherwise. Only
    status==="published" records render; unverified articles keep the
    Editorial note. */
-const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json"};
+const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function load(k){try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
@@ -16,6 +16,10 @@ function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"><
 function thumb(x){return x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:art(x.tone)}
 function card(x){return `<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.category)} · ${esc(x.readTime)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><div class="fx-card-foot"><span>${esc(x.date)}</span><a href="article.html?id=${encodeURIComponent(x.id)}">Read article ↗</a></div></div></article>`}
 function galleryTile(x){
+  if(x.type==="social"&&x.url){let emb="";
+    if(x.platform==="instagram"){let g=igCode(x);if(g.code)emb=`<div class="fx-embed fx-embed-tall"><iframe src="https://www.instagram.com/${g.kind}/${g.code}/embed" title="${esc(x.title||"Instagram post")}" loading="lazy" allowfullscreen></iframe></div>`}
+    else if(x.platform==="facebook"){emb=`<div class="fx-embed"><iframe src="https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(x.url)}&show_text=true" title="${esc(x.title||"Facebook post")}" loading="lazy" allowfullscreen></iframe></div>`}
+    if(emb)return `<figure class="fx-gallery-tile has-embed">${emb}<figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">View on Instagram ↗</a></figcaption></figure>`}
   if(x.image&&x.image.src)return `<figure class="fx-gallery-tile has-img"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption)}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
   return `<div class="fx-gallery-tile"><b>${esc(x.title)}</b></div>`;
 }
@@ -68,7 +72,8 @@ function detail(x,k,el,all){
      if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="stories.html?id=${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
      return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news.html?id=${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
    if(cards)rel=`<h2 class="fx-related-h">Related reading</h2><div class="fx-card-grid">${cards}</div>`}
-  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1>${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">By ${esc(x.author||x.contributor||"Mundari Samaj")} · ${esc(x.readTime||"")}</p>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}<div class="fx-body-copy">${b}</div>${media}${shareBlock(x,k)}${rel}</article>`;
+  let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
+  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1>${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">By ${esc(x.author||x.contributor||"Mundari Samaj")} · ${esc(x.readTime||"")}</p>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
 }
 async function home(){
   const grid=$("#article-grid");if(!grid)return;
@@ -100,4 +105,15 @@ async function listing(k){
   else if(k==="stories"){el.innerHTML='<div class="fx-card-grid">'+d.map(x=>`<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><a href="stories.html?id=${x.id}">Read story →</a></div></article>`).join("")+"</div>"}
   else el.innerHTML='<div class="fx-card-grid">'+d.map(card).join("")+"</div>";
 }
-document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if(document.body.dataset.page)listing(document.body.dataset.page)});
+async function videosPage(){
+  const el=$("#page-list");if(!el)return;
+  let d=(await load("videos")).filter(published);
+  let cats=["All",...new Set(d.map(v=>v.category))];let f="All";
+  function render(){let list=d.filter(v=>f==="All"||v.category===f);
+    el.innerHTML=`<div class="fx-chips" id="video-filters">${cats.map(c=>`<button class="fx-chip${c===f?" active":""}" data-vf="${esc(c)}">${esc(c)}</button>`).join("")}</div>`+
+    `<div class="fx-card-grid">`+list.map(v=>`<article class="fx-content-card fx-video-card"><div class="fx-embed"><iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}" title="${esc(v.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><div class="fx-card-body"><span class="fx-tag">${esc(v.category)}</span><h3>${esc(v.title)}</h3><p>${esc(v.note||"")}</p><div class="fx-card-foot"><span>${esc(v.channel)}</span><a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div></div></article>`).join("")+`</div>`+
+    `<p class="fx-video-note">All videos play here through YouTube's official embedded player — nothing is downloaded, copied or re-uploaded. Channels keep their own views and credit. Know a Mundari song or video that belongs here? Send us its YouTube link from the Contribute page.</p>`;
+    const fl=$("#video-filters");if(fl)fl.onclick=e=>{let b=e.target.closest("[data-vf]");if(!b)return;f=b.dataset.vf;render()};}
+  render();
+}
+document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});

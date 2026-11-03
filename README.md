@@ -156,3 +156,10 @@ official methods only — never downloaded or re-uploaded.
   falls back to a styled link-card so the layout never breaks.
 - Feed batches are throttled so the loop advances at scroll pace, and
   the homepage gallery strip is capped at 8 tiles.
+
+## v17 (2026-11-03) — all Instagram items removed from the Gallery
+- At the owner's direction, every Instagram item was removed from the
+  Gallery (first he kept only the language-related one, then asked for
+  all of them to go). The Gallery now holds only the 9 Wikimedia
+  Commons photos and the section tile (10 items), still shown as the
+  endless one-photo-per-row feed.

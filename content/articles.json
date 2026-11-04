@@ -104,7 +104,9 @@
   "readTime": "9 min read",
   "related": [
    "rohidas-singh-nag",
-   "mundari-language"
+   "mundari-language",
+   "ulgulan-movement",
+   "gaya-munda"
   ],
   "sources": [
    {
@@ -135,7 +137,17 @@
   "status": "published",
   "title": "Birsa Munda (1875–1900) — Dharti Aaba, Father of the Earth",
   "tone": "earth",
-  "verified": true
+  "verified": true,
+  "region": "Chotanagpur, Jharkhand",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ]
  },
  {
   "author": "Mundari Samaj Editorial Desk",
@@ -240,7 +252,17 @@
    "src": "assets/img/rohidas-singh-nag.jpg",
    "caption": "Rohidas Singh Nag (1934–2012), inventor of the Mundari Bani script.",
    "credit": "Photo: Baidyanathsingh · CC BY-SA 4.0 · via Wikimedia Commons"
-  }
+  },
+  "region": "Mayurbhanj, Odisha",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ]
  },
  {
   "id": "mundari-language",
@@ -291,7 +313,19 @@
   ],
   "related": [
    "oral-history",
-   "community-archive"
+   "community-archive",
+   "mundari-dialects",
+   "mundari-oral-literature"
+  ],
+  "region": "Eastern and Central India",
+  "reviewStatus": "Introductory — community review invited",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
   ]
  },
  {
@@ -329,7 +363,17 @@
    "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Munda_Lady.jpg",
    "license": "CC BY 2.0"
-  }
+  },
+  "region": "Munda village regions, Jharkhand & Odisha",
+  "reviewStatus": "Introductory — community review invited",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ]
  },
  {
   "id": "community-archive",
@@ -366,7 +410,17 @@
    "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Munda_Male.jpg",
    "license": "CC BY 2.0"
-  }
+  },
+  "region": "Munda community regions",
+  "reviewStatus": "Introductory — community review invited",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ]
  },
  {
   "id": "jaipal-singh-munda",
@@ -470,6 +524,16 @@
     "label": "Wikipedia — Jaipal Singh Munda (biographical summary and references)",
     "url": "https://en.wikipedia.org/wiki/Jaipal_Singh_Munda"
    }
+  ],
+  "region": "Khunti, Chotanagpur, Jharkhand",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
   ]
  },
  {
@@ -531,7 +595,9 @@
   "media": [],
   "related": [
    "birsa-munda",
-   "mundari-khuntkatti"
+   "mundari-khuntkatti",
+   "ulgulan-movement",
+   "munda-in-other-movements"
   ],
   "sources": [
    {
@@ -550,6 +616,16 @@
     "label": "Sanjay Nath & Rinu Kumari — \"Remembering Poto Ho\", Journal of Adivasi and Indigenous Studies IX(1), 2019 (Kolhan Estate, 622 villages, 1837)",
     "url": "https://www.academia.edu/40928179/Journal_of_Adivasi_and_Indigenous_Studies_February_2019"
    }
+  ],
+  "region": "Chotanagpur (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
   ]
  },
  {
@@ -611,7 +687,8 @@
   "media": [],
   "related": [
    "birsa-munda",
-   "kol-rebellion-1831-32"
+   "kol-rebellion-1831-32",
+   "manki-munda-governance"
   ],
   "sources": [
    {
@@ -630,6 +707,16 @@
     "label": "Jharkhand Judiciary — Salient Features of the Chota Nagpur Tenancy Act, 1908 (chapter and section map)",
     "url": "https://jajharkhand.in/wp-content/uploads/2026/09/Salient-Features-of-The-Chotanagpur-Tenancy-act1908.pdf"
    }
+  ],
+  "region": "Chotanagpur (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
   ]
  },
  {
@@ -683,7 +770,10 @@
   "media": [],
   "related": [
    "oral-history",
-   "community-archive"
+   "community-archive",
+   "munda-clan-killi-system",
+   "manki-munda-governance",
+   "munda-marriage-customs"
   ],
   "sources": [
    {
@@ -694,6 +784,3366 @@
     "label": "S. C. Roy — The Mundas and Their Country (1912), full text: the founding of villages and the offices of Munda and Pahan",
     "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
    }
+  ],
+  "region": "Jojohatu, Khunti, Jharkhand",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
   ]
+ },
+ {
+  "id": "who-are-the-munda-people",
+  "title": "Who Are the Munda People?",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "The Munda are an Adivasi people whose communities live in several parts of eastern and central India. Munda communities are especially associated with Jharkhand and Odisha, and are also found in…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "The Munda are an Adivasi people whose communities live in several parts of eastern and central India. Munda communities are especially associated with Jharkhand and Odisha, and are also found in neighbouring states and in places shaped by migration. The word Munda is used in more than one way: it can refer to a community, while Munda languages refers to a branch of the Austroasiatic language family. These related terms should not be confused."
+   },
+   {
+    "type": "p",
+    "text": "The Munda people are not simply a subject of the past. They are living communities with diverse regional histories, languages, institutions, livelihoods, religious practices and contemporary experiences."
+   },
+   {
+    "type": "h2",
+    "text": "1. A people with regional diversity"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities are found across a broad region. In Odisha, government and institutional profiles identify Munda communities in districts including Sundargarh, Sambalpur and Keonjhar. Odisha's State Tribal Museum also lists adjoining districts and separately presents a profile for Mundari speakers in areas including Mayurbhanj."
+   },
+   {
+    "type": "p",
+    "text": "These administrative descriptions are useful starting points, but they should not be treated as a complete map of every Munda settlement. Local identities and names can vary. A name used in one district or historical record may not have exactly the same meaning in another place."
+   },
+   {
+    "type": "h2",
+    "text": "2. Language and identity"
+   },
+   {
+    "type": "p",
+    "text": "Mundari belongs to the Munda branch of the Austroasiatic language family. The Munda branch includes several languages, among them Mundari, Santali, Ho, Korku, Sora, Kharia, Juang, Gutob and Remo. Linguists distinguish the Munda language family from the wider communities who may identify through different local, regional or administrative names."
+   },
+   {
+    "type": "p",
+    "text": "Mundari is not identical to Santali or Ho, even though these languages are related. Each has its own linguistic history, vocabulary, sound system and regional varieties. A digital archive should preserve those distinctions rather than combine all Munda languages into one."
+   },
+   {
+    "type": "h2",
+    "text": "3. Community, village and cultural life"
+   },
+   {
+    "type": "p",
+    "text": "Munda community life has historically been connected with village settlement, agriculture, forests, kinship, customary institutions and collective ritual life. However, practices are not uniform across all regions. A description recorded in a village in Jharkhand cannot automatically be applied to a village in Mayurbhanj or Sundargarh."
+   },
+   {
+    "type": "p",
+    "text": "The Odisha State Tribal Research Institute and State Tribal Museum provide descriptions of Munda community life, language, festivals and religious practices. These are useful institutional references, but their summaries should be supplemented by local research and interviews with community members."
+   },
+   {
+    "type": "h2",
+    "text": "4. Oral traditions and community memory"
+   },
+   {
+    "type": "p",
+    "text": "Oral traditions are important sources for understanding how communities remember their origins, ancestors, sacred places, migrations and relationships with land. Such traditions should be documented with care."
+   },
+   {
+    "type": "p",
+    "text": "When recording a story, an archive should identify, where permission is given:"
+   },
+   {
+    "type": "p",
+    "text": "• the village or region where it was recorded;"
+   },
+   {
+    "type": "p",
+    "text": "• the language and local variety used;"
+   },
+   {
+    "type": "p",
+    "text": "• the narrator's preferred name or attribution;"
+   },
+   {
+    "type": "p",
+    "text": "• the date and method of recording;"
+   },
+   {
+    "type": "p",
+    "text": "• whether the account is a family, village or wider community tradition."
+   },
+   {
+    "type": "p",
+    "text": "An oral account is valuable evidence of community memory. It is not automatically proof of a precise historical date or migration route. The archive should respect the account while explaining what can and cannot be independently verified."
+   },
+   {
+    "type": "h2",
+    "text": "5. Munda identity today"
+   },
+   {
+    "type": "p",
+    "text": "Munda people participate in agriculture, education, public service, industry, business, arts, political life and many other occupations. Contemporary life should be documented alongside historical traditions. A heritage website should not portray Adivasi communities as frozen in the past."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should therefore include both historical materials and present-day community contributions, while avoiding stereotypes and allowing people to describe their own identities."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "The Munda are a diverse and living Adivasi people with deep regional histories and a distinctive linguistic heritage. Understanding Munda identity requires more than one source or one origin narrative. Linguistic research, historical documents, local records and community voices each contribute different kinds of knowledge."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj's responsibility is to bring these materials together carefully, acknowledge differences between regions, and preserve the voices of Munda communities for future generations."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Confirm the precise local use of terms such as Munda, Mundari, Kol, Kolha, Ho and related labels with Odisha-based researchers and community contributors."
+   },
+   {
+    "type": "p",
+    "text": "Do not use one official profile as a definitive description of every Munda community."
+   },
+   {
+    "type": "p",
+    "text": "Add district-level data only when the source, census year and category are clearly identified."
+   }
+  ],
+  "media": [],
+  "related": [
+   "history-and-origins-of-the-munda-community",
+   "munda-language-ancestry-and-identity"
+  ],
+  "sources": [
+   {
+    "label": "Odisha State Scheduled Castes and Scheduled Tribes Research and Training Institute (SCSTRTI), \"Munda.\"",
+    "url": "https://www.scstrti.in/index.php/communities/tribes/91-tribes/195-munda"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Bibliographies in Linguistics (2013; reviewed 2024)",
+    "url": "https://doi.org/10.1093/obo/9780199772810-0121"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Overview of the Munda Languages,\" in The Languages of South Asia / Brill chapter preview",
+    "url": "https://brill.com/previewpdf/book/9789004283572/B9789004283572_006.xml"
+   }
+  ],
+  "status": "published",
+  "tone": "sage",
+  "verified": false,
+  "region": "Eastern and Central India; with an Odisha focus",
+  "reviewStatus": "Research draft — editorial and community review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "H01",
+  "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "history-and-origins-of-the-munda-community",
+  "title": "History and Origins of the Munda Community",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "6 min read",
+  "excerpt": "The history of the Munda people is connected with the long and complex history of eastern and central India. Munda communities have maintained distinctive languages, social institutions and…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "The history of the Munda people is connected with the long and complex history of eastern and central India. Munda communities have maintained distinctive languages, social institutions and cultural traditions while also interacting with neighbouring communities over many centuries."
+   },
+   {
+    "type": "p",
+    "text": "A responsible account of Munda origins must begin with an important point: there is no single, fully settled scholarly explanation that answers every question about when, where and how Munda-speaking ancestors reached the Indian subcontinent. Linguistics, archaeology, population genetics, written records and oral traditions provide different kinds of evidence. Their findings must be compared carefully."
+   },
+   {
+    "type": "h2",
+    "text": "1. What does \"Munda\" mean in historical research?"
+   },
+   {
+    "type": "p",
+    "text": "The term Munda is used in scholarship both for a group of related languages and, in many contexts, for communities associated with those languages. These meanings overlap but are not interchangeable."
+   },
+   {
+    "type": "p",
+    "text": "The Munda languages form the westernmost branch of the Austroasiatic language family. Austroasiatic languages are spoken across parts of South and Southeast Asia. In India, the family includes the Munda languages as well as Khasi and Nicobarese branches, which are not Munda languages."
+   },
+   {
+    "type": "p",
+    "text": "The Munda language family itself contains several distinct languages. Mundari, Santali and Ho are among the best-known northern Munda languages. Sora, Gorum, Remo, Gutob, Juang and Kharia are among the languages commonly discussed in the southern Munda grouping, although details of internal classification remain a matter of linguistic research."
+   },
+   {
+    "type": "h2",
+    "text": "2. The Austroasiatic linguistic connection"
+   },
+   {
+    "type": "p",
+    "text": "Comparative linguistics identifies systematic similarities between Munda languages and other Austroasiatic languages. These similarities include vocabulary and grammatical structures inherited through historical language relationships."
+   },
+   {
+    "type": "p",
+    "text": "This linguistic relationship does not mean that all Austroasiatic-speaking communities share one modern identity, one culture or one recent migration history. It means that their languages are historically related."
+   },
+   {
+    "type": "p",
+    "text": "Gregory D. S. Anderson's overview of Munda languages explains that the prehistory of the Munda languages remains obscure. It notes that the question of how and when ancestral Munda-speaking populations entered the Indian subcontinent is debated. More than one movement may have occurred; a single simple migration story should not be assumed."
+   },
+   {
+    "type": "h2",
+    "text": "3. Migration hypotheses and the limits of current evidence"
+   },
+   {
+    "type": "p",
+    "text": "Researchers have proposed different models to explain the deep history of Austroasiatic and Munda-speaking populations. Some models examine possible movements from regions farther east into the Indian subcontinent. Other work uses genetic evidence to study population mixture and ancestry."
+   },
+   {
+    "type": "p",
+    "text": "A 2019 study in Scientific Reports analysed genome-wide data from 102 Munda speakers and reported evidence of ancestry components related to both South Asian and Southeast Asian populations. The authors estimated admixture dates of approximately 2,000–3,800 years ago for the populations included in their analysis."
+   },
+   {
+    "type": "p",
+    "text": "This finding is important, but it must be interpreted correctly:"
+   },
+   {
+    "type": "p",
+    "text": "• The study examined a limited sample of 102 people, not every Munda community."
+   },
+   {
+    "type": "p",
+    "text": "• Genetic ancestry is not the same thing as cultural identity or language history."
+   },
+   {
+    "type": "p",
+    "text": "• An admixture estimate does not identify one exact village, route or named ancestor."
+   },
+   {
+    "type": "p",
+    "text": "• It does not prove that every Munda community migrated at the same time or in the same way."
+   },
+   {
+    "type": "p",
+    "text": "A 2011 HLA-diversity study also discussed the complex question of Munda origins and population relationships. Its conclusions and methods should be read alongside later genome-wide research rather than treated as the final answer."
+   },
+   {
+    "type": "h2",
+    "text": "4. The historical geography of Munda-speaking communities"
+   },
+   {
+    "type": "p",
+    "text": "Modern Munda-speaking communities are distributed across eastern and central India. Linguistic scholarship identifies Odisha and Jharkhand as especially important regions for the Munda language family. Munda-speaking communities are also found in West Bengal, Chhattisgarh, Madhya Pradesh and other regions, including places shaped by labour migration and resettlement."
+   },
+   {
+    "type": "p",
+    "text": "The distribution of languages today cannot by itself reveal the exact boundaries of ancient territories. Languages spread, shift, become less widely spoken, and are sometimes maintained by communities living far from earlier settlement areas."
+   },
+   {
+    "type": "h2",
+    "text": "5. Odisha in the history of Munda communities"
+   },
+   {
+    "type": "p",
+    "text": "Odisha is central to the study of Munda languages and communities. Government and museum profiles identify Munda communities in districts such as Sundargarh, Sambalpur and Keonjhar. The Odisha State Tribal Museum separately lists Mundari communities in Sundargarh, Mayurbhanj and parts of Keonjhar."
+   },
+   {
+    "type": "p",
+    "text": "These profiles are useful evidence of present-day distribution and institutional classification. They do not, by themselves, establish the exact date or route by which each local community arrived in its present settlement."
+   },
+   {
+    "type": "p",
+    "text": "For Mayurbhanj in particular, research should combine district-level records, village histories, land documents, census materials and oral histories. The archive should record the local names people use for themselves and should not assume that labels in older administrative records always match present-day self-identification."
+   },
+   {
+    "type": "h2",
+    "text": "6. Oral histories and origin traditions"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities preserve oral traditions about ancestors, sacred beings, village foundations, migrations and relationships with the natural world. These traditions are an essential part of cultural history."
+   },
+   {
+    "type": "p",
+    "text": "An origin narrative should be presented as an oral tradition from the community or region where it is recorded. Different villages may tell different versions. A story about a first ancestor or a journey from one place to another should not be converted into a universal historical claim unless independent evidence supports that conclusion."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should preserve original-language recordings where permission is granted, along with careful translations and details about the narrator and place of recording."
+   },
+   {
+    "type": "h2",
+    "text": "7. What can be said with confidence?"
+   },
+   {
+    "type": "p",
+    "text": "The following points are supported by current linguistic and institutional sources:"
+   },
+   {
+    "type": "p",
+    "text": "1. Mundari belongs to the Munda branch of the Austroasiatic language family."
+   },
+   {
+    "type": "p",
+    "text": "2. Munda languages are spoken in eastern and central India, with important concentrations in Odisha and Jharkhand."
+   },
+   {
+    "type": "p",
+    "text": "3. The Munda language family contains several distinct languages; it is not a single uniform language."
+   },
+   {
+    "type": "p",
+    "text": "4. Munda prehistory and the precise routes and dates of population movements remain debated."
+   },
+   {
+    "type": "p",
+    "text": "5. Population-genetic research indicates complex ancestry and interaction, but cannot alone define community identity."
+   },
+   {
+    "type": "p",
+    "text": "6. Odisha has important Munda-speaking communities and is an essential region for further research."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Munda origins should be understood through careful, interdisciplinary research rather than a single simplified migration story. Linguistic evidence establishes the relationship of Mundari to the wider Austroasiatic family. Population-genetic studies provide evidence about ancestry and mixture. Regional records help trace settlement patterns, while oral traditions preserve community memory and identity."
+   },
+   {
+    "type": "p",
+    "text": "All these sources matter, but they answer different questions. A credible Munda history must make those distinctions clear."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Do not state a precise migration date or route as established fact."
+   },
+   {
+    "type": "p",
+    "text": "Do not use genetics to define who is or is not Munda."
+   },
+   {
+    "type": "p",
+    "text": "Have a specialist review the interpretation of the 2019 and 2011 genetic studies before publication."
+   },
+   {
+    "type": "p",
+    "text": "Add community-specific origin traditions only after recording their place, narrator, language and consent."
+   }
+  ],
+  "media": [],
+  "related": [
+   "who-are-the-munda-people",
+   "munda-history-chronological-timeline"
+  ],
+  "sources": [
+   {
+    "label": "Gregory D. S. Anderson, \"Overview of the Munda Languages,\" Brill chapter preview",
+    "url": "https://brill.com/previewpdf/book/9789004283572/B9789004283572_006.xml"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   },
+   {
+    "label": "Mait Metspalu et al., \"The genetic legacy of continental scale admixture in Indian Austroasiatic speakers,\" Scientific Reports 9 (2019), article 3818",
+    "url": "https://doi.org/10.1038/s41598-019-40399-8"
+   },
+   {
+    "label": "Maria Eugenia Riccio et al., \"The Austroasiatic Munda population from India and Its enigmatic origin: a HLA diversity study,\" Human Biology 83(3) (2011), 405–435",
+    "url": "https://doi.org/10.3378/027.083.0306"
+   },
+   {
+    "label": "Odisha State SCST Research and Training Institute, \"Munda.\"",
+    "url": "https://www.scstrti.in/index.php/communities/tribes/91-tribes/195-munda"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": false,
+  "region": "Eastern and Central India",
+  "reviewStatus": "Research draft — specialist review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "H02",
+  "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "munda-language-ancestry-and-historical-identity",
+  "title": "Munda Language, Ancestry and Historical Identity",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "Language is one of the important ways through which the history of Munda communities can be studied. Mundari belongs to the Munda branch of the Austroasiatic language family.",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "Language is one of the important ways through which the history of Munda communities can be studied. Mundari belongs to the Munda branch of the Austroasiatic language family. Its relationship with other Munda languages provides evidence of a long history of contact, change and development."
+   },
+   {
+    "type": "p",
+    "text": "However, language, ancestry and identity are not identical. A person or community's identity cannot be reduced to a language classification or a genetic result. Munda identity is also shaped by community belonging, family histories, regional experience, cultural practice and self-identification."
+   },
+   {
+    "type": "h2",
+    "text": "1. Mundari and the Austroasiatic family"
+   },
+   {
+    "type": "p",
+    "text": "Austroasiatic is a major language family with languages spoken across parts of South and Southeast Asia. The Munda branch is its westernmost branch."
+   },
+   {
+    "type": "p",
+    "text": "Munda languages include Mundari, Santali, Ho, Korku, Kharia, Sora, Juang, Gutob, Remo and other languages. Linguists study their similarities and differences to reconstruct aspects of their historical development."
+   },
+   {
+    "type": "p",
+    "text": "The classification within the Munda family is not completely settled. A broad distinction between North Munda and South Munda is widely used, but some lower-level subgroupings remain debated. A website should therefore avoid presenting every proposed classification as universally accepted."
+   },
+   {
+    "type": "h2",
+    "text": "2. Mundari is a distinct language"
+   },
+   {
+    "type": "p",
+    "text": "Mundari is related to Santali and Ho, but it is not the same language. Similarities may reflect shared ancestry, long-term contact or regional multilingualism. Differences in pronunciation, vocabulary and grammar must be respected."
+   },
+   {
+    "type": "p",
+    "text": "A language archive should record:"
+   },
+   {
+    "type": "p",
+    "text": "• the word or expression in its original form;"
+   },
+   {
+    "type": "p",
+    "text": "• the script used by the contributor;"
+   },
+   {
+    "type": "p",
+    "text": "• the pronunciation, preferably as audio;"
+   },
+   {
+    "type": "p",
+    "text": "• the meaning in context;"
+   },
+   {
+    "type": "p",
+    "text": "• the region or village;"
+   },
+   {
+    "type": "p",
+    "text": "• the speaker's language variety;"
+   },
+   {
+    "type": "p",
+    "text": "• alternative forms, if reported;"
+   },
+   {
+    "type": "p",
+    "text": "• the name or preferred attribution of the contributor."
+   },
+   {
+    "type": "p",
+    "text": "This method helps preserve local language variation rather than forcing all speakers into one standard."
+   },
+   {
+    "type": "h2",
+    "text": "3. Language change and multilingual life"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities have lived alongside speakers of Indo-Aryan and Dravidian languages for generations. Multilingualism, borrowing and language shift are common features of long-term contact."
+   },
+   {
+    "type": "p",
+    "text": "In Odisha, community members may use Mundari alongside Odia, Sadri, Hindi or other regional languages, depending on their location and personal history. This does not make Mundari less important. It shows that language use develops within changing social and economic environments."
+   },
+   {
+    "type": "p",
+    "text": "The archive should document how people actually speak in different settings: at home, in the village, in markets, in schools, in ceremonies and online."
+   },
+   {
+    "type": "h2",
+    "text": "4. What genetics can and cannot tell us"
+   },
+   {
+    "type": "p",
+    "text": "Population-genetic research has examined ancestry among Munda-speaking populations. A 2019 genome-wide study reported evidence of ancestry components associated with both South Asian and Southeast Asian populations among the sampled Munda speakers."
+   },
+   {
+    "type": "p",
+    "text": "Such studies can contribute to research on population history, but they cannot determine an individual's cultural identity, community membership or language. Genetic studies also depend on sample selection, statistical models and comparison populations. Their conclusions should be described with these limits."
+   },
+   {
+    "type": "p",
+    "text": "A heritage website should not use DNA claims to rank communities, establish cultural authenticity or decide who belongs to the Munda people."
+   },
+   {
+    "type": "h2",
+    "text": "5. Language and historical identity"
+   },
+   {
+    "type": "p",
+    "text": "Language provides evidence of historical relationships, but identity is wider than language. People may retain community identity while using several languages. Others may be working to relearn or strengthen a heritage language."
+   },
+   {
+    "type": "p",
+    "text": "The archive should make space for:"
+   },
+   {
+    "type": "p",
+    "text": "• fluent Mundari speakers;"
+   },
+   {
+    "type": "p",
+    "text": "• people who understand Mundari but speak it less often;"
+   },
+   {
+    "type": "p",
+    "text": "• learners and younger speakers;"
+   },
+   {
+    "type": "p",
+    "text": "• families with multilingual histories;"
+   },
+   {
+    "type": "p",
+    "text": "• community members who preserve songs, stories and traditional vocabulary."
+   },
+   {
+    "type": "p",
+    "text": "The purpose is preservation and respectful documentation, not judging people's identity by their fluency."
+   },
+   {
+    "type": "h2",
+    "text": "6. Building a responsible Mundari language archive"
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should build its language collection with community participation. Each entry should have a clear region or dialect label where known. The archive should not silently standardise spelling or remove alternative forms."
+   },
+   {
+    "type": "p",
+    "text": "Suggested entry format:"
+   },
+   {
+    "type": "p",
+    "text": "• Mundari word:"
+   },
+   {
+    "type": "p",
+    "text": "• Script:"
+   },
+   {
+    "type": "p",
+    "text": "• Pronunciation/audio:"
+   },
+   {
+    "type": "p",
+    "text": "• Meaning in English:"
+   },
+   {
+    "type": "p",
+    "text": "• Meaning in Odia:"
+   },
+   {
+    "type": "p",
+    "text": "• Meaning in Hindi:"
+   },
+   {
+    "type": "p",
+    "text": "• Example sentence:"
+   },
+   {
+    "type": "p",
+    "text": "• Region or village:"
+   },
+   {
+    "type": "p",
+    "text": "• Language variety:"
+   },
+   {
+    "type": "p",
+    "text": "• Contributor:"
+   },
+   {
+    "type": "p",
+    "text": "• Reviewer:"
+   },
+   {
+    "type": "p",
+    "text": "• Verification status:"
+   },
+   {
+    "type": "p",
+    "text": "The website should distinguish between a community-contributed entry, an editor-checked entry and a linguistically reviewed entry."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Mundari is both a language with a place in the Austroasiatic family and a living means of community expression. Its history can be studied through comparative linguistics, regional documentation and community knowledge. These sources should be used together without confusing linguistic ancestry, genetic ancestry and cultural identity."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Ask a Mundari linguist or experienced language worker to review terminology and classification."
+   },
+   {
+    "type": "p",
+    "text": "Do not claim that every Munda person speaks Mundari."
+   },
+   {
+    "type": "p",
+    "text": "Do not infer an individual's identity from language or genetic information."
+   }
+  ],
+  "media": [],
+  "related": [
+   "mundari-language",
+   "history-and-origins-of-the-munda-community"
+  ],
+  "sources": [
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Bibliographies in Linguistics (2013; reviewed 2024)",
+    "url": "https://doi.org/10.1093/obo/9780199772810-0121"
+   },
+   {
+    "label": "Mait Metspalu et al., \"The genetic legacy of continental scale admixture in Indian Austroasiatic speakers,\" Scientific Reports 9 (2019), article 3818",
+    "url": "https://doi.org/10.1038/s41598-019-40399-8"
+   },
+   {
+    "label": "\"Munda mimetic reduplication,\" Canadian Journal of Linguistics (2017), background discussion of Munda language classification",
+    "url": "https://www.cambridge.org/core/journals/canadian-journal-of-linguistics-revue-canadienne-de-linguistique/article/munda-mimetic-reduplication/09A49302757AE0AAAF933456AD3C9C58"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   }
+  ],
+  "status": "published",
+  "tone": "clay",
+  "verified": false,
+  "region": "Eastern and Central India",
+  "reviewStatus": "Research draft — linguist and community review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "H03",
+  "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "munda-settlements-and-historical-geography",
+  "title": "Munda Settlements and Historical Geography",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "5 min read",
+  "excerpt": "The Munda people live across a broad region of eastern and central India. Their present-day settlement geography reflects long histories of village formation, movement, interaction with…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "The Munda people live across a broad region of eastern and central India. Their present-day settlement geography reflects long histories of village formation, movement, interaction with neighbouring communities, changes in land use, labour migration and modern administrative boundaries."
+   },
+   {
+    "type": "p",
+    "text": "A map of present-day Munda settlements is not the same as a map of ancient Munda territory. Historical geography must distinguish between current population distribution, older settlement accounts and hypotheses about much earlier population movements."
+   },
+   {
+    "type": "h2",
+    "text": "1. The wider regional setting"
+   },
+   {
+    "type": "p",
+    "text": "Munda-speaking communities are especially associated with Odisha and Jharkhand. They are also found in West Bengal, Chhattisgarh, Madhya Pradesh and other regions. Migration for work, education, industry and other reasons has contributed to settlement beyond older concentration areas."
+   },
+   {
+    "type": "p",
+    "text": "Linguistic scholarship notes that Munda languages are distributed across parts of central and eastern India. It also cautions that the prehistory and earlier geographical extent of Munda-speaking populations remain uncertain."
+   },
+   {
+    "type": "h2",
+    "text": "2. Munda communities in Odisha"
+   },
+   {
+    "type": "p",
+    "text": "Odisha is an important region for Munda history and language documentation."
+   },
+   {
+    "type": "p",
+    "text": "The Odisha State SCST Research and Training Institute identifies Sundargarh, Sambalpur and Keonjhar among the major locations of Munda communities. The Odisha State Tribal Museum's Munda profile lists Sundargarh, Sambalpur, Keonjhar and adjoining districts. Its separate Mundari profile lists Sundargarh, Mayurbhanj and parts of Keonjhar."
+   },
+   {
+    "type": "p",
+    "text": "These sources use different administrative and community categories. Their population figures and labels should not be combined without checking what each one counts."
+   },
+   {
+    "type": "h2",
+    "text": "3. Mayurbhanj and the need for local research"
+   },
+   {
+    "type": "p",
+    "text": "Mayurbhanj deserves a dedicated place in the Mundari Samaj archive. Institutional sources identify Mundari communities in Mayurbhanj, while Odisha's wider tribal geography shows the district as an important area of Adivasi settlement."
+   },
+   {
+    "type": "p",
+    "text": "A careful Mayurbhanj research project should document:"
+   },
+   {
+    "type": "p",
+    "text": "• village names and local spellings;"
+   },
+   {
+    "type": "p",
+    "text": "• community self-identification;"
+   },
+   {
+    "type": "p",
+    "text": "• languages spoken by different generations;"
+   },
+   {
+    "type": "p",
+    "text": "• local origin and settlement traditions;"
+   },
+   {
+    "type": "p",
+    "text": "• old land and revenue records, where accessible;"
+   },
+   {
+    "type": "p",
+    "text": "• schools, community institutions and cultural organisations;"
+   },
+   {
+    "type": "p",
+    "text": "• migration histories and links with neighbouring districts;"
+   },
+   {
+    "type": "p",
+    "text": "• local festivals, songs and place-based traditions."
+   },
+   {
+    "type": "p",
+    "text": "No single general profile can replace village-level research. The archive should not claim that all Munda families in Mayurbhanj share one migration route or one settlement date."
+   },
+   {
+    "type": "h2",
+    "text": "4. Districts and settlement evidence"
+   },
+   {
+    "type": "p",
+    "text": "Government and institutional profiles identify Munda or Mundari communities in several Odisha districts. The Odisha State Tribal Museum lists Munda in Sundargarh, Sambalpur, Keonjhar and adjoining districts. Its Mundari profile lists Sundargarh, Mayurbhanj and parts of Keonjhar."
+   },
+   {
+    "type": "p",
+    "text": "A research map should use separate layers:"
+   },
+   {
+    "type": "p",
+    "text": "1. Institutionally documented distribution: locations named by government or museum sources."
+   },
+   {
+    "type": "p",
+    "text": "2. Census or administrative data: figures with year and exact category."
+   },
+   {
+    "type": "p",
+    "text": "3. Village-level documentation: locations verified through records or community research."
+   },
+   {
+    "type": "p",
+    "text": "4. Oral-history locations: places named in recorded narratives, labelled as oral accounts."
+   },
+   {
+    "type": "p",
+    "text": "5. Migration destinations: places where families or groups have settled through more recent movement."
+   },
+   {
+    "type": "p",
+    "text": "This approach avoids presenting all location data as equally certain."
+   },
+   {
+    "type": "h2",
+    "text": "5. Historical movement and migration"
+   },
+   {
+    "type": "p",
+    "text": "Migration may occur for many reasons: access to cultivable land, family networks, forest resources, employment, displacement, education or changes in local economies. Historical accounts sometimes describe movement between Chotanagpur, Singhbhum, Odisha and neighbouring areas."
+   },
+   {
+    "type": "p",
+    "text": "Such accounts must be examined individually. A migration narrative recorded in one village cannot be used to explain the origins of every Munda settlement in Odisha."
+   },
+   {
+    "type": "p",
+    "text": "The archive should record who told the story, where the narrator's family lived, which places were named and whether documentary evidence supports the account."
+   },
+   {
+    "type": "h2",
+    "text": "6. How to build the Munda Heritage Map"
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj can eventually create a community heritage map. Each location record should include:"
+   },
+   {
+    "type": "p",
+    "text": "• village or place name;"
+   },
+   {
+    "type": "p",
+    "text": "• district and block;"
+   },
+   {
+    "type": "p",
+    "text": "• map coordinates only with informed permission and careful consideration of privacy;"
+   },
+   {
+    "type": "p",
+    "text": "• community name used locally;"
+   },
+   {
+    "type": "p",
+    "text": "• language or variety reported;"
+   },
+   {
+    "type": "p",
+    "text": "• source of information;"
+   },
+   {
+    "type": "p",
+    "text": "• date of verification;"
+   },
+   {
+    "type": "p",
+    "text": "• whether the information comes from an official record, field visit or oral history;"
+   },
+   {
+    "type": "p",
+    "text": "• restrictions on public display, if any."
+   },
+   {
+    "type": "p",
+    "text": "Do not publish precise locations of sacred, private or sensitive places without community approval."
+   },
+   {
+    "type": "h2",
+    "text": "7. A note on population figures"
+   },
+   {
+    "type": "p",
+    "text": "Population figures must always include the census year, geographical unit and category. A figure for the Scheduled Tribe entry \"Munda\" may not be directly comparable with a figure for people recorded under \"Mundari\" or another language label."
+   },
+   {
+    "type": "p",
+    "text": "The Odisha State Tribal Museum cites Census 2011 data for its population profiles. The SCSTRTI website displays a separate Munda population figure. Before publication, editors should verify the original Census table, category definitions and any later revisions. Do not copy a number without its context."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Munda settlement history in Odisha is an important field for research. Existing institutional sources provide a starting map, but village histories, local documents and community interviews are necessary to build a fuller account."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should present the geography of Munda communities as a living and changing history, not as a fixed map based on one origin story."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Create a verified village list only after checking source records and community consent."
+   },
+   {
+    "type": "p",
+    "text": "Do not publish precise household locations."
+   },
+   {
+    "type": "p",
+    "text": "Never combine Munda and Mundari counts without explaining the categories."
+   },
+   {
+    "type": "p",
+    "text": "Include a source date and confidence label for each map layer."
+   }
+  ],
+  "media": [],
+  "related": [
+   "who-are-the-munda-people",
+   "munda-village-life"
+  ],
+  "sources": [
+   {
+    "label": "Odisha State SCST Research and Training Institute, \"Munda.\"",
+    "url": "https://www.scstrti.in/index.php/communities/tribes/91-tribes/195-munda"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   },
+   {
+    "label": "Government of Odisha, ST & SC Development Department, \"Tribal Concentrated Block List.\"",
+    "url": "https://stsc.odisha.gov.in/en/about-us/tribal-concentrated-block-list"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Overview of the Munda Languages,\" Brill chapter preview",
+    "url": "https://brill.com/previewpdf/book/9789004283572/B9789004283572_006.xml"
+   },
+   {
+    "label": "Demographic Profile of Scheduled Tribes in Odisha, SCST Research and Training Institute / Government of Odisha",
+    "url": "https://www.repository.tribal.gov.in/bitstream/123456789/73776/1/SCST_2018_book_0016.pdf"
+   }
+  ],
+  "status": "published",
+  "tone": "gold",
+  "verified": false,
+  "region": "Odisha, Jharkhand and neighbouring regions",
+  "reviewStatus": "Research draft — district-level verification required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "H04",
+  "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "munda-history-chronological-timeline",
+  "title": "Munda History: A Chronological Timeline",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "5 min read",
+  "excerpt": "A historical timeline can help readers understand major periods in the history of Munda communities. However, the earliest history of Munda-speaking populations is not documented in the same way…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "A historical timeline can help readers understand major periods in the history of Munda communities. However, the earliest history of Munda-speaking populations is not documented in the same way as later colonial events. Linguistic and genetic research can suggest broad patterns, but they do not provide a complete list of dated historical events."
+   },
+   {
+    "type": "p",
+    "text": "This timeline therefore separates broad prehistory from periods supported by written records. It focuses on events and processes that can be discussed responsibly with available sources."
+   },
+   {
+    "type": "h2",
+    "text": "Before written colonial records: deep linguistic prehistory"
+   },
+   {
+    "type": "p",
+    "text": "Date: uncertain; spans many centuries and millennia"
+   },
+   {
+    "type": "p",
+    "text": "Mundari belongs to the Munda branch of the Austroasiatic language family. Comparative linguistics establishes relationships between Munda languages and other Austroasiatic languages. The timing, route and number of movements through which ancestral Munda-speaking populations became established in the Indian subcontinent remain debated."
+   },
+   {
+    "type": "p",
+    "text": "Population-genetic research has identified complex ancestry among sampled Munda-speaking groups. These studies provide evidence relevant to population history, but they do not establish a single exact migration date or route for all Munda communities."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: comparative linguistics, population genetics and archaeological interpretation."
+   },
+   {
+    "type": "p",
+    "text": "Caution: do not convert hypotheses into a fixed historical date."
+   },
+   {
+    "type": "h2",
+    "text": "Historical settlement and regional development"
+   },
+   {
+    "type": "p",
+    "text": "Date: not precisely established"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities developed long-standing relationships with villages, land, forests, agriculture, kinship networks and neighbouring populations in eastern and central India. The chronology differs by region and cannot be reduced to one settlement event."
+   },
+   {
+    "type": "p",
+    "text": "Local histories should be documented village by village through land records, family accounts, place names and oral traditions."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: local records, ethnography, oral history and historical geography."
+   },
+   {
+    "type": "p",
+    "text": "Caution: a general community profile cannot date the foundation of a particular village."
+   },
+   {
+    "type": "h2",
+    "text": "Eighteenth and nineteenth centuries: expanding colonial administration"
+   },
+   {
+    "type": "p",
+    "text": "Period: eighteenth–nineteenth centuries"
+   },
+   {
+    "type": "p",
+    "text": "The expansion of colonial authority, revenue systems, commercial interests and outside settlement affected many communities in the Chotanagpur region. Land alienation, indebtedness, changes in customary authority and pressure on livelihoods became major issues in the region's history."
+   },
+   {
+    "type": "p",
+    "text": "These developments should be studied through specific local and regional records. Different communities experienced them in different ways."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: colonial records, regional histories and modern historical scholarship."
+   },
+   {
+    "type": "h2",
+    "text": "1831–1832: Kol Rebellion"
+   },
+   {
+    "type": "p",
+    "text": "The Kol Rebellion took place in the Chotanagpur region in 1831–32. It involved several Adivasi communities, including Munda and Oraon communities, and is discussed in scholarship as a major challenge to colonial authority and exploitative changes in the region."
+   },
+   {
+    "type": "p",
+    "text": "It should not be described as a Munda-only rebellion."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: historical research and colonial-era documentation."
+   },
+   {
+    "type": "p",
+    "text": "Further reading: the Kol Rebellion (1831–1832) article on this website gives the full sourced account of the rising."
+   },
+   {
+    "type": "h2",
+    "text": "1899–1900: Ulgulan led by Birsa Munda"
+   },
+   {
+    "type": "p",
+    "text": "Birsa Munda led the Ulgulan movement in the Chotanagpur region during 1899–1900. The movement arose in a context of colonial rule, land pressures, exploitation and social-religious reform. It became one of the most important events in the modern history and public memory of Munda communities."
+   },
+   {
+    "type": "p",
+    "text": "The movement's causes and meaning should be explained through historical scholarship rather than reduced to a single slogan."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: colonial records, historical scholarship and community memory."
+   },
+   {
+    "type": "h2",
+    "text": "1908: Chota Nagpur Tenancy Act"
+   },
+   {
+    "type": "p",
+    "text": "The Chota Nagpur Tenancy Act, 1908, became an important legal development in the history of land relations in the Chotanagpur region. Its provisions must be studied in their legal and historical context. It should not be described as a law applying uniformly to all Munda communities across India or Odisha."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: statutory text and legal-historical research."
+   },
+   {
+    "type": "h2",
+    "text": "Twentieth century: changing livelihoods, education and migration"
+   },
+   {
+    "type": "p",
+    "text": "During the twentieth century, Munda communities experienced changes connected with agriculture, industrial employment, education, urbanisation, migration, political organisation and language contact. These changes varied by district and family."
+   },
+   {
+    "type": "p",
+    "text": "The archive should add district-specific histories using census records, oral histories, school records, employment histories and community publications."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: census data, district gazetteers, government reports and oral history."
+   },
+   {
+    "type": "h2",
+    "text": "2011: Census reference point"
+   },
+   {
+    "type": "p",
+    "text": "Census 2011 is used by Odisha institutional profiles to present population information for Munda and related categories. Editors must verify the original census category and geographical unit before quoting a figure."
+   },
+   {
+    "type": "p",
+    "text": "Evidence type: Census of India 2011 and Odisha institutional profiles."
+   },
+   {
+    "type": "h2",
+    "text": "Twenty-first century: language preservation and digital heritage"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities continue to shape their futures through education, public life, cultural activity, language work and digital communication. Community-led archives, dictionaries, oral-history collections and digital publications can help preserve language and local memory."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj is part of this contemporary preservation effort. Its role is to make reliable information accessible while ensuring that community contributors retain control over how their knowledge is represented."
+   },
+   {
+    "type": "h2",
+    "text": "Timeline summary"
+   },
+   {
+    "type": "p",
+    "text": "Deep prehistory — Development and movement of ancestral Munda-speaking populations — Research debate; no single agreed route/date"
+   },
+   {
+    "type": "p",
+    "text": "Historical periods — Formation and change of regional settlements — Requires local records and oral histories"
+   },
+   {
+    "type": "p",
+    "text": "18th–19th centuries — Expansion of colonial administration and land pressures — Documented regionally; local effects varied"
+   },
+   {
+    "type": "p",
+    "text": "1831–1832 — Kol Rebellion — Historically documented; multi-community movement"
+   },
+   {
+    "type": "p",
+    "text": "1899–1900 — Ulgulan led by Birsa Munda — Historically documented"
+   },
+   {
+    "type": "p",
+    "text": "1908 — Chota Nagpur Tenancy Act — Primary legal text available"
+   },
+   {
+    "type": "p",
+    "text": "20th century — Livelihood change, education, migration and language contact — Requires district-specific research"
+   },
+   {
+    "type": "p",
+    "text": "2011 — Census reference point used by Odisha profiles — Verify category and table before quoting"
+   },
+   {
+    "type": "p",
+    "text": "21st century — Community-led language and heritage preservation — Contemporary documentation"
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Munda history is not a sequence of only rebellions or famous personalities. It includes language history, village formation, relationships with land and forests, regional movement, social change and contemporary community life."
+   },
+   {
+    "type": "p",
+    "text": "This timeline is provisional. It should grow as Mundari Samaj collects reliable local histories, original documents and community memories."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "This is a selective timeline, not a complete chronology of Munda history."
+   },
+   {
+    "type": "p",
+    "text": "Add earlier and later events only when supported by reliable sources."
+   },
+   {
+    "type": "p",
+    "text": "Do not invent ancient dates or claim that a modern administrative boundary existed in the past."
+   },
+   {
+    "type": "p",
+    "text": "Have a historian review all dates and legal descriptions before publication."
+   }
+  ],
+  "media": [],
+  "related": [
+   "kol-rebellion-1831-32",
+   "birsa-munda",
+   "history-and-origins-of-the-munda-community"
+  ],
+  "sources": [
+   {
+    "label": "Gregory D. S. Anderson, \"Overview of the Munda Languages,\" Brill chapter preview",
+    "url": "https://brill.com/previewpdf/book/9789004283572/B9789004283572_006.xml"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   },
+   {
+    "label": "Rahul Ranjan, The Political Life of Memory: Birsa Munda in Contemporary India (Cambridge University Press, 2023)",
+    "url": "https://doi.org/10.1017/9781009337922"
+   },
+   {
+    "label": "Ratna Paul, \"Understanding the Real and the Imagined: Birsa Munda 1870–1902,\" Karatoya: North Bengal University Journal of History 15 (2022), 44–55",
+    "url": "https://ir.nbu.ac.in/handle/123456789/5105"
+   },
+   {
+    "label": "Chota Nagpur Tenancy Act, 1908. India Code",
+    "url": "https://www.indiacode.nic.in/bitstream/123456789/12219/1/6-1908_revenue.pdf"
+   },
+   {
+    "label": "Odisha State SCST Research and Training Institute, \"Munda.\"",
+    "url": "https://www.scstrti.in/index.php/communities/tribes/91-tribes/195-munda"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": false,
+  "region": "Eastern and Central India",
+  "reviewStatus": "Provisional timeline — historical review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "H05",
+  "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "munda-communities-in-odisha",
+  "title": "Munda Communities in Odisha: Regions, Records and Living Heritage",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "Odisha is an important region for the study of Munda communities and Munda languages. Munda communities live in several districts, maintain varied local histories and participate in the state's…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "Odisha is an important region for the study of Munda communities and Munda languages. Munda communities live in several districts, maintain varied local histories and participate in the state's social, cultural and economic life. The history of these communities cannot be understood through one district or one description alone."
+   },
+   {
+    "type": "p",
+    "text": "This article introduces the available institutional evidence and explains how a more detailed Odisha Munda history can be documented responsibly."
+   },
+   {
+    "type": "h2",
+    "text": "1. Odisha's diverse Munda-speaking landscape"
+   },
+   {
+    "type": "p",
+    "text": "The Munda branch belongs to the Austroasiatic language family. In Odisha, several Scheduled Tribe communities speak languages classified within the Munda branch. These include communities associated with Mundari, Ho, Santali, Kharia, Sora, Juang and other languages."
+   },
+   {
+    "type": "p",
+    "text": "The Odisha SCST Research and Training Institute's publication Impact of Pandemics on Tribal Culture of Odisha describes the state's Scheduled Tribes through broad ethno-linguistic groupings. It identifies a number of communities as Munda-language speakers. This is a linguistic classification, not a statement that all those communities share one ethnic identity or one language."
+   },
+   {
+    "type": "p",
+    "text": "Mundari, Ho and Santali are related languages, but they are distinct. Their speakers' histories and local identities should be documented separately."
+   },
+   {
+    "type": "h2",
+    "text": "2. Where official profiles identify Munda communities"
+   },
+   {
+    "type": "p",
+    "text": "The Odisha State Tribal Museum's Munda profile lists Sundargarh, Sambalpur, Keonjhar and adjoining districts as the region of the Munda community. Its separate Mundari profile identifies Mundari-speaking communities in Sundargarh, Mayurbhanj and parts of Keonjhar."
+   },
+   {
+    "type": "p",
+    "text": "The SCSTRTI's Demographic Profile of Scheduled Tribes in Odisha also lists Munda and Mundari among communities found in a number of tribal sub-plan blocks in Sundargarh district. Its table records the source basis as an SCSTRTI Universal Bench Mark Survey from 1978–79 and Census of India 1971 police-station-wise distribution. This is historical administrative evidence, not a current village register."
+   },
+   {
+    "type": "p",
+    "text": "These sources provide a starting point. They should not be treated as an exhaustive or current map of all Munda households."
+   },
+   {
+    "type": "h2",
+    "text": "3. Regional differences matter"
+   },
+   {
+    "type": "p",
+    "text": "Munda families in Sundargarh, Keonjhar, Sambalpur and Mayurbhanj may have different settlement histories, language practices, livelihood experiences and relationships with neighbouring communities."
+   },
+   {
+    "type": "p",
+    "text": "A custom recorded in one location should not automatically be described as a custom of every Munda community in Odisha. The same principle applies to clan names, marriage practices, village leadership, religious traditions and festival terminology."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should create district-specific records and identify the location to which each account applies."
+   },
+   {
+    "type": "h2",
+    "text": "4. Work, education and changing livelihoods"
+   },
+   {
+    "type": "p",
+    "text": "Institutional descriptions of the Munda community in Odisha refer to settled cultivation and industrial labour. These descriptions provide a broad picture, but contemporary livelihoods are diverse and change over time."
+   },
+   {
+    "type": "p",
+    "text": "Research should document agriculture, wage labour, industrial employment, education, migration, public service, business, arts and other occupations without portraying the community through a single economic stereotype."
+   },
+   {
+    "type": "h2",
+    "text": "5. What the records do not yet tell us"
+   },
+   {
+    "type": "p",
+    "text": "A district list does not explain when a village was founded, how a family arrived, what local name residents use for themselves or how language use has changed across generations."
+   },
+   {
+    "type": "p",
+    "text": "To answer these questions, the archive needs:"
+   },
+   {
+    "type": "p",
+    "text": "• village-level oral histories;"
+   },
+   {
+    "type": "p",
+    "text": "• old land, revenue and settlement documents where accessible;"
+   },
+   {
+    "type": "p",
+    "text": "• district gazetteers and census records;"
+   },
+   {
+    "type": "p",
+    "text": "• local school and community publications;"
+   },
+   {
+    "type": "p",
+    "text": "• interviews with elders and language speakers;"
+   },
+   {
+    "type": "p",
+    "text": "• records of migration and family connections, with consent."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Munda communities are part of Odisha's diverse Adivasi history. Institutional profiles identify important regions, but a fuller account must be built through district-level and village-level research. Mundari Samaj can contribute by preserving local voices, accurate language records and carefully sourced histories."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Check the current official district and block names before adding map filters."
+   },
+   {
+    "type": "p",
+    "text": "Do not merge Munda and Mundari population totals."
+   },
+   {
+    "type": "p",
+    "text": "Obtain local review from Munda community members in each district represented."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-settlements-and-historical-geography",
+   "who-are-the-munda-people"
+  ],
+  "sources": [
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   },
+   {
+    "label": "SCST Research and Training Institute, Impact of Pandemics on Tribal Culture of Odisha (2020)",
+    "url": "https://www.scstrti.in/images/phocagallery/adivasi/lx_2020_1.pdf"
+   },
+   {
+    "label": "SCSTRTI, Demographic Profile of Scheduled Tribes in Odisha",
+    "url": "https://www.repository.tribal.gov.in/bitstream/123456789/73776/1/SCST_2018_book_0016.pdf"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   }
+  ],
+  "status": "published",
+  "tone": "sage",
+  "verified": false,
+  "region": "Odisha",
+  "reviewStatus": "Research draft — Odisha community review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "OD01",
+  "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "munda-and-mundari-in-mayurbhanj",
+  "title": "Munda and Mundari in Mayurbhanj: What the Records Show",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "Mayurbhanj is an important district for documenting Odisha's Adivasi languages and communities. The district has a diverse population and a long history of multilingual contact.",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "Mayurbhanj is an important district for documenting Odisha's Adivasi languages and communities. The district has a diverse population and a long history of multilingual contact. Official sources identify Mundari-speaking communities in Mayurbhanj, but different records use different categories. A careful account must explain those categories rather than treating them as identical."
+   },
+   {
+    "type": "h2",
+    "text": "1. Institutional references to Mayurbhanj"
+   },
+   {
+    "type": "p",
+    "text": "The Odisha State Tribal Museum maintains separate profiles titled \"Munda\" and \"Mundari.\" Its Munda profile lists Sundargarh, Sambalpur, Keonjhar and adjoining districts. Its Mundari profile includes Sundargarh, Mayurbhanj and parts of Keonjhar."
+   },
+   {
+    "type": "p",
+    "text": "The Census of India catalogue for the 2011 Odisha ST-14 table lists \"Munda\" and \"Mundari\" as separate tribe labels in its catalogue of categories. This is a reminder that official data tables may distinguish administrative community entries and language-related labels."
+   },
+   {
+    "type": "p",
+    "text": "These sources establish that Mayurbhanj belongs in the research agenda. They do not, on their own, provide a complete account of every Munda family's settlement history in the district."
+   },
+   {
+    "type": "h2",
+    "text": "2. Mayurbhanj as a multilingual region"
+   },
+   {
+    "type": "p",
+    "text": "Mayurbhanj is home to communities speaking languages from more than one language family. Mundari, Ho and Bhumij are among the Munda-branch languages associated with the district and neighbouring areas. Odia and other languages are also used in everyday life."
+   },
+   {
+    "type": "p",
+    "text": "A study published in 2019 by Lokesh Prasad Dash describes an educational intervention in Mayurbhanj that used bilingual reading materials and community participation. The article reports that Mundari and Ho were at risk of reduced use in the context of extensive use of the state language in the area studied. This is a useful account of language and education work, but it should not be treated as a complete survey of all Mayurbhanj villages."
+   },
+   {
+    "type": "h2",
+    "text": "3. Why village-level documentation is necessary"
+   },
+   {
+    "type": "p",
+    "text": "The district name alone is not enough to identify a family's history. A responsible archive should ask, with consent:"
+   },
+   {
+    "type": "p",
+    "text": "• Which village or locality does the family identify with?"
+   },
+   {
+    "type": "p",
+    "text": "• What name does the community use for itself?"
+   },
+   {
+    "type": "p",
+    "text": "• Which languages are spoken by older and younger generations?"
+   },
+   {
+    "type": "p",
+    "text": "• Are there family stories about earlier settlements or movement?"
+   },
+   {
+    "type": "p",
+    "text": "• Which local words, songs and place names should be preserved?"
+   },
+   {
+    "type": "p",
+    "text": "• Are there documents, photographs or recordings that the family wishes to contribute?"
+   },
+   {
+    "type": "p",
+    "text": "Answers should be attributed only in the way contributors permit. A person may choose to be named, use a pseudonym or remain anonymous."
+   },
+   {
+    "type": "h2",
+    "text": "4. Avoiding unsupported migration claims"
+   },
+   {
+    "type": "p",
+    "text": "Some official and older ethnographic accounts contain migration narratives. Such accounts are evidence that a particular source recorded a tradition or interpretation. They do not automatically establish a universal migration route for all Munda families in Mayurbhanj."
+   },
+   {
+    "type": "p",
+    "text": "To assess a migration account, researchers should compare:"
+   },
+   {
+    "type": "p",
+    "text": "• the narrator's family or village history;"
+   },
+   {
+    "type": "p",
+    "text": "• land and revenue records, if available;"
+   },
+   {
+    "type": "p",
+    "text": "• district gazetteers and historical maps;"
+   },
+   {
+    "type": "p",
+    "text": "• census and settlement documents;"
+   },
+   {
+    "type": "p",
+    "text": "• records from the place said to be the earlier home;"
+   },
+   {
+    "type": "p",
+    "text": "• other independent oral histories."
+   },
+   {
+    "type": "p",
+    "text": "If the evidence is incomplete, the article should say so."
+   },
+   {
+    "type": "h2",
+    "text": "5. A Mayurbhanj research programme"
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should begin with a small number of willing villages and develop a transparent documentation method. The first stage should not attempt to map every household. It should record village-level histories, local language forms and community-approved cultural information."
+   },
+   {
+    "type": "p",
+    "text": "Suggested research record:"
+   },
+   {
+    "type": "p",
+    "text": "• village name and spelling;"
+   },
+   {
+    "type": "p",
+    "text": "• block and district;"
+   },
+   {
+    "type": "p",
+    "text": "• date of interview;"
+   },
+   {
+    "type": "p",
+    "text": "• interview language;"
+   },
+   {
+    "type": "p",
+    "text": "• narrator's preferred attribution;"
+   },
+   {
+    "type": "p",
+    "text": "• interviewer;"
+   },
+   {
+    "type": "p",
+    "text": "• consent and permitted uses;"
+   },
+   {
+    "type": "p",
+    "text": "• summary of the account;"
+   },
+   {
+    "type": "p",
+    "text": "• supporting documents, if any;"
+   },
+   {
+    "type": "p",
+    "text": "• review status."
+   },
+   {
+    "type": "p",
+    "text": "Precise household coordinates and sensitive cultural locations should not be published without informed permission."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Mayurbhanj deserves a dedicated place in the history and language archive of Mundari Samaj. Official profiles and educational research provide a starting point, but the detailed history must be built with local speakers, families, village records and community reviewers. The archive should preserve what people say while clearly distinguishing oral memory from independently verified historical evidence."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Do not publish a Mayurbhanj Munda population total unless the exact census table, category and year are checked."
+   },
+   {
+    "type": "p",
+    "text": "Do not assume every Mundari speaker identifies under the same administrative category."
+   },
+   {
+    "type": "p",
+    "text": "Seek local review before describing village customs or origin traditions."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-communities-in-odisha",
+   "rohidas-singh-nag"
+  ],
+  "sources": [
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Census of India, ST-14: Scheduled Tribe Population by Religious Community (district level), Odisha, 2011 — catalogue",
+    "url": "https://censusindia.gov.in/nada/index.php/catalog/12247/study-description"
+   },
+   {
+    "label": "Lokesh Prasad Dash, \"An Endeavour to Improve the Reading Skill of Tribal Children through Revival and Usage of Indigenous Adivasi Languages: My Experience in Mayurbhanj District, Odisha,\" Learning Community 10(1) (2019), 11–16",
+    "url": "https://indianjournals.com/article/lco-10-1-002"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": false,
+  "region": "Mayurbhanj, Odisha",
+  "reviewStatus": "Research draft — local verification required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "OD02",
+  "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "language-identity-and-multilingual-life-in-mayurbhanj",
+  "title": "Language, Identity and Multilingual Life in Mayurbhanj",
+  "category": "Language",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "Language is an important part of community identity, memory and everyday life. In Mayurbhanj, several Adivasi languages exist alongside Odia and other regional languages.",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "Language is an important part of community identity, memory and everyday life. In Mayurbhanj, several Adivasi languages exist alongside Odia and other regional languages. Mundari is part of this multilingual landscape. Preserving it requires attention to local speech, family use, education, oral literature and the choices of younger generations."
+   },
+   {
+    "type": "h2",
+    "text": "1. A multilingual district"
+   },
+   {
+    "type": "p",
+    "text": "Mayurbhanj includes speakers of languages belonging to different linguistic families. Mundari, Ho and Bhumij are associated with the Munda branch of Austroasiatic. Odia belongs to the Indo-Aryan branch. People may use more than one language depending on home, school, work, markets and public life."
+   },
+   {
+    "type": "p",
+    "text": "The presence of related languages does not mean they are interchangeable. Mundari, Ho and Bhumij should be documented with their own vocabulary, grammar, pronunciation and community context."
+   },
+   {
+    "type": "h2",
+    "text": "2. Evidence from language and education work"
+   },
+   {
+    "type": "p",
+    "text": "Lokesh Prasad Dash's 2019 article describes an initiative in Mayurbhanj to improve children's reading skills through indigenous-language and bilingual supplementary materials. The account discusses the use of community participation in developing reading resources and identifies Mundari and Ho among languages facing reduced use in the context examined."
+   },
+   {
+    "type": "p",
+    "text": "This article is a case study of an educational intervention. It is not a census of all speakers and should not be used to claim that every Mundari-speaking village has the same language situation."
+   },
+   {
+    "type": "h2",
+    "text": "3. What language preservation should record"
+   },
+   {
+    "type": "p",
+    "text": "A useful language archive should preserve more than word lists. It should record language in meaningful contexts:"
+   },
+   {
+    "type": "p",
+    "text": "• greetings and everyday conversation;"
+   },
+   {
+    "type": "p",
+    "text": "• family and kinship terms;"
+   },
+   {
+    "type": "p",
+    "text": "• names of plants, animals and local places;"
+   },
+   {
+    "type": "p",
+    "text": "• agriculture and seasonal activities;"
+   },
+   {
+    "type": "p",
+    "text": "• songs, stories and proverbs;"
+   },
+   {
+    "type": "p",
+    "text": "• traditional knowledge shared with permission;"
+   },
+   {
+    "type": "p",
+    "text": "• children's speech and contemporary expressions."
+   },
+   {
+    "type": "p",
+    "text": "For each entry, record the original form, script, pronunciation, meaning, example, location or variety, contributor and review status."
+   },
+   {
+    "type": "h2",
+    "text": "4. Bilingual and multilingual learning resources"
+   },
+   {
+    "type": "p",
+    "text": "Bilingual resources can help children connect familiar spoken language with reading and writing. Materials should be developed with local teachers, parents, fluent speakers and language workers. A translation should not be considered accurate simply because it is grammatically fluent; it must preserve the intended meaning and local usage."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj can support:"
+   },
+   {
+    "type": "p",
+    "text": "• short reading passages;"
+   },
+   {
+    "type": "p",
+    "text": "• picture dictionaries;"
+   },
+   {
+    "type": "p",
+    "text": "• audio pronunciation;"
+   },
+   {
+    "type": "p",
+    "text": "• children's stories;"
+   },
+   {
+    "type": "p",
+    "text": "• parallel English–Mundari and Odia–Mundari texts;"
+   },
+   {
+    "type": "p",
+    "text": "• community-reviewed translations;"
+   },
+   {
+    "type": "p",
+    "text": "• downloadable learning sheets."
+   },
+   {
+    "type": "p",
+    "text": "The website should label the region or variety represented by each resource where known."
+   },
+   {
+    "type": "h2",
+    "text": "5. Respecting scripts and spelling variation"
+   },
+   {
+    "type": "p",
+    "text": "The archive should not assume that all Mundari speakers use one script or one spelling convention. Contributors should be able to record the script and spelling they use. If a standardised spelling is adopted for a particular collection, the editorial team should explain the convention and retain alternate forms where useful."
+   },
+   {
+    "type": "p",
+    "text": "Unicode support is essential. The website should test the display of all supplied scripts on Android, iOS and desktop browsers."
+   },
+   {
+    "type": "h2",
+    "text": "6. A community-led preservation model"
+   },
+   {
+    "type": "p",
+    "text": "Language preservation works best when speakers help decide what should be recorded and how it should be used. Contributors should be able to choose attribution and give clear permission for publication, audio use and translation."
+   },
+   {
+    "type": "p",
+    "text": "The archive should also distinguish:"
+   },
+   {
+    "type": "p",
+    "text": "• community-contributed material;"
+   },
+   {
+    "type": "p",
+    "text": "• editor-checked material;"
+   },
+   {
+    "type": "p",
+    "text": "• language-specialist-reviewed material;"
+   },
+   {
+    "type": "p",
+    "text": "• material awaiting verification."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Mundari language preservation in Mayurbhanj is part of a wider effort to sustain multilingual education, cultural memory and intergenerational communication. A digital archive can support this work by preserving local forms and making resources accessible, provided that community speakers remain central to the process."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Do not label Mundari as extinct or universally endangered without current evidence."
+   },
+   {
+    "type": "p",
+    "text": "Describe the specific study and area when discussing language shift."
+   },
+   {
+    "type": "p",
+    "text": "Have fluent local Mundari speakers review all examples and translations."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-and-mundari-in-mayurbhanj",
+   "munda-language-ancestry-and-identity"
+  ],
+  "sources": [
+   {
+    "label": "Lokesh Prasad Dash, \"An Endeavour to Improve the Reading Skill of Tribal Children through Revival and Usage of Indigenous Adivasi Languages: My Experience in Mayurbhanj District, Odisha,\" Learning Community 10(1) (2019), 11–16",
+    "url": "https://indianjournals.com/article/lco-10-1-002"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   },
+   {
+    "label": "Gregory D. S. Anderson, \"Munda Languages,\" Oxford Research Encyclopedia of Linguistics (2017)",
+    "url": "https://doi.org/10.1093/acrefore/9780199384655.013.37"
+   },
+   {
+    "label": "SCST Research and Training Institute, Impact of Pandemics on Tribal Culture of Odisha (2020)",
+    "url": "https://www.scstrti.in/images/phocagallery/adivasi/lx_2020_1.pdf"
+   }
+  ],
+  "status": "published",
+  "tone": "clay",
+  "verified": false,
+  "region": "Mayurbhanj, Odisha",
+  "reviewStatus": "Research draft — language specialist review required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "OD03",
+  "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "reading-census-and-official-records-responsibly",
+  "title": "Reading Census and Official Records Responsibly",
+  "category": "Heritage",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "3 min read",
+  "excerpt": "Official records are essential for researching Munda history in Odisha. Census tables, government profiles, district gazetteers and tribal research publications can help identify communities and…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "Official records are essential for researching Munda history in Odisha. Census tables, government profiles, district gazetteers and tribal research publications can help identify communities and understand changes over time. However, these sources use specific definitions and categories. Reading them without context can produce misleading claims."
+   },
+   {
+    "type": "p",
+    "text": "This guide explains how Mundari Samaj should use official data."
+   },
+   {
+    "type": "h2",
+    "text": "1. A category is not always the same as a language"
+   },
+   {
+    "type": "p",
+    "text": "The Census of India and government tribal profiles may list a Scheduled Tribe community, a subgroup, a language or a related administrative label. These categories serve different purposes."
+   },
+   {
+    "type": "p",
+    "text": "For example, the Census of India catalogue for Odisha's 2011 ST-14 table lists \"Munda\" and \"Mundari\" separately among its tribe labels. The Odisha State Tribal Museum also maintains separate Munda and Mundari profiles."
+   },
+   {
+    "type": "p",
+    "text": "This does not mean the labels can be added together automatically. Editors must inspect the original table and its instructions before interpreting the data."
+   },
+   {
+    "type": "h2",
+    "text": "2. Always record the year and geographical unit"
+   },
+   {
+    "type": "p",
+    "text": "A population number is incomplete unless the reader knows:"
+   },
+   {
+    "type": "p",
+    "text": "• the census or survey year;"
+   },
+   {
+    "type": "p",
+    "text": "• the state, district, block or village covered;"
+   },
+   {
+    "type": "p",
+    "text": "• the exact category counted;"
+   },
+   {
+    "type": "p",
+    "text": "• whether the number refers to total population, a language response or another measure;"
+   },
+   {
+    "type": "p",
+    "text": "• the source table and page."
+   },
+   {
+    "type": "p",
+    "text": "A 1971 police-station-wise distribution table is not a current village list. A 2011 district census figure should not be presented as a 2026 population estimate."
+   },
+   {
+    "type": "h2",
+    "text": "3. Understand the source behind a table"
+   },
+   {
+    "type": "p",
+    "text": "The SCSTRTI publication Demographic Profile of Scheduled Tribes in Odisha lists Munda and Mundari in several Sundargarh tribal sub-plan blocks. Its source note refers to the SCSTRTI Universal Bench Mark Survey conducted in 1978–79 and Census of India 1971 police-station-wise distribution."
+   },
+   {
+    "type": "p",
+    "text": "This historical data is useful for studying the administrative record of the period. It should not be described as a current survey."
+   },
+   {
+    "type": "h2",
+    "text": "4. Separate official labels from self-identification"
+   },
+   {
+    "type": "p",
+    "text": "Administrative terminology may differ from the names people use for themselves. Historical records may also contain spellings or labels that are no longer preferred."
+   },
+   {
+    "type": "p",
+    "text": "When possible, record:"
+   },
+   {
+    "type": "p",
+    "text": "• the exact term used by the source;"
+   },
+   {
+    "type": "p",
+    "text": "• the local name used by the community;"
+   },
+   {
+    "type": "p",
+    "text": "• the date and purpose of the record;"
+   },
+   {
+    "type": "p",
+    "text": "• any known difference between the two."
+   },
+   {
+    "type": "p",
+    "text": "Do not silently replace an older official label in a quotation. Explain it in context and avoid repeating derogatory or outdated terminology unnecessarily."
+   },
+   {
+    "type": "h2",
+    "text": "5. A practical source-checking form"
+   },
+   {
+    "type": "p",
+    "text": "Before publishing a statistic or district claim, editors should complete this checklist:"
+   },
+   {
+    "type": "p",
+    "text": "• What is the original source?"
+   },
+   {
+    "type": "p",
+    "text": "• What year does it describe?"
+   },
+   {
+    "type": "p",
+    "text": "• Which geographical unit is counted?"
+   },
+   {
+    "type": "p",
+    "text": "• What exactly is the category?"
+   },
+   {
+    "type": "p",
+    "text": "• Is it a community count, language count or survey estimate?"
+   },
+   {
+    "type": "p",
+    "text": "• Does the source define the category?"
+   },
+   {
+    "type": "p",
+    "text": "• Can the original table be accessed?"
+   },
+   {
+    "type": "p",
+    "text": "• Is a newer comparable source available?"
+   },
+   {
+    "type": "p",
+    "text": "• Has a reviewer checked the interpretation?"
+   },
+   {
+    "type": "p",
+    "text": "If these questions cannot be answered, omit the number or clearly label the information as unverified."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "Official data can strengthen Munda history, but only when its definitions and limitations are made clear. Mundari Samaj should publish numbers with their original context and should never combine unlike categories to create a larger or more impressive figure."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "Never add Munda and Mundari totals without documentary justification."
+   },
+   {
+    "type": "p",
+    "text": "Do not use third-party summaries as substitutes for original census tables."
+   },
+   {
+    "type": "p",
+    "text": "Preserve the source note and survey year whenever quoting historical administrative data."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-communities-in-odisha",
+   "munda-history-chronological-timeline"
+  ],
+  "sources": [
+   {
+    "label": "Census of India, ST-14: Scheduled Tribe Population by Religious Community (district level), Odisha, 2011 — catalogue",
+    "url": "https://censusindia.gov.in/nada/index.php/catalog/12247/study-description"
+   },
+   {
+    "label": "SCSTRTI, Demographic Profile of Scheduled Tribes in Odisha",
+    "url": "https://www.repository.tribal.gov.in/bitstream/123456789/73776/1/SCST_2018_book_0016.pdf"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Munda.\"",
+    "url": "https://ostm.in/tribes_of_odisha/munda/"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   }
+  ],
+  "status": "published",
+  "tone": "gold",
+  "verified": false,
+  "region": "Odisha",
+  "reviewStatus": "Research guide — data verification required",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "OD04",
+  "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "building-a-community-history-of-munda-villages-in-odisha",
+  "title": "Building a Community History of Munda Villages in Odisha",
+  "category": "Heritage",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "The history of a community is not found only in books or government reports. It is also preserved in village names, family memories, songs, local documents, places of gathering and the knowledge…",
+  "body": [
+   {
+    "type": "h2",
+    "text": "Introduction"
+   },
+   {
+    "type": "p",
+    "text": "The history of a community is not found only in books or government reports. It is also preserved in village names, family memories, songs, local documents, places of gathering and the knowledge of elders. For Munda communities in Odisha, village-level documentation can help fill gaps in the historical record."
+   },
+   {
+    "type": "p",
+    "text": "Mundari Samaj should build this archive with community participation and clear consent. This article sets out a responsible method; it does not claim that field interviews have already taken place."
+   },
+   {
+    "type": "h2",
+    "text": "1. Why village histories matter"
+   },
+   {
+    "type": "p",
+    "text": "General histories often describe broad regions and major political events. They may not explain how a particular village was founded, how families relate to one another, how local language use has changed or how people remember important events."
+   },
+   {
+    "type": "p",
+    "text": "Village histories can preserve:"
+   },
+   {
+    "type": "p",
+    "text": "• local settlement memories;"
+   },
+   {
+    "type": "p",
+    "text": "• family and clan histories, where contributors wish to share them;"
+   },
+   {
+    "type": "p",
+    "text": "• changes in agriculture and livelihood;"
+   },
+   {
+    "type": "p",
+    "text": "• school and education histories;"
+   },
+   {
+    "type": "p",
+    "text": "• migration and return migration;"
+   },
+   {
+    "type": "p",
+    "text": "• local festivals and songs;"
+   },
+   {
+    "type": "p",
+    "text": "• community organisations;"
+   },
+   {
+    "type": "p",
+    "text": "• changes in language use;"
+   },
+   {
+    "type": "p",
+    "text": "• photographs and documents."
+   },
+   {
+    "type": "h2",
+    "text": "2. Preparing before an interview"
+   },
+   {
+    "type": "p",
+    "text": "Researchers should explain the purpose of the project before recording anyone. Participation must be voluntary. A contributor should be able to refuse a question, stop an interview or request that some material not be published."
+   },
+   {
+    "type": "p",
+    "text": "Before an interview, explain:"
+   },
+   {
+    "type": "p",
+    "text": "• who is conducting the project;"
+   },
+   {
+    "type": "p",
+    "text": "• where the material may appear;"
+   },
+   {
+    "type": "p",
+    "text": "• whether audio, video or photographs will be made;"
+   },
+   {
+    "type": "p",
+    "text": "• whether translations will be published;"
+   },
+   {
+    "type": "p",
+    "text": "• how the contributor will be credited;"
+   },
+   {
+    "type": "p",
+    "text": "• whether the contributor can review the transcript;"
+   },
+   {
+    "type": "p",
+    "text": "• how to request correction or withdrawal, subject to the archive's stated policy."
+   },
+   {
+    "type": "p",
+    "text": "Consent should be recorded in a language the participant understands."
+   },
+   {
+    "type": "h2",
+    "text": "3. Suggested oral-history questions"
+   },
+   {
+    "type": "p",
+    "text": "Use open questions and allow people to tell their story in their own order."
+   },
+   {
+    "type": "p",
+    "text": "1. What name do you and your family use for this village?"
+   },
+   {
+    "type": "p",
+    "text": "2. What stories have you heard about how the village began?"
+   },
+   {
+    "type": "p",
+    "text": "3. Which places are important in the village's history?"
+   },
+   {
+    "type": "p",
+    "text": "4. Which languages are used by different generations?"
+   },
+   {
+    "type": "p",
+    "text": "5. What changes have you seen in work, education and everyday life?"
+   },
+   {
+    "type": "p",
+    "text": "6. Which songs, stories or festivals do you want younger people to know?"
+   },
+   {
+    "type": "p",
+    "text": "7. Are there old documents or photographs the family wishes to share?"
+   },
+   {
+    "type": "p",
+    "text": "8. Is there anything in this account that should remain private?"
+   },
+   {
+    "type": "p",
+    "text": "Do not pressure contributors to provide a single origin story. Different families may remember events differently."
+   },
+   {
+    "type": "h2",
+    "text": "4. Recording and preserving the material"
+   },
+   {
+    "type": "p",
+    "text": "For every recording, store:"
+   },
+   {
+    "type": "p",
+    "text": "• archive identifier;"
+   },
+   {
+    "type": "p",
+    "text": "• interview date and place;"
+   },
+   {
+    "type": "p",
+    "text": "• interviewer;"
+   },
+   {
+    "type": "p",
+    "text": "• narrator's preferred name or anonymous label;"
+   },
+   {
+    "type": "p",
+    "text": "• language and local variety;"
+   },
+   {
+    "type": "p",
+    "text": "• consent record;"
+   },
+   {
+    "type": "p",
+    "text": "• audio or video file;"
+   },
+   {
+    "type": "p",
+    "text": "• transcript in the original language where possible;"
+   },
+   {
+    "type": "p",
+    "text": "• translation;"
+   },
+   {
+    "type": "p",
+    "text": "• summary;"
+   },
+   {
+    "type": "p",
+    "text": "• publication permission;"
+   },
+   {
+    "type": "p",
+    "text": "• review status."
+   },
+   {
+    "type": "p",
+    "text": "Keep an unedited preservation copy separate from the edited public version. Do not alter a recording in a way that changes its meaning."
+   },
+   {
+    "type": "h2",
+    "text": "5. Handling sensitive knowledge"
+   },
+   {
+    "type": "p",
+    "text": "Some information may be sacred, private, restricted by community practice or connected to vulnerable people and places. Do not assume that everything shared in an interview is intended for public publication."
+   },
+   {
+    "type": "p",
+    "text": "Do not publish precise coordinates of sacred sites, private family locations or sensitive natural resources without informed community approval. Do not publish personal information about living people without permission."
+   },
+   {
+    "type": "h2",
+    "text": "6. Building a village history page"
+   },
+   {
+    "type": "p",
+    "text": "A public village page may include:"
+   },
+   {
+    "type": "p",
+    "text": "• village name and approved spelling;"
+   },
+   {
+    "type": "p",
+    "text": "• district and block;"
+   },
+   {
+    "type": "p",
+    "text": "• a general location map, if appropriate;"
+   },
+   {
+    "type": "p",
+    "text": "• a short history with attributed accounts;"
+   },
+   {
+    "type": "p",
+    "text": "• languages and varieties reported by contributors;"
+   },
+   {
+    "type": "p",
+    "text": "• approved photographs;"
+   },
+   {
+    "type": "p",
+    "text": "• oral-history excerpts;"
+   },
+   {
+    "type": "p",
+    "text": "• references to public records;"
+   },
+   {
+    "type": "p",
+    "text": "• contributor acknowledgements;"
+   },
+   {
+    "type": "p",
+    "text": "• last-reviewed date."
+   },
+   {
+    "type": "p",
+    "text": "Clearly label each statement as a documentary record, an oral account, a community interpretation or an editor's summary."
+   },
+   {
+    "type": "h2",
+    "text": "7. Review and correction"
+   },
+   {
+    "type": "p",
+    "text": "Before publication, invite the narrator or an agreed community reviewer to check the transcript and translation. Where accounts conflict, preserve the difference rather than forcing a false agreement."
+   },
+   {
+    "type": "p",
+    "text": "The archive should provide a correction channel and keep a record of significant edits."
+   },
+   {
+    "type": "h2",
+    "text": "Conclusion"
+   },
+   {
+    "type": "p",
+    "text": "A community history archive is strongest when it is built with the people whose lives it documents. By recording oral histories carefully, respecting consent and distinguishing memory from documentary evidence, Mundari Samaj can help preserve local Munda histories for future generations."
+   },
+   {
+    "type": "h2",
+    "text": "Editorial notes"
+   },
+   {
+    "type": "p",
+    "text": "This article is a fieldwork framework, not a report of completed interviews."
+   },
+   {
+    "type": "p",
+    "text": "Obtain informed consent before recording or publishing."
+   },
+   {
+    "type": "p",
+    "text": "Preserve original-language audio and transcripts where permission allows."
+   },
+   {
+    "type": "p",
+    "text": "Ask contributors to review names, spellings and translations."
+   }
+  ],
+  "media": [],
+  "related": [
+   "reading-census-and-official-records-responsibly",
+   "oral-history",
+   "community-archive"
+  ],
+  "sources": [
+   {
+    "label": "Oral History Association, \"Principles and Best Practices.\"",
+    "url": "https://oralhistory.org/principles-and-best-practices-revised-2018/"
+   },
+   {
+    "label": "Lokesh Prasad Dash, \"An Endeavour to Improve the Reading Skill of Tribal Children through Revival and Usage of Indigenous Adivasi Languages: My Experience in Mayurbhanj District, Odisha,\" Learning Community 10(1) (2019), 11–16",
+    "url": "https://indianjournals.com/article/lco-10-1-002"
+   },
+   {
+    "label": "Odisha State Tribal Museum, \"Mundari.\"",
+    "url": "https://ostm.in/tribes_of_odisha/mundari/"
+   }
+  ],
+  "status": "published",
+  "tone": "sage",
+  "verified": false,
+  "region": "Odisha, with a focus on Mayurbhanj",
+  "reviewStatus": "Community research framework — fieldwork not yet conducted",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "batchId": "OD05",
+  "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication"
+ },
+ {
+  "id": "ulgulan-movement",
+  "title": "The Ulgulan — Causes, Events and Consequences (1899–1900)",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "The Ulgulan — the 'Great Tumult' of 1899–1900 — grew out of forty years of struggle over Munda land, and it changed the law of Chotanagpur forever.",
+  "body": [
+   {
+    "text": "Ulgulan — 'the Great Tumult' — is the name the Munda people give to the rising of 1899–1900. It was far more than the story of one leader. Behind it lay forty years of petitions and lawsuits over land; within it, a religious renewal that swept the Munda country; and after it, changes in law and administration that are still felt in Jharkhand today.",
+    "type": "p"
+   },
+   {
+    "text": "The land question",
+    "type": "h2"
+   },
+   {
+    "text": "The Mundas' customary land system, khuntkatti, vested rights in the descendants of the families who had first cleared the forest and founded each village. Through the nineteenth century this order was broken down. Landlords brought in non-tribal farmers and contractors — thikadars — who took over village lands, demanded ever higher rents and exacted unpaid forced labour (beth-begari). These outsiders were known as dikus. By 1874 the authority of the old Munda and Oraon chiefs had been almost entirely displaced, and in some villages the original proprietors had been reduced to labourers on their own ancestral land.",
+    "type": "p"
+   },
+   {
+    "text": "The Sardari Larai: forty years of petitions",
+    "type": "h2"
+   },
+   {
+    "text": "From 1858 the Munda and Oraon sardars — hereditary chiefs and headmen — waged the Sardari Larai, a struggle conducted largely within the law. Their case rested on a simple claim: the Adivasis were the first people to clear the lands of Chotanagpur, and so held an inalienable right to them. Between 1858 and 1895 they petitioned the highest levels of the colonial state, up to the Viceroy of India and even the Secretary of State in London. The petitions won almost nothing. From about 1890 the sardars turned against European missionaries and officials as well, and a September 1892 plot against contractors and missionaries came to nothing for want of organisation.",
+    "type": "p"
+   },
+   {
+    "text": "A prophet's call",
+    "type": "h2"
+   },
+   {
+    "text": "That leader was Birsa Munda. In 1895 he proclaimed a divine calling, urged his people to worship one God and give up the worship of bongas (spirits), and declared the reign of Queen Victoria over: 'Abua raj ete jana, maharani raj tundu jana' — let the kingdom of the Queen be ended, and our kingdom be established. He ordered the raiyats to pay no rent. Thousands — Mundas, Oraons and Kharias — accepted his teaching; he was arrested in August 1895 and imprisoned for two years. After his release he rebuilt his following in secret, while the terrible famines of 1896–97 and 1899–1900 deepened the anger his message spoke to.",
+    "type": "p"
+   },
+   {
+    "text": "The rising",
+    "type": "h2"
+   },
+   {
+    "text": "Around Christmas 1899 some 7,000 men and women gathered to herald the Ulgulan, which spread across Khunti, Tamar, Basia and Ranchi. On Christmas Eve, attacks were made on churches in the Ranchi and Singhbhum country; the missions at Murhu and Sarwada were among the main targets, though the Birsaites declared their real enemy was the British, not Christian Mundas. On 5 January 1900 two police constables were killed at Etkedih. On 7 January the rebels attacked the Khunti police station, killed a constable and burnt the houses of local shopkeepers. The government set a reward of Rs 500 on Birsa's head, and Commissioner A. Fobes, with Deputy Commissioner H. C. Streattfield, reached Khunti with a force of 150 men.",
+    "type": "p"
+   },
+   {
+    "text": "Dombari Buru",
+    "type": "h2"
+   },
+   {
+    "text": "The rebels concentrated on Sail Rakab hill at Dombari Buru, near Khunti. There, on 9 January 1900, government troops fired on Birsa's followers. How many died has never been settled: official records acknowledged only small numbers, while in Munda memory the firing was a massacre in which hundreds — men, women and children — were killed, and the hill is remembered with grief. Birsa himself escaped into the Singhbhum hills.",
+    "type": "p"
+   },
+   {
+    "text": "Capture, trial and death",
+    "type": "h2"
+   },
+   {
+    "text": "On 3 February 1900 Birsa was captured in the Jamkopai forest, in the Porahat country near Chakradharpur. The crackdown was sweeping: by the Deputy Commissioner's own figures, 460 tribals were made accused in fifteen criminal cases; 63 were convicted, one sentenced to death and 39 transported for life. Six prisoners, Birsa among them, died in custody during the trials. Birsa Munda died in Ranchi jail on 9 June 1900, aged twenty-four, and with him the rising ended.",
+    "type": "p"
+   },
+   {
+    "text": "What changed",
+    "type": "h2"
+   },
+   {
+    "text": "The Ulgulan failed in its immediate aim — no Munda Raj was established — but it forced the colonial state to confront the land question it had ignored for forty years. In 1905 the government created the Khunti subdivision, bringing administration closer to the heartland of the revolt. In 1908 it enacted the Chotanagpur Tenancy Act, which recognised khuntkatti rights in law and prohibited the transfer of tribal land to non-tribals — a protection that remains on the statute book. In memory, Birsa lives on as Dharti Aba, the Father of the Earth, and the self-rule he proclaimed in 1899 became one of the founding inspirations of the movement that, a century later, won the state of Jharkhand.",
+    "type": "p"
+   }
+  ],
+  "media": [],
+  "related": [
+   "birsa-munda",
+   "gaya-munda",
+   "kol-rebellion-1831-32"
+  ],
+  "sources": [
+   {
+    "label": "Wikipedia — 'Birsa Munda' (the Munda rebellion), drawing on K. S. Singh and contemporary records",
+    "url": "https://en.wikipedia.org/wiki/Munda_rebellion"
+   },
+   {
+    "label": "IGNOU study material — 'Tribal Movements in Colonial Period' (Unit 1: Sardari Larai and Birsa Munda's movement)",
+    "url": "https://egyankosh.ac.in/bitstream/123456789/114805/1/Unit-1.pdf"
+   },
+   {
+    "label": "The Wire — 'Remembering Birsa Munda, the Social Reformer and Revolutionary Leader'",
+    "url": "https://m.thewire.in/article/culture/birsa-munda-social-reformer-revolutionary-leader"
+   },
+   {
+    "label": "Indian Express — 'Birsa Munda: His legacy, Ulgulan and the Adivasi identity debate'",
+    "url": "https://indianexpress.com/article/explained/explained-history/birsa-munda-legacy-ulgulan-adivasi-identity-explained-10733209/"
+   },
+   {
+    "label": "District Khunti, Government of Jharkhand — official district history (Khunti subdivision, 1905)",
+    "url": "https://khunti.nic.in/history/"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": true,
+  "region": "Chotanagpur (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "gaya-munda",
+  "title": "Gaya Munda and the Ulgulan Movement",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "3 min read",
+  "excerpt": "When the police came for Gaya Munda in January 1900, his whole household fought them — an episode the colonial records themselves document, though much of his life survives only in community memory.",
+  "body": [
+   {
+    "text": "Among the men closest to Birsa Munda, none is remembered in Khunti with more pride than Gaya Munda of Etkedih. When the police came for him in January 1900, his whole household — wife, sons, daughters and daughters-in-law — fought them with whatever weapons they had. The stand at his house is one of the best-documented episodes of the Ulgulan, yet beyond those few days the written record of his life is thin, and much repeated about him is later retelling. This article keeps to what can be documented — and says where the record ends.",
+    "type": "p"
+   },
+   {
+    "text": "The Sardar of Etkedih",
+    "type": "h2"
+   },
+   {
+    "text": "Gaya Munda was a Birsaite sardar and one of Birsa's trusted lieutenants, named in the literature alongside Manjhia Munda and Donka Munda. His home was Etkedih village — spelled Etkdih, Itkadih or Aitkedih in different records — in the Khunti country south of Ranchi. Popular accounts call him the commander of Birsa's forces, active since the Sardari days; those details rest on retelling, not contemporary documents. His standing is not in doubt: when the authorities struck back, he was among their first targets.",
+    "type": "p"
+   },
+   {
+    "text": "5 January 1900: the arrest party",
+    "type": "h2"
+   },
+   {
+    "text": "On 5 January 1900 a police party was sent to Etkedih to arrest Gaya Munda. In the dry bed of the Tajna river the party was attacked by Gaya Munda and other Birsa supporters, and two constables were killed. It was the moment the Ulgulan turned from raids on churches into open confrontation with the state.",
+    "type": "p"
+   },
+   {
+    "text": "6 January: the house at Etkedih",
+    "type": "h2"
+   },
+   {
+    "text": "The next day, 6 January, the Deputy Commissioner of Ranchi, H. C. Streattfield, came with a large police party and surrounded Gaya Munda's house. Inside were Gaya, his wife Maki, his sons, his daughters Thingi, Nagi and Lembu, his daughters-in-law and grandchildren. Called on to surrender, the family refused, and fought with sticks, swords, axes and bows; the Deputy Commissioner's own report, quoted in later histories, describes the women fighting with sticks and axes and credits Maki Munda with killing a policeman with a thrown axe. The house was set on fire, the family driven out, and Gaya Munda captured. A modern scholarly study, drawing on the judicial records, notes that the defence of the household by its women is 'well documented in the official records' — a striking admission from the very administration that crushed the rising.",
+    "type": "p"
+   },
+   {
+    "text": "Trial, fate and memory",
+    "type": "h2"
+   },
+   {
+    "text": "Gaya Munda was tried with the other Birsaite prisoners. Accounts based on the trial records state that he was sentenced to death, and he is remembered in Khunti as having been hanged in Ranchi jail; the women of his family were sentenced to rigorous imprisonment. The official statistics of the trials, which record only one death sentence among 63 convictions, sit uneasily beside these accounts; the discrepancy remains unresolved. What is certain is that Gaya Munda never returned to Etkedih. In community memory he stands as Birsa's commander — the head of a family that, women and men together, chose to fight rather than surrender.",
+    "type": "p"
+   }
+  ],
+  "media": [],
+  "related": [
+   "ulgulan-movement",
+   "birsa-munda"
+  ],
+  "sources": [
+   {
+    "label": "Anjana Singh — 'Birsa's Ulgulan: Unsung Female Heroes of a Popular Revolt', Journal of Adivasi and Indigenous Studies XIV(1), 2024 (drawing on K. S. Singh and the judicial records)",
+    "url": "http://joais.in/Journal/4. Anjana Singh, 39-55_Nov-2024.pdf"
+   },
+   {
+    "label": "The Tribal Tribune — journal account of the insurrection of 1899–1900 (the arrest of Gaya Munda and the trials)",
+    "url": "https://www.etribaltribune.com/index.php/volume-1/11-journal/volume-1/v1i2"
+   },
+   {
+    "label": "Wikipedia — 'Birsa Munda' (the Munda rebellion): two constables killed at Etkedih, 5 January 1900; trial figures",
+    "url": "https://en.wikipedia.org/wiki/Munda_rebellion"
+   },
+   {
+    "label": "Adivasi First Nation — 'Women of Ulgulan', retelling the Deputy Commissioner's account of the Etkedih house fight",
+    "url": "https://adivasifirstnation.in/women-of-ulgulan-full-of-love-and-courage/"
+   }
+  ],
+  "status": "published",
+  "tone": "clay",
+  "verified": false,
+  "region": "Etkedih, Chotanagpur (Jharkhand)",
+  "reviewStatus": "Research draft — the written record is thin and disputed points are flagged in the article; community review invited",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "munda-in-other-movements",
+  "title": "Munda Participation in Other Adivasi Movements",
+  "category": "History",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "From the Sardari Larai to the Tana Bhagats and the long movement for Jharkhand, Munda men and women repeatedly struggled alongside their Adivasi neighbours — sometimes leading, often joining.",
+  "body": [
+   {
+    "text": "The Ulgulan of 1899–1900 was the most famous Munda rising, but it was neither the first nor the last time Munda men and women joined a wider struggle. Again and again — in the Sardari Larai of the nineteenth century, in the Tana Bhagat movement after 1914, and in the twentieth-century movement for a Jharkhand state — Mundas acted alongside their Oraon, Ho, Santhal and Kharia neighbours. This article traces those shared movements, keeping one distinction clear throughout: who led a movement, and who joined it.",
+    "type": "p"
+   },
+   {
+    "text": "The Sardari Larai (1858–1895): the struggle of petitions",
+    "type": "h2"
+   },
+   {
+    "text": "The Sardari Larai — the 'sardars' struggle' — was a forty-year agitation by Munda and Oraon chiefs and tenants against the landlords, moneylenders and contractors who were taking tribal land. Its leaders argued that the Adivasis, as the first clearers of the Chotanagpur forests, were the rightful owners of the soil. The historian Suresh Singh describes the movement in three phases: an agrarian phase of clashes over rising rents, evictions and harassment; a revivalist phase; and a political phase in which, from 1890, the sardars turned against European officials and missionaries too, believing them hand in glove with the landlords.",
+    "type": "p"
+   },
+   {
+    "text": "For most of its life the Sardari Larai was fought with petitions and lawsuits rather than weapons: between 1858 and 1895 the sardars appealed to the highest authorities in the land, including the Viceroy and the Secretary of State for India in London. It won little. When a conspiracy of September 1892 to attack contractors and missionaries collapsed for want of organisation, the sardars' following began to look for a leader who would go further — and found him in Birsa Munda, whose own father is believed to have been a Sardari sympathiser. The Ulgulan grew directly out of the Sardari Larai's unfinished business.",
+    "type": "p"
+   },
+   {
+    "text": "The Tana Bhagat movement (from 1914): an Oraon renewal that Mundas joined",
+    "type": "h2"
+   },
+   {
+    "text": "In April 1914, in Chingri village in the Gumla country, a 25-year-old Oraon named Jatra Bhagat proclaimed that Dharmes — God — had appeared to him in a vision. The Oraons were to worship God alone through prayer and devotion, give up the worship of spirits, abandon animal sacrifice and liquor, and prepare for the coming Oraon Raj, of which he would be the first king. His followers, the Tana Bhagats, refused to work for the zamindars or the government. Jatra and his leading disciples were arrested, tried and imprisoned, but others carried the movement on, and it spread across the Oraon country of Chotanagpur.",
+    "type": "p"
+   },
+   {
+    "text": "This was an Oraon movement, led by Oraons — but it did not stop at the boundary of one community. Munda and Kharia families living alongside the Oraons also joined the Tana Bhagats, drawn by the same grievances over rent and forced labour, and by the promise of a purified, self-respecting faith; the anthropologist S. C. Roy recognised it as a major new religious movement as early as 1921. In the 1920s the Tana Bhagats found a wider cause: many threw in their lot with Gandhi's movement, taking part in Satyagraha, the Non-Cooperation and Civil Disobedience campaigns, and carrying their own no-rent message into the national struggle.",
+    "type": "p"
+   },
+   {
+    "text": "The road to Jharkhand",
+    "type": "h2"
+   },
+   {
+    "text": "The twentieth century turned the old language of land and dignity into organised politics. In 1938 the region's scattered Adivasi organisations came together on a single platform — the body that, as the Adivasi Mahasabha, became the political centre of the Jharkhand movement. Its leading figure was a Munda: Jaipal Singh Munda of the Khunti country, Oxford-educated, who had walked away from the Indian Civil Service and captained India's hockey team to gold at the 1928 Amsterdam Olympics. Invited to preside over the Mahasabha in 1939 and honoured as Marang Gomke — 'Great Leader' — he demanded a separate province of Jharkhand, carved out of Bihar, where Adivasi land, language and custom would be protected.",
+    "type": "p"
+   },
+   {
+    "text": "The Mahasabha united leaders of the Ho, Munda, Santhal and Oraon communities, though its most famous voice was a Munda's. After independence it was reorganised as the Jharkhand Party (1949–50), and Jaipal Singh carried the Adivasi case into the Constituent Assembly itself. He died in 1970, thirty years before his goal was reached; the movement passed through many hands after him, but on 15 November 2000 — Birsa Munda's birth anniversary — Jharkhand at last became a state. A movement the sardars had begun with petitions in 1858 had, a century and a half later, redrawn the map of India.",
+    "type": "p"
+   }
+  ],
+  "media": [],
+  "related": [
+   "ulgulan-movement",
+   "kol-rebellion-1831-32",
+   "jaipal-singh-munda"
+  ],
+  "sources": [
+   {
+    "label": "IGNOU study material — 'Tribal Movements in Colonial Period' (Unit 1: the Sardari Larai, 1858–95)",
+    "url": "https://egyankosh.ac.in/bitstream/123456789/114805/1/Unit-1.pdf"
+   },
+   {
+    "label": "IGNOU study material — 'Tribal Religion/s vis-à-vis Impact of Other Religions' (Unit 3: the Tana Bhagat movement)",
+    "url": "https://egyankosh.ac.in/bitstream/123456789/35548/1/Unit-3.pdf"
+   },
+   {
+    "label": "The Wire — 'Remembering Birsa Munda' (the Sardari movement's petitions, 1858–1895)",
+    "url": "https://m.thewire.in/article/culture/birsa-munda-social-reformer-revolutionary-leader"
+   },
+   {
+    "label": "Indian Express — 'How Jharkhand's tribes have fought for their rights through centuries' (Tana Bhagats and the national movement)",
+    "url": "https://indianexpress.com/article/research/how-jharkhands-tribes-have-fought-for-their-rights-through-centuries-9654183/lite/"
+   },
+   {
+    "label": "Indian Express — '25 years after its formation, the story of Jharkhand' (Adivasi Mahasabha, Jaipal Singh Munda, statehood)",
+    "url": "https://indianexpress.com/article/explained/story-of-jharkhand-10367306/lite/"
+   },
+   {
+    "label": "ThePrint — 'Jaipal Singh Munda, the tribal hero who led India to its first hockey gold'",
+    "url": "https://theprint.in/forgotten-founders/jaipal-singh-munda-the-tribal-hero-who-led-india-to-its-first-hockey-gold/98587/"
+   }
+  ],
+  "status": "published",
+  "tone": "gold",
+  "verified": false,
+  "region": "Chotanagpur and beyond",
+  "reviewStatus": "Source-checked overview; Munda participation in the Tana Bhagat movement rests on limited sources — community review invited",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "munda-clan-killi-system",
+  "title": "The Munda Clan (Killi) System",
+  "category": "Heritage",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "As recorded by S. C. Roy in 1912, the Munda tribe was divided into a large number of exogamous clans called kilis — brotherhoods whose members traced descent from one common ancestor, stood by one another in weal and woe, and married only outside the clan.",
+  "body": [
+   {
+    "type": "p",
+    "text": "As recorded by S. C. Roy in The Mundas and Their Country (1912), the Munda tribe was divided into “a large number of exogamous groups called kilis”. A killi (Roy also spells it kili, and calls it a sept or clan) was a brotherhood: by tradition, all its members were descended from one common ancestor, and descent was traced through the father. This article draws on Roy's 1912 ethnography and the 1961 Census monograph of Jojohatu village. Both are historical records; clan practice today varies from family to family and place to place."
+   },
+   {
+    "type": "h2",
+    "text": "One ancestor, one brotherhood"
+   },
+   {
+    "type": "p",
+    "text": "Roy describes the members of a killi as “bound to stand by one another in weal or woe”. They shared property in common, joined in common worship, and buried their dead in a common sasan (burial ground). An injury done to any one member from outside “came to be looked upon as a common injury”, and would be resented and avenged by all. Roy adds that many stories were still told of how a killi combined, in earlier times, to punish wrongs done by outsiders to its members."
+   },
+   {
+    "type": "h2",
+    "text": "How a killi gets its name"
+   },
+   {
+    "type": "p",
+    "text": "According to Roy, distinctive killi names were coined “from some memorable incident connected with the clan”, or from some circumstance of religion or belief, and many names carry an origin story. The ancestors of the Tuti killi, crossing a swollen river in winter, sent burning charcoal across to their shivering kinsmen in a forked twig of the tuti plant; the men, relieved from the cold, vowed never to eat that plant again and formed a separate killi. The Horo or Kachua (tortoise) killi took its name from a tortoise that carried the clan's ancestor, his family and his luggage across a flooded river: “No Munda of the kili will kill a tortoise or eat its flesh.” The Nag killi honoured a white Nag serpent that, in the story Roy records, carried a dead snake-charmer's body home to his sons; no member of that killi would injure a Nag serpent. Other names Roy mentions include Bando, the wild cat, and Tan or Tau, the sparrow."
+   },
+   {
+    "type": "h2",
+    "text": "Marriage must go outside the killi"
+   },
+   {
+    "type": "p",
+    "text": "The killi was exogamous: as Roy puts it, marriages between descendants of the same common paternal ancestor were interdicted, so a spouse always had to be found in another killi. As the clans grew enormous, Roy suggests, they subdivided into separate kilis, in part so that members would not have to travel far into another clan's country “to seek wives for their sons or husbands for their daughters”. Within the wider community the boundary ran the other way: by the custom Roy records, Mundas did not marry into the other ‘Kolarian’ tribes — Santals, Kharias, Asurs or Bhumijes — with a local exception for the Bhumijes of Pargana Pitkum, adjoining Tamar, who intermarried with the Mundas of that side. The Jojohatu monograph shows the exogamy rule had teeth: it recorded a boy and a girl of the same gotra who fell in love; when the girl conceived, the villagers unanimously decided the couple should be evicted, and they left the village to the beating of drums."
+   },
+   {
+    "type": "h2",
+    "text": "The clan in village life"
+   },
+   {
+    "type": "p",
+    "text": "The killi was also a working institution. When members of one killi founded new villages, Roy records, they at first went on burying their dead in the common sasan of the parent village and joined in public worship at the parent village's Sarna; allied villages of the same killi formed a parha, which became, in his words, “the unit of social as well as political organisation”, acting as one body in social and administrative matters. The parha's Panchayat judged breaches of the marriage laws, disputes over burial rights in the sasan, inheritance and boundary disputes. Yet Roy notes that social matters could not be decided by ‘kili-hagas’, clan brethren, alone: the opinion of ‘kutumbs’ — men of other kilis, with whom alone marriage relations could be entered into — had also to be consulted. The 1961 Census monograph of Jojohatu village gives the same structure at village scale: its traditional Panchayat, it says, consisted of members of the killi and used to be convoked by the Manki and the Pahan. Jojohatu's own Mundas were mostly of the Hassa killi — though a village story said they had originally been Hansda, changing to Hassa at the time of the first Revenue Settlement to distinguish themselves from their Hansda neighbours."
+   },
+   {
+    "type": "p",
+    "text": "Roy's account dates from 1912 and the Jojohatu monograph from 1961. They are preserved here as records of what those observers found; how far any family or village follows these clan rules today is something each community can best say for itself."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-village-life",
+   "manki-munda-governance",
+   "mundari-khuntkatti"
+  ],
+  "sources": [
+   {
+    "label": "S. C. Roy — The Mundas and Their Country (1912), full text (Archive.org)",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
+   },
+   {
+    "label": "S. D. Prasad — Jojohatu, a Munda Village, Census of India 1961 village monograph (1963)",
+    "url": "https://censusindia.gov.in/nada/index.php/catalog/31015/study-description"
+   }
+  ],
+  "status": "published",
+  "tone": "sage",
+  "verified": true,
+  "region": "Chotanagpur (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "munda-marriage-customs",
+  "title": "Traditional Munda Marriage and Social Customs — as recorded in 1912",
+  "category": "Culture",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "From the omen-reading that opened marriage negotiations to the Sarandi wedding day itself, this is the account of Munda marriage customs that S. C. Roy recorded in 1912 — a historical snapshot, not a picture of today's weddings.",
+  "body": [
+   {
+    "type": "p",
+    "text": "What follows is not a description of a Munda wedding of today. It is a summary of the marriage ceremonies described by S. C. Roy in The Mundas and Their Country (1912), together with the briefer customs he recorded for divorce, remarriage and birth. Roy himself warned of local variations between parganas, and much has changed since 1912."
+   },
+   {
+    "type": "h2",
+    "text": "First, the omens: Chenre-uri"
+   },
+   {
+    "type": "p",
+    "text": "In Roy's account, matches were ordinarily arranged by the father or guardian, though in earlier times, he notes, young people had a freer choice among the marriageable kilis. When a father had a suitable bride in view for his son, he sent a go-between called a Dutam to the girl's guardian. A day was then fixed for the Chenre-uri, the omen-reading. The boy's party walked to the girl's village marking every omen on the way. Among good omens Roy lists a cow and her calf lowing in answer to each other, and pitchers of water being carried; among bad ones, a man carrying an axe or spade, and a tree falling under the woodcutter's axe. One bad omen was enough: the party turned back at once and the negotiations fell through. If the omens held, the guests were seated on mats in the courtyard, their feet washed by the women of the house, and feasted with rice-beer, boiled rice and pulse. On a return visit, a spokesman — the joarni — declared the match in a set speech before Sing Bonga and the Panch: “the boy's father and the girl's father will thatch two roofs with one bundle of straw” — the two families made one."
+   },
+   {
+    "type": "h2",
+    "text": "The betrothal (Bala) and the bride-price, gonong-taka"
+   },
+   {
+    "type": "p",
+    "text": "At the Bala or betrothal, Roy records, the bride-price was settled not by naming figures but by symbols — clay marbles for the rupees wanted, rolled sal leaves tied with coloured thread for the saris. The groom's guardian kept some tokens and returned the rest, showing how much he agreed to give. The two guardians then embraced, and the Munda or Pahan of the bride's village clasped hands with his counterpart of the bridegroom's village, each binding himself to a money fine if he broke the betrothal. The bridegroom-elect was seated on the knees of his betrothed's maternal uncle and received a new cloth and a bead necklace. Later, the bride-price, the gonong-taka, was carried to the bride's house (the Gonongtaka-Idituka), and the Logon-tol fixed the wedding day."
+   },
+   {
+    "type": "h2",
+    "text": "The wedding day: Sarandi"
+   },
+   {
+    "type": "p",
+    "text": "A few days before the wedding, a mud pulpit called a mandoa was raised in the courtyard of both houses, with sal saplings at its corners and centre. Bride and bridegroom were anointed with turmeric at their own homes (the Sasang-goso), and a drop of blood from each one's little finger dyed two small rags called sinai. At the bride's house came the Sinduri-Rakab: the couple were carried three times round the mandoa and made to stand on sal-leaf plates, she facing east and he west; he pressed the toes of her right foot with his left foot and touched her neck three times with his blood-dyed rag, and she did the same to him. They exchanged garlands of gulaichi flowers, each put three vermilion marks on the other's forehead, and their garments were knotted together. Then four unmarried girls fetched water from a tank or river, escorted by women with sword and bow and by Ghasi musicians; in the Dul-da ceremony the couple, seated on yokes beside a plantain tree, anointed each other with oil and turmeric and were bathed with that water."
+   },
+   {
+    "type": "h2",
+    "text": "Divorce, remarriage — and a note on birth"
+   },
+   {
+    "type": "p",
+    "text": "Roy also records how a marriage could be dissolved. In the Sakam-Chari divorce, a Panchayat was convened and the party unwilling to continue the marriage tore a sal leaf in two; in Pargana Tamar a piece of turmeric was broken as well (Sasang-haid). If the wife was the unwilling party, the bride-price (gonong-taka) and the tora-taka had to be returned. A widow, Roy says, could remarry only in the simpler Sagai form, without the Sarandi ceremonies: the bridegroom came with some relatives to the bride's house, the party was feasted, and he took the bride home; in some localities the couple simply put sindur marks on each other's foreheads. Roy also records birth customs: a fowl was set apart in pregnancy and rice-beer brewed for Garasi Bonga, guardian of expectant mothers; on the eighth day came the Chati purification; and at the Sakhi name-giving, grains of rice were dropped into water in the names of ancestors — the baby was named after the ancestor whose grain met the baby's grain, and that relative became the child's sakhi or mita (namesake)."
+   },
+   {
+    "type": "p",
+    "text": "This is a 1912 record of Chotanagpur practice, offered as history; today's weddings blend old and new as each family chooses."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-village-life",
+   "munda-clan-killi-system"
+  ],
+  "sources": [
+   {
+    "label": "S. C. Roy — The Mundas and Their Country (1912), full text (Archive.org)",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": true,
+  "region": "Chotanagpur (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "munda-folk-songs-and-dance",
+  "title": "Munda Folk Songs and Dance",
+  "category": "Culture",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "As recorded by S. C. Roy in 1912, almost every Munda religious festival had its own dance and its own songs, turning with the seasons in a regular yearly round — and in 1961 the Census monograph of Jojohatu village still found community singing and dancing the village's most sought-after entertainment.",
+  "body": [
+   {
+    "type": "p",
+    "text": "As recorded by S. C. Roy in The Mundas and Their Country (1912), “All the distinctively Mundari religious festivals, with the single exception of the Kadleta, have each its appropriate dance and songs. ” Half a century later, the 1961 Census monograph of Jojohatu village still described participation in community singing and dancing as “the most sought-for form of entertainment during leisure hours”."
+   },
+   {
+    "type": "h2",
+    "text": "A round of dances through the year"
+   },
+   {
+    "type": "p",
+    "text": "Roy names the principal classes of Mundari songs and dances as the Mage or Jarga, the Jadur, the Japi, and the Lahsua or Karam — set in a yearly round turning with the festivals. The Mage dances and songs begin after the Sohrai festival in Kartik (October–November) and continue up to the Mage festival in December, the last fortnight being specially called Jarga. From then, the Jadur and Gena songs and dances are taken up until the Sarhul or Ba-parob festival in Chait (March–April) — one Gena being sung after every two Jadur songs. After Sarhul come the Japi or hunting songs and dances, for two or three weeks, the season of the youths' hunting excursions. Then follow the Lahsua or Karam dances and songs, which go on right up to Sohrai again. “Thus,” Roy writes, “the Mundas have a regular round of still-returning dances all the year through.”"
+   },
+   {
+    "type": "h2",
+    "text": "Standing dances and stooping dances"
+   },
+   {
+    "type": "p",
+    "text": "The Mundas classified their dances by posture, Roy explains, into the Tingu Susun-ko, the standing dances, and the Ungud Susun-ko, the stooping dances. The Jadur is a running dance (Nir-Susun): the dancers stand upright and run in a circle from right to left. The Gena, moving in a circle, and the Japi, moving in a straight line, go at a more moderate speed and are standing dances proper. The Lahsua or Karam dances are stooping dances: the dancers join hands, stoop forward and form an arc of a circle, advancing and retiring in that posture. Its subdivisions are the Khemta, “very slow and graceful”, and the Bin-sari, danced from cock-crow to sunrise, more erect. Some dances, Roy notes, pantomime agricultural operations such as reaping; and it is not religious exultation alone that prompts them — “social joy and merriment also finds rhythmic expression in the steps of the dance”. There are special dances for marriage festivals too (arandi-susun), one of them named the Dom-kachi."
+   },
+   {
+    "type": "h2",
+    "text": "The akhra: the village's open-air hall"
+   },
+   {
+    "type": "p",
+    "text": "The stage for all this was the akhra. Roy describes the akhra as an open space, usually near the middle of the village, under an old wide-spreading tree — where public meetings and Panchayat sittings were held, and where “the young folk of the village assemble in moon-lit nights and on festive occasions to dance and sing”. The 1961 Census monograph of Jojohatu village found the same institution in place: the akhra an open space about thirty feet square, with raised stone slabs on one side as benches — “the place for dance-meets in which both men and women participate” and “also the venue of social gatherings in the village”. It catches the akhra's evening sound too: no sooner have the people settled after their night meals than “beats of the drum may be heard from the Akhara, and gradually people trickle to the place in groups of twos or threes”."
+   },
+   {
+    "type": "h2",
+    "text": "The instruments the records name"
+   },
+   {
+    "type": "p",
+    "text": "Roy lists the instruments of his day. The drums are the dholki, small, of wood and goat-skin; the nagera, a large iron drum with ox or buffalo hide; and the dumang, earthen-framed, with monkey-skin heads. With them go the dhanpla (tambourine) and the kartal (brass cymbals); the saranga fiddle; the tuhila, a one-stringed banjo of pumpkin gourd, and the banam, a two-stringed banjo of two gourds; and the bamboo flutes, the rutu and the smaller murli. At paiki dances, young men wore ankle-bells called ghugura. At marriage festivals, Roy says, the Mundas employed musicians of the Ghasi community, whose principal instruments were the dhink drum, the narsingha horn and the perened pipe. The Jojohatu monograph, for its part, mentions only “beats of the drum” at the akhra, without naming the instrument."
+   },
+   {
+    "type": "h2",
+    "text": "Songs on the page, and change in the air"
+   },
+   {
+    "type": "p",
+    "text": "Roy's book also prints Mundari song texts with English renderings, including Jadur love-songs. The Jojohatu monograph's Karma festival likewise ends in dance — all-night singing and dancing, and next day the dancers going from house to house, received at each with a cup of handia. Yet the monograph also caught change in 1961: Jojohatu's schoolboys, it records, were not allowed to join the dancing — though the young Munda headmaster himself was an active participant."
+   },
+   {
+    "type": "p",
+    "text": "Both books are historical records — Roy's of 1912, the monograph's of one village in 1961 — and how each village keeps its akhra and its festival round today is for that village to describe."
+   }
+  ],
+  "media": [],
+  "related": [
+   "munda-village-life",
+   "munda-marriage-customs"
+  ],
+  "sources": [
+   {
+    "label": "S. C. Roy — The Mundas and Their Country (1912), full text (Archive.org)",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
+   },
+   {
+    "label": "S. D. Prasad — Jojohatu, a Munda Village, Census of India 1961 village monograph (1963)",
+    "url": "https://censusindia.gov.in/nada/index.php/catalog/31015/study-description"
+   }
+  ],
+  "status": "published",
+  "tone": "clay",
+  "verified": true,
+  "region": "Chotanagpur and the wider Munda region",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "manki-munda-governance",
+  "title": "Manki–Munda: Traditional Governance",
+  "category": "Heritage",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "How Munda and Ho villages governed themselves for centuries — through the village Munda, the Manki of the parha, and councils bound by custom — and how that system was written into Wilkinson's Rules, tested in court, and is still discussed in Kolhan today.",
+  "body": [
+   {
+    "type": "p",
+    "text": "Long before district offices reached Chotanagpur and Kolhan, Munda and Ho villages governed themselves. Authority was layered and local: each village had its headman, groups of villages stood under a wider chief, and councils of elders settled disputes by custom rather than written law. Beside this secular order stood a second, sacred one, led by the village priest. Together — Munda, Manki and Pahan — they formed a system of self-governance that in Kolhan survives, in adapted form, to this day."
+   },
+   {
+    "type": "h2",
+    "text": "The village: the Munda and the council of elders"
+   },
+   {
+    "type": "p",
+    "text": "S. C. Roy's The Mundas and Their Country (1912) describes each Munda village as occupied by the descendants of the family that had first cleared its land. Its headman, the Munda, was the village's secular head. He did not judge alone: a village Panch, a council of elders, arbitrated disputes with him. Custom was the recognised law; offences drew fines and, in extreme cases, expulsion from the village community. In the Ho country of Kolhan the same office exists today: one hereditary Munda per village, resolving its disputes."
+   },
+   {
+    "type": "h2",
+    "text": "The parha: the Manki, first among equals"
+   },
+   {
+    "type": "p",
+    "text": "Above the village stood the parha, or patti — a group of villages acting together. Roy describes villages grouped 'generally of twelve — but sometimes more and sometimes less', with the strongest of their headmen becoming the Manki, or patti-chief, to whom the others owed allegiance. In Kolhan the corresponding unit is the pir, generally eight to fifteen villages; a settlement record quoted in the Mora Ho judgment counted 26 pirs in the Kolhan estate. The Manki presided over the Patti-Panch or Parha-Panch, the council for disputes between villages and matters of tribal importance. Yet Roy is careful: the Manki, like the Munda, 'was always looked upon as a chief among equals — a leader and not a ruler', and no superior rights of property belonged to his office. Both offices, first filled by choice of the strongest, gradually became hereditary."
+   },
+   {
+    "type": "h2",
+    "text": "The Pahan: the village's other pillar"
+   },
+   {
+    "type": "p",
+    "text": "Village leadership had two halves. Beside the Munda, the secular head, stood the Pahan — in Roy's words, the ecclesiastical head, the village priest. The Pahan led the village's worship: the offerings to the village deities and the spirits of the place. Roy suggests that in the earliest remembered order the two functions were not yet separated, and the founder's heir was chief in temporal as well as spiritual matters. The division that followed — Munda for order, Pahan for the sacred — is still recognised in Munda villages."
+   },
+   {
+    "type": "h2",
+    "text": "1833–1837: Wilkinson's Rules and the Kolhan settlement"
+   },
+   {
+    "type": "p",
+    "text": "After the Ho and Kol risings of the early nineteenth century, the British, unable to subdue Kolhan by force alone, chose to work through its traditional leaders. Captain Thomas Wilkinson, the Company's Political Agent, drafted a set of 31 rules in 1833 as guiding principles for the Ho leaders — described as the first formal codification of any adivasi community's traditional system. When the Kolhan Government Estate was created in 1837, the rules took effect there, and a Hukuknama — a record of rights — recorded the duties of Mankis and Mundas. Recognition came at a price: leaders who had never collected revenue became intermediaries of the colonial administration, and ideas of individual property entered with them."
+   },
+   {
+    "type": "h2",
+    "text": "Custom, not statute: the Mora Ho judgment"
+   },
+   {
+    "type": "p",
+    "text": "Remarkably, Wilkinson's Rules were never formally sanctioned. In Mora Ho v. State of Bihar (2000), a Full Bench of the Patna High Court held by majority that the Rules had not been framed by the Governor-General in Council — the only authority competent under Regulation XIII of 1833, and therefore lacked statutory force. The settlement reports of Ranchi (1910) and Kolhan (1913–1918) had themselves recorded that the Rules were framed 'though not sanctioned by the Government'. Yet the Court noted the Rules had been followed in Kolhan's civil justice for about 150 years, and directed that they continue until suitable replacements were framed. In Kolhan, then, the Manki–Munda order rests on custom — on a century and a half of practice — rather than on any statute."
+   },
+   {
+    "type": "h2",
+    "text": "The system today"
+   },
+   {
+    "type": "p",
+    "text": "The Kolhan Government Estate was dissolved after Independence, but Wilkinson's Rules continued in Kolhan's civil justice, the region remaining largely exempt from general civil procedure laws. In 2021 the Jharkhand government recognised the traditional Nyaya Panch for revenue-related work such as reporting land transactions and settling disputes. That balance is still negotiated: in September 2025, Ho villagers in West Singhbhum protested over feared interference with the system; the administration responded that Mankis and Mundas remain integral to it. Within the community there is also discussion about how a hereditary system should adapt to modern administration. The system endures not as a museum piece, but as a living institution whose terms are still debated by the people it governs."
+   }
+  ],
+  "media": [],
+  "related": [
+   "mundari-khuntkatti",
+   "munda-village-life",
+   "munda-clan-killi-system"
+  ],
+  "sources": [
+   {
+    "label": "Indian Express Explained — 'Subject of recent protests, what is Kolhan's Manki-Munda system?' (15 September 2025)",
+    "url": "https://indianexpress.com/article/explained/explained-culture/subject-of-recent-protests-what-is-kolhans-manki-munda-system-10250245/"
+   },
+   {
+    "label": "Mora Ho v. State of Bihar, Full Bench, Patna High Court (2000), AIR 2000 Patna 101 — full judgment, Indian Kanoon",
+    "url": "https://indiankanoon.org/doc/1026283/"
+   },
+   {
+    "label": "S. C. Roy — The Mundas and Their Country (1912), full text, Internet Archive",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
+   }
+  ],
+  "status": "published",
+  "tone": "earth",
+  "verified": true,
+  "region": "Chotanagpur and Kolhan (Jharkhand)",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "mundari-dialects",
+  "title": "Mundari Dialects and Regional Differences",
+  "category": "Language",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "Mundari is one language, but it is not spoken the same way everywhere. Linguists describe four main varieties — Hasada, Naguri, Tamaria and Kera — and this article explains what is known about them, and why no variety should be called the 'wrong' one.",
+  "body": [
+   {
+    "type": "p",
+    "text": "Mundari is one language, spoken across a wide region of Jharkhand, Odisha and neighbouring states — and, like every widely spoken language, it changes from place to place. A word pronounced one way in a village near Khunti may sound different in Ranchi town or in Mayurbhanj, and grammar shifts a little too. Linguists who have documented Mundari over the past century usually describe this variation through four main named varieties. Knowing them helps us listen better — and helps this archive record each speaker's words faithfully, in the form in which they were actually spoken."
+   },
+   {
+    "type": "h2",
+    "text": "Four named varieties"
+   },
+   {
+    "type": "p",
+    "text": "The linguist Toshiki Osada, following the classification in Hoffmann's Encyclopaedia Mundarica, lists four dialects of Mundari, spoken mostly in Jharkhand. Hasada is the variety east of the Ranchi–Chaibasa road. Naguri is spoken west of the same road. Tamaria — also called Latar — belongs to the Panchpargana area: Tamar, Bundu, Rahe, Sonahatu and Silli. Kera is the variety of Ranchi city and its surroundings, spoken largely by Oraon (Kurukh) families who have made Mundari their own. The Central Institute of Indian Languages' Mundari corpus documentation names the same four — Hasada, Naguri, Tamaria and Kera — as the primary varieties of the language."
+   },
+   {
+    "type": "h2",
+    "text": "How the varieties differ"
+   },
+   {
+    "type": "p",
+    "text": "The differences are real but modest beside what the varieties share. Osada notes a difference in sounds: Naguri and Kera possess aspirated stops — sounds of the kh, th type — that Hasada and Tamaria do not have. The CIIL corpus description observes that Kera's core vocabulary is close to that of the other three varieties, but its verb formations are noticeably different, both in how new verb forms are derived and in how they are inflected. Osada's own widely used grammatical description of Mundari is based mainly on Hasada — which is one reason Hasada appears so often in books. That is a fact about where documentation happened, not a ranking of the varieties themselves."
+   },
+   {
+    "type": "h2",
+    "text": "Where scholars draw the lines differently"
+   },
+   {
+    "type": "p",
+    "text": "The boundaries of a language are not always drawn the same way. Bhumij, for example, is listed in many sources as a separate language; the linguist Gregory Anderson has suggested it may instead be a variety of the Tamaria (Latar) group. It is spoken across parts of Jharkhand and in Mayurbhanj district of Odisha. Reference works do not all place Bhumij in the same position, and classifications of Mundari's varieties can differ in detail from one scholar to another. The four-variety picture above is the most commonly cited one — but it should be read as a map drawn by linguists, not as walls between villages."
+   },
+   {
+    "type": "h2",
+    "text": "No variety is the 'wrong' Mundari"
+   },
+   {
+    "type": "p",
+    "text": "It matters to say this plainly: there is no 'incorrect' Mundari. A variety is simply the speech a community has shaped in its own place over generations — in the Panchpargana villages, in Ranchi's Oraon neighbourhoods, in the Hasada country east of the Ranchi–Chaibasa road, and in the Mundari-speaking districts of northern Odisha such as Mayurbhanj, Keonjhar and Sundargarh, where the language lives alongside Odia. Differences in pronunciation or vocabulary between these places are the normal life of a language, not errors to be corrected into somebody else's speech."
+   },
+   {
+    "type": "h2",
+    "text": "Why this archive records your variety"
+   },
+   {
+    "type": "p",
+    "text": "This is why Mundari Samaj asks contributors not only for a word, song or story, but also for where it comes from. When a word is recorded, we note the village and the variety it belongs to, and we keep the contributor's own form rather than silently rewriting it into a different variety. A dictionary or story collection that mixes varieties without labels teaches confusion; one that labels them honestly teaches the language as it truly is — one language, spoken with many local voices, all of them worth preserving."
+   }
+  ],
+  "media": [],
+  "related": [
+   "mundari-language",
+   "munda-language-ancestry-and-identity",
+   "language-identity-and-multilingual-life-in-mayurbhanj"
+  ],
+  "sources": [
+   {
+    "label": "'Mundari language' — encyclopaedia summary of the dialect classification (Osada 2008, after Hoffmann's Encyclopaedia Mundarica; Anderson 2008 on Bhumij), Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mundari_language"
+   },
+   {
+    "label": "LDC-IL / Central Institute of Indian Languages — Mundari Parallel Text Corpus: Linguistic Features and Structures (the four primary varieties; Kera verb morphology)",
+    "url": "https://data.ldcil.org/resources/downloads/MundariParallelTextCorpus.pdf"
+   },
+   {
+    "label": "Glottolog 5.3 — Mundari (classification and reference catalogue entry)",
+    "url": "https://glottolog.org/resource/languoid/id/mund1320"
+   }
+  ],
+  "status": "published",
+  "tone": "sage",
+  "verified": true,
+  "region": "Jharkhand, Odisha and neighbouring regions",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
+ },
+ {
+  "id": "mundari-oral-literature",
+  "title": "Mundari Oral Literature and Proverbs",
+  "category": "Language",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "4 min read",
+  "excerpt": "For most of its history, Mundari's literature lived in memory and voice — tales, songs, riddles and proverbs taught in the evening dormitories. This article traces that tradition and the two great records that preserved parts of it in writing: Roy's book of 1912 and the Jojohatu monograph of 1961.",
+  "body": [
+   {
+    "type": "p",
+    "text": "Before Mundari had printed books, it had something older and, for centuries, sufficient: a literature carried in memory and voice. Tales told after dark, songs for work and festival, riddles traded as a game of wit, proverbs that compressed judgement into a single line — together these formed the Munda community's library. Nothing was written down, yet very little was left unrecorded; it was recorded in people. This article looks at how it lived, what it carried, and how parts of it were written down."
+   },
+   {
+    "type": "h2",
+    "text": "The evening school: folklore in the giti-ora"
+   },
+   {
+    "type": "p",
+    "text": "S. C. Roy, whose The Mundas and Their Country (1912) remains a foundational record, put it directly: for the ordinary Munda of his time, the only vehicle of instruction and culture was folklore — kahani — consisting of narratives or folktales, riddles and proverbs. These were 'recited and learnt in the evening' by the young bachelors and maidens in their respective giti-oras, the village youth dormitories, after the day's work was over. The dormitory was at once a sleeping-house, a club and, in Roy's phrase, an educational seminary. Roy closed his book with the literature itself: his contents give folk-tales, proverbs, and a final gathering of songs running to more than thirty pages."
+   },
+   {
+    "type": "h2",
+    "text": "Tales that carry memory and teaching"
+   },
+   {
+    "type": "p",
+    "text": "The commonest class of tales, Roy records, were prose stories called kaji-kahani; he prints one, 'The Tiger and the Thief', as a sample. Other tales carry far older freight. The Asur legend, which Roy retells, remembers the Asurs, an iron-smelting people, and tells how their furnaces, worked day and night, sent up a heat that dried the streams and scorched the earth, until the creatures of the world complained to Sing Bonga, who sent bird messengers ordering the Asurs to work by day or by night, but not both. The Asurs refused, and the tale moves toward their fall. A story like this is many things at once: a memory of an earlier people and their craft, an explanation of the world, and a teaching about excess and its price. Oral tales also carried the community's law in portable form — Roy records the solemn oath formula of the Mundas, invoking 'Sing-bonga on high, and the Panch on earth', a whole theory of authority held in one remembered line."
+   },
+   {
+    "type": "h2",
+    "text": "Songs and riddles"
+   },
+   {
+    "type": "p",
+    "text": "Songs accompanied the year's round of festivals, dances and work, and Roy's collection shows they could also carry commentary on life as it was being lived — including songs of indignation at wrongs suffered. Riddles were the evening's lighter discipline: posed and solved in the giti-ora, they sharpened the young in the precise, playful use of their language — its sounds, double meanings and images drawn from fields, forests and animals. Between tale, song, riddle and proverb, a young person absorbed vocabulary, history, custom and conduct without ever opening a book."
+   },
+   {
+    "type": "h2",
+    "text": "Written down twice: 1912 and 1961"
+   },
+   {
+    "type": "p",
+    "text": "Twice in the twentieth century, recorders wrote this oral world down at length. Roy's 1912 book printed Mundari tales, riddles, proverbs and songs alongside his history of the community. Half a century later, the Census of India's village monograph on Jojohatu (1961, published 1963), by S. D. Prasad, preserved another great tale in full: the legend of Karma and Dharma, which explains the Karma festival. It tells of Karma, who in anger destroyed the Karam branches and his brother's seedlings, lost his wealth, and journeyed in search of Karam Raja, by whose grace fortune returned. The monograph sets the tale beside the festival as Jojohatu kept it — on the eleventh day of Bhado, with branches of the Bhelwa tree, song and all-night dancing, no sacrifice, and the festival observed in alternate years. Both tales are now retold on this website — 'The Asur Legend' and 'Karma and Dharma — the legend of Karam Raja' — each with its source named."
+   },
+   {
+    "type": "h2",
+    "text": "Proverbs: a shelf still being filled"
+   },
+   {
+    "type": "p",
+    "text": "A word of honesty about proverbs. Roy printed a few pages of Mundari proverbial lore as samples, remarking on how much judgement the form can carry. But a proverb is not only a sentence; it belongs to a place, a speaker and an occasion, and its force often lies in when it is said. A trustworthy collection must therefore record each proverb with its source — who used it, where, and in what variety of Mundari — rather than gathering unattributed sayings from anywhere. Such a sourced Mundari proverb collection is still being built for this archive, and we would rather leave the shelf partly empty than fill it with lines we cannot vouch for. If your family keeps proverbs, songs, riddles or tales, the Contribute page explains how to share them with place and teller recorded — so the next recorder of this literature can be the community itself."
+   }
+  ],
+  "media": [],
+  "related": [
+   "oral-history",
+   "mundari-language",
+   "munda-clan-killi-system"
+  ],
+  "sources": [
+   {
+    "label": "S. C. Roy — The Mundas and Their Country (1912), full text (folklore in the giti-ora; folk-tales, proverbs and songs sections; the Asur legend), Internet Archive",
+    "url": "https://archive.org/stream/in.ernet.dli.2015.215493/2015.215493.The-Mundas_djvu.txt"
+   },
+   {
+    "label": "S. D. Prasad — Jojohatu, a Munda Village, Census of India 1961, Vol. IV (Bihar), Part VI, No. I (1963) — official catalogue record, Census of India (NADA)",
+    "url": "https://censusindia.gov.in/nada/index.php/catalog/31015/study-description"
+   }
+  ],
+  "status": "published",
+  "tone": "gold",
+  "verified": true,
+  "region": "The Munda region",
+  "reviewStatus": "Source-checked against cited references",
+  "updatedAt": "2026-11-04",
+  "translations": [],
+  "translationsPending": [
+   "unr",
+   "or",
+   "hi",
+   "bn"
+  ],
+  "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan"
  }
 ]

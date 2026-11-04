@@ -68,8 +68,59 @@ function shareBlock(x,k){
    `<a href="https://twitter.com/intent/tweet?text=${t}&url=${u}" target="_blank" rel="noopener">X</a>`+
    `<a href="https://t.me/share/url?url=${u}&text=${t}" target="_blank" rel="noopener">Telegram</a></div>`;
 }
+const LANGS=[["en","English"],["unr","Mundari"],["or","Odia"],["hi","Hindi"],["bn","Bengali"]];
+const LANGNAME={en:"English",unr:"Mundari",or:"Odia",hi:"Hindi",bn:"Bengali"};
+function srcLabel(s){
+  if(!s) return "";
+  if(s.label) return s.label;
+  let meta=[s.author,s.publisher,s.year].filter(Boolean).join(", ");
+  return (s.title||"")+(meta?" — "+meta:"");
+}
+function wireLang(x,el){
+  const sel=el.querySelector("#fx-lang"); if(!sel) return;
+  const note=el.querySelector("#fx-lang-note"), cur=el.querySelector("#fx-lang-cur");
+  const titleEl=el.querySelector(".fx-title"), leadEl=el.querySelector(".fx-lead"),
+        bodyEl=el.querySelector(".fx-body-copy"), creditEl=el.querySelector("#fx-trans-credit");
+  const orig={t:titleEl.textContent, l:leadEl.textContent, b:bodyEl.innerHTML};
+  let now="en";
+  const avail=c=>c==="en"||(x.translations||[]).includes(c);
+  sel.addEventListener("change", async ()=>{
+    const c=sel.value;
+    if(c===now) return;
+    if(!avail(c)){
+      note.textContent="This article is not yet available in "+LANGNAME[c]+". Translations are added only after they have been supplied and reviewed by a competent speaker.";
+      note.hidden=false; sel.value=now; return;
+    }
+    if(c==="en"){
+      titleEl.textContent=orig.t; leadEl.textContent=orig.l; bodyEl.innerHTML=orig.b;
+      if(creditEl) creditEl.textContent=""; note.hidden=true; now="en"; cur.textContent="Currently: English"; return;
+    }
+    try{
+      const r=await fetch("content/i18n/"+encodeURIComponent(x.id)+"."+c+".json");
+      if(!r.ok) throw new Error("missing");
+      const tr=await r.json();
+      titleEl.textContent=tr.translatedTitle||orig.t;
+      leadEl.textContent=tr.translatedSummary||orig.l;
+      bodyEl.innerHTML=(Array.isArray(tr.content)?tr.content:[]).map(v=>v.type==="h2"?`<h2>${esc(v.text)}</h2>`:`<p>${esc(v.text)}</p>`).join("");
+      if(creditEl) creditEl.textContent="Translation"+(tr.translationStatus?": "+tr.translationStatus:"")+(tr.reviewer?" · Reviewed by "+tr.reviewer:"")+(tr.reviewedAt?" · "+tr.reviewedAt:"")+(tr.region?" · Variety/region: "+tr.region:"");
+      note.hidden=true; now=c; cur.textContent="Currently: "+LANGNAME[c];
+    }catch(e){
+      note.textContent="This article is not yet available in "+LANGNAME[c]+".";
+      note.hidden=false; sel.value=now;
+    }
+  });
+}
 function detail(x,k,el,all){
-  let b=Array.isArray(x.body)?x.body.map(v=>v.type==="h2"?`<h2>${esc(v.text)}</h2>`:`<p>${esc(v.text)}</p>`).join(""):`<p>${esc(x.body)}</p>`;
+  const isArt = k==="articles";
+  let h2n=0;
+  let b=Array.isArray(x.body)?x.body.map(v=>{
+    if(v.type==="h2"){ h2n++; return isArt?`<h2 id="sec-${h2n}">${esc(v.text)}</h2>`:`<h2>${esc(v.text)}</h2>` }
+    return `<p>${esc(v.text)}</p>`}).join(""):`<p>${esc(x.body)}</p>`;
+  let toc="";
+  if(isArt && h2n>=3 && Array.isArray(x.body)){
+    let i=0;
+    toc=`<nav class="fx-toc" aria-label="Table of contents"><h2>Contents</h2><ol>${x.body.filter(v=>v.type==="h2").map(v=>`<li><a href="#sec-${++i}">${esc(v.text)}</a></li>`).join("")}</ol></nav>`;
+  }
   let feat=x.image&&x.image.src?`<figure class="fx-figure fx-featured"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption>${esc(x.image.caption||"")}${x.image.credit?` <span class="fx-credit">${esc(x.image.credit)}</span>`:""}</figcaption></figure>`:"";
   let media=Array.isArray(x.media)?x.media.map(mediaItem).join(""):"";
   let rel="";
@@ -78,8 +129,19 @@ function detail(x,k,el,all){
      if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="stories.html?id=${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
      return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news.html?id=${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
    if(cards)rel=`<h2 class="fx-related-h">Related reading</h2><div class="fx-card-grid">${cards}</div>`}
-  let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
-  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1>${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">By ${esc(x.author||x.contributor||"Mundari Samaj")} · ${esc(x.readTime||"")}</p>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
+  let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li>${s.type?`<span class="fx-src-type">${esc(s.type)}</span> `:""}${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(srcLabel(s))}</a>`:esc(srcLabel(s))}</li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
+  let metaBits=[`By ${esc(x.author||x.contributor||"Mundari Samaj")}`];
+  if(x.readTime)metaBits.push(esc(x.readTime));
+  if(isArt&&x.region)metaBits.push("Region: "+esc(x.region));
+  if(isArt&&x.updatedAt)metaBits.push("Updated "+esc(x.updatedAt));
+  if(isArt&&x.reviewStatus)metaBits.push("Status: "+esc(x.reviewStatus));
+  let langbar="";
+  if(isArt){
+    const avail=c=>c==="en"||(x.translations||[]).includes(c);
+    langbar=`<div class="fx-langbar"><label for="fx-lang">Read in:</label><select id="fx-lang" aria-label="Choose reading language">${LANGS.map(([c,n])=>`<option value="${c}"${c==="en"?" selected":""}>${n}${avail(c)?"":" — not yet available"}</option>`).join("")}</select><span class="fx-lang-cur" id="fx-lang-cur">Currently: English</span></div><div class="fx-lang-note" id="fx-lang-note" hidden></div><p class="fx-meta" id="fx-trans-credit"></p>`;
+  }
+  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1 class="fx-title">${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">${metaBits.join(" · ")}</p>${langbar}${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${toc}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
+  if(isArt) wireLang(x,el);
 }
 async function home(){
   const grid=$("#article-grid");if(!grid)return;

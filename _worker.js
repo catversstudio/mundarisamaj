@@ -54,6 +54,31 @@ function rowToItem(r) {
   };
 }
 
+
+// v40 image bridge: if a DB record has no image but the bundled static
+// record for the same id does, fill it in. Keeps published photos in sync
+// even before the next D1 content sync; a no-op once D1 meta carries them.
+const STATIC_FILE = { article: "articles", news: "news", story: "stories" };
+async function fillImages(items, env, origin) {
+  const need = (items || []).filter(x => x && !(x.image && x.image.src));
+  if (!need.length || !env.ASSETS || !origin) return items;
+  const byType = {};
+  for (const x of need) (byType[x._type] = byType[x._type] || []).push(x);
+  for (const t of Object.keys(byType)) {
+    const f = STATIC_FILE[t];
+    if (!f) continue;
+    try {
+      const res = await env.ASSETS.fetch(new URL("/content/" + f + ".json", origin));
+      if (!res.ok) continue;
+      const arr = await res.json();
+      const map = {};
+      for (const rec of arr || []) if (rec && rec.id && rec.image && rec.image.src) map[rec.id] = rec.image;
+      for (const x of byType[t]) { const im = map[x.id]; if (im) x.image = im; }
+    } catch (e) { /* static file unavailable — leave items unchanged */ }
+  }
+  return items;
+}
+
 function paginate(url, fallbackPer = 24, maxPer = 200) {
   const page = Math.max(1, parseInt(url.searchParams.get("page") || "1", 10) || 1);
   let per = parseInt(url.searchParams.get("per") || String(fallbackPer), 10) || fallbackPer;
@@ -70,7 +95,9 @@ async function apiContent(url, env) {
       "SELECT * FROM content WHERE slug = ? AND status = 'published'"
     ).bind(slug).first();
     if (!row) return json({ ok: false, error: "not_found" }, 404);
-    return json({ ok: true, item: rowToItem(row) });
+    const one = rowToItem(row);
+    await fillImages([one], env, url.origin);
+    return json({ ok: true, item: one });
   }
   const type = url.searchParams.get("type");
   const category = url.searchParams.get("category");
@@ -86,7 +113,9 @@ async function apiContent(url, env) {
   const cnt = await env.DB.prepare(
     "SELECT COUNT(*) AS n FROM content c LEFT JOIN categories cat ON cat.id = c.category_id " + where
   ).bind(...binds).first();
-  return json({ ok: true, items: (res.results || []).map(rowToItem), total: cnt ? cnt.n : 0, page, per });
+  const items = (res.results || []).map(rowToItem);
+  await fillImages(items, env, url.origin);
+  return json({ ok: true, items, total: cnt ? cnt.n : 0, page, per });
 }
 
 // GET /api/dictionary?q=&category=&page=1&per=48
@@ -121,7 +150,7 @@ async function apiCategories(env) {
 }
 
 // GET /api/home — grouped published content for the homepage category rails.
-async function apiHome(env) {
+async function apiHome(env, origin) {
   const base = "SELECT c.* FROM content c LEFT JOIN categories cat ON cat.id = c.category_id " +
     "WHERE c.status = 'published'";
   const ord = " ORDER BY COALESCE(c.published_at, c.created_at) DESC, c.id DESC LIMIT 12";
@@ -142,6 +171,7 @@ async function apiHome(env) {
   const dict = await env.DB.prepare(
     "SELECT id, word, bani, meaning_en, category FROM dictionary WHERE status = 'published' ORDER BY RANDOM() LIMIT 12"
   ).all();
+  await fillImages([...articles, ...news, ...stories, ...people, ...history], env, origin);
   return json({
     ok: true,
     groups: { articles, news, stories, videos, gallery, books, people, history },
@@ -160,7 +190,9 @@ async function apiSearch(url, env) {
   const d = await env.DB.prepare(
     "SELECT id, word, bani, meaning_en, category FROM dictionary WHERE status = 'published' AND (word LIKE ? OR meaning_en LIKE ?) ORDER BY word LIMIT 20"
   ).bind(like, like).all();
-  return json({ ok: true, content: (c.results || []).map(rowToItem), dictionary: d.results || [] });
+  const found = (c.results || []).map(rowToItem);
+  await fillImages(found, env, url.origin);
+  return json({ ok: true, content: found, dictionary: d.results || [] });
 }
 
 /* ================= Stage 3 — admin ================= */
@@ -807,7 +839,7 @@ export default {
             case "/api/content": res = await apiContent(url, env); break;
             case "/api/dictionary": res = await apiDictionary(url, env); break;
             case "/api/categories": res = await apiCategories(env); break;
-            case "/api/home": res = await apiHome(env); break;
+            case "/api/home": res = await apiHome(env, url.origin); break;
             case "/api/search": res = await apiSearch(url, env); break;
             default: res = json({ ok: false, error: "not_found" }, 404);
           }

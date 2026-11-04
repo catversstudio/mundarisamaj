@@ -9,7 +9,14 @@
   "status": "published",
   "related": [
    "story-memory"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/story-voices.jpg",
+   "caption": "Munda elders at Dinajpur, photographed in 2010",
+   "credit": "Biplob Rahaman",
+   "source": "https://commons.wikimedia.org/wiki/File:Old_Munda_Men,_Dinajpur,_2010_by_Biplob_Rahman.jpg",
+   "license": "CC BY 3.0"
+  }
  },
  {
   "id": "story-memory",
@@ -21,7 +28,14 @@
   "status": "published",
   "related": [
    "story-voices"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/story-memory.jpg",
+   "caption": "A traditional Munda house, built as an exhibit at the State Tribal Fair 2020 in Bhubaneswar, Odisha.",
+   "credit": "Durga Soren",
+   "source": "https://commons.wikimedia.org/wiki/File:Munda_House_at_%22_State_Tribal_Fair-_2020_%22_,_Bhubaneswar,_India.jpg",
+   "license": "CC BY-SA 4.0"
+  }
  },
  {
   "id": "the-asur-legend",

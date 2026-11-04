@@ -267,7 +267,7 @@ async function listing(k){
   let d=await load(k),id=new URLSearchParams(location.search).get("id");
   if(id){let x=d.find(y=>y.id===id);if(x)detail(x,k,el,d);else el.innerHTML='<div class="fx-empty-state">Content not found.</div>';return}
   d=d.filter(published);
-  if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>`<article class="fx-feed-card"><div class="fx-feed-body"><span class="fx-tag">${esc(x.date||"")} · ${esc(x.category||"Update")}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt||"")}</p><a class="fx-feed-more" href="news.html?id=${x.id}">Read the full update →</a></div></article>`).join("")+"</div>"}
+  if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"news.html?id="+x.id,x.category||"Update")).join("")+"</div>"}
   else if(k==="gallery"){galleryFeed(el,d)}
   else if(k==="stories"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"stories.html?id="+x.id,x.place)).join("")+"</div>"}
   else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+".html?id="+x.id,x.category)).join("")+"</div>";

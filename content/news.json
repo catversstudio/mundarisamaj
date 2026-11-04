@@ -9,7 +9,14 @@
   "body": "This is a platform announcement. The new editorial structure is designed to make community knowledge easier to discover.",
   "related": [
    "call-for-contributions"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/platform-update.jpg",
+   "caption": "The Ambedkar Library in Jeedikal village — a small village library and learning centre.",
+   "credit": "Batthini Vinay Kumar Goud",
+   "source": "https://commons.wikimedia.org/wiki/File:Ambedkar_Library_located_in_Jeedikal_village.jpg",
+   "license": "CC0"
+  }
  },
  {
   "id": "call-for-contributions",
@@ -21,7 +28,14 @@
   "body": "Contributors are invited to share material they have the right to provide. Include context, preferred credit and any restrictions.",
   "related": [
    "platform-update"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/call-for-contributions.jpg",
+   "caption": "The Vidyanagari Community Centre in Baramati, Maharashtra, home of the Vasundhara Vahini 90.4 MHz community radio station, with its transmission mast.",
+   "credit": "Fredericknoronha",
+   "source": "https://commons.wikimedia.org/wiki/File:Baramati,_Maharashtra,_India._45_Community_radio_station.jpg",
+   "license": "CC BY-SA 4.0"
+  }
  },
  {
   "id": "adi-vaani-full-launch",
@@ -90,6 +104,13 @@
   "status": "published",
   "related": [
    "palash-mundari-schools"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/ranchi-multilingual-conclave.jpg",
+   "caption": "Ranchi, the capital of Jharkhand, with Ranchi Lake, seen from the top of Pahadi Temple — a general view of the city, not the conclave itself.",
+   "credit": "Sankara Subramanian",
+   "source": "https://commons.wikimedia.org/wiki/File:Ranchi_Cityscape.jpg",
+   "license": "CC BY 2.0"
+  }
  }
 ]

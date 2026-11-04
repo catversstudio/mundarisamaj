@@ -1,26 +1,95 @@
 [
-  {
-    "id": "platform-update",
-    "title": "Mundari Samaj introduces its articles and community publishing hub",
-    "date": "2026-11-02",
-    "category": "Platform update",
-    "excerpt": "The updated platform brings articles, news, community stories, a media gallery and a searchable knowledge hub into one place.",
-    "status": "published",
-    "body": "This is a platform announcement. The new editorial structure is designed to make community knowledge easier to discover.",
-    "related": [
-      "call-for-contributions"
-    ]
+ {
+  "id": "platform-update",
+  "title": "Mundari Samaj introduces its articles and community publishing hub",
+  "date": "2026-11-02",
+  "category": "Platform update",
+  "excerpt": "The updated platform brings articles, news, community stories, a media gallery and a searchable knowledge hub into one place.",
+  "status": "published",
+  "body": "This is a platform announcement. The new editorial structure is designed to make community knowledge easier to discover.",
+  "related": [
+   "call-for-contributions"
+  ]
+ },
+ {
+  "id": "call-for-contributions",
+  "title": "Invitation: share language resources and community histories",
+  "date": "2026-11-02",
+  "category": "Community call",
+  "excerpt": "We welcome carefully documented words, memories, photographs and references, shared with permission.",
+  "status": "published",
+  "body": "Contributors are invited to share material they have the right to provide. Include context, preferred credit and any restrictions.",
+  "related": [
+   "platform-update"
+  ]
+ },
+ {
+  "id": "adi-vaani-full-launch",
+  "title": "Adi Vaani grows: full platform launched at the Mysuru tribal languages conclave",
+  "date": "2026-08-24",
+  "category": "Language technology",
+  "excerpt": "At the National Conclave on Tribal Languages and Museums in Mysuru (24–26 August 2026), the Ministry of Tribal Affairs launched the full, upgraded Adi Vaani platform — with an iOS app, five more languages, a “Jago” AI assistant and a documentation partnership with CIIL.",
+  "body": "Adi Vaani, the Government of India's AI-powered translation platform for tribal languages, moved from beta to a full platform at the National Conclave on Tribal Languages and Museums in Mysuru, inaugurated by Minister of State for Tribal Affairs Durgadas Uikey. The upgraded platform adds an iOS app, five additional languages (taking the total to nine), a new logo, a “Jago” AI conversational assistant for the Ministry, and a memorandum of understanding with the Central Institute of Indian Languages (CIIL), Mysuru, for tribal-language documentation and corpus development. Mundari — one of the four original beta languages — remains at the heart of the platform, which the Ministry describes as an effort to preserve and promote India's tribal languages. Sources: Akashvani News and The Times of India, reporting the Ministry's releases (PIB PRID 2302927, 2302944).",
+  "status": "published",
+  "image": {
+   "src": "assets/img/mundari-bani-script-chart.jpg",
+   "caption": "A printed Mundari Bani script chart, signed by the script's creator Rohidas Singh Nag.",
+   "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
+   "license": "CC BY-SA 4.0"
   },
-  {
-    "id": "call-for-contributions",
-    "title": "Invitation: share language resources and community histories",
-    "date": "2026-11-02",
-    "category": "Community call",
-    "excerpt": "We welcome carefully documented words, memories, photographs and references, shared with permission.",
-    "status": "published",
-    "body": "Contributors are invited to share material they have the right to provide. Include context, preferred credit and any restrictions.",
-    "related": [
-      "platform-update"
-    ]
-  }
+  "related": [
+   "adi-vaani-beta-launch"
+  ]
+ },
+ {
+  "id": "adi-vaani-beta-launch",
+  "title": "Adi Vaani: India's first AI translator for tribal languages launches — with Mundari",
+  "date": "2025-09-01",
+  "category": "Language technology",
+  "excerpt": "The Ministry of Tribal Affairs launched the beta of Adi Vaani on 1 September 2025 — India's first AI-powered translator for tribal languages — supporting Santali, Bhili, Mundari and Gondi, built by a consortium led by IIT Delhi.",
+  "body": "On 1 September 2025, at the Dr Ambedkar International Centre in New Delhi, Minister of State for Tribal Affairs Durgadas Uikey launched the beta version of Adi Vaani — described by the Press Information Bureau as India's first AI-powered translation tool for tribal languages, developed under the banner of Janjatiya Gaurav Varsh. Its first four languages were Santali, Bhili, Mundari (from Jharkhand) and Gondi. The platform offers text and speech translation between Hindi, English and the tribal languages, OCR for digitising tribal manuscripts and primers, bilingual dictionaries and language-learning material, and was built by a national consortium led by IIT Delhi with BITS Pilani, IIIT Hyderabad, IIIT Nava Raipur and the Tribal Research Institutes, using the NLLB and IndicTrans2 AI models with community-validated data. President Droupadi Murmu later called the launch “an important step towards language and education transformation in tribal areas”. Editor's note: Adi Vaani's Mundari output is machine translation and, as the platform itself indicates, should be reviewed by speakers before use. Sources: Press Information Bureau releases, 1 and 9 September 2025; Lok Sabha answer, 29 January 2026.",
+  "status": "published",
+  "image": {
+   "src": "assets/img/mundari-bani-script-chart.jpg",
+   "caption": "A printed Mundari Bani script chart, signed by the script's creator Rohidas Singh Nag.",
+   "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  "related": [
+   "adi-vaani-full-launch"
+  ]
+ },
+ {
+  "id": "palash-mundari-schools",
+  "title": "Mundari is now taught in over 1,000 Jharkhand primary schools",
+  "date": "2025-12-14",
+  "category": "Education",
+  "excerpt": "Under the PALASH mother-tongue education programme, children in Classes I–V now learn in Mundari, Santali, Ho, Kharia and Kurukh in more than 1,080 schools across eight districts of Jharkhand.",
+  "body": "Jharkhand's PALASH programme (Promotion of Appropriate Language and Academic Skills for Holistic Education), run by the Jharkhand Education Project Council with UNICEF and Language Learning Foundation support, teaches young children in their mother tongue — in five tribal languages: Mundari, Santali, Ho, Kharia and Kurukh. What began in 2022 as a pilot in about 259 schools had, by December 2025, reached more than 1,080 schools across eight districts — Khunti, West Singhbhum, Dumka, Sahebganj, Latehar, Lohardaga, Gumla and Simdega — benefiting roughly 35,400 children, with over a thousand teachers and resource persons trained and special textbooks developed in each language. For Mundari-speaking children, it means the language of home is now also a language of the classroom. Sources: ET Education and The Times of India, 14 December 2025.",
+  "status": "published",
+  "image": {
+   "src": "assets/img/village-jharkhand.jpg",
+   "caption": "A village in Jharkhand — the PALASH programme brings mother-tongue teaching to village primary schools.",
+   "credit": "Photo: Noukayami · CC BY-SA 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:A_village_in_jharkhand.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  "related": [
+   "ranchi-multilingual-conclave"
+  ]
+ },
+ {
+  "id": "ranchi-multilingual-conclave",
+  "title": "Jharkhand minister calls for tribal languages to anchor primary education",
+  "date": "2026-01-07",
+  "category": "Education",
+  "excerpt": "Inaugurating a national multilingual education conclave in Ranchi, Jharkhand's Higher and Technical Education Minister Sudivya Kumar said tribal and regional languages must be included in primary education — as officials confirmed Mundari-medium teaching in over a thousand schools.",
+  "body": "On 7 January 2026, Jharkhand's Higher and Technical Education Minister Sudivya Kumar inaugurated a two-day National Multilingual Education Conclave in Ranchi, held under the National Education Policy, and said that tribal and regional languages must be included in primary education. Officials at the conclave confirmed that the PALASH programme currently teaches in the state's five tribal languages — including Mundari — in 1,041 schools across eight districts, and discussed adding Jharkhand's four regional languages (Khortha, Nagpuri, Panchpargania and Kurmali) to early schooling as well. The conclave signals that mother-tongue education, Mundari included, is set to expand further in Jharkhand. Source: PTI report in The Print, 7 January 2026.",
+  "status": "published",
+  "related": [
+   "palash-mundari-schools"
+  ]
+ }
 ]

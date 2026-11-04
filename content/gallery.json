@@ -113,10 +113,17 @@
  },
  {
   "title": "Landscape and place",
-  "caption": "A visual space for community-contributed landscapes and place memories.",
-  "credit": "Illustrative artwork — not a documentary photograph",
+  "caption": "Evening over Netarhat, the hill country of Chota Nagpur, Jharkhand.",
+  "credit": "Photo: Tourism Department, Government of Jharkhand · CC0 · via Wikimedia Commons",
   "tone": "sage",
-  "status": "published"
+  "status": "published",
+  "image": {
+   "src": "assets/img/netarhat.jpg",
+   "caption": "Evening over Netarhat, the hill country of Chota Nagpur, Jharkhand.",
+   "credit": "Photo: Tourism Department, Government of Jharkhand · CC0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Netarhat,_Jharkhand.jpg",
+   "license": "CC0"
+  }
  },
  {
   "title": "Ol Guru's birthday celebration",
@@ -128,6 +135,48 @@
    "src": "assets/img/nag-birthday-celebration-01.jpg",
    "caption": "Community members honouring the garlanded portrait of Ol Guru Rohidas Singh Nag at his birthday celebration, Odisha, February 2024.",
    "credit": "Photo: Punasingh123 · CC BY 4.0 · via Wikimedia Commons"
+  }
+ },
+ {
+  "title": "Karam puja",
+  "caption": "Karam (Karma) puja being celebrated in Jharkhand.",
+  "credit": "Photo: Pankaj076 · CC BY-SA 4.0 · via Wikimedia Commons",
+  "tone": "gold",
+  "status": "published",
+  "image": {
+   "src": "assets/img/karam-puja.jpg",
+   "caption": "Karam (Karma) puja being celebrated in Jharkhand.",
+   "credit": "Photo: Pankaj076 · CC BY-SA 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Karam_puja_in_jharkhand.jpg",
+   "license": "CC BY-SA 4.0"
+  }
+ },
+ {
+  "title": "The mandar drum",
+  "caption": "A mandar — the drum at the heart of Jharkhand's music — at the Ramrekha Magh Mela, Simdega district.",
+  "credit": "Photo: Dev0745 · CC BY 4.0 · via Wikimedia Commons",
+  "tone": "clay",
+  "status": "published",
+  "image": {
+   "src": "assets/img/mandar-drum.jpg",
+   "caption": "A mandar drum at the Ramrekha Magh Mela, Simdega district, Jharkhand.",
+   "credit": "Photo: Dev0745 · CC BY 4.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Mandar_nagpuri_musical_instrument.jpg",
+   "license": "CC BY 4.0"
+  }
+ },
+ {
+  "title": "Folk dance in Khunti",
+  "caption": "Munda folk dance in Khunti district, Jharkhand — the home district of Birsa Munda.",
+  "credit": "Photo: Sudipti Minz · CC BY-SA 3.0 · via Wikimedia Commons",
+  "tone": "sage",
+  "status": "published",
+  "image": {
+   "src": "assets/img/adiwasi-dance-khunti.jpg",
+   "caption": "Munda folk dance in Khunti district, Jharkhand.",
+   "credit": "Photo: Sudipti Minz · CC BY-SA 3.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Adiwasi_dance.jpg",
+   "license": "CC BY-SA 3.0"
   }
  }
 ]

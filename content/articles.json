@@ -318,7 +318,14 @@
   "related": [
    "mundari-language",
    "community-archive"
-  ]
+  ],
+  "image": {
+   "src": "assets/img/munda-lady.jpg",
+   "caption": "Portrait of a Munda woman — the keepers of family memory and oral history.",
+   "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Munda_Lady.jpg",
+   "license": "CC BY 2.0"
+  }
  },
  {
   "id": "community-archive",
@@ -348,6 +355,117 @@
   "related": [
    "mundari-language",
    "oral-history"
+  ],
+  "image": {
+   "src": "assets/img/munda-male.jpg",
+   "caption": "Portrait of a Munda man — the community archive is built from the lives of ordinary people.",
+   "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Munda_Male.jpg",
+   "license": "CC BY 2.0"
+  }
+ },
+ {
+  "id": "jaipal-singh-munda",
+  "title": "Jaipal Singh Munda (1903–1970) — Marang Gomke, the Great Leader",
+  "category": "People & Personalities",
+  "author": "Mundari Samaj Editorial Desk",
+  "date": "2026-11-04",
+  "readTime": "8 min read",
+  "status": "published",
+  "verified": true,
+  "tone": "earth",
+  "excerpt": "Jaipal Singh Munda captained India to its first Olympic hockey gold, spoke for millions of Adivasis in the Constituent Assembly — “I am proud to be a Jungli” — and founded the Jharkhand Party to demand a homeland for his people.",
+  "image": {
+   "src": "assets/img/jaipal-hockey-1928.jpg",
+   "caption": "The Indian hockey team at the 1928 Amsterdam Olympics, captained by Jaipal Singh Munda — India won the gold medal without conceding a single goal.",
+   "credit": "Photo: Unknown photographer (1928) · Public domain · via Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Indian_hockey_team_1928_Olympics.jpg",
+   "license": "Public domain"
+  },
+  "body": [
+   {
+    "type": "p",
+    "text": "Born: 3 January 1903, Takra Pahantoli village, Khunti (then in Ranchi district, Bengal Presidency; now in Jharkhand) · Died: 20 March 1970, New Delhi · Remembered as: Marang Gomke — “the Great Leader”."
+   },
+   {
+    "type": "h2",
+    "text": "A cattle-herding boy from Khunti"
+   },
+   {
+    "type": "p",
+    "text": "Jaipal Singh was born into a Christian Munda family — his father Amru Pahan and mother Radhamani — in a small village in the Khunti hills. As a boy he tended the family's cattle and studied first at the village church school, then at St Paul's School in Ranchi, run by the SPG mission. The missionaries, seeing both his sharp mind and his gift for hockey, sent him to England — a journey few Adivasi boys of his generation could even imagine."
+   },
+   {
+    "type": "h2",
+    "text": "Oxford, and an Olympic gold"
+   },
+   {
+    "type": "p",
+    "text": "At St John's College, Oxford, he read PPE and took his BA in 1926, captained the college hockey team, and became the first Indian student to be awarded an Oxford Blue in hockey. He also wrote hockey columns for the London press. In 1927–28 he was a probationer of the Indian Civil Service — and in May 1928 he captained the first Indian hockey team ever to play at an Olympic Games, at Amsterdam. India won the tournament without conceding a single goal, beating the Netherlands 3–0 in the final. Jaipal himself missed that final: as his own memoir tells it, the India Office's refusal of leave for his ICS probation forced him out, and vice-captain Broome Pinniger led the side in the last match. Afterwards he resigned from the ICS altogether."
+   },
+   {
+    "type": "h2",
+    "text": "Teacher, executive, organiser"
+   },
+   {
+    "type": "p",
+    "text": "From 1928 to 1933 he worked as a senior executive with the Burmah-Shell oil company in Calcutta, and in 1929 he founded the hockey team of the Mohun Bagan club. He then taught at the Prince of Wales College at Achimota, on the Gold Coast (today's Ghana), returned to India in 1937 as Principal of Rajkumar College, Raipur, and served the princely state of Bikaner — before turning, fully, to the cause of his own people."
+   },
+   {
+    "type": "h2",
+    "text": "“I am proud to be a Jungli”"
+   },
+   {
+    "type": "p",
+    "text": "The Adivasi Mahasabha, formed in 1938 to bring together the tribal organisations of Chota Nagpur, elected him its first president in 1939, and in that role he raised the demand for a separate Jharkhand province. Elected to the Constituent Assembly in 1946 to represent the tribal communities, he rose on 19 December 1946, during the debate on the Objectives Resolution, and spoke on behalf of more than thirty million Adivasis: “I am proud to be a Jungli” — and, in words still quoted today: “You cannot teach democracy to the tribal people; you have to learn democratic ways from them. They are the most democratic people on earth.”"
+   },
+   {
+    "type": "h2",
+    "text": "The Jharkhand Party and Parliament"
+   },
+   {
+    "type": "p",
+    "text": "After independence the Mahasabha was reorganised as the Jharkhand Party (1949–50), open to non-tribals as well, with Jaipal Singh as its first president. In the first general election of 1952 he won the Ranchi (West) Lok Sabha seat with about sixty per cent of the vote, and his party won 32 seats in the Bihar assembly, becoming its principal opposition. In 1955 the party's memorandum demanding a Jharkhand state was rejected by the States Reorganisation Commission. He was re-elected in 1957 and 1962; in 1963 he merged the declining Jharkhand Party into the Congress, and in 1967 he won once more, from Khunti — sitting in the Lok Sabha continuously from 1952 until his death."
+   },
+   {
+    "type": "h2",
+    "text": "Legacy"
+   },
+   {
+    "type": "p",
+    "text": "Jaipal Singh Munda died in New Delhi on 20 March 1970, aged 67. The Adivasis of Chota Nagpur remember him as Marang Gomke, the Great Leader. The hockey stadium in Ranchi bears his name — the Marang Gomke Jaipal Singh Munda Hockey Stadium, opened in 2013 — and the Jharkhand government runs an overseas scholarship in his name for students from marginalised communities. His autobiography, Lo Bir Sendra (“A Hunter in the Burning Forest”), written in 1969, was published in 2004. Thirty years after his death, on 15 November 2000, the state of Jharkhand was finally created — the homeland he had demanded all his life."
+   }
+  ],
+  "media": [],
+  "related": [
+   "birsa-munda",
+   "rohidas-singh-nag"
+  ],
+  "sources": [
+   {
+    "label": "St John's College, Oxford — Jaipal Singh Munda and the college's records",
+    "url": "https://www.sjc.ox.ac.uk/discover/news/st-johns-welcomes-the-honourable-chief-minister-of-jharkhand/"
+   },
+   {
+    "label": "Constituent Assembly Debates — Jaipal Singh's speech, 19 December 1946 (Constitution of India / CLPR)",
+    "url": "https://www.Constitutionofindia.net/debates/19-dec-1946/"
+   },
+   {
+    "label": "Hockey India — the 1928 Amsterdam Olympics squad and honours",
+    "url": "https://www.hockeyindia.org/olympics-2024"
+   },
+   {
+    "label": "Sportstar (The Hindu) — the 1928 gold, Dhyan Chand and Jaipal Singh",
+    "url": "https://sportstar.thehindu.com/magazine/1928-amsterdam-olympics-gold-indian-hockey-dhyan-chand-shaukat-ali-jaipal-munda/article31671902.ece"
+   },
+   {
+    "label": "Frontline — Marang Gomke: Jaipal Singh Munda's life and memoir",
+    "url": "https://frontline.thehindu.com/books/jaipal-singh-munda-marang-gomke-olympics-jharkhand-movement/article70586673.ece"
+   },
+   {
+    "label": "Wikipedia — Jaipal Singh Munda (biographical summary and references)",
+    "url": "https://en.wikipedia.org/wiki/Jaipal_Singh_Munda"
+   }
   ]
  }
 ]

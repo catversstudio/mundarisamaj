@@ -79,8 +79,10 @@ function srcLabel(s){
 function wireLang(x,el){
   const sel=el.querySelector("#fx-lang"); if(!sel) return;
   const note=el.querySelector("#fx-lang-note"), cur=el.querySelector("#fx-lang-cur");
-  const titleEl=el.querySelector(".fx-title"), leadEl=el.querySelector(".fx-lead"),
+  const titleEl=document.querySelector(".page-hero h1.fx-title")||el.querySelector(".fx-title"),
+        leadEl=document.querySelector(".page-hero p.fx-lead")||el.querySelector(".fx-lead"),
         bodyEl=el.querySelector(".fx-body-copy"), creditEl=el.querySelector("#fx-trans-credit");
+  if(!titleEl||!leadEl||!bodyEl) return;
   const orig={t:titleEl.textContent, l:leadEl.textContent, b:bodyEl.innerHTML};
   let now="en";
   const avail=c=>c==="en"||(x.translations||[]).includes(c);
@@ -110,14 +112,40 @@ function wireLang(x,el){
     }
   });
 }
+function bodyHtml(blocks, isArt){
+  let out="", h2n=0, buf=[], lt=null;
+  const flush=()=>{ if(buf.length){ out+= lt==="ol" ? `<ol class="fx-points">${buf.map(t=>`<li>${esc(t)}</li>`).join("")}</ol>` : `<ul class="fx-points">${buf.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`; buf=[]; lt=null; } };
+  for(const v of (blocks||[])){
+    if(v.type==="h2"){ flush(); h2n++; out+= isArt?`<h2 id="sec-${h2n}">${esc(v.text)}</h2>`:`<h2>${esc(v.text)}</h2>`; continue; }
+    const t=String(v.text||"");
+    if(/^•\s/.test(t)){ if(lt!=="ul"){flush(); lt="ul";} buf.push(t.replace(/^•\s*/,"")); continue; }
+    const m=t.match(/^\d+[.)]\s+(.*)$/);
+    if(m){ if(lt!=="ol"){flush(); lt="ol";} buf.push(m[1]); continue; }
+    flush(); out+=`<p>${esc(t)}</p>`;
+  }
+  flush();
+  return {html:out, h2n};
+}
+function fillHero(x){
+  const hero=document.querySelector(".page-hero"); if(!hero) return;
+  hero.classList.add("fx-hero-detail");
+  const hh=hero.querySelector("h1"); if(hh){ hh.textContent=x.title; hh.classList.add("fx-title"); }
+  const hp=hero.querySelector("p:not(.section-kicker)"); if(hp){ hp.textContent=x.excerpt||""; hp.classList.add("fx-lead"); }
+  const hk=hero.querySelector(".section-kicker"); if(hk) hk.textContent="MUNDARI SAMAJ · "+String(x.category||"").toUpperCase()+(x.date?" · "+x.date:"");
+  document.title=x.title+" — Mundari Samaj";
+  const cr=document.querySelector('nav[aria-label="Breadcrumb"] span[aria-current="page"]'); if(cr) cr.textContent=x.title;
+  if(!document.getElementById("fx-progress")){ const pb=document.createElement("div"); pb.id="fx-progress"; document.body.appendChild(pb); }
+  const pb=document.getElementById("fx-progress");
+  const onScroll=()=>{ const h=document.documentElement, mx=h.scrollHeight-h.clientHeight; pb.style.width=(mx>0?(h.scrollTop/mx)*100:0)+"%"; };
+  if(window.__fxScroll) removeEventListener("scroll", window.__fxScroll);
+  window.__fxScroll=onScroll; addEventListener("scroll", onScroll, {passive:true}); onScroll();
+}
 function detail(x,k,el,all){
   const isArt = k==="articles";
-  let h2n=0;
-  let b=Array.isArray(x.body)?x.body.map(v=>{
-    if(v.type==="h2"){ h2n++; return isArt?`<h2 id="sec-${h2n}">${esc(v.text)}</h2>`:`<h2>${esc(v.text)}</h2>` }
-    return `<p>${esc(v.text)}</p>`}).join(""):`<p>${esc(x.body)}</p>`;
+  const bd = Array.isArray(x.body) ? bodyHtml(x.body, isArt) : {html:`<p>${esc(x.body)}</p>`, h2n:0};
+  let b = bd.html;
   let toc="";
-  if(isArt && h2n>=3 && Array.isArray(x.body)){
+  if(isArt && bd.h2n>=3 && Array.isArray(x.body)){
     let i=0;
     toc=`<nav class="fx-toc" aria-label="Table of contents"><h2>Contents</h2><ol>${x.body.filter(v=>v.type==="h2").map(v=>`<li><a href="#sec-${++i}">${esc(v.text)}</a></li>`).join("")}</ol></nav>`;
   }
@@ -129,18 +157,19 @@ function detail(x,k,el,all){
      if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="stories.html?id=${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
      return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news.html?id=${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
    if(cards)rel=`<h2 class="fx-related-h">Related reading</h2><div class="fx-card-grid">${cards}</div>`}
-  let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li>${s.type?`<span class="fx-src-type">${esc(s.type)}</span> `:""}${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(srcLabel(s))}</a>`:esc(srcLabel(s))}</li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
-  let metaBits=[`By ${esc(x.author||x.contributor||"Mundari Samaj")}`];
-  if(x.readTime)metaBits.push(esc(x.readTime));
-  if(isArt&&x.region)metaBits.push("Region: "+esc(x.region));
-  if(isArt&&x.updatedAt)metaBits.push("Updated "+esc(x.updatedAt));
-  if(isArt&&x.reviewStatus)metaBits.push("Status: "+esc(x.reviewStatus));
+  let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Data sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li>${s.type?`<span class="fx-src-type">${esc(s.type)}</span> `:""}${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(srcLabel(s))}</a>`:esc(srcLabel(s))}</li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
+  let chips=[`<span class="fx-chip">${esc(x.author||x.contributor||"Mundari Samaj")}</span>`];
+  if(x.readTime)chips.push(`<span class="fx-chip">${esc(x.readTime)}</span>`);
+  if(isArt&&x.region)chips.push(`<span class="fx-chip">Region: ${esc(x.region)}</span>`);
+  if(isArt&&x.updatedAt)chips.push(`<span class="fx-chip">Updated ${esc(x.updatedAt)}</span>`);
+  if(isArt&&x.reviewStatus)chips.push(`<span class="fx-chip fx-chip-status">${esc(x.reviewStatus)}</span>`);
   let langbar="";
   if(isArt){
     const avail=c=>c==="en"||(x.translations||[]).includes(c);
     langbar=`<div class="fx-langbar"><label for="fx-lang">Read in:</label><select id="fx-lang" aria-label="Choose reading language">${LANGS.map(([c,n])=>`<option value="${c}"${c==="en"?" selected":""}>${n}${avail(c)?"":" — not yet available"}</option>`).join("")}</select><span class="fx-lang-cur" id="fx-lang-cur">Currently: English</span></div><div class="fx-lang-note" id="fx-lang-note" hidden></div><p class="fx-meta" id="fx-trans-credit"></p>`;
   }
-  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><p class="section-kicker">${esc(x.category)} · ${esc(x.date)}</p><h1 class="fx-title">${esc(x.title)}</h1><p class="fx-lead">${esc(x.excerpt)}</p><p class="fx-meta">${metaBits.join(" · ")}</p>${langbar}${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${toc}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
+  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><div class="fx-chips">${chips.join("")}</div>${langbar}${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${toc}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
+  fillHero(x);
   if(isArt) wireLang(x,el);
 }
 async function home(){

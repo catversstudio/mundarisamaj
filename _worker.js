@@ -279,6 +279,58 @@ async function uniqueSlug(env, base, excludeId) {
   }
 }
 
+/* ---- hardening helpers (v28) ---- */
+
+async function getSetting(env, key) {
+  const row = await env.DB.prepare("SELECT value FROM settings WHERE key = ?").bind(key).first();
+  return row ? row.value : null;
+}
+
+// Cloudflare Turnstile: the secret lives in D1 settings (server-side only).
+// When no secret is stored the check is skipped (feature off); when a secret
+// exists the check FAILS CLOSED — a missing or bad token blocks the login.
+async function verifyTurnstile(env, token, ip) {
+  const secret = await getSetting(env, "turnstile_secret");
+  if (!secret) return true;
+  if (!token) return false;
+  try {
+    const form = new FormData();
+    form.append("secret", secret);
+    form.append("response", String(token));
+    if (ip) form.append("remoteip", ip);
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+    const data = await r.json();
+    return !!(data && data.success);
+  } catch (e) { return false; }
+}
+
+// Syntactically valid dummy hash so a login for an unknown email costs the
+// same PBKDF2 work as a real one (no timing hint about which emails exist).
+const DUMMY_PASSWORD_HASH = "pbkdf2$40000$c2FsdGR1bW15MTIzNDU2Nw==$aGFzaGR1bW15aGFzaGR1bW15aGFzaGR1bW15aGFzaA==";
+
+async function attemptLocked(env, key, limit) {
+  const windowStart = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  const row = await env.DB.prepare("SELECT * FROM login_attempts WHERE ip = ?").bind(key).first();
+  return !!(row && row.window_start > windowStart && row.count >= limit);
+}
+async function recordFail(env, key) {
+  const windowStart = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  const row = await env.DB.prepare("SELECT * FROM login_attempts WHERE ip = ?").bind(key).first();
+  if (!row || row.window_start <= windowStart) {
+    await env.DB.prepare("DELETE FROM login_attempts WHERE ip = ?").bind(key).run();
+    await env.DB.prepare(
+      "INSERT INTO login_attempts (ip, count, window_start) VALUES (?, 1, ?)"
+    ).bind(key, nowISO()).run();
+  } else {
+    await env.DB.prepare(
+      "UPDATE login_attempts SET count = ? WHERE ip = ?"
+    ).bind(row.count + 1, key).run();
+  }
+}
+async function clearAttempts(env, key) {
+  await env.DB.prepare("DELETE FROM login_attempts WHERE ip = ?").bind(key).run();
+}
+
 /* ---- setup + login ---- */
 
 async function adminSetupStatus(env) {
@@ -300,6 +352,9 @@ async function adminSetup(request, env) {
   const givenHash = await sha256hex(String(body.code || ""));
   const a = te.encode(givenHash), b = te.encode(String(codeHashRow.value).trim().toLowerCase());
   if (!safeEqual(a, b)) return jsonAdmin({ ok: false, error: "wrong_setup_code" }, 403);
+  if (!(await verifyTurnstile(env, body.turnstile, request.headers.get("cf-connecting-ip")))) {
+    return jsonAdmin({ ok: false, error: "captcha_failed" }, 403);
+  }
   const email = String(body.email || "").trim().toLowerCase();
   const password = String(body.password || "");
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -327,33 +382,28 @@ async function adminLogin(request, env) {
   const body = await readBody(request);
   if (!body) return jsonAdmin({ ok: false, error: "bad_json" }, 400);
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
-  const windowStart = new Date(Date.now() - 15 * 60 * 1000).toISOString();
-  const attempt = await env.DB.prepare(
-    "SELECT * FROM login_attempts WHERE ip = ?"
-  ).bind(ip).first();
-  if (attempt && attempt.window_start > windowStart && attempt.count >= 8) {
+  const email = String(body.email || "").trim().toLowerCase();
+  const acctKey = "acct:" + email;
+  // Two locks: per-IP (8 fails / 15 min) and per-account (20 fails / 15 min),
+  // so password guessing is blocked even from many different IPs.
+  if (await attemptLocked(env, ip, 8) || await attemptLocked(env, acctKey, 20)) {
     return jsonAdmin({ ok: false, error: "too_many_attempts" }, 429);
   }
-  const email = String(body.email || "").trim().toLowerCase();
+  if (!(await verifyTurnstile(env, body.turnstile, ip))) {
+    return jsonAdmin({ ok: false, error: "captcha_failed" }, 403);
+  }
   const password = String(body.password || "");
   const user = await env.DB.prepare(
     "SELECT * FROM admin_users WHERE email = ?"
   ).bind(email).first();
-  const ok = user ? await verifyPassword(password, user.password_hash) : false;
+  const ok = await verifyPassword(password, user ? user.password_hash : DUMMY_PASSWORD_HASH) && !!user;
   if (!ok) {
-    if (!attempt || attempt.window_start <= windowStart) {
-      await env.DB.prepare("DELETE FROM login_attempts WHERE ip = ?").bind(ip).run();
-      await env.DB.prepare(
-        "INSERT INTO login_attempts (ip, count, window_start) VALUES (?, 1, ?)"
-      ).bind(ip, nowISO()).run();
-    } else {
-      await env.DB.prepare(
-        "UPDATE login_attempts SET count = ? WHERE ip = ?"
-      ).bind(attempt.count + 1, ip).run();
-    }
+    await recordFail(env, ip);
+    await recordFail(env, acctKey);
     return jsonAdmin({ ok: false, error: "wrong_email_or_password" }, 401);
   }
-  await env.DB.prepare("DELETE FROM login_attempts WHERE ip = ?").bind(ip).run();
+  await clearAttempts(env, ip);
+  await clearAttempts(env, acctKey);
   await env.DB.prepare(
     "UPDATE admin_users SET last_login_at = ? WHERE id = ?"
   ).bind(nowISO(), user.id).run();
@@ -369,6 +419,43 @@ async function adminLogout(request, env) {
     const tokenHash = await sha256hex(token);
     await env.DB.prepare("DELETE FROM sessions WHERE token_hash = ?").bind(tokenHash).run();
   }
+  return jsonAdmin({ ok: true }, 200, { "set-cookie": sessionCookie("", 0) });
+}
+
+async function adminChangePassword(request, env, user) {
+  const body = await readBody(request);
+  if (!body) return jsonAdmin({ ok: false, error: "bad_json" }, 400);
+  const current = String(body.current || "");
+  const next = String(body.next || "");
+  if (next.length < 10) {
+    return jsonAdmin({ ok: false, error: "new_password_too_short" }, 400);
+  }
+  const row = await env.DB.prepare(
+    "SELECT * FROM admin_users WHERE id = ?"
+  ).bind(user.id).first();
+  if (!row || !(await verifyPassword(current, row.password_hash))) {
+    return jsonAdmin({ ok: false, error: "wrong_current_password" }, 401);
+  }
+  const passwordHash = await hashPassword(next);
+  await env.DB.prepare(
+    "UPDATE admin_users SET password_hash = ? WHERE id = ?"
+  ).bind(passwordHash, user.id).run();
+  // Keep THIS device logged in; sign out every other session.
+  const token = readSessionToken(request);
+  const keepHash = token ? await sha256hex(token) : null;
+  const sess = await env.DB.prepare(
+    "SELECT token_hash FROM sessions WHERE user_id = ?"
+  ).bind(user.id).all();
+  for (const s of sess.results || []) {
+    if (s.token_hash !== keepHash) {
+      await env.DB.prepare("DELETE FROM sessions WHERE token_hash = ?").bind(s.token_hash).run();
+    }
+  }
+  return jsonAdmin({ ok: true });
+}
+
+async function adminLogoutAll(request, env, user) {
+  await env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(user.id).run();
   return jsonAdmin({ ok: true }, 200, { "set-cookie": sessionCookie("", 0) });
 }
 
@@ -645,6 +732,12 @@ async function apiAdmin(request, env, path) {
   if (path === "/api/admin/me" && request.method === "GET") {
     return jsonAdmin({ ok: true, email: user.email });
   }
+  if (path === "/api/admin/change-password" && request.method === "POST") {
+    return adminChangePassword(request, env, user);
+  }
+  if (path === "/api/admin/logout-all" && request.method === "POST") {
+    return adminLogoutAll(request, env, user);
+  }
   if (path === "/api/admin/content") {
     if (request.method === "GET") return adminContentList(new URL(request.url), env);
     if (request.method === "POST") return adminContentCreate(request, env);
@@ -674,35 +767,57 @@ async function apiAdmin(request, env, path) {
   return jsonAdmin({ ok: false, error: "not_found" }, 404);
 }
 
+function withSecurityHeaders(res, path) {
+  const out = new Response(res.body, res);
+  out.headers.set("x-content-type-options", "nosniff");
+  out.headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  if (path === "/admin" || path.startsWith("/api/admin")) {
+    // The admin panel must never be framed by another site (clickjacking).
+    out.headers.set("x-frame-options", "DENY");
+    out.headers.set("content-security-policy", "frame-ancestors 'none'");
+    out.headers.set("referrer-policy", "no-referrer");
+  }
+  return out;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     let path = url.pathname;
     if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
+    let res;
     if (path.startsWith("/api/admin/") || path === "/api/admin") {
-      if (!env.DB) return jsonAdmin({ ok: false, error: "database_not_bound" }, 503);
-      try {
-        return await apiAdmin(request, env, path);
-      } catch (e) {
-        return jsonAdmin({ ok: false, error: "admin_failed" }, 500);
-      }
-    }
-    if (path.startsWith("/api/")) {
-      if (request.method !== "GET") return json({ ok: false, error: "method_not_allowed" }, 405);
-      if (!env.DB) return json({ ok: false, error: "database_not_bound" }, 503);
-      try {
-        switch (path) {
-          case "/api/content": return await apiContent(url, env);
-          case "/api/dictionary": return await apiDictionary(url, env);
-          case "/api/categories": return await apiCategories(env);
-          case "/api/home": return await apiHome(env);
-          case "/api/search": return await apiSearch(url, env);
-          default: return json({ ok: false, error: "not_found" }, 404);
+      if (!env.DB) {
+        res = jsonAdmin({ ok: false, error: "database_not_bound" }, 503);
+      } else {
+        try {
+          res = await apiAdmin(request, env, path);
+        } catch (e) {
+          res = jsonAdmin({ ok: false, error: "admin_failed" }, 500);
         }
-      } catch (e) {
-        return json({ ok: false, error: "query_failed" }, 500);
       }
+    } else if (path.startsWith("/api/")) {
+      if (request.method !== "GET") {
+        res = json({ ok: false, error: "method_not_allowed" }, 405);
+      } else if (!env.DB) {
+        res = json({ ok: false, error: "database_not_bound" }, 503);
+      } else {
+        try {
+          switch (path) {
+            case "/api/content": res = await apiContent(url, env); break;
+            case "/api/dictionary": res = await apiDictionary(url, env); break;
+            case "/api/categories": res = await apiCategories(env); break;
+            case "/api/home": res = await apiHome(env); break;
+            case "/api/search": res = await apiSearch(url, env); break;
+            default: res = json({ ok: false, error: "not_found" }, 404);
+          }
+        } catch (e) {
+          res = json({ ok: false, error: "query_failed" }, 500);
+        }
+      }
+    } else {
+      res = await env.ASSETS.fetch(request);
     }
-    return env.ASSETS.fetch(request);
+    return withSecurityHeaders(res, path);
   },
 };

@@ -103,7 +103,8 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
       <input id="setupPass" type="password" autocomplete="new-password" minlength="8" required>
       <label for="setupPass2">Password dobara likhiye</label>
       <input id="setupPass2" type="password" autocomplete="new-password" minlength="8" required>
-      <p style="margin-top:18px"><button class="btn block" type="submit">Password set karo aur login karo</button></p>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
+    <p style="margin-top:18px"><button class="btn block" type="submit">Password set karo aur login karo</button></p>
     </form>
   </section>
 
@@ -117,6 +118,7 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
       <input id="loginEmail" type="email" autocomplete="username" required>
       <label for="loginPass">Password</label>
       <input id="loginPass" type="password" autocomplete="current-password" required>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
       <p style="margin-top:18px"><button class="btn block" type="submit">Login</button></p>
     </form>
   </section>
@@ -274,6 +276,25 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
         <p style="margin-top:14px"><button class="btn ghost" id="importBtn" type="button">Import karo</button></p>
         <p class="hint" id="importResult"></p>
       </div>
+      <div class="card">
+        <h2>Suraksha — password badlo</h2>
+        <p class="sub">Password badalne par baaki sab devices se login band ho jayega —
+        sirf yeh device login rahega.</p>
+        <form id="pwForm">
+          <label for="pwCurrent">Abhi wala password</label>
+          <input id="pwCurrent" type="password" autocomplete="current-password" required>
+          <label for="pwNew">Naya password (kam se kam 10 akshar)</label>
+          <input id="pwNew" type="password" autocomplete="new-password" minlength="10" required>
+          <label for="pwNew2">Naya password dobara likho</label>
+          <input id="pwNew2" type="password" autocomplete="new-password" minlength="10" required>
+          <p style="margin-top:14px"><button class="btn" type="submit">Password badlo</button></p>
+          <p class="hint" id="pwResult"></p>
+        </form>
+        <h2 style="margin-top:22px">Sab devices se logout</h2>
+        <p class="sub">Agar lagta hai account kahin aur khula reh gaya hai, toh ek click mein
+        har jagah se logout ho jayega. Is device par bhi dobara login karna padega.</p>
+        <button class="btn ghost" id="logoutAllBtn" type="button">Sab devices se logout karo</button>
+      </div>
     </div>
   </section>
 
@@ -282,6 +303,7 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
 
 <div class="toast" id="toast"></div>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
 "use strict";
 const $ = (id) => document.getElementById(id);
@@ -292,6 +314,8 @@ function toast(msg) {
   clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = "none"; }, 3200);
 }
 function showErr(id, msg) { const e = $(id); e.textContent = msg || ""; e.style.display = msg ? "block" : "none"; }
+function tsToken(form) { const el = form ? form.querySelector('[name="cf-turnstile-response"]') : null; return el ? el.value : ""; }
+function tsReset() { if (window.turnstile) { try { window.turnstile.reset(); } catch (e) {} } }
 
 const ERR = {
   wrong_setup_code: "Setup code galat hai. Mira se mila code jaanch kar dobara daliye.",
@@ -300,6 +324,9 @@ const ERR = {
   invalid_email: "Email sahi nahi lag raha.",
   wrong_email_or_password: "Email ya password galat hai.",
   too_many_attempts: "Bahut baar galat koshish ho gayi. 15 minute ruk kar phir koshish kijiye.",
+  captcha_failed: "Bot-check fail ho gaya. Page refresh karke dobara koshish kijiye. Ad-blocker chalu hai toh use band karke dekhein.",
+  new_password_too_short: "Naya password kam se kam 10 akshar ka hona chahiye.",
+  wrong_current_password: "Abhi wala password galat hai.",
   login_required: "Login khatm ho gaya hai. Dobara login kijiye.",
   title_required: "Title likhna zaroori hai.",
   word_required: "Word likhna zaroori hai.",
@@ -352,9 +379,10 @@ $("setupForm").addEventListener("submit", async (e) => {
     code: $("setupCode").value.trim(),
     email: $("setupEmail").value.trim(),
     password: $("setupPass").value,
+    turnstile: tsToken($("setupForm"))
   }).catch(() => ({ data: null }));
   if (data && data.ok) { toast("Password set ho gaya. Swagat hai!"); enterApp(data.email); }
-  else showErr("setupErr", errText(data));
+  else { showErr("setupErr", errText(data)); tsReset(); }
 });
 
 $("loginForm").addEventListener("submit", async (e) => {
@@ -362,9 +390,10 @@ $("loginForm").addEventListener("submit", async (e) => {
   const { data } = await apiSend("POST", "/api/admin/login", {
     email: $("loginEmail").value.trim(),
     password: $("loginPass").value,
+    turnstile: tsToken($("loginForm"))
   }).catch(() => ({ data: null }));
   if (data && data.ok) { toast("Login ho gaya."); enterApp(data.email); }
-  else showErr("loginErr", errText(data));
+  else { showErr("loginErr", errText(data)); tsReset(); }
 });
 
 $("logoutBtn").addEventListener("click", async () => {
@@ -627,6 +656,29 @@ $("deDelete").addEventListener("click", async () => {
   const r = await guarded(apiSend("DELETE", "/api/admin/dictionary/" + curWord.id));
   if (r.data && r.data.ok) { toast("Delete ho gaya."); closeWord(); loadDict(); }
   else showErr("deErr", errText(r.data));
+});
+
+/* ---------- security: password change + logout everywhere ---------- */
+$("pwForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const out = $("pwResult");
+  if ($("pwNew").value !== $("pwNew2").value) {
+    out.textContent = "Dono naye password ek jaise nahi hain."; return;
+  }
+  const { data } = await apiSend("POST", "/api/admin/change-password", {
+    current: $("pwCurrent").value, next: $("pwNew").value
+  }).catch(() => ({ data: null }));
+  if (data && data.ok) {
+    out.textContent = "Password badal gaya. Baaki sab devices se logout ho gaya hai.";
+    $("pwForm").reset(); toast("Password badal gaya.");
+  } else out.textContent = errText(data);
+});
+$("logoutAllBtn").addEventListener("click", async () => {
+  if (!confirm("Sab devices se logout ho jayega. Pakka?")) return;
+  await apiSend("POST", "/api/admin/logout-all", {}).catch(() => {});
+  toast("Sab jagah se logout ho gaya.");
+  $("who").textContent = ""; $("logoutBtn").classList.add("hidden");
+  boot();
 });
 
 /* ---------- backup ---------- */

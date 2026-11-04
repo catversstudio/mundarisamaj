@@ -76,8 +76,21 @@ function srcLabel(s){
   let meta=[s.author,s.publisher,s.year].filter(Boolean).join(", ");
   return (s.title||"")+(meta?" — "+meta:"");
 }
+const LANGMETA=[
+ {code:"en",name:"English",native:"English"},
+ {code:"unr",name:"Mundari",native:"𞓧𞓟𞓨𞓡𞓕𞓣𞓚 · Bani script"},
+ {code:"or",name:"Odia",native:"ଓଡ଼ିଆ"},
+ {code:"hi",name:"Hindi",native:"हिन्दी"},
+ {code:"bn",name:"Bengali",native:"বাংলা"}
+];
+function wireTheme(){
+  const btn=document.getElementById("fx-theme"); if(!btn) return;
+  const icon=document.getElementById("fx-theme-icon"), label=document.getElementById("fx-theme-label");
+  const sync=()=>{ const d=document.documentElement.getAttribute("data-theme")==="dark"; if(icon)icon.textContent=d?"🌙":"☀️"; if(label)label.textContent=d?"Dark":"Light"; btn.setAttribute("aria-label", d?"Switch to light theme":"Switch to dark theme"); };
+  sync();
+  btn.addEventListener("click",()=>{ const next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"; document.documentElement.setAttribute("data-theme",next); try{localStorage.setItem("ms-theme",next);}catch(e){} sync(); });
+}
 function wireLang(x,el){
-  const sel=el.querySelector("#fx-lang"); if(!sel) return;
   const note=el.querySelector("#fx-lang-note"), cur=el.querySelector("#fx-lang-cur");
   const titleEl=document.querySelector(".page-hero h1.fx-title")||el.querySelector(".fx-title"),
         leadEl=document.querySelector(".page-hero p.fx-lead")||el.querySelector(".fx-lead"),
@@ -86,16 +99,17 @@ function wireLang(x,el){
   const orig={t:titleEl.textContent, l:leadEl.textContent, b:bodyEl.innerHTML};
   let now="en";
   const avail=c=>c==="en"||(x.translations||[]).includes(c);
-  sel.addEventListener("change", async ()=>{
-    const c=sel.value;
-    if(c===now) return;
+  const pills=[...el.querySelectorAll(".fx-pill")];
+  const mark=()=>pills.forEach(pp=>pp.setAttribute("aria-pressed", pp.dataset.lang===now?"true":"false"));
+  async function setLang(c){
+    if(c===now){ mark(); return; }
     if(!avail(c)){
       note.textContent="This article is not yet available in "+LANGNAME[c]+". Translations are added only after they have been supplied and reviewed by a competent speaker.";
-      note.hidden=false; sel.value=now; return;
+      note.hidden=false; mark(); return;
     }
     if(c==="en"){
       titleEl.textContent=orig.t; leadEl.textContent=orig.l; bodyEl.innerHTML=orig.b;
-      if(creditEl) creditEl.textContent=""; note.hidden=true; now="en"; cur.textContent="Currently: English"; return;
+      if(creditEl) creditEl.textContent=""; note.hidden=true; now="en"; if(cur)cur.textContent="Currently: English"; mark(); return;
     }
     try{
       const r=await fetch("content/i18n/"+encodeURIComponent(x.id)+"."+c+".json");
@@ -105,12 +119,30 @@ function wireLang(x,el){
       leadEl.textContent=tr.translatedSummary||orig.l;
       bodyEl.innerHTML=(Array.isArray(tr.content)?tr.content:[]).map(v=>v.type==="h2"?`<h2>${esc(v.text)}</h2>`:`<p>${esc(v.text)}</p>`).join("");
       if(creditEl) creditEl.textContent="Translation"+(tr.translationStatus?": "+tr.translationStatus:"")+(tr.reviewer?" · Reviewed by "+tr.reviewer:"")+(tr.reviewedAt?" · "+tr.reviewedAt:"")+(tr.region?" · Variety/region: "+tr.region:"");
-      note.hidden=true; now=c; cur.textContent="Currently: "+LANGNAME[c];
+      note.hidden=true; now=c; if(cur)cur.textContent="Currently: "+LANGNAME[c]; mark();
     }catch(e){
       note.textContent="This article is not yet available in "+LANGNAME[c]+".";
-      note.hidden=false; sel.value=now;
+      note.hidden=false; mark();
     }
-  });
+  }
+  pills.forEach(pp=>pp.addEventListener("click",()=>setLang(pp.dataset.lang)));
+  mark();
+  const modal=el.querySelector("#fx-lang-modal"), list=el.querySelector("#fx-lang-list"), search=el.querySelector("#fx-lang-search");
+  if(modal&&list){
+    const close=()=>{ modal.removeAttribute("open"); document.body.style.overflow=""; };
+    const render=(q="")=>{
+      const qq=q.trim().toLowerCase();
+      const items=LANGMETA.filter(l=>!qq||l.name.toLowerCase().includes(qq)||l.native.toLowerCase().includes(qq));
+      list.innerHTML= items.length? items.map(l=>`<li><button type="button" data-lang="${l.code}" role="option"><span>${esc(l.name)} <small>${esc(l.native)}</small></span><span class="fx-lang-status">${avail(l.code)?"Available":"In preparation"}</span></button></li>`).join("") : `<li class="fx-lang-empty">No languages match your search.</li>`;
+      list.querySelectorAll("button[data-lang]").forEach(b=>b.addEventListener("click",()=>{ close(); setLang(b.dataset.lang); }));
+    };
+    const open=()=>{ modal.setAttribute("open",""); document.body.style.overflow="hidden"; render(""); if(search){ search.value=""; setTimeout(()=>search.focus(),30); } };
+    const more=el.querySelector("#fx-lang-more"); if(more) more.addEventListener("click",open);
+    const cls=el.querySelector("#fx-lang-close"); if(cls) cls.addEventListener("click",close);
+    modal.addEventListener("click",e=>{ if(e.target===modal) close(); });
+    document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&modal.hasAttribute("open")) close(); });
+    if(search) search.addEventListener("input",()=>render(search.value));
+  }
 }
 function bodyHtml(blocks, isArt){
   let out="", h2n=0, buf=[], lt=null;
@@ -144,10 +176,12 @@ function detail(x,k,el,all){
   const isArt = k==="articles";
   const bd = Array.isArray(x.body) ? bodyHtml(x.body, isArt) : {html:`<p>${esc(x.body)}</p>`, h2n:0};
   let b = bd.html;
-  let toc="";
-  if(isArt && bd.h2n>=3 && Array.isArray(x.body)){
+  let tocItems = (isArt && bd.h2n>=3 && Array.isArray(x.body)) ? x.body.filter(v=>v.type==="h2") : [];
+  let tocCard="", tocSide="";
+  if(tocItems.length){
     let i=0;
-    toc=`<nav class="fx-toc" aria-label="Table of contents"><h2>Contents</h2><ol>${x.body.filter(v=>v.type==="h2").map(v=>`<li><a href="#sec-${++i}">${esc(v.text)}</a></li>`).join("")}</ol></nav>`;
+    tocCard=`<nav class="fx-toc" aria-label="Table of contents"><h2>Contents</h2><ol>${tocItems.map(v=>`<li><a href="#sec-${++i}">${esc(v.text)}</a></li>`).join("")}</ol></nav>`;
+    tocSide=`<aside class="fx-side"><nav class="fx-tocside" aria-label="Table of contents"><h2>In this article</h2><ol>${tocItems.map((v,j)=>`<li><a href="#sec-${j+1}">${esc(v.text)}</a></li>`).join("")}</ol></nav></aside>`;
   }
   let feat=x.image&&x.image.src?`<figure class="fx-figure fx-featured"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption>${esc(x.image.caption||"")}${x.image.credit?` <span class="fx-credit">${esc(x.image.credit)}</span>`:""}</figcaption></figure>`:"";
   let media=Array.isArray(x.media)?x.media.map(mediaItem).join(""):"";
@@ -163,13 +197,19 @@ function detail(x,k,el,all){
   if(isArt&&x.region)chips.push(`<span class="fx-chip">Region: ${esc(x.region)}</span>`);
   if(isArt&&x.updatedAt)chips.push(`<span class="fx-chip">Updated ${esc(x.updatedAt)}</span>`);
   if(isArt&&x.reviewStatus)chips.push(`<span class="fx-chip fx-chip-status">${esc(x.reviewStatus)}</span>`);
-  let langbar="";
+  const themeBtn=`<button class="fx-theme" id="fx-theme" type="button" aria-label="Switch to dark theme"><span id="fx-theme-icon">☀️</span> <span id="fx-theme-label">Light</span></button>`;
+  let toolbar, noteCredit="", modalHtml="";
   if(isArt){
-    const avail=c=>c==="en"||(x.translations||[]).includes(c);
-    langbar=`<div class="fx-langbar"><label for="fx-lang">Read in:</label><select id="fx-lang" aria-label="Choose reading language">${LANGS.map(([c,n])=>`<option value="${c}"${c==="en"?" selected":""}>${n}${avail(c)?"":" — not yet available"}</option>`).join("")}</select><span class="fx-lang-cur" id="fx-lang-cur">Currently: English</span></div><div class="fx-lang-note" id="fx-lang-note" hidden></div><p class="fx-meta" id="fx-trans-credit"></p>`;
+    toolbar=`<div class="fx-toolbar" role="region" aria-label="Reading tools"><div class="fx-lang" role="group" aria-label="Language"><button class="fx-pill" data-lang="en" type="button" aria-pressed="true">English</button><button class="fx-pill fx-pill-bani" data-lang="unr" type="button" aria-pressed="false" title="Mundari — Bani script">𞓧𞓟𞓨𞓡𞓕𞓣𞓚 <span>Mundari · Bani</span></button><button class="fx-more" id="fx-lang-more" type="button" aria-haspopup="dialog">🌐 More languages</button><span class="fx-lang-cur" id="fx-lang-cur">Currently: English</span></div>${themeBtn}</div>`;
+    noteCredit=`<div class="fx-lang-note" id="fx-lang-note" hidden></div><p class="fx-meta" id="fx-trans-credit"></p>`;
+    modalHtml=`<div class="fx-lang-modal" id="fx-lang-modal" role="dialog" aria-modal="true" aria-labelledby="fx-lang-title"><div class="fx-lang-panel"><div class="fx-lang-head"><h2 id="fx-lang-title">Choose a language</h2><button class="fx-lang-close" id="fx-lang-close" type="button" aria-label="Close language picker">✕</button></div><input type="search" class="fx-lang-search" id="fx-lang-search" placeholder="Search languages — English, Mundari, Odia, Hindi, Bengali…" aria-label="Search languages" autocomplete="off"><ul class="fx-lang-list" id="fx-lang-list" role="listbox" aria-label="Available languages"></ul><p class="fx-lang-foot">Translations are published only after review by a competent speaker. Languages marked “In preparation” are being worked on.</p></div></div>`;
+  } else {
+    toolbar=`<div class="fx-toolbar fx-toolbar-solo">${themeBtn}</div>`;
   }
-  el.innerHTML=`<article class="fx-article-layout"><a href="${k}.html">← Back</a><div class="fx-chips">${chips.join("")}</div>${langbar}${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${toc}<div class="fx-body-copy">${b}</div>${media}${srcs}${shareBlock(x,k)}${rel}</article>`;
+  let cta=`<div class="fx-cta"><p>Have something to add or correct? Help us keep this record accurate and complete.</p><a class="fx-cta-btn" href="contribute.html">Contribute →</a></div>`;
+  el.innerHTML=`<div class="fx-readwrap">${toolbar}<div class="fx-layout${tocSide?" has-side":""}">${tocSide}<article class="fx-article-layout"><a href="${k}.html">← Back</a>${noteCredit}<div class="fx-chips">${chips.join("")}</div>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${tocCard}<div class="fx-body-copy">${b}</div>${media}${srcs}${cta}${shareBlock(x,k)}${rel}</article></div></div>${modalHtml}`;
   fillHero(x);
+  wireTheme();
   if(isArt) wireLang(x,el);
 }
 async function home(){

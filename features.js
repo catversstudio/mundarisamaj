@@ -261,18 +261,18 @@ async function homeRails(){
  const dictCards=dict.length?dict.map(w=>({t:w.word,s:w.meaning_en||"",bani:w.bani||"",href:"dictionary.html"})):[{t:"Open the Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"}];
  const bookCards=(groups.books&&groups.books.length)?groups.books.map(x=>toCard(x,"books.html")):[{t:"Books & Publications",s:"Research in progress — verified titles are being collected",href:"books.html"}];
  mount.innerHTML=[
-  railSection("history","History","history.html",histItems),
-  railSection("script","Script & Writing","script.html",RAIL_STATIC.script),
-  railSection("dictionary","Dictionary","dictionary.html",dictCards),
-  railSection("language","Language","language.html",RAIL_STATIC.language),
-  railSection("people","People & Leaders","people.html",(groups.people||[]).map(x=>toCard(x,"article.html?id="+x.id))),
-  railSection("movement","The Movement","movement.html",RAIL_STATIC.movement),
-  railSection("culture","Culture & Traditions","culture.html",RAIL_STATIC.culture),
-  railSection("articles","Articles","articles.html",(groups.articles||[]).map(x=>toCard(x,"article.html?id="+x.id))),
-  railSection("news","News & Updates","news.html",(groups.news||[]).map(x=>toCard(x,"news.html?id="+x.id))),
-  railSection("stories","Community Stories","stories.html",(groups.stories||[]).map(x=>toCard(x,"stories.html?id="+x.id))),
-  railSection("videos","Music & Videos","videos.html",(groups.videos||[]).map(x=>({t:x.title,s:x.channel||x.category||"",img:"https://i.ytimg.com/vi/"+x.youtube+"/hqdefault.jpg",href:"videos.html"}))),
-  railSection("gallery","Gallery","gallery.html",(groups.gallery||[]).map(x=>({t:x.title,s:x.caption||x.credit||"",img:x.image&&x.image.src?x.image.src:null,href:"gallery.html"}))),
+  railSection("videos","Music & Videos","videos.html",(groups.videos||[]).map(x=>({t:x.title,s:x.channel||x.category||"",img:"https://i.ytimg.com/vi/"+x.youtube+"/hqdefault.jpg",href:"videos.html"}))),,
+  railSection("dictionary","Dictionary","dictionary.html",dictCards),,
+  railSection("news","News & Updates","news.html",(groups.news||[]).map(x=>toCard(x,"news.html?id="+x.id))),,
+  railSection("gallery","Gallery","gallery.html",(groups.gallery||[]).map(x=>({t:x.title,s:x.caption||x.credit||"",img:x.image&&x.image.src?x.image.src:null,href:"gallery.html"}))),,
+  railSection("language","Language","language.html",RAIL_STATIC.language),,
+  railSection("script","Script & Writing","script.html",RAIL_STATIC.script),,
+  railSection("culture","Culture & Traditions","culture.html",RAIL_STATIC.culture),,
+  railSection("stories","Community Stories","stories.html",(groups.stories||[]).map(x=>toCard(x,"stories.html?id="+x.id))),,
+  railSection("history","History","history.html",histItems),,
+  railSection("people","People & Leaders","people.html",(groups.people||[]).map(x=>toCard(x,"article.html?id="+x.id))),,
+  railSection("movement","The Movement","movement.html",RAIL_STATIC.movement),,
+  railSection("articles","Articles","articles.html",(groups.articles||[]).map(x=>toCard(x,"article.html?id="+x.id))),,
   railSection("books","Books & Publications","books.html",bookCards)
  ].join("");
 }

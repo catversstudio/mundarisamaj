@@ -7,10 +7,10 @@
    has one and keep the tone-tile fallback otherwise. Only
    status==="published" records render; unverified articles keep the
    Editorial note. */
-const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json"};
+const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json",books:"content/books.json"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const apiType={articles:"article",news:"news",stories:"story",gallery:"gallery",videos:"video"};
+const apiType={articles:"article",news:"news",stories:"story",gallery:"gallery",videos:"video",books:"book"};
 async function load(k){if(apiType[k]){try{let r=await fetch("/api/content?type="+apiType[k]+"&per=200");if(r.ok){let j=await r.json();if(j&&j.ok&&Array.isArray(j.items))return j.items}}catch(e){}}try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
 const published=x=>x.status==="published";
 function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
@@ -252,9 +252,9 @@ async function homeRails(){
  let groups=null,dict=[];
  try{let r=await fetch("/api/home");if(r.ok){let j=await r.json();if(j&&j.ok){groups=j.groups;dict=j.dictionary||[]}}}catch(e){}
  if(!groups){
-   const [a,n,st,v,g]=await Promise.all([load("articles"),load("news"),load("stories"),load("videos"),load("gallery")]);
+   const [a,n,st,v,g,bk]=await Promise.all([load("articles"),load("news"),load("stories"),load("videos"),load("gallery"),load("books")]);
    const pub=x=>x.status==="published";
-   groups={articles:a.filter(pub),news:n.filter(pub),stories:st.filter(pub),videos:v.filter(pub),gallery:g.filter(pub),books:[],people:a.filter(x=>pub(x)&&x.category==="People & Personalities"),history:a.filter(x=>pub(x)&&x.category==="History")};
+   groups={articles:a.filter(pub),news:n.filter(pub),stories:st.filter(pub),videos:v.filter(pub),gallery:g.filter(pub),books:bk.filter(pub),people:a.filter(x=>pub(x)&&x.category==="People & Personalities"),history:a.filter(x=>pub(x)&&x.category==="History")};
  }
  const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article.html?id=birsa-munda"},{t:"Rohidas Singh Nag",s:"Ol Guru — creator of the Mundari Bani script",img:"assets/img/rohidas-singh-nag.jpg",href:"article.html?id=rohidas-singh-nag"}];
  const histItems=[...histPinned,...(groups.history||[]).map(x=>toCard(x,"article.html?id="+x.id))].filter((v,i,a)=>a.findIndex(y=>y.href===v.href)===i);

@@ -320,6 +320,12 @@ button.letter .r{font-size:.78rem;font-weight:700;color:var(--muted)}
 figure.photo{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
 figure.photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
 figure.photo figcaption{padding:10px 14px;background:var(--panel);font-size:.9rem;color:var(--muted)}
+/* --- v41: photo strip inside the Khunta / GB Nagar memorandum entry --- */
+.mem-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}
+.mem-strip figure.photo:first-child{grid-column:1/-1}
+.mem-strip figure.photo img{aspect-ratio:4/3}
+.mem-credit{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+@media (max-width:560px){.mem-strip{grid-template-columns:1fr}}
 .fest h3{margin:0 0 2px;font-size:1.2rem}
 .fest .when{font-weight:700;color:var(--accent);font-size:.9rem}
 .fest p{margin:6px 0 0;color:var(--muted);font-size:.97rem}
@@ -447,7 +453,7 @@ main a:hover{color:#B65F43}
 .v3-footer a:hover{color:#fff !important}
 .v3-footer .v3-fcol a{display:inline-block;padding:2px 0}
 </style>
-<script>try{var _t=localStorage.getItem("ms-theme");if(_t)document.documentElement.setAttribute("data-theme",_t);}catch(e){}</script><link rel="stylesheet" href="theme39.css?v=39">
+<script>try{var _t=localStorage.getItem("ms-theme");if(_t)document.documentElement.setAttribute("data-theme",_t);}catch(e){}</script><link rel="stylesheet" href="theme39.css?v=42">
 </head>
 <body>
 
@@ -479,6 +485,14 @@ main a:hover{color:#B65F43}
           <span class="date">28 October 2026 · Khunta and GB Nagar</span>
           <h3>A wave of memorandums</h3>
           <p>In Khunta block and Gopabandhu Nagar (GB Nagar) block, MLCC block units took out rallies and handed memorandums to officials. Through the rain, reels and photos of the processions in white traditional dress, carrying banners, circulated all day. Pictures of a memorandum being presented to an official along with a bouquet of flowers were shared by many accounts from Khunta.</p>
+          <div class="mem-strip">
+            <figure class="photo"><img src="assets/img/khunta-memorandum-01.jpg" alt="The MLCC delegation, in white traditional dress, presenting the demand memorandum around a desk inside the block office" loading="lazy" /></figure>
+            <figure class="photo"><img src="assets/img/khunta-memorandum-02.jpg" alt="The delegation gathered around the desk inside the block office while a seated official reviews the memorandum papers" loading="lazy" /></figure>
+            <figure class="photo"><img src="assets/img/khunta-memorandum-03.jpg" alt="The delegation standing together outdoors in front of the block office and the committee banner, holding copies of the memorandum" loading="lazy" /></figure>
+            <figure class="photo"><img src="assets/img/khunta-memorandum-04.jpg" alt="The memorandum being handed to an official at the entrance of the block office while members of the delegation watch and take photographs" loading="lazy" /></figure>
+            <figure class="photo"><img src="assets/img/khunta-memorandum-05.jpg" alt="Members of the delegation jointly holding up the memorandum outdoors while onlookers photograph the moment on their phones" loading="lazy" /></figure>
+          </div>
+          <p class="mem-credit">Photos from Khunta, 28 October 2026: Lachhuman Singh (@lachhuman.singh.7) via Instagram — <a href="https://www.instagram.com/p/DfCj6FAmfPn/">original post</a>.</p>
         </div>
       </div>
       <div>

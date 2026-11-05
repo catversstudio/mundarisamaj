@@ -22,7 +22,7 @@
   --v38-sh:0 1px 2px rgba(26,21,18,.05),0 10px 30px -12px rgba(26,21,18,.18);
   --v38-sh-lg:0 2px 4px rgba(26,21,18,.06),0 24px 48px -16px rgba(26,21,18,.30);
   --v38-serif:"Fraunces","Playfair Display",Georgia,serif;
-  --v38-body:"Inter","DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --v38-body:"Inter","DM Sans","Noto Nag Mundari",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 
 /* ---------- base ---------- */
@@ -51,7 +51,7 @@ h1,h2,h3{
 .brand,.v3-brand,.site-brand,.logo-text{
   font-family:var(--v38-serif) !important;
 }
-.lead,.standfirst,.hero-pro-greet{font-family:"Lora",Georgia,serif}
+.lead,.standfirst,.hero-pro-greet{font-family:"Lora","Noto Nag Mundari",Georgia,serif}
 
 /* ---------- header & navigation ---------- */
 .v3-header,.site-header{

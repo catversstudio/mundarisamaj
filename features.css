@@ -195,7 +195,9 @@ a{color:inherit}
 .fx-rail-media{display:block;position:relative;aspect-ratio:4/3;background:#EFE8D8;overflow:hidden}
 .fx-rail-media img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
 .fx-rail-art{position:absolute;inset:0;display:grid;place-items:center;color:#B65F43;font-size:30px;background:linear-gradient(135deg,#F7F3E9,#EFE3CB)}
-.fx-rail-bani{font-size:25px;color:#173F35;padding:0 10px;text-align:center;line-height:1.4}
+.fx-rail-bani{font-family:"Noto Nag Mundari",sans-serif;font-size:25px;color:#173F35;padding:0 10px;text-align:center;line-height:1.4}
+.fx-rail-sub{display:block;font-size:.82rem;color:#79543A;font-weight:500;margin-top:2px;line-height:1.35}
+.fx-pill-bani{font-family:"Noto Nag Mundari","DM Sans",sans-serif}
 .fx-rail-body{display:block;padding:10px 12px 12px}
 .fx-rail-body b{display:block;font-size:15px;line-height:1.3;margin-bottom:3px}
 .fx-rail-body small{color:#6B6F6A;font-size:12.5px;line-height:1.35;display:block}

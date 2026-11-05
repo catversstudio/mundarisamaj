@@ -55,6 +55,51 @@ function rowToItem(r) {
 }
 
 
+// v41 static-news merge: a news record that exists ONLY in the bundled
+// static news.json (not yet synced to D1) would otherwise be invisible to
+// /api/content and /api/home, which read from the database alone. Append
+// such records — published only, never duplicating an id already present
+// in the DB results — shaped exactly like rowToItem output. fillImages
+// behaviour is unchanged (these items already carry their static image).
+function staticNewsToItem(rec) {
+  return {
+    ...rec,
+    id: rec.id,
+    _dbid: null,
+    _slug: rec.id,
+    _type: "news",
+    _status: rec.status,
+    title: rec.title,
+    _summary: rec.excerpt || null,
+    _bodyHtml: rec.body || null,
+    _published: rec.date || null,
+    _updated: null,
+  };
+}
+async function mergeStaticNews(items, env, origin, category) {
+  if (!items || !env.ASSETS || !origin) return { items, added: 0 };
+  try {
+    const res = await env.ASSETS.fetch(new URL("/content/news.json", origin));
+    if (!res.ok) return { items, added: 0 };
+    const arr = await res.json();
+    const have = new Set();
+    for (const x of items) {
+      if (x && x.id) have.add(x.id);
+      if (x && x._slug) have.add(x._slug);
+    }
+    let added = 0;
+    for (const rec of arr || []) {
+      if (!rec || !rec.id || rec.status !== "published") continue;
+      if (category && rec.category !== category) continue;
+      if (have.has(rec.id)) continue;
+      have.add(rec.id);
+      items.push(staticNewsToItem(rec));
+      added++;
+    }
+    return { items, added };
+  } catch (e) { /* static file unavailable — leave items unchanged */ return { items, added: 0 }; }
+}
+
 // v40 image bridge: if a DB record has no image but the bundled static
 // record for the same id does, fill it in. Keeps published photos in sync
 // even before the next D1 content sync; a no-op once D1 meta carries them.
@@ -115,7 +160,12 @@ async function apiContent(url, env) {
   ).bind(...binds).first();
   const items = (res.results || []).map(rowToItem);
   await fillImages(items, env, url.origin);
-  return json({ ok: true, items, total: cnt ? cnt.n : 0, page, per });
+  let total = cnt ? cnt.n : 0;
+  if (type === "news") {
+    const merged = await mergeStaticNews(items, env, url.origin, category);
+    total += merged.added;
+  }
+  return json({ ok: true, items, total, page, per });
 }
 
 // GET /api/dictionary?q=&category=&page=1&per=48
@@ -172,6 +222,7 @@ async function apiHome(env, origin) {
     "SELECT id, word, bani, meaning_en, category FROM dictionary WHERE status = 'published' ORDER BY RANDOM() LIMIT 12"
   ).all();
   await fillImages([...articles, ...news, ...stories, ...people, ...history], env, origin);
+  await mergeStaticNews(news, env, origin);
   return json({
     ok: true,
     groups: { articles, news, stories, videos, gallery, books, people, history },

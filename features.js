@@ -367,7 +367,7 @@ function railCard(o){
  if(o.viewall)return `<a class="fx-rail-card fx-rail-viewall" href="${esc(o.href||"#")}"><span class="fx-rail-media"><span class="fx-rail-art"><span class="fx-rail-arrow">→</span></span></span><span class="fx-rail-body"><b>View All</b></span></a>`;
  const media=o.img?`<img src="${esc(o.img)}" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">`:"";
  const art=`<span class="fx-rail-art">${o.bani?`<span class="fx-rail-bani">${esc(o.bani)}</span>`:"✳"}</span>`;
- return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b></span></a>`;
+ return `<a class="fx-rail-card" href="${esc(o.href||"#")}"><span class="fx-rail-media">${art}${media}</span><span class="fx-rail-body"><b>${esc(o.t)}</b>${o.bani&&o.s?`<small class="fx-rail-sub">${esc(o.s)}</small>`:""}</span></a>`;
 }
 function railSection(id,title,viewAll,items){
  if(!items||!items.length)return "";

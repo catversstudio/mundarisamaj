@@ -15,11 +15,11 @@ async function load(k){if(apiType[k]){try{let r=await fetch("/api/content?type="
 const published=x=>x.status==="published";
 function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
 function thumb(x){return x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:art(x.tone)}
-function card(x){return `<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.category)} · ${esc(x.readTime)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><div class="fx-card-foot"><span>${esc(x.date)}</span><a href="article.html?id=${encodeURIComponent(x.id)}">Read article ↗</a></div></div></article>`}
+function card(x){return `<article class="fx-content-card">${thumb(x)}<div class="fx-card-body"><span class="fx-tag">${esc(x.category)} · ${esc(x.readTime)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p><div class="fx-card-foot"><span>${esc(x.date)}</span><a href="article/${encodeURIComponent(x.id)}">Read article ↗</a></div></div></article>`}
 function photoSlug(x){return x._slug||x.id||String(x.title||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
 function photoFrame(x){
   const src=x.image&&x.image.src;if(!src)return "";
-  return `<a class="fx-photo-frame" href="photo.html?id=${encodeURIComponent(photoSlug(x))}"><span class="fx-photo-img"><img src="${esc(src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></span><span class="fx-photo-title">${esc(x.title)}</span></a>`;
+  return `<a class="fx-photo-frame" href="photo?id=${encodeURIComponent(photoSlug(x))}"><span class="fx-photo-img"><img src="${esc(src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></span><span class="fx-photo-title">${esc(x.title)}</span></a>`;
 }
 function galleryTile(x){
   if(x.type==="social"&&x.url){let emb="";
@@ -59,8 +59,8 @@ function mediaItem(m){
   return"";
 }
 function shareBlock(x,k){
-  let page=k==="articles"?"article.html":k+".html";
-  let url=`https://mundarisamaj.pages.dev/${page}?id=${encodeURIComponent(x.id)}`;
+  let seg=k==="articles"?"article":k==="stories"?"story":k;
+  let url="https://mundarisamaj.pages.dev/"+seg+((k==="articles"||k==="stories"||k==="news")?"/":"?id=")+encodeURIComponent(x.id);
   let t=encodeURIComponent(x.title),u=encodeURIComponent(url);
   return `<div class="fx-share" aria-label="Share this"><span>Share:</span>`+
    `<a href="https://wa.me/?text=${t}%20${u}" target="_blank" rel="noopener">WhatsApp</a>`+
@@ -188,8 +188,8 @@ function detail(x,k,el,all){
   let rel="";
   if(Array.isArray(x.related)&&all){let cards=x.related.map(id=>(all||[]).find(y=>y.id===id)).filter(y=>y&&published(y)).map(y=>{
      if(k==="articles")return card(y);
-     if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="stories.html?id=${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
-     return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news.html?id=${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
+     if(k==="stories")return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.place)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="story/${encodeURIComponent(y.id)}">Read story →</a></div></article>`;
+     return `<article class="fx-content-card"><div class="fx-card-body"><span class="fx-tag">${esc(y.category)} · ${esc(y.date)}</span><h3>${esc(y.title)}</h3><p>${esc(y.excerpt)}</p><a href="news/${encodeURIComponent(y.id)}">Read update →</a></div></article>`}).join("");
    if(cards)rel=`<h2 class="fx-related-h">Related reading</h2><div class="fx-card-grid">${cards}</div>`}
   let srcs=Array.isArray(x.sources)&&x.sources.length?`<div class="fx-sources"><h2>Data sources &amp; further reading</h2><ul>${x.sources.map(s=>`<li>${s.type?`<span class="fx-src-type">${esc(s.type)}</span> `:""}${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(srcLabel(s))}</a>`:esc(srcLabel(s))}</li>`).join("")}</ul><p class="fx-sources-note">Facts in this profile were compiled from the sources above. Corrections from the community are welcome — see the Contribute page.</p></div>`:"";
   let chips=[`<span class="fx-chip">${esc(x.author||x.contributor||"Mundari Samaj")}</span>`];
@@ -206,8 +206,8 @@ function detail(x,k,el,all){
   } else {
     toolbar=`<div class="fx-toolbar fx-toolbar-solo">${themeBtn}</div>`;
   }
-  let cta=`<div class="fx-cta"><p>Have something to add or correct? Help us keep this record accurate and complete.</p><a class="fx-cta-btn" href="contribute.html">Contribute →</a></div>`;
-  el.innerHTML=`<div class="fx-readwrap">${toolbar}<div class="fx-layout${tocSide?" has-side":""}">${tocSide}<article class="fx-article-layout"><a href="${k}.html">← Back</a>${noteCredit}<div class="fx-chips">${chips.join("")}</div>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${tocCard}<div class="fx-body-copy">${b}</div>${media}${srcs}${cta}${shareBlock(x,k)}${rel}</article></div></div>${modalHtml}`;
+  let cta=`<div class="fx-cta"><p>Have something to add or correct? Help us keep this record accurate and complete.</p><a class="fx-cta-btn" href="contribute">Contribute →</a></div>`;
+  el.innerHTML=`<div class="fx-readwrap">${toolbar}<div class="fx-layout${tocSide?" has-side":""}">${tocSide}<article class="fx-article-layout"><a href="${k}">← Back</a>${noteCredit}<div class="fx-chips">${chips.join("")}</div>${x.verified===false?'<div class="fx-notice"><b>Editorial note:</b> Introductory material. Check community-specific claims with reliable sources and relevant knowledge holders.</div>':""}${feat}${tocCard}<div class="fx-body-copy">${b}</div>${media}${srcs}${cta}${shareBlock(x,k)}${rel}</article></div></div>${modalHtml}`;
   fillHero(x);
   wireTheme();
   if(isArt) wireLang(x,el);
@@ -221,14 +221,14 @@ async function home(){
   const flt=$("#article-filters");
   if(flt)flt.onclick=e=>{let b=e.target.closest("[data-filter]");if(!b)return;f=b.dataset.filter;document.querySelectorAll(".fx-chip").forEach(x=>x.classList.toggle("active",x===b));show()};
   const nl=$("#news-list");
-  if(nl)nl.innerHTML=n.filter(published).map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}<br>${esc(x.category)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news.html?id=${x.id}">↗</a></article>`).join("");
+  if(nl)nl.innerHTML=n.filter(published).map(x=>`<article class="fx-news-item"><div class="fx-news-date">${esc(x.date)}<br>${esc(x.category)}</div><div><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></div><a href="news/${x.id}">↗</a></article>`).join("");
   const sg=$("#story-grid");
   if(sg)sg.innerHTML=s.filter(published).slice(0,2).map(x=>`<article class="fx-story-card">${x.image&&x.image.src?`<img class="fx-card-img" src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async">`:""}<span class="fx-tag">${esc(x.place)}</span><h3>${esc(x.title)}</h3><p>${esc(x.excerpt)}</p></article>`).join("");
   const gg=$("#gallery-grid");
   if(gg)gg.innerHTML=g.filter(x=>published(x)&&x.image&&x.image.src).slice(0,8).map(photoFrame).join("");
   const gs=$("#global-search"),sb=$("#search-button"),sr=$("#search-results");
   if(gs&&sb&&sr){
-    let run=()=>{let q=gs.value.toLowerCase().trim();let all=[...a.map(x=>({...x,t:"Article",u:"article.html"})),...n.map(x=>({...x,t:"News",u:"news.html"})),...s.map(x=>({...x,t:"Story",u:"stories.html"}))].filter(x=>published(x)&&q&&(x.title+" "+x.excerpt+" "+x.category).toLowerCase().includes(q));sr.innerHTML=all.map(x=>`<a href="${x.u}?id=${x.id}"><b>${esc(x.title)}</b> — ${x.t}</a>`).join("")||(q?"<p>No results found.</p>":"")};
+    let run=()=>{let q=gs.value.toLowerCase().trim();let all=[...a.map(x=>({...x,t:"Article",u:"article"})),...n.map(x=>({...x,t:"News",u:"news"})),...s.map(x=>({...x,t:"Story",u:"stories"}))].filter(x=>published(x)&&q&&(x.title+" "+x.excerpt+" "+x.category).toLowerCase().includes(q));sr.innerHTML=all.map(x=>`<a href="${x.u}?id=${x.id}"><b>${esc(x.title)}</b> — ${x.t}</a>`).join("")||(q?"<p>No results found.</p>":"")};
     sb.onclick=run;gs.onkeydown=e=>{if(e.key==="Enter")run()};
   }
 }
@@ -264,13 +264,13 @@ function feedCard(x,href,tag){
 }
 async function listing(k){
   const el=$("#page-list");if(!el)return;
-  let d=await load(k),id=new URLSearchParams(location.search).get("id");
+  let d=await load(k),id=new URLSearchParams(location.search).get("id");if(!id){let pm=location.pathname.match(/^\/(story|news)\/([^/]+)/);if(pm&&((k==="stories"&&pm[1]==="story")||(k==="news"&&pm[1]==="news")))id=decodeURIComponent(pm[2]);}
   if(id){let x=d.find(y=>y.id===id);if(x)detail(x,k,el,d);else el.innerHTML='<div class="fx-empty-state">Content not found.</div>';return}
   d=d.filter(published);
-  if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"news.html?id="+x.id,x.category||"Update")).join("")+"</div>"}
+  if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"news/"+x.id,x.category||"Update")).join("")+"</div>"}
   else if(k==="gallery"){galleryFeed(el,d)}
-  else if(k==="stories"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"stories.html?id="+x.id,x.place)).join("")+"</div>"}
-  else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+".html?id="+x.id,x.category)).join("")+"</div>";
+  else if(k==="stories"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"story/"+x.id,x.place)).join("")+"</div>"}
+  else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+"?id="+x.id,x.category)).join("")+"</div>";
 }
 async function videosPage(){
   const el=$("#page-list");if(!el)return;
@@ -358,10 +358,10 @@ document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();i
    Data comes from /api/home (database); if that is unavailable the rails are
    built from the same content/*.json files the site has always used. ---- */
 const RAIL_STATIC={
- script:[{t:"Mundari Bani Script",s:"The 27-letter script created by Rohidas Singh Nag",img:"assets/img/mundari-bani-script-chart.jpg",href:"script.html"},{t:"Grammar & Structure",s:"How Mundari words and sentences are built",href:"grammar.html"},{t:"Learn Mundari",s:"Everyday words, phrases and practice",href:"learn.html"},{t:"The Alphabet",s:"Every Bani letter with its sound",img:"assets/img/mundari-bani-script-chart.jpg",href:"script.html"}],
- language:[{t:"The Mundari Language",s:"Horo jagar — history, speakers and status",href:"language.html"},{t:"Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"},{t:"Grammar",s:"Verbs, cases and sentence patterns",href:"grammar.html"},{t:"Learn & Practise",s:"Start speaking with guided lessons",href:"learn.html"}],
- movement:[{t:"The Language Movement",s:"The living effort to keep Mundari strong",img:"assets/img/nag-birthday-celebration-01.jpg",href:"movement.html"},{t:"History",s:"From early times to the present day",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"People & Leaders",s:"Birsa Munda, Rohidas Singh Nag and more",img:"assets/img/rohidas-singh-nag.jpg",href:"people.html"}],
- culture:[{t:"Culture & Traditions",s:"Festivals, dance, music, food and craft",img:"assets/img/sarhul-dance-ranchi.jpg",href:"culture.html"},{t:"Sarhul",s:"The festival of flowers at the Sarna grove",img:"assets/img/sarhul-sarna-grove.jpg",href:"sarhul.html"},{t:"Karam",s:"The Karam branch, song and all-night dance",img:"assets/img/karam-festival.jpg",href:"karam.html"},{t:"Sohrai",s:"Harvest lamps and wall painting",img:"assets/img/sohrai-wall-art-isko.jpg",href:"sohrai.html"}]
+ script:[{t:"Mundari Bani Script",s:"The 27-letter script created by Rohidas Singh Nag",img:"assets/img/mundari-bani-script-chart.jpg",href:"script"},{t:"Grammar & Structure",s:"How Mundari words and sentences are built",href:"grammar"},{t:"Learn Mundari",s:"Everyday words, phrases and practice",href:"learn"},{t:"The Alphabet",s:"Every Bani letter with its sound",img:"assets/img/mundari-bani-script-chart.jpg",href:"script"}],
+ language:[{t:"The Mundari Language",s:"Horo jagar — history, speakers and status",href:"language"},{t:"Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary"},{t:"Grammar",s:"Verbs, cases and sentence patterns",href:"grammar"},{t:"Learn & Practise",s:"Start speaking with guided lessons",href:"learn"}],
+ movement:[{t:"The Language Movement",s:"The living effort to keep Mundari strong",img:"assets/img/nag-birthday-celebration-01.jpg",href:"movement"},{t:"History",s:"From early times to the present day",img:"assets/img/sarhul-sarna-grove.jpg",href:"history"},{t:"People & Leaders",s:"Birsa Munda, Rohidas Singh Nag and more",img:"assets/img/rohidas-singh-nag.jpg",href:"people"}],
+ culture:[{t:"Culture & Traditions",s:"Festivals, dance, music, food and craft",img:"assets/img/sarhul-dance-ranchi.jpg",href:"culture"},{t:"Sarhul",s:"The festival of flowers at the Sarna grove",img:"assets/img/sarhul-sarna-grove.jpg",href:"sarhul"},{t:"Karam",s:"The Karam branch, song and all-night dance",img:"assets/img/karam-festival.jpg",href:"karam"},{t:"Sohrai",s:"Harvest lamps and wall painting",img:"assets/img/sohrai-wall-art-isko.jpg",href:"sohrai"}]
 };
 function railCard(o){
  if(o.viewall)return `<a class="fx-rail-card fx-rail-viewall" href="${esc(o.href||"#")}"><span class="fx-rail-media"><span class="fx-rail-art"><span class="fx-rail-arrow">→</span></span></span><span class="fx-rail-body"><b>View All</b></span></a>`;
@@ -387,23 +387,25 @@ async function homeRails(){
    const pub=x=>x.status==="published";
    groups={articles:a.filter(pub),news:n.filter(pub),stories:st.filter(pub),videos:v.filter(pub),gallery:g.filter(pub),books:bk.filter(pub),people:a.filter(x=>pub(x)&&x.category==="People & Personalities"),history:a.filter(x=>pub(x)&&x.category==="History")};
  }
- const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history.html"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article.html?id=birsa-munda"},{t:"Rohidas Singh Nag",s:"Ol Guru — creator of the Mundari Bani script",img:"assets/img/rohidas-singh-nag.jpg",href:"article.html?id=rohidas-singh-nag"}];
- const histItems=[...histPinned,...(groups.history||[]).map(x=>toCard(x,"article.html?id="+x.id))].filter((v,i,a)=>a.findIndex(y=>y.href===v.href)===i);
- const dictCards=dict.length?dict.map(w=>({t:w.word,s:w.meaning_en||"",bani:w.bani||"",href:"dictionary.html"})):[{t:"Open the Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary.html"}];
- const bookCards=(groups.books&&groups.books.length)?groups.books.map(x=>toCard(x,"books.html")):[{t:"Books & Publications",s:"Research in progress — verified titles are being collected",href:"books.html"}];
+ const histPinned=[{t:"Mundari History",s:"The story of the Mundari people and their land",img:"assets/img/sarhul-sarna-grove.jpg",href:"history"},{t:"Birsa Munda",s:"Dharti Aaba — the hero of the Ulgulan",img:"assets/img/birsa-munda-portrait.jpg",href:"article/birsa-munda"},{t:"Rohidas Singh Nag",s:"Ol Guru — creator of the Mundari Bani script",img:"assets/img/rohidas-singh-nag.jpg",href:"article/rohidas-singh-nag"}];
+ const histItems=[...histPinned,...(groups.history||[]).map(x=>toCard(x,"article/"+x.id))].filter((v,i,a)=>a.findIndex(y=>y.href===v.href)===i);
+ const dictCards=dict.length?dict.map(w=>({t:w.word,s:w.meaning_en||"",bani:w.bani||"",href:"dictionary"})):[{t:"Open the Dictionary",s:"Mundari words in Bani and Roman script",href:"dictionary"}];
+ const bookCards=(groups.books&&groups.books.length)?groups.books.map(x=>toCard(x,"books")):[{t:"Books & Publications",s:"Research in progress — verified titles are being collected",href:"books"}];
  mount.innerHTML=[
-  railSection("videos","Music & Videos","videos.html",(groups.videos||[]).map(x=>({t:x.title,s:x.channel||x.category||"",img:"https://i.ytimg.com/vi/"+x.youtube+"/hqdefault.jpg",href:"videos.html"}))),,
-  railSection("dictionary","Dictionary","dictionary.html",dictCards),,
-  railSection("news","News & Updates","news.html",(groups.news||[]).map(x=>toCard(x,"news.html?id="+x.id))),,
-  railSection("gallery","Gallery","gallery.html",(groups.gallery||[]).map(x=>({t:x.title,s:x.caption||x.credit||"",img:x.image&&x.image.src?x.image.src:null,href:"gallery.html"}))),,
-  railSection("language","Language","language.html",RAIL_STATIC.language),,
-  railSection("script","Script & Writing","script.html",RAIL_STATIC.script),,
-  railSection("culture","Culture & Traditions","culture.html",RAIL_STATIC.culture),,
-  railSection("stories","Community Stories","stories.html",(groups.stories||[]).map(x=>toCard(x,"stories.html?id="+x.id))),,
-  railSection("history","History","history.html",histItems),,
-  railSection("people","People & Leaders","people.html",(groups.people||[]).map(x=>toCard(x,"article.html?id="+x.id))),,
-  railSection("movement","The Movement","movement.html",RAIL_STATIC.movement),,
-  railSection("articles","Articles","articles.html",(groups.articles||[]).map(x=>toCard(x,"article.html?id="+x.id))),,
-  railSection("books","Books & Publications","books.html",bookCards)
+  railSection("videos","Music & Videos","videos",(groups.videos||[]).map(x=>({t:x.title,s:x.channel||x.category||"",img:"https://i.ytimg.com/vi/"+x.youtube+"/hqdefault.jpg",href:"videos"}))),,
+  railSection("dictionary","Dictionary","dictionary",dictCards),,
+  railSection("news","News & Updates","news",(groups.news||[]).map(x=>toCard(x,"news/"+x.id))),,
+  railSection("gallery","Gallery","gallery",(groups.gallery||[]).map(x=>({t:x.title,s:x.caption||x.credit||"",img:x.image&&x.image.src?x.image.src:null,href:"gallery"}))),,
+  railSection("language","Language","language",RAIL_STATIC.language),,
+  railSection("script","Script & Writing","script",RAIL_STATIC.script),,
+  railSection("culture","Culture & Traditions","culture",RAIL_STATIC.culture),,
+  railSection("stories","Community Stories","stories",(groups.stories||[]).map(x=>toCard(x,"story/"+x.id))),,
+  railSection("history","History","history",histItems),,
+  railSection("people","People & Leaders","people",(groups.people||[]).map(x=>toCard(x,"article/"+x.id))),,
+  railSection("movement","The Movement","movement",RAIL_STATIC.movement),,
+  railSection("articles","Articles","articles",(groups.articles||[]).map(x=>toCard(x,"article/"+x.id))),,
+  railSection("books","Books & Publications","books",bookCards)
  ].join("");
 }
+
+document.addEventListener("click",function(e){if(!document.querySelector("base"))return;var a=e.target&&e.target.closest?e.target.closest('a[href^="#"]'):null;if(!a)return;var tid=a.getAttribute("href").slice(1);if(!tid)return;var t=document.getElementById(tid);if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}});

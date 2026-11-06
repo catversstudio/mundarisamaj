@@ -899,7 +899,26 @@ export default {
         }
       }
     } else {
-      res = await env.ASSETS.fetch(request);
+      // Clean URLs (v44): /article/<slug>, /story/<slug> and /news/<slug> serve
+      // the matching detail page; old ?id= links redirect to the clean form.
+      const seg = path.split("/").filter(Boolean);
+      const qid = url.searchParams.get("id");
+      const detailPage = { article: "/article.html", story: "/stories.html", news: "/news.html" };
+      if (qid && (path === "/article" || path === "/article.html")) {
+        res = Response.redirect(new URL("/article/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (qid && (path === "/stories" || path === "/stories.html")) {
+        res = Response.redirect(new URL("/story/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (qid && (path === "/news" || path === "/news.html")) {
+        res = Response.redirect(new URL("/news/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (path === "/article") {
+        res = Response.redirect(new URL("/articles", url.origin), 301);
+      } else if (path === "/story") {
+        res = Response.redirect(new URL("/stories", url.origin), 301);
+      } else if (seg.length === 2 && detailPage[seg[0]]) {
+        res = await env.ASSETS.fetch(new Request(new URL(detailPage[seg[0]], url.origin), request));
+      } else {
+        res = await env.ASSETS.fetch(request);
+      }
     }
     return withSecurityHeaders(res, path);
   },

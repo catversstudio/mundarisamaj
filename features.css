@@ -403,3 +403,9 @@ html[data-theme="dark"] .fx-lang-note{background:#2a2018;border-color:#5a4028;co
 html[data-theme="dark"] nav[aria-label="Breadcrumb"] a{color:#e08a5c !important}
 html[data-theme="dark"] nav[aria-label="Breadcrumb"] span{color:#a99a86 !important}
 html[data-theme="dark"] nav[aria-label="Breadcrumb"] span[aria-current="page"]{color:#f4ece0 !important}
+
+/* v45 — Instagram feed page */
+.fx-ig-head{margin:0 0 18px}
+.fx-ig-note{font:400 13.5px/1.55 "Inter",sans-serif;color:#5b6b60;max-width:640px;margin:2px 0 0}
+.fx-load-more{font-size:12.5px;padding:10px 22px}
+.fx-gallery-tile.has-embed{margin:0 auto 26px;max-width:540px}

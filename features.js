@@ -7,10 +7,10 @@
    has one and keep the tone-tile fallback otherwise. Only
    status==="published" records render; unverified articles keep the
    Editorial note. */
-const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json",books:"content/books.json"};
+const paths={articles:"content/articles.json",news:"content/news.json",stories:"content/stories.json",gallery:"content/gallery.json",videos:"content/videos.json",books:"content/books.json",instagram:"content/instagram.json"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const apiType={articles:"article",news:"news",stories:"story",gallery:"gallery",videos:"video",books:"book"};
+const apiType={articles:"article",news:"news",stories:"story",gallery:"gallery",videos:"video",books:"book",instagram:"instagram"};
 async function load(k){if(apiType[k]){try{let r=await fetch("/api/content?type="+apiType[k]+"&per=200");if(r.ok){let j=await r.json();if(j&&j.ok&&Array.isArray(j.items))return j.items}}catch(e){}}try{let r=await fetch(paths[k]);return r.ok?await r.json():[]}catch(e){return[]}}
 const published=x=>x.status==="published";
 function art(t){return `<div class="fx-card-art" data-tone="${esc(t||"sage")}"></div>`}
@@ -257,6 +257,18 @@ function galleryFeed(el,d){
   else{more.textContent=""}
 }
 
+function instagramFeed(el,d){
+  const accts=[["all","All posts"],["mundarisamaj","@mundarisamaj"],["mundariarchive","@mundariarchive"]];
+  let f="all",pos=0;const BATCH=6;
+  el.innerHTML=`<div class="fx-ig-head"><div class="fx-chips">${accts.map(a=>`<button class="fx-chip${a[0]==="all"?" active":""}" data-acc="${a[0]}" type="button">${a[1]}</button>`).join("")}</div><p class="fx-ig-note">Every post and reel from our two Instagram pages, shown through Instagram's official embed. This page updates automatically when we post.</p></div><div class="fx-gallery-feed" id="ig-feed"></div><div class="fx-feed-note"><button class="fx-chip fx-load-more" id="ig-more" type="button">Load more posts</button></div>`;
+  const feed=el.querySelector("#ig-feed"),more=el.querySelector("#ig-more");
+  const list=()=>f==="all"?d:d.filter(x=>x.account===f);
+  function batch(){const L=list();let html="";for(let i=0;i<BATCH&&pos<L.length;i++,pos++)html+=galleryTile(L[pos]);let w=document.createElement("div");w.innerHTML=html;while(w.firstChild)feed.appendChild(w.firstChild);more.style.display=pos>=L.length?"none":""}
+  el.querySelectorAll("[data-acc]").forEach(b=>b.addEventListener("click",()=>{f=b.dataset.acc;pos=0;feed.innerHTML="";el.querySelectorAll("[data-acc]").forEach(x=>x.classList.toggle("active",x===b));batch()}));
+  more.addEventListener("click",batch);
+  batch();
+}
+
 function feedCard(x,href,tag){
  const img=(x.image&&x.image.src)||x.featured_image||null;
  const media=img?`<a class="fx-feed-media" href="${esc(href)}"><img src="${esc(img)}" alt="${esc(x.title||"")}" loading="lazy" decoding="async"></a>`:"";
@@ -269,6 +281,7 @@ async function listing(k){
   d=d.filter(published);
   if(k==="news"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"news/"+x.id,x.category||"Update")).join("")+"</div>"}
   else if(k==="gallery"){galleryFeed(el,d)}
+  else if(k==="instagram"){instagramFeed(el,d)}
   else if(k==="stories"){el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,"story/"+x.id,x.place)).join("")+"</div>"}
   else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+"?id="+x.id,x.category)).join("")+"</div>";
 }

@@ -363,7 +363,14 @@ document.addEventListener("click",e=>{
   liveFacade=b;liveHtml=b.innerHTML;b.classList.add("is-playing");
   b.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${esc(b.dataset.yt)}?autoplay=1&rel=0&playsinline=1" title="${esc(b.getAttribute("aria-label")||"YouTube video")}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
 });
-document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if($("#rails-mount"))homeRails();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});
+async function homeInstagram(){
+  const mount=$("#ig-home-mount");if(!mount)return;
+  let d=(await load("instagram")).filter(published);
+  if(!d.length){mount.innerHTML='<p class="fx-muted">Posts will appear here soon.</p>';return}
+  mount.innerHTML='<div class="fx-gallery-feed">'+d.slice(0,4).map(galleryTile).join("")+"</div>";
+}
+
+document.addEventListener("DOMContentLoaded",()=>{if($("#article-grid"))home();if($("#rails-mount"))homeRails();if($("#ig-home-mount"))homeInstagram();let p=document.body.dataset.page;if(p==="videos")videosPage();else if(p)listing(p)});
 
 /* ---- Stage 2: homepage category rails (History first, then all categories).
    One single left-right scrollable row per category (owner's v21 correction:

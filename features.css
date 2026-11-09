@@ -133,9 +133,10 @@ a{color:inherit}
 .fx-sources li{margin:6px 0}
 .fx-sources a{color:#173F35;font-weight:600}
 .fx-sources-note{margin:12px 0 0;font-size:.9rem;color:#79543A}
-.fx-gallery-tile.has-embed{display:flex;flex-direction:column;background:#fff}
-.fx-gallery-tile.has-embed .fx-embed{border-radius:12px 12px 0 0}
+.fx-gallery-tile.has-embed{display:flex;flex-direction:column;align-items:stretch;padding:0;background:#fff}
+.fx-gallery-tile.has-embed .fx-embed{border-radius:12px 12px 0 0;width:100%}
 .fx-gallery-tile.has-embed iframe{width:100%;height:430px;border:0;display:block}
+.fx-gallery-tile.has-embed .fx-embed iframe{height:100%}
 .fx-gallery-tile.has-embed .fx-gallery-cap a{color:#173F35;font-weight:700}
 .fx-video-note{margin:22px 0 0;padding:16px 18px;background:#F7F3E9;border:1px dashed #B65F43;border-radius:12px;color:#252A27}
 .fx-video-card .fx-card-body{padding:14px 16px 16px}

@@ -163,3 +163,4 @@ official methods only — never downloaded or re-uploaded.
   all of them to go). The Gallery now holds only the 9 Wikimedia
   Commons photos and the section tile (10 items), still shown as the
   endless one-photo-per-row feed.
+

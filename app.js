@@ -16,7 +16,7 @@ function closeResults(){results.hidden=true;results.innerHTML='';sActive=-1;}
 function mkLink(href,title,sub,q){const a=document.createElement('a');a.className='search-result';a.href=href;a.innerHTML='<b></b><small></small>';a.querySelector('b').innerHTML=markS(title,q);a.querySelector('small').textContent=sub;return a;}
 function mkGroup(t){const d=document.createElement('div');d.className='search-group';d.textContent=t;return d;}
 function showQuick(){results.innerHTML='';sActive=-1;results.appendChild(mkGroup('Popular on Mundari Samaj'));QUICK.forEach(x=>results.appendChild(mkLink(x[1],x[0],'Open page','')));results.hidden=false;}
-function typeLink(t,id){return ({article:'article/'+encodeURIComponent(id),news:'news',story:'stories',video:'videos',gallery:'gallery',book:'books'})[t]||'articles';}
+function typeLink(t,id){return ({article:'article/'+encodeURIComponent(id),news:'news/'+encodeURIComponent(id),story:'story/'+encodeURIComponent(id),video:'videos/'+encodeURIComponent(id),gallery:'gallery/'+encodeURIComponent(id),book:'books/'+encodeURIComponent(id)})[t]||'articles';}
 function typeName(t){return ({article:'Article',news:'News',story:'Story',video:'Video',gallery:'Gallery',book:'Book'})[t]||'Page';}
 async function runSearch(q){
   results.innerHTML='<p class="search-note">Searching…</p>';results.hidden=false;sActive=-1;

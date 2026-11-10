@@ -19,14 +19,14 @@ function card(x){return `<article class="fx-content-card">${thumb(x)}<div class=
 function photoSlug(x){return x._slug||x.id||String(x.title||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
 function photoFrame(x){
   const src=x.image&&x.image.src;if(!src)return "";
-  return `<a class="fx-photo-frame" href="photo?id=${encodeURIComponent(photoSlug(x))}"><span class="fx-photo-img"><img src="${esc(src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></span><span class="fx-photo-title">${esc(x.title)}</span></a>`;
+  return `<a class="fx-photo-frame" href="gallery/${encodeURIComponent(photoSlug(x))}"><span class="fx-photo-img"><img src="${esc(src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></span><span class="fx-photo-title">${esc(x.title)}</span></a>`;
 }
 function galleryTile(x){
   if(x.type==="social"&&x.url){let emb="";
     if(x.platform==="instagram"){let g=igCode(x);if(g.code)emb=`<div class="fx-embed fx-embed-tall"><iframe src="https://www.instagram.com/${g.kind}/${g.code}/embed" title="${esc(x.title||"Instagram post")}" loading="lazy" allowfullscreen></iframe></div>`}
     else if(x.platform==="facebook"){emb=`<div class="fx-embed"><iframe src="https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(x.url)}&show_text=true" title="${esc(x.title||"Facebook post")}" loading="lazy" allowfullscreen></iframe></div>`}
     if(emb)return `<figure class="fx-gallery-tile has-embed">${emb}<figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">View on Instagram ↗</a></figcaption></figure>`}
-  if(x.image&&x.image.src)return `<figure class="fx-gallery-tile has-img"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption)}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
+  if(x.image&&x.image.src)return `<figure class="fx-gallery-tile has-img"><a href="gallery/${encodeURIComponent(photoSlug(x))}" aria-label="Open photo: ${esc(x.title)}"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></a><figcaption class="fx-gallery-cap"><b>${esc(x.title)}</b><span>${esc(x.caption)}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span> <a href="gallery/${encodeURIComponent(photoSlug(x))}">Open photo ↗</a></figcaption></figure>`;
   return `<div class="fx-gallery-tile"><b>${esc(x.title)}</b></div>`;
 }
 function ytId(m){
@@ -241,7 +241,7 @@ function galleryFeed(el,d){
       if(x.thumb)return `<figure class="fx-feed-item fx-feed-ig"><img src="${esc(x.thumb)}" alt="${esc(x.title||"Instagram post")}" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('no-thumb');this.remove()"><figcaption><span class="fx-feed-kicker">Instagram · @mundarisamaj</span><b>${esc(x.title||"")}</b><span>${esc(x.caption||"")}</span><a class="fx-feed-ig-link" href="${esc(x.url)}" target="_blank" rel="noopener">View on Instagram ↗</a></figcaption></figure>`;
       return galleryTile(x);
     }
-    if(x.image&&x.image.src)return `<figure class="fx-feed-item"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"><figcaption><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span></figcaption></figure>`;
+    if(x.image&&x.image.src)return `<figure class="fx-feed-item"><a href="gallery/${encodeURIComponent(photoSlug(x))}" aria-label="Open photo: ${esc(x.title)}"><img src="${esc(x.image.src)}" alt="${esc(x.image.caption||x.title)}" loading="lazy" decoding="async"></a><figcaption><b>${esc(x.title)}</b><span>${esc(x.caption||"")}</span><span class="fx-gallery-credit">${esc(x.credit||"")}</span> <a href="gallery/${encodeURIComponent(photoSlug(x))}">Open photo ↗</a></figcaption></figure>`;
     return `<div class="fx-feed-note-card"><b>${esc(x.title||"")}</b><span>${esc(x.caption||"")}</span></div>`;
   }
   function batch(){
@@ -286,7 +286,7 @@ async function listing(k){
   else el.innerHTML='<div class="fx-feed-list">'+d.map(x=>feedCard(x,k+"?id="+x.id,x.category)).join("")+"</div>";
 }
 async function videosPage(){
-  const el=$("#page-list");if(!el)return;
+  const el=$("#page-list");if(!el)return;const pageTitle=document.title;
   let d=(await load("videos")).filter(published);
   let cats=["All",...new Set(d.map(v=>v.category))];let f="All";let q="";let current=null;
   el.innerHTML=
@@ -331,6 +331,7 @@ async function videosPage(){
   }
   function play(v,scroll=true){
     current=v.id;
+    try{const root=location.pathname.replace(/\/videos(\.html)?(\/[^/]+)?\/?$/,"/videos");history.pushState(null,"",root+"/"+encodeURIComponent(v.id));document.title=v.title+" — Mundari Samaj";}catch(e){}
     const yt="https://www.youtube.com/watch?v="+v.youtube;
     player.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v.youtube}?autoplay=1&rel=0&playsinline=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
     box.hidden=false;
@@ -349,9 +350,10 @@ async function videosPage(){
   $("#v-q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();renderGrid()});
   grid.onclick=e=>{let b=e.target.closest("[data-vid]");if(!b)return;let v=d.find(x=>x.id===b.dataset.vid);if(v)play(v)};
   $("#upnext-list").onclick=e=>{let b=e.target.closest("[data-up]");if(!b)return;let v=d.find(x=>x.id===b.dataset.up);if(v)play(v)};
-  $("#w-share").onclick=async()=>{const v=d.find(x=>x.id===current);if(!v)return;const url="https://www.youtube.com/watch?v="+v.youtube;try{await navigator.clipboard.writeText(url);const b=$("#w-share");b.textContent="\u{2713} Link copy";setTimeout(()=>{b.textContent="\u{2197} Share"},1800);}catch(e){window.open(url,"_blank","noopener");}};
-  $("#watch-close").onclick=()=>{player.innerHTML="";box.hidden=true;current=null;renderGrid()};
+  $("#w-share").onclick=async()=>{const v=d.find(x=>x.id===current);if(!v)return;const url=location.href;try{await navigator.clipboard.writeText(url);const b=$("#w-share");b.textContent="\u{2713} Link copy";setTimeout(()=>{b.textContent="\u{2197} Share"},1800);}catch(e){window.open(url,"_blank","noopener");}};
+  $("#watch-close").onclick=()=>{player.innerHTML="";box.hidden=true;current=null;try{const root=location.pathname.replace(/\/videos(\.html)?(\/[^/]+)?\/?$/,"/videos");history.pushState(null,"",root);document.title=pageTitle;}catch(e){}renderGrid()};
   renderGrid();
+  let startId=new URLSearchParams(location.search).get("id");if(!startId){let pm=location.pathname.match(/\/videos\/([^/]+)\/?$/);if(pm)startId=decodeURIComponent(pm[1]);}if(startId){let sv=d.find(x=>x.id===startId);if(sv)play(sv,false);}
 }
 /* Click-to-play facades (e.g. homepage Watch & learn): only ONE live player
    on the page — activating a facade restores the previous one to its

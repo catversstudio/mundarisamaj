@@ -899,17 +899,26 @@ export default {
         }
       }
     } else {
-      // Clean URLs (v44): /article/<slug>, /story/<slug> and /news/<slug> serve
-      // the matching detail page; old ?id= links redirect to the clean form.
+      // Clean URLs (v44, extended v53): /article/<slug>, /story/<slug>, /news/<slug>,
+      // /gallery/<slug>, /videos/<id> and /books/<id> serve the matching detail
+      // page; old ?id= links redirect to the clean form.
       const seg = path.split("/").filter(Boolean);
       const qid = url.searchParams.get("id");
-      const detailPage = { article: "/article.html", story: "/stories.html", news: "/news.html" };
+      const detailPage = { article: "/article.html", story: "/stories.html", news: "/news.html", gallery: "/photo.html", videos: "/videos.html", books: "/books.html" };
       if (qid && (path === "/article" || path === "/article.html")) {
         res = Response.redirect(new URL("/article/" + encodeURIComponent(qid), url.origin), 301);
       } else if (qid && (path === "/stories" || path === "/stories.html")) {
         res = Response.redirect(new URL("/story/" + encodeURIComponent(qid), url.origin), 301);
       } else if (qid && (path === "/news" || path === "/news.html")) {
         res = Response.redirect(new URL("/news/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (qid && (path === "/photo" || path === "/photo.html")) {
+        res = Response.redirect(new URL("/gallery/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (qid && (path === "/videos" || path === "/videos.html")) {
+        res = Response.redirect(new URL("/videos/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (qid && (path === "/books" || path === "/books.html")) {
+        res = Response.redirect(new URL("/books/" + encodeURIComponent(qid), url.origin), 301);
+      } else if (path === "/photo") {
+        res = Response.redirect(new URL("/gallery", url.origin), 301);
       } else if (path === "/article") {
         res = Response.redirect(new URL("/articles", url.origin), 301);
       } else if (path === "/story") {

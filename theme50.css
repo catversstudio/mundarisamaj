@@ -109,11 +109,12 @@
 .hp-btn{justify-content:center}
 }
 @media(max-width:640px){
-.fx-cat-grid{grid-template-columns:1fr;gap:12px}
-.fx-cat-card{flex-direction:row}
-.fx-cat-media{aspect-ratio:auto;width:104px;flex:none}
-.fx-cat-body{justify-content:center;padding:12px 16px}
-}
-@media(max-width:640px){
-.fx-cat-card[href="dictionary"] .fx-cat-art{font-size:15px}
+.fx-cat-grid{grid-template-columns:1fr;gap:22px}
+.fx-cat-card{flex-direction:column}
+.fx-cat-media{aspect-ratio:1/1;width:auto;flex:none}
+.fx-cat-body{justify-content:flex-start;padding:16px 18px 18px;gap:6px}
+.fx-cat-body b{font-size:20px}
+.fx-cat-body small{font-size:14px;line-height:1.55}
+.fx-cat-art{font-size:54px}
+.fx-cat-card[href="dictionary"] .fx-cat-art{font-size:34px}
 }

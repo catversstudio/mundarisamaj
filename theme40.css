@@ -150,3 +150,8 @@ input,select,textarea{border-radius:12px!important;max-width:100%}
 .fx-cat-enter{margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--ms-copper)}
 @media(max-width:640px){.fx-cat-grid{grid-template-columns:1fr 1fr;gap:10px}}
 .fx-cat-art{font-family:"Noto Nag Mundari","Inter",system-ui,sans-serif}
+
+/* v50 fix: the stories section is dark, but the card rule above gives story
+   cards a paper background — restore dark, readable text on the light card. */
+.fx-stories-sec .fx-story-card h3{color:var(--ms-forest)!important}
+.fx-stories-sec .fx-story-card p{color:#657168!important}

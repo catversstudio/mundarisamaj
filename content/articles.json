@@ -86,14 +86,14 @@
   "image": {
    "caption": "Birsa Munda — the well-known early photograph of him, reproduced in S. C. Roy's “The Mundas and Their Country” (1912).",
    "credit": "Photo: Unknown photographer · Public domain · via Wikimedia Commons",
-   "src": "assets/img/birsa-munda-portrait.jpg"
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg"
   },
   "media": [
    {
     "caption": "Statue of Birsa Munda at Patna.",
     "credit": "Photo · CC BY-SA · via Wikimedia Commons",
     "type": "image",
-    "url": "assets/img/birsa-munda-statue-patna.jpg"
+    "url": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-statue-patna.jpg"
    },
    {
     "caption": "Birsa Munda: Ulgulan Ke Mahanayak — NCERT documentary (Janjatiya Diwas special)",
@@ -220,7 +220,7 @@
   "media": [
    {
     "type": "image",
-    "url": "assets/img/mundari-bani-script-chart.jpg",
+    "url": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg",
     "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
     "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons"
    }
@@ -249,7 +249,7 @@
   "tone": "sage",
   "verified": true,
   "image": {
-   "src": "assets/img/rohidas-singh-nag.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/rohidas-singh-nag.jpg",
    "caption": "Rohidas Singh Nag (1934–2012), inventor of the Mundari Bani script.",
    "credit": "Photo: Baidyanathsingh · CC BY-SA 4.0 · via Wikimedia Commons"
   },
@@ -298,7 +298,7 @@
    }
   ],
   "image": {
-   "src": "assets/img/mundari-bani-script-chart.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg",
    "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
    "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
@@ -358,7 +358,7 @@
    "community-archive"
   ],
   "image": {
-   "src": "assets/img/munda-lady.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-lady.jpg",
    "caption": "Portrait of a Munda woman — the keepers of family memory and oral history.",
    "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Munda_Lady.jpg",
@@ -405,7 +405,7 @@
    "oral-history"
   ],
   "image": {
-   "src": "assets/img/munda-male.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-male.jpg",
    "caption": "Portrait of a Munda man — the community archive is built from the lives of ordinary people.",
    "credit": "Photo: Ramesh Lalwani · CC BY 2.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Munda_Male.jpg",
@@ -434,7 +434,7 @@
   "tone": "earth",
   "excerpt": "Jaipal Singh Munda captained India to its first Olympic hockey gold, spoke for millions of Adivasis in the Constituent Assembly — “I am proud to be a Jungli” — and founded the Jharkhand Party to demand a homeland for his people.",
   "image": {
-   "src": "assets/img/jaipal-hockey-1928.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/jaipal-hockey-1928.jpg",
    "caption": "The Indian hockey team at the 1928 Amsterdam Olympics, captained by Jaipal Singh Munda — India won the gold medal without conceding a single goal.",
    "credit": "Photo: Unknown photographer (1928) · Public domain · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Indian_hockey_team_1928_Olympics.jpg",
@@ -548,7 +548,7 @@
   "tone": "clay",
   "verified": true,
   "image": {
-   "src": "assets/img/palamau-forest.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/palamau-forest.jpg",
    "caption": "Forest country of the Chota Nagpur plateau — the land over which the Kol Rebellion was fought",
    "credit": "Dev0745 / Wikimedia Commons",
    "source": "File:Palamau Tiger Reserve Forest 7840.jpg",
@@ -640,7 +640,7 @@
   "tone": "earth",
   "verified": true,
   "image": {
-   "src": "assets/img/village-jharkhand.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/village-jharkhand.jpg",
    "caption": "A village in Jharkhand — khuntkatti villages began as forest clearings of founding families",
    "credit": "Noukayami / Wikimedia Commons",
    "source": "File:Village in Jharkhand.jpg",
@@ -731,7 +731,7 @@
   "tone": "sage",
   "verified": true,
   "image": {
-   "src": "assets/img/adiwasi-dance-khunti.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/adiwasi-dance-khunti.jpg",
    "caption": "Adivasi dancers at a fair in Khunti — the village community at celebration",
    "credit": "Sudipti Minz / Wikimedia Commons",
    "source": "File:A group of young Adivasi women wearing traditional attire dancing gracefully in a local fair at Khunti.jpg",
@@ -977,7 +977,7 @@
   "batchId": "H01",
   "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/who-are-the-munda-people.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/who-are-the-munda-people.jpg",
    "caption": "A group of Munda men, women and children in Chota Nagpur, photographed in 1903 (printed caption in the original: 'A Group of Mundas')",
    "credit": "Photographer unknown; published in F. B. Bradley-Birt, 'Chota Nagpore: A Little-Known Province of the Empire' (1910)",
    "source": "https://commons.wikimedia.org/wiki/File:Group_Photo_of_Mundas_-_Chota_Nagpur_1903.jpg",
@@ -1233,7 +1233,7 @@
   "batchId": "H02",
   "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/history-and-origins-of-the-munda-community.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/history-and-origins-of-the-munda-community.jpg",
    "caption": "The Chota Nagpur Plateau, the Munda homeland, on a relief map from the Imperial Gazetteer of India (1909), showing Parasnath hill and the Damodar and Subarnarekha rivers",
    "credit": "Imperial Gazetteer of India (1909)",
    "source": "https://commons.wikimedia.org/wiki/File:Chota_Nagpur_Plateau-IGI.jpg",
@@ -1525,7 +1525,7 @@
   "batchId": "H03",
   "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/munda-language-ancestry-and-historical-identity.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-language-ancestry-and-historical-identity.jpg",
    "caption": "Volumes of the Encyclopaedia Mundarica, the great dictionary of the Mundari language begun by John-Baptist Hoffmann — a record of the language's ancestry and identity",
    "credit": "Grentidez",
    "source": "https://commons.wikimedia.org/wiki/File:Encyclopedia_mundarica_(John-Baptist_Hoffmann).JPG",
@@ -1821,7 +1821,7 @@
   "batchId": "H04",
   "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/munda-settlements-and-historical-geography.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-settlements-and-historical-geography.jpg",
    "caption": "Chota Nagpur shown between Bengal, Orissa and the Central Provinces on a map from the Imperial Gazetteer of India (1909)",
    "credit": "Imperial Gazetteer of India (1909)",
    "source": "https://commons.wikimedia.org/wiki/File:Chota_Nagpur_area-IGI.jpg",
@@ -2126,7 +2126,7 @@
   "batchId": "H05",
   "sourceBatch": "Content Batch 1 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/munda-history-chronological-timeline.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-history-chronological-timeline.jpg",
    "caption": "Chutia Nagpur as mapped in 1902 — J. J. Wood's map in the Records of the Botanical Survey of India, marking Ranchi, Hazaribagh, Palamau and Singhbhum",
    "credit": "J. J. Wood, Records of the Botanical Survey of India, Vol. II No. 1 (1902)",
    "source": "https://commons.wikimedia.org/wiki/File:Chhota_Nagpur_1902.jpg",
@@ -2318,7 +2318,7 @@
   "batchId": "OD01",
   "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/munda-communities-in-odisha.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-communities-in-odisha.jpg",
    "caption": "The weekly haat (village market) at Doraguda, Odisha — a gathering place of Adivasi communities",
    "credit": "Ad031259",
    "source": "https://commons.wikimedia.org/wiki/File:%27The_Haat%27_of_Doraguda_-_2_(The_weekly_village_market_of_Doraguda,_Odisha).jpg",
@@ -2566,7 +2566,7 @@
   "batchId": "OD02",
   "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/munda-and-mundari-in-mayurbhanj.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-and-mundari-in-mayurbhanj.jpg",
    "caption": "Barehipani Waterfall in the Simlipal Biosphere Reserve, Mayurbhanj district, Odisha",
    "credit": "Nihar.race",
    "source": "https://commons.wikimedia.org/wiki/File:Barehipani_Waterfall_in_Simlipal_Biosphere_Reserve.jpg",
@@ -2802,7 +2802,7 @@
   "batchId": "OD03",
   "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/language-identity-and-multilingual-life-in-mayurbhanj.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/language-identity-and-multilingual-life-in-mayurbhanj.jpg",
    "caption": "Crowds at the Baruni mela (fair) in Baripada, Mayurbhanj — a meeting place of the district's many languages and communities",
    "credit": "MaxA-Matrix",
    "source": "https://commons.wikimedia.org/wiki/File:Baruni_mela_(Baripada)_2.jpg",
@@ -3034,7 +3034,7 @@
   "batchId": "OD04",
   "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/reading-census-and-official-records-responsibly.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/reading-census-and-official-records-responsibly.jpg",
    "caption": "A Munda man and woman as depicted in Edward Tuite Dalton's 'Descriptive Ethnology of Bengal' (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur.",
    "credit": "Dalton",
    "source": "https://commons.wikimedia.org/wiki/File:Mundas.jpg",
@@ -3399,7 +3399,7 @@
   "batchId": "OD05",
   "sourceBatch": "Content Batch 2 — owner-supplied research drafts (ChatGPT-assisted), source-checked by the editor before publication",
   "image": {
-   "src": "assets/img/building-a-community-history-of-munda-villages-in-odisha.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/building-a-community-history-of-munda-villages-in-odisha.jpg",
    "caption": "The weekly haat (market) at Doraguda, Odisha — where village communities meet, trade and exchange news",
    "credit": "Ad031259",
    "source": "https://commons.wikimedia.org/wiki/File:%27The_Haat%27_of_Doraguda_-_3_(The_weekly_village_market_of_Doraguda,_Odisha).jpg",
@@ -3519,7 +3519,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/ulgulan-movement.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/ulgulan-movement.jpg",
    "caption": "The statue of Birsa Munda at Kalyani, Nadia district, West Bengal, silhouetted against the evening sky, his axe raised",
    "credit": "Pinakpani",
    "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Birsa_Munda_in_Kalyani_03.jpg",
@@ -3610,7 +3610,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/gaya-munda.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/gaya-munda.jpg",
    "caption": "Firkal, the traditional martial dance of the Bhumij — a Munda people of Chota Nagpur",
    "credit": "Sumita Roy Dutta",
    "source": "https://commons.wikimedia.org/wiki/File:Firkal_slowly_decaying_martial_dance_of_ChotaNagpur_of_Jharkhand_IMG_1069_01.jpg",
@@ -3714,7 +3714,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/munda-in-other-movements.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-in-other-movements.jpg",
    "caption": "A Tana Bhagat with a Gandhian charkha at Ranchi — the Tana Bhagat movement was one of the Adivasi movements in which Munda people took part",
    "credit": "Gurpreet Singh Ranchi",
    "source": "https://commons.wikimedia.org/wiki/File:TANA_BHAGAT_WITH_GANDHIAN_CHARKHA.jpg",
@@ -3802,7 +3802,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/munda-clan-killi-system.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-clan-killi-system.jpg",
    "caption": "A Munda man seated before a Sohrai-painted wall at Isko village, Hazaribagh, Jharkhand",
    "credit": "Kingshuk Mondal",
    "source": "https://commons.wikimedia.org/wiki/File:A_Munda_tribesman_sitting_in_front_of_wall_decorated_with_Munda_style_Sohrai_Painting_at_Isko_Village,_Hazaribagh.jpg",
@@ -3885,7 +3885,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/munda-marriage-customs.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-marriage-customs.jpg",
    "caption": "Paika dance performed at a wedding in Khunti district, Jharkhand",
    "credit": "Deepak Purti",
    "source": "https://commons.wikimedia.org/wiki/File:Paika_dance_in_Khunti,_Jharkhand.webm",
@@ -3980,7 +3980,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/munda-folk-songs-and-dance.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-folk-songs-and-dance.jpg",
    "caption": "Mardani Jhumar, a Nagpuri folk dance performed with drums at the Jaldega fair, Simdega district, Jharkhand.",
    "credit": "Dev0745",
    "source": "https://commons.wikimedia.org/wiki/File:Mardani_Jhumar_Jaldega_2025.jpg",
@@ -4084,7 +4084,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/manki-munda-governance.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/manki-munda-governance.jpg",
    "caption": "A gram sabha (village assembly) in session at Mendha Lekha, a tribal village in Gadchiroli, Maharashtra, known for collective self-governance",
    "credit": "Mendhalekha",
    "source": "https://commons.wikimedia.org/wiki/File:Gram_sabha_meeting_at_Mendha_Lekha.jpg",
@@ -4180,7 +4180,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/mundari-dialects.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-dialects.jpg",
    "caption": "Map showing the distribution of Munda languages, from the 'Linguistic Survey of India', vol. 4 (1906), edited by George A. Grierson.",
    "credit": "George A. Grierson",
    "source": "https://commons.wikimedia.org/wiki/File:LSI_map_of_Munda_languages.jpg",
@@ -4272,7 +4272,7 @@
   ],
   "sourceBatch": "Batches 3-6 — researched and written by the editor from the cited sources, following the owner's content plan",
   "image": {
-   "src": "assets/img/mundari-oral-literature.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-oral-literature.jpg",
    "caption": "Poets honoured at the Adivasi Poetry Festival, 2013 — Adivasi oral traditions live on in performance",
    "credit": "Moheen Reeyad",
    "source": "https://commons.wikimedia.org/wiki/File:Adivasi_Poetry_Festival_%26_Poets_Honor_2013_(01).jpg",

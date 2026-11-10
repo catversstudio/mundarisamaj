@@ -11,7 +11,7 @@
    "story-memory"
   ],
   "image": {
-   "src": "assets/img/story-voices.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/story-voices.jpg",
    "caption": "Munda elders at Dinajpur, photographed in 2010",
    "credit": "Biplob Rahaman",
    "source": "https://commons.wikimedia.org/wiki/File:Old_Munda_Men,_Dinajpur,_2010_by_Biplob_Rahman.jpg",
@@ -30,7 +30,7 @@
    "story-voices"
   ],
   "image": {
-   "src": "assets/img/story-memory.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/story-memory.jpg",
    "caption": "A traditional Munda house, built as an exhibit at the State Tribal Fair 2020 in Bhubaneswar, Odisha.",
    "credit": "Durga Soren",
    "source": "https://commons.wikimedia.org/wiki/File:Munda_House_at_%22_State_Tribal_Fair-_2020_%22_,_Bhubaneswar,_India.jpg",
@@ -44,7 +44,7 @@
   "place": "Munda oral tradition",
   "excerpt": "The best-loved of the old Munda legends: the Asurs whose furnaces scorched the earth, the boy with the itching sores who was Sing Bonga in disguise, and how the bongas of hill and forest came to be.",
   "image": {
-   "src": "assets/img/betla-landscape.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/betla-landscape.jpg",
    "caption": "Hill and forest country of the Chota Nagpur plateau — the landscape of the Asur legend.",
    "credit": "Photo: Dev0745 · CC BY 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Landscape_in_Betla_National_Park_71125.jpg",
@@ -109,7 +109,7 @@
   "place": "Jojohatu village, Khunti",
   "excerpt": "The origin legend of the Karma festival, as told at Jojohatu: how dancing came down from Indra's heaven, how Karma lost everything the night he cut down the Karam branches, and how he crossed forest and river to find Karam Raja floating on the water.",
   "image": {
-   "src": "assets/img/karam-puja.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-puja.jpg",
    "caption": "Karam (Karma) puja being celebrated in Jharkhand.",
    "credit": "Photo: Pankaj076 · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Karam_puja_in_jharkhand.jpg",

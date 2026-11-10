@@ -6,7 +6,7 @@
   "tone": "clay",
   "status": "published",
   "image": {
-   "src": "assets/img/sohrai-painting-women.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sohrai-painting-women.jpg",
    "caption": "Sohrai painting by a group of women, Jharkhand.",
    "credit": "Photo: Shreyashprashu · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Sohrai_painting,_Jharkhand.jpg",
@@ -20,7 +20,7 @@
   "tone": "gold",
   "status": "published",
   "image": {
-   "src": "assets/img/sarhul-dance-ranchi.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-dance-ranchi.jpg",
    "caption": "Sarhul folk dance at the Central University of Jharkhand, Brambe campus, Ranchi — dancers in red-and-white sarees, with drummers.",
    "credit": "Photo: Rohitmahali01 · CC0 1.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Sarhul_Festival_Celebration_In_Central_University_Of_Jharkhand_,Brambe_Campus,_Ranchi.jpg",
@@ -34,7 +34,7 @@
   "tone": "blue",
   "status": "published",
   "image": {
-   "src": "assets/img/mundari-bani-script-chart.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg",
    "caption": "A printed Mundari Bani script chart — the alphabet, phonetic symbols and numerals; the chart is signed by the script's creator, Rohidas Singh Nag.",
    "credit": "Photo: Vineet Topno · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:MundariLanguageScript.jpg",
@@ -48,7 +48,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/sarhul-sarna-grove.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg",
    "caption": "Worshippers gathered under a sarna tree during Sarhul, on the outskirts of Ranchi, Jharkhand.",
    "credit": "Photo: Gurpreet Singh Ranchi · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Holy_Prayer.jpg",
@@ -62,7 +62,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/sohrai-wall-art-isko.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sohrai-wall-art-isko.jpg",
    "caption": "Sohrai wall art at Isko village, Hazaribagh — a Munda man sitting in front of a wall decorated with Munda-style Sohrai painting.",
    "credit": "Photo: Kingshuk Mondal · CC BY 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:A_Munda_tribesman_sitting_in_front_of_wall_decorated_with_Munda_style_Sohrai_Painting_at_Isko_Village,_Hazaribagh.jpg",
@@ -76,7 +76,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/karam-festival.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg",
    "caption": "Karam festival — women gathered around baskets of young seedlings grown for the festival, in Bhado (August–September).",
    "credit": "Photo: 18susmita · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:KARAM_FESTIVAL.jpg",
@@ -90,7 +90,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/birsa-munda-portrait.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg",
    "caption": "Birsa Munda — the well-known early photograph of him, reproduced in S. C. Roy (1912).",
    "credit": "Photo: Unknown photographer (reproduced in S. C. Roy, 1912) · Public domain · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Birsa_Munda,_photograph_in_Roy_(1912-72).JPG",
@@ -104,7 +104,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/birsa-munda-statue-patna.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-statue-patna.jpg",
    "caption": "Statue of Birsa Munda near the Bihar Legislative Assembly, Patna.",
    "credit": "Photo: Heba Aisha · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Birsa_Munda_statue_patna.jpg",
@@ -118,7 +118,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/netarhat.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/netarhat.jpg",
    "caption": "Evening over Netarhat, the hill country of Chota Nagpur, Jharkhand.",
    "credit": "Photo: Tourism Department, Government of Jharkhand · CC0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Netarhat,_Jharkhand.jpg",
@@ -132,7 +132,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/nag-birthday-celebration-01.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/nag-birthday-celebration-01.jpg",
    "caption": "Community members honouring the garlanded portrait of Ol Guru Rohidas Singh Nag at his birthday celebration, Odisha, February 2024.",
    "credit": "Photo: Punasingh123 · CC BY 4.0 · via Wikimedia Commons"
   }
@@ -144,7 +144,7 @@
   "tone": "gold",
   "status": "published",
   "image": {
-   "src": "assets/img/karam-puja.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-puja.jpg",
    "caption": "Karam (Karma) puja being celebrated in Jharkhand.",
    "credit": "Photo: Pankaj076 · CC BY-SA 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Karam_puja_in_jharkhand.jpg",
@@ -158,7 +158,7 @@
   "tone": "clay",
   "status": "published",
   "image": {
-   "src": "assets/img/mandar-drum.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mandar-drum.jpg",
    "caption": "A mandar drum at the Ramrekha Magh Mela, Simdega district, Jharkhand.",
    "credit": "Photo: Dev0745 · CC BY 4.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Mandar_nagpuri_musical_instrument.jpg",
@@ -172,7 +172,7 @@
   "tone": "sage",
   "status": "published",
   "image": {
-   "src": "assets/img/adiwasi-dance-khunti.jpg",
+   "src": "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/adiwasi-dance-khunti.jpg",
    "caption": "Munda folk dance in Khunti district, Jharkhand.",
    "credit": "Photo: Sudipti Minz · CC BY-SA 3.0 · via Wikimedia Commons",
    "source": "https://commons.wikimedia.org/wiki/File:Adiwasi_dance.jpg",

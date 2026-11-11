@@ -431,3 +431,14 @@ async function homeRails(){
 }
 
 document.addEventListener("click",function(e){if(!document.querySelector("base"))return;var a=e.target&&e.target.closest?e.target.closest('a[href^="#"]'):null;if(!a)return;var tid=a.getAttribute("href").slice(1);if(!tid)return;var t=document.getElementById(tid);if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}});
+
+/* v58 reveal-on-scroll (added once; elements stay visible without JS) */
+(function(){ if(window.__rvInit) return; window.__rvInit=1;
+  function init(){
+    var els=document.querySelectorAll('.section-heading,.fx-cat-card,.fx-card,.fx-gallery-tile,.library-item,.page-hero,.hp-stage,.hp-intro,.hp-script,.contribute-section,.fx-rail-sec');
+    if(!('IntersectionObserver' in window)){ return; }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.1});
+    els.forEach(function(el){ el.classList.add('rv'); io.observe(el); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();

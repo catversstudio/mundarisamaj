@@ -155,3 +155,26 @@ input,select,textarea{border-radius:12px!important;max-width:100%}
    cards a paper background — restore dark, readable text on the light card. */
 .fx-stories-sec .fx-story-card h3{color:var(--ms-forest)!important}
 .fx-stories-sec .fx-story-card p{color:#657168!important}
+
+/* v58 — MODERN palette (skill: midnight + paper + golden yellow),
+   page-hero title fix, card glow, reveal transitions. Site-wide. */
+:root{
+  --ms-bg:#f5f3ef;--ms-paper:#ffffff;--ms-ink:#101214;--ms-muted:#5c6066;
+  --ms-forest:#08090b;--ms-forest-deep:#050607;--ms-copper:#9a7200;
+  --ms-sand:#eae7de;--ms-line:#e3e0d8;
+  --ms-shadow:0 16px 38px -16px rgba(8,9,11,.22);
+}
+.page-hero{background:linear-gradient(135deg,#0b0c0e 0%,#17191d 70%,#23262c 100%)!important}
+.page-hero h2{color:#f5f3ef!important}
+.page-hero h1{color:#f5f3ef!important}
+.page-hero .kicker{color:#ffc900!important}
+.page-hero p{color:#c9ccc9!important}
+.announcement{background:#08090b!important}
+.main-nav .nav-cta{background:#08090b!important}
+.site-footer{background:#050607!important}
+.fx-card,.fx-gallery-tile,.library-item{box-shadow:0 16px 38px -16px rgba(8,9,11,.20);transition:transform .45s cubic-bezier(.22,.61,.36,1),box-shadow .45s cubic-bezier(.22,.61,.36,1)}
+.fx-card:hover,.fx-gallery-tile:hover,.library-item:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(8,9,11,.30)}
+.fx-chip{transition:all .3s cubic-bezier(.22,.61,.36,1)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.fx-card,.fx-gallery-tile,.library-item{transition:none}}

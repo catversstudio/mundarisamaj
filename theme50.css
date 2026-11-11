@@ -193,3 +193,39 @@
 .hp-stage-text h1{font-size:33px}
 .hp-stage-text .hp-hero-sub{font-size:13.5px;line-height:1.7}
 }
+
+/* v58 — homepage in the modern palette: midnight + paper + golden yellow.
+   Hero glow stays in the photo's own colours; edge melt via gradient veils. */
+:root{--hp-forest:#08090b;--hp-deep:#050607;--hp-pink:#ffc900;--hp-cream:#f5f3ef;--hp-ink:#101214;--hp-muted:#5c6066;--hp-gold:#ffc900}
+.hp-topline{background:linear-gradient(90deg,#08090b,#ffc900,#08090b)}
+.hp-header{color:var(--hp-ink)}
+.hp-brandmark{border-color:#08090b33;background:#ffffff}
+.hp-nav .hp-join{border-color:#08090b88}
+.hp-menu{border-color:#08090b55;color:var(--hp-ink)}
+.hp-hero{background:#f5f3ef}
+.hp-eyebrow{color:#9a7200}
+.hp-eyebrow:before{background:#ffc900}
+.hp-giant{color:#08090b}
+.hp-stage-img{-webkit-mask-image:none;mask-image:none}
+.hp-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#f5f3ef 0,rgba(245,243,239,0) 13%),linear-gradient(0deg,#f5f3ef 0,rgba(245,243,239,0) 11%),linear-gradient(90deg,#f5f3ef 0,rgba(245,243,239,0) 6%,rgba(245,243,239,0) 94%,#f5f3ef 100%)}
+.hp-stage-text h1 em{color:#ffc900}
+.hp-stage-text .hp-hero-bani{color:#f0e6c8}
+.hp-stage-text .hp-hero-bani .bani{color:#ffd94d}
+.hp-stage-text .hp-btn.primary{background:#ffc900;color:#08090b}
+.hp-stage-text .hp-btn.primary:hover{background:#ffffff;color:#08090b}
+#categories{background:#f5f3ef}
+#categories .section-kicker{color:#9a7200}
+#categories .section-heading h2{color:#101214}
+#categories .section-heading h2 em{color:#9a7200}
+.section-kicker{color:#9a7200}
+.fx-cat-enter{color:#9a7200}
+.hp-intro{background:#ffffff}
+.hp-script{background:#eae7de}
+.hp-script-visual{background:linear-gradient(145deg,#1a1c20,#08090b)}
+.hp-kicker{color:#9a7200}
+.contribute-section{background:#08090b!important}
+.v3-footer{background:#050607!important}
+.hp-giant{animation:hpFade 1s cubic-bezier(.22,.61,.36,1) both}
+.hp-stage{animation:hpFade 1.1s .15s cubic-bezier(.22,.61,.36,1) both}
+@keyframes hpFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hp-giant,.hp-stage{animation:none}}

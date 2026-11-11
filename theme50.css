@@ -229,3 +229,53 @@
 .hp-stage{animation:hpFade 1.1s .15s cubic-bezier(.22,.61,.36,1) both}
 @keyframes hpFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.hp-giant,.hp-stage{animation:none}}
+
+/* v59 — homepage: WHITE base + hero motion (line reveal, gradient text,
+   blobs, particles, letter wave, button shine) */
+:root{--hp-cream:#ffffff}
+.hp-hero{background:#ffffff;overflow:hidden}
+.hp-hero-inner{z-index:2}
+.hp-hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:.30;background:var(--accent-2);top:-120px;right:-120px;animation:hpFloat 18s ease-in-out infinite;will-change:transform;z-index:0}
+.hp-hero::after{content:"";display:block;position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(120px);opacity:.28;background:var(--accent);bottom:-160px;left:-100px;animation:hpFloat 18s ease-in-out -9s infinite;will-change:transform;z-index:0}
+@keyframes hpFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-24px,30px) scale(1.08)}66%{transform:translate(20px,-26px) scale(.95)}}
+#categories{background:#ffffff}
+.hp-script{background:#f4f4f2}
+.hp-stage::after{background:linear-gradient(180deg,#ffffff 0,rgba(255,255,255,0) 13%),linear-gradient(0deg,#ffffff 0,rgba(255,255,255,0) 11%),linear-gradient(90deg,#ffffff 0,rgba(255,255,255,0) 6%,rgba(255,255,255,0) 94%,#ffffff 100%)}
+.hp-stage-text h1 .line{display:block;overflow:hidden}
+.hp-stage-text h1 .line>span{display:inline-block;transform:translateY(105%);animation:lineUp 1.1s var(--spring) forwards}
+.hp-stage-text h1 .line:nth-child(1)>span{animation-delay:.25s}
+.hp-stage-text h1 .line:nth-child(2)>span{animation-delay:.4s}
+.hp-stage-text h1 .line:nth-child(3)>span{animation-delay:.55s}
+@keyframes lineUp{to{transform:translateY(0)}}
+.hp-stage-text h1 em{background:linear-gradient(90deg,var(--accent-2),var(--accent),var(--accent-2));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientShift 6s ease infinite}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hp-eyebrow{opacity:0;animation:riseIn 1s var(--ease-smooth) .1s forwards}
+.hp-stage-text .hp-hero-sub{opacity:0;animation:riseIn 1.1s var(--ease-smooth) .75s forwards}
+.hp-stage-text .hp-hero-bani{opacity:0;animation:riseIn 1.1s var(--ease-smooth) .9s forwards}
+.hp-stage-text .hp-actions{opacity:0;animation:riseIn 1.1s var(--ease-smooth) 1.05s forwards}
+@keyframes riseIn{to{opacity:1;transform:none}}
+.particles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent-2);opacity:.4;animation:drift 22s linear infinite;will-change:transform,opacity}
+.particle:nth-child(2n){background:var(--accent);width:4px;height:4px;animation-duration:28s}
+.particle:nth-child(3n){width:8px;height:8px;opacity:.25;animation-duration:34s}
+@keyframes drift{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.5}50%{transform:translateY(-120px) translateX(40px);opacity:.4}90%{opacity:.1}100%{transform:translateY(-240px) translateX(-30px);opacity:0}}
+.hp-btn{position:relative;overflow:hidden;transition:transform .5s var(--spring),box-shadow .5s var(--ease-smooth),background .4s var(--ease-smooth),color .4s var(--ease-smooth)}
+.hp-btn::before{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .7s var(--ease-smooth)}
+.hp-btn:hover::before{left:130%}
+.hp-brandmark{transition:transform .6s var(--spring),box-shadow .4s var(--ease-smooth)}
+.hp-brand:hover .hp-brandmark{transform:rotate(-8deg) scale(1.1);box-shadow:0 8px 24px rgba(61,220,151,.4)}
+.hp-quote{position:relative;padding-left:18px}
+.hp-quote::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:linear-gradient(var(--accent),var(--accent-2));transition:height 1s var(--ease-smooth)}
+.hp-intro.visible .hp-quote::before{height:100%}
+html.motion .hp-script .bani-tile{opacity:0;transform:translateY(30px) scale(.8)}
+.hp-script.visible .bani-tile{animation:letterPop .7s var(--spring) forwards;animation-delay:calc(var(--i,1) * 45ms)}
+@keyframes letterPop{to{opacity:1;transform:translateY(0) scale(1)}}
+.bani-tile{transition:transform .55s var(--spring),background .4s var(--ease-smooth),color .4s var(--ease-smooth),border-color .4s var(--ease-smooth),box-shadow .4s var(--ease-smooth)}
+.bani-tile:hover{transform:translateY(-8px) rotate(-6deg) scale(1.08);background:var(--accent);color:#04120c;border-color:var(--accent);box-shadow:0 14px 30px rgba(61,220,151,.35)}
+@media(max-width:800px){.hp-hero::before{width:300px;height:300px;filter:blur(80px)}.hp-hero::after{width:260px;height:260px;filter:blur(80px)}}
+@media (prefers-reduced-motion:reduce){
+  .hp-stage-text h1 .line>span{transform:none;animation:none}
+  .hp-eyebrow,.hp-stage-text .hp-hero-sub,.hp-stage-text .hp-hero-bani,.hp-stage-text .hp-actions{opacity:1;animation:none}
+  .hp-hero::before,.hp-hero::after,.particle,.hp-stage-text h1 em{animation:none}
+  html.motion .hp-script .bani-tile{opacity:1;transform:none}
+}

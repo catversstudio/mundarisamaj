@@ -178,3 +178,39 @@ input,select,textarea{border-radius:12px!important;max-width:100%}
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.fx-card,.fx-gallery-tile,.library-item{transition:none}}
+
+/* v59 — WHITE base (owner: white, not coffee) + motion pack (shared) */
+:root{
+  --ms-bg:#ffffff;--ms-sand:#f4f4f2;
+  --accent:#3ddc97;--accent-2:#f2c14e;
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--ease-smooth:cubic-bezier(.16,1,.3,1);
+}
+.site-header{background:#ffffff!important}
+.cursor-glow{position:fixed;top:0;left:0;width:600px;height:600px;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(61,220,151,.10),transparent 60%);transform:translate(-50%,-50%);transition:opacity .5s var(--ease-smooth);z-index:0;opacity:0;will-change:transform}
+body:hover .cursor-glow{opacity:1}
+html.motion .reveal{opacity:0;transform:translateY(50px) scale(.97);filter:blur(6px);transition:opacity 1s var(--ease-smooth),transform 1.1s var(--spring),filter 1s var(--ease-smooth);will-change:opacity,transform,filter}
+html.motion .reveal.visible{opacity:1;transform:none;filter:blur(0)}
+.reveal.visible h2{animation:clipReveal 1s var(--ease-smooth) forwards}
+@keyframes clipReveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media (hover:hover) and (pointer:fine){
+  .fx-cat-card,.fx-card{transform-style:preserve-3d;isolation:isolate;position:relative;transition:transform .6s var(--spring),border-color .5s var(--ease-smooth),box-shadow .6s var(--ease-smooth)}
+  .fx-cat-card::before,.fx-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(61,220,151,.16),transparent 45%);opacity:0;transition:opacity .5s var(--ease-smooth);pointer-events:none;z-index:1}
+  .fx-cat-card::after,.fx-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(61,220,151,.5),transparent 40%,transparent 60%,rgba(242,193,78,.5));opacity:0;transition:opacity .5s var(--ease-smooth);z-index:-1;filter:blur(8px)}
+  .fx-cat-card:hover,.fx-card:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-8px)}
+  .fx-cat-card:hover::before,.fx-card:hover::before{opacity:1}
+  .fx-cat-card:hover::after,.fx-card:hover::after{opacity:1}
+}
+.footer-johar{animation:joharGlow 3s ease-in-out infinite}
+@keyframes joharGlow{0%,100%{text-shadow:0 0 0 rgba(61,220,151,0)}50%{text-shadow:0 0 14px rgba(61,220,151,.6)}}
+.main-nav a{position:relative}
+.main-nav a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s var(--ease-smooth);border-radius:2px}
+.main-nav a:hover::after{width:100%}
+.footer-links a,.footer-col a{transition:color .35s var(--ease-smooth),transform .35s var(--spring)}
+.footer-links a:hover,.footer-col a:hover{transform:translateX(6px)}
+.button{position:relative;overflow:hidden;transition:transform .5s var(--spring),box-shadow .5s var(--ease-smooth)}
+.button::before{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .7s var(--ease-smooth)}
+.button:hover::before{left:130%}
+@media (prefers-reduced-motion:reduce){
+  html.motion .reveal{opacity:1;transform:none;filter:none;transition:none}
+  .footer-johar{animation:none}
+}

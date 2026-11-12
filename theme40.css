@@ -273,3 +273,31 @@ body::before{background:none!important}
 .button,.btn,.v3-cta,.main-nav .nav-cta{background:#efe9dc!important;color:#8a6d1f!important;border:1px solid rgba(255,253,244,.65)!important;box-shadow:6px 6px 12px var(--neu-dark),-6px -6px 12px var(--neu-light)!important}
 .button:hover,.btn:hover,.v3-cta:hover,.main-nav .nav-cta:hover{box-shadow:3px 3px 7px var(--neu-dark),-3px -3px 7px var(--neu-light)!important}
 .v3-footer,.site-footer{background:#efe9dc!important;border-top:0!important;box-shadow:0 -16px 26px -20px var(--neu-dark)}
+
+/* ==== v62 — Claude design language for inner pages (2026-11-12) ==== */
+:root{--d62-green:#173F35;--d62-deep:#0F2D25;--d62-gold:#E0A43A;--d62-cream:#F6EFE3;--d62-card:#FFFAF0;--d62-line:#E3D6BD;--d62-ink:#1C1A16;--d62-mut:#4D4639;--d62-rust:#A24724;--d62-sand:#EFE3CC}
+body{background:var(--d62-cream)!important;color:var(--d62-ink)!important;font-family:'Hanken Grotesk',system-ui,sans-serif!important}
+body::before{display:none!important}
+h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif!important}
+.announcement,.v3-announce{background:var(--d62-deep)!important;color:var(--d62-cream)!important}
+.v3-header,.site-header{background:var(--d62-green)!important;color:var(--d62-cream)!important;box-shadow:0 10px 24px rgba(15,45,37,.28)!important}
+.v3-brand,.v3-brand span,.v3-brand strong,.v3-brand b,.v3-header a,.site-header a{color:var(--d62-cream)!important}
+.v3-header .v3-links a{color:#E9DCC4!important}
+.v3-cta,.main-nav .nav-cta{background:var(--d62-gold)!important;color:var(--d62-ink)!important;border:0!important;box-shadow:0 8px 18px rgba(224,164,58,.35)!important}
+.page-hero{background:linear-gradient(180deg,#F6EFE3,#EFE3CC)!important}
+.page-hero h1,.sec-head h2{color:var(--d62-green)!important}
+.page-hero .kicker,.page-hero .section-kicker,.sec-head .kicker,.section-kicker{color:var(--d62-rust)!important}
+.page-hero p,.sec-head p{color:var(--d62-mut)!important}
+.fx-card,.fx-cat-card,.fx-gallery-tile,.fx-content-card,.fx-news-item,.fx-story-card,.fx-feed-card,.library-item,.festival-card,.contribute-form,.community-note,.search-box,.topic-modal,.dict-card{background:var(--d62-card)!important;border:1px solid var(--d62-line)!important;box-shadow:0 10px 24px rgba(23,63,53,.10)!important}
+.fx-chip{background:var(--d62-card)!important;color:var(--d62-ink)!important;border:1px solid var(--d62-line)!important;box-shadow:0 4px 10px rgba(23,63,53,.08)!important}
+.contribute-form input,.contribute-form select,.contribute-form textarea,.dict-tools input,.dict-tools select{background:var(--d62-card)!important;color:var(--d62-ink)!important;border:1.5px solid #B9A886!important;box-shadow:none!important}
+.button,.btn{background:var(--d62-green)!important;color:var(--d62-cream)!important;border:0!important;box-shadow:0 8px 18px rgba(23,63,53,.28)!important}
+.button:hover,.btn:hover{background:var(--d62-deep)!important}
+.fx-cat-enter{color:var(--d62-rust)!important}
+.v3-footer,.site-footer{background:var(--d62-green)!important;color:#F3E9DA!important}
+.v3-footer a,.site-footer a{color:#E8DCC6!important}
+.v3-footer .serif,.site-footer .serif{color:var(--d62-cream)!important}
+.v3-footer .bani{color:var(--d62-gold)!important}
+.cursor-glow{display:none!important}
+.v3-cta,.main-nav .nav-cta,.button,.btn{background-image:none!important}
+.v3-header .v3-links a.active{background:var(--d62-gold)!important;color:var(--d62-ink)!important}

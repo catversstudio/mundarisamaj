@@ -73,3 +73,15 @@ footer{background:#163a32;color:#cfe0d9;padding:48px 0 20px}footer a{display:blo
 .legacy .fx-list li{margin:.3em 0}
 .meta{color:var(--mut);font-size:.92rem}
 blockquote{border-left:4px solid var(--sun);margin:1em 0;padding:.4em 1em;background:#fff;border-radius:0 12px 12px 0}
+
+/* ==== v67: legacy-card text clipping fix + article categories ==== */
+html{scroll-padding-top:84px}
+.legacy div.card{padding:20px 22px}
+.legacy .card>img{aspect-ratio:auto}
+.legacy .wrap{width:100%}
+.legacy p,.legacy li{overflow-wrap:break-word}
+.legacy a,.legacy strong{overflow-wrap:anywhere}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--g);border-radius:99px;padding:7px 16px;font:600 .9rem Inter,sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.ctag{display:inline-block;background:var(--mist);color:var(--g);font:600 .72rem Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:3px 10px;margin-bottom:8px}

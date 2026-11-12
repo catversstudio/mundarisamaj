@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learn Mundari · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/css/style.css"></head><body data-root="../../"><a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1f4a41"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../../language/" aria-current=page>Language</a><a href="../../heritage/">Heritage</a><a href="../../culture/">Culture</a><a href="../../library/">Library</a><a href="../../media/">Media</a><a href="../../news/">News</a><a class="cta" href="../../contribute/">Contribute</a></nav></header>
+<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../">Home</a> / <a href="../">Language</a></nav><h1>Learn Mundari</h1></div></section>
+<section class="wrap sec legacy">
+
+<section id="sikho" class="page" data-page="learn">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Learn</p>
+      <h2>Learn to speak — flashcards, sentences and counting</h2>
+      <p>The sentences below are taken from Osada's <em>A Course in Mundari</em> and from Mundariversity lessons. Sentences marked <span class="tag">† pattern</span> are built from attested words and attested sentence patterns — check them with a speaker before printing them anywhere.</p>
+    </div>
+
+    <div class="flash-zone">
+      <div>
+        <h3 class="serif" style="font-size:1.4rem;margin:0 0 12px">Flashcards — click the card to flip it</h3>
+        <button class="flashcard" id="flashcard" aria-label="Flashcard — click to flip">
+          <span class="flash-inner">
+            <span class="flash-face flash-front"><span class="w" id="fcFront"></span><span class="rom" id="fcRom"></span><span class="hint">Click to see the meaning</span></span>
+            <span class="flash-face flash-back"><span class="w" id="fcBack"></span><span class="cat" id="fcCat"></span></span>
+          </span>
+        </button>
+        <div class="flash-nav">
+          <button class="btn line small" id="fcPrev" type="button">← Previous</button>
+          <button class="btn line small" id="fcNext" type="button">Next →</button>
+          <button class="btn line small" id="fcShuffle" type="button">Shuffle</button>
+          <span class="count" id="fcCount"></span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="serif" style="margin:0 0 10px;font-size:1.35rem">A first conversation</h3>
+        <div class="sent"><div class="b">𞓖𞓐𞓕𞓣.</div><div class="m">Joar.</div><div class="e">Hello. (This word is also used for thanks — but it is not said on someone's death.)</div></div>
+        <div class="sent"><div class="b">𞓖𞓐𞓕𞓣, 𞓗𞓤𞓛 𞓦𞓤?</div><div class="m">Joar, bes ge?</div><div class="e">Hello, how are you? (Literally: “are you well?”)</div></div>
+        <div class="sent"><div class="b">𞓞𞓚𞓭, 𞓗𞓤𞓛 𞓦𞓤. 𞓕𞓑𞓤 𞓡𞓐?</div><div class="m">Hee, bes ge. Ape do?</div><div class="e">Yes, I am well. And how are you all?</div></div>
+        <div class="sent"><div class="b">𞓕𞓧𞓕𞓙 𞓨𞓟𞓝𞓟𞓧 𞓡𞓐 𞓢𞓕𞓨𞓕𞓙?</div><div class="m">Amaʔ nutum do canaʔ?</div><div class="e">What is your name?</div></div>
+        <div class="sent"><div class="b">𞓕𞓘𞓕𞓙 𞓨𞓟𞓝𞓟𞓧 𞓡𞓐 𞓛𞓐𞓧𞓕.</div><div class="m">Añaʔ nutum do Soma.</div><div class="e">My name is Soma.</div></div>
+        <p class="small" style="margin-bottom:0">A special thing about names: every Munda child has two names — the <span class="bani">𞓛𞓕𞓢𞓚 𞓨𞓟𞓝𞓟𞓧</span> <em>saki nutum</em> (given at the cati ceremony, about a week after birth) and the <span class="bani">𞓖𞓕𞓨𞓕𞓧 𞓨𞓟𞓝𞓟𞓧</span> <em>janam nutum</em> (named after the day of birth — Monday, Tuesday…). That is why a boy born on Thursday is called Birsa, and a girl Birsi.</p>
+      </div>
+    </div>
+
+    <h3 class="serif" style="font-size:1.5rem;margin:36px 0 12px">Everyday sentences</h3>
+    <div class="chips" id="sentChips" role="group" aria-label="Sentence categories"></div>
+    <div class="card" style="padding:8px 22px" id="sentList"></div>
+
+    <h3 class="serif" style="font-size:1.5rem;margin:36px 0 6px">Counting — built on twenty (<span class="bani">𞓞𞓚𞓛𞓚</span> hisi)</h3>
+    <p style="color:var(--muted);margin:0 0 14px;max-width:46rem">Mundari does not count in tens, it counts in twenties: 20 = <span class="bani">𞓧𞓚𞓡 𞓞𞓚𞓛𞓚</span> <em>mid hisi</em> (one twenty), 40 = <span class="bani">𞓗𞓕𞓣 𞓞𞓚𞓛𞓚</span> <em>bar hisi</em> (two twenties), 100 = <span class="bani">𞓧𞓐𞓨𞓤 𞓞𞓚𞓛𞓚</span> <em>mone hisi</em> (five twenties) or <span class="bani">𞓧𞓚𞓡 𞓛𞓕𞓟</span> <em>mid sau</em>. Both the counting form (<span class="bani">𞓧𞓚𞓕𞓡</span> miad) and the shorter form used before a noun (<span class="bani">𞓧𞓚𞓡</span> mid) are given — every number below is shown in Mundari Bani digits and words, with the Roman form beside it.</p>
+    <div class="tblwrap">
+      <table class="count-tbl">
+        <thead><tr><th>Number</th><th>Counting form</th><th>Short form</th><th>Number</th><th>Counting form</th></tr></thead>
+        <tbody>
+          <tr><td><span class="bani-line bani">𞓱</span>1</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓕𞓡 / 𞓧𞓐𞓓𞓐𞓡</span>miad / moyod</td><td><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 / 𞓧𞓐𞓡</span>mid / mod</td><td><span class="bani-line bani">𞓱𞓱</span>11</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓧𞓚𞓕𞓡</span>gel miad</td></tr>
+          <tr><td><span class="bani-line bani">𞓲</span>2</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓗𞓕𞓣𞓚𞓕</span>baria</td><td><span class="bani-line bani" aria-hidden="true">𞓗𞓕𞓣</span>bar</td><td><span class="bani-line bani">𞓱𞓲</span>12</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓗𞓕𞓣𞓚𞓕</span>gel baria</td></tr>
+          <tr><td><span class="bani-line bani">𞓳</span>3</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓕𞓑𞓚𞓕</span>apia</td><td><span class="bani-line bani" aria-hidden="true">𞓕𞓑𞓚</span>api</td><td><span class="bani-line bani">𞓱𞓳</span>13</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓕𞓑𞓚𞓕</span>gel apia</td></tr>
+          <tr><td><span class="bani-line bani">𞓴</span>4</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓟𞓑𞓟𞓨𞓚𞓕</span>upunia</td><td><span class="bani-line bani" aria-hidden="true">𞓟𞓑𞓟𞓨</span>upun</td><td><span class="bani-line bani">𞓱𞓴</span>14</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓟𞓑𞓟𞓨𞓚𞓕</span>gel upunia</td></tr>
+          <tr><td><span class="bani-line bani">𞓵</span>5</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓐𞓨𞓤𞓕</span>monea</td><td><span class="bani-line bani" aria-hidden="true">𞓧𞓐𞓨𞓤</span>mone</td><td><span class="bani-line bani">𞓱𞓵</span>15</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓧𞓐𞓨𞓤𞓕</span>gel monea</td></tr>
+          <tr><td><span class="bani-line bani">𞓶</span>6</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓝𞓟𞓣𞓚𞓕</span>turia</td><td><span class="bani-line bani" aria-hidden="true">𞓝𞓟𞓣𞓟𞓚</span>turui</td><td><span class="bani-line bani">𞓱𞓶</span>16</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓝𞓟𞓣𞓚𞓕</span>gel turia</td></tr>
+          <tr><td><span class="bani-line bani">𞓷</span>7</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓤𞓤𞓕 / 𞓤𞓓𞓕</span>eea / eya</td><td><span class="bani-line bani" aria-hidden="true">𞓤𞓤</span>ee</td><td><span class="bani-line bani">𞓱𞓷</span>17</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓤𞓤𞓕</span>gel eea</td></tr>
+          <tr><td><span class="bani-line bani">𞓸</span>8</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓚𞓣𞓕𞓒𞓚𞓕</span>iralia</td><td><span class="bani-line bani" aria-hidden="true">𞓚𞓣𞓕𞓒</span>iral</td><td><span class="bani-line bani">𞓱𞓸</span>18</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓚𞓣𞓕𞓒𞓚𞓕</span>gel iralia</td></tr>
+          <tr><td><span class="bani-line bani">𞓹</span>9</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓕𞓣𞓤𞓕</span>area</td><td><span class="bani-line bani" aria-hidden="true">𞓕𞓣𞓤</span>are</td><td><span class="bani-line bani">𞓱𞓹</span>19</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒 𞓕𞓣𞓤𞓕</span>gel area</td></tr>
+          <tr><td><span class="bani-line bani">𞓱𞓰</span>10</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒𞓤𞓕</span>gelea</td><td><span class="bani-line bani" aria-hidden="true">𞓦𞓤𞓒</span>gel</td><td><span class="bani-line bani">𞓲𞓰</span>20</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 𞓞𞓚𞓛𞓚 / 𞓞𞓚𞓛𞓚</span>mid hisi / hisi</td></tr>
+          <tr><td><span class="bani-line bani">𞓲𞓱</span>21</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 𞓞𞓚𞓛𞓚 𞓧𞓚𞓕𞓡</span>mid hisi miad</td><td>—</td><td><span class="bani-line bani">𞓳𞓰</span>30</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 𞓞𞓚𞓛𞓚 𞓦𞓤𞓒</span>mid hisi gel</td></tr>
+          <tr><td><span class="bani-line bani">𞓴𞓰</span>40</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓗𞓕𞓣 𞓞𞓚𞓛𞓚</span>bar hisi</td><td>—</td><td><span class="bani-line bani">𞓵𞓰</span>50</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓗𞓕𞓣 𞓞𞓚𞓛𞓚 𞓦𞓤𞓒</span>bar hisi gel</td></tr>
+          <tr><td><span class="bani-line bani">𞓱𞓰𞓰</span>100</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 𞓛𞓕𞓟 / 𞓧𞓐𞓨𞓤 𞓞𞓚𞓛𞓚</span>mid sau / mone hisi</td><td>—</td><td><span class="bani-line bani">𞓱𞓰𞓰𞓰</span>1000</td><td class="mun"><span class="bani-line bani" aria-hidden="true">𞓧𞓚𞓡 𞓞𞓕𞓖𞓕𞓣</span>mid hazar</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:10px">Check yourself: 31 (<span class="bani">𞓳𞓱</span>) = <span class="bani">𞓧𞓚𞓡 𞓞𞓚𞓛𞓚 𞓦𞓤𞓒 𞓧𞓚𞓕𞓡</span> <em>mid hisi gel miad</em> (20 + 10 + 1), 41 (<span class="bani">𞓴𞓱</span>) = <span class="bani">𞓗𞓕𞓣 𞓞𞓚𞓛𞓚 𞓧𞓚𞓕𞓡</span> <em>bar hisi miad</em> (2×20 + 1). The digits in Mundari Bani are also on the Script page.</p>
+  </div>
+</section>
+
+</section></main>
+<footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div><a href="../../about/">About</a><a href="../../contribute/">Contribute</a><a href="../../search/">Search</a></div><div><a href="https://www.instagram.com/mundarisamaj">Instagram</a><a href="https://www.threads.net/@mundaricommunity">Threads</a></div></div><p class="copy">© 2026 Mundari Samaj</p></footer>
+<script src="../../assets/data/data.js"></script><script src="../../assets/js/main.js"></script></body></html>

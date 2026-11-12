@@ -1,8 +1,8 @@
 /* ==== v62 — Claude design integration (owner: "Use this", 2026-11-12) ====
-   Deep green #173F35 · gold #E0A43A · cream #F6EFE3 · card #FFFAF0 · rust #A24724
+   Mahua maroon #571E28 · gold #D9A441 · cream #F8F2E7 · card #FFFFFF · rust #A03A2A (v63, owner chose Palette C)
    Fonts: Fraunces (headings) + Hanken Grotesk (body). Homepage only. */
-:root{--d62-green:#173F35;--d62-deep:#0F2D25;--d62-gold:#E0A43A;--d62-gold-h:#ECB957;--d62-cream:#F6EFE3;--d62-card:#FFFAF0;--d62-line:#E3D6BD;--d62-ink:#1C1A16;--d62-mut:#4D4639;--d62-rust:#A24724;--d62-sand:#EFE3CC}
-body{background:var(--d62-cream)!important;color:var(--d62-ink);font-family:'Hanken Grotesk',system-ui,sans-serif}
+:root{--d62-green:#571E28;--d62-deep:#3E141D;--d62-gold:#D9A441;--d62-gold-h:#E7B95C;--d62-cream:#F8F2E7;--d62-card:#FFFFFF;--d62-line:#E6D8C4;--d62-ink:#26181B;--d62-mut:#5F4B4E;--d62-rust:#A03A2A;--d62-sand:#F1E4CE}
+body{background:var(--d62-cream)!important;color:var(--d62-ink);font-family:'Hanken Grotesk','Noto Nag Mundari',system-ui,sans-serif}
 body::before,body::after{display:none!important}
 h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif}
 .hp2-wrap{max-width:1240px;margin:0 auto;padding:0 28px}
@@ -70,7 +70,7 @@ h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif}
 /* categories */
 .hp2-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
 .hp2-cat{display:flex;flex-direction:column;gap:10px;min-height:170px;padding:24px;background:var(--d62-card);border:1px solid var(--d62-line);border-radius:20px;text-decoration:none;color:var(--d62-ink);transition:transform .2s,box-shadow .2s}
-.hp2-cat:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(23,63,53,.14)}
+.hp2-cat:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(87,30,40,.14)}
 .hp2-cat i{font-style:normal;font-size:30px;color:var(--d62-green);line-height:1}
 .hp2-cat b{font-family:'Fraunces',serif;font-size:22px}
 .hp2-cat span{color:var(--d62-mut);font-size:15px;line-height:1.45}
@@ -78,7 +78,7 @@ h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif}
 /* intro */
 .hp2-photo{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:28px;display:block}
 .hp2-quote{margin:0 0 28px;padding:0 0 0 20px;border-left:4px solid var(--d62-gold);font-family:'Fraunces',serif;font-size:22px;line-height:1.45}
-.hp2-body{font-size:18px;line-height:1.65;color:#3B362B}
+.hp2-body{font-size:18px;line-height:1.65;color:#3E2A2C}
 /* script tiles */
 .hp2-letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
 .hp2-l{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:84px;border-radius:16px;background:rgba(246,239,227,.08);border:1px solid rgba(246,239,227,.22);font-size:34px;color:var(--d62-cream);text-decoration:none}
@@ -114,3 +114,7 @@ h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif}
 .hp2-foot-nav a:hover{opacity:1}
 .hp2-foot-base{margin-top:32px;opacity:.7;font-size:14px}
 .cursor-glow{display:none!important}
+
+/* ==== v63 — colour lock + Bani assurance (homepage) ==== */
+:root{color-scheme:only light}
+.bani{font-family:'Noto Nag Mundari','Hanken Grotesk',sans-serif}

@@ -214,3 +214,62 @@ html.motion .reveal.visible{opacity:1;transform:none;filter:blur(0)}
   html.motion .reveal{opacity:1;transform:none;filter:none;transition:none}
   .footer-johar{animation:none}
 }
+
+/* v60 — owner: koi black background nahi; soft warm-white bands,
+   aur har button ke peeche golden-orange glowing light */
+.announcement{background:linear-gradient(90deg,#fffdf6,#fdeed0,#fffdf6)!important;color:#191c1e!important;border-bottom:1px solid #f0d48a}
+.announcement .dot{background:#ff9d2e!important}
+.page-hero{background:linear-gradient(135deg,#fffdf7 0%,#fdf5dc 55%,#fdeccb 100%)!important;border-bottom:1px solid #f3ddab}
+.page-hero h1,.page-hero h2{color:#101214!important}
+.page-hero .kicker,.page-hero .section-kicker{color:#9a7200!important}
+.page-hero p{color:#5c6066!important}
+.v3-footer,.site-footer{background:#fdfaf0!important;color:#3a3e44!important;border-top:2px solid #f2c14e}
+.v3-footer .brand-footer strong,.site-footer .brand-footer strong{color:#101214!important}
+.v3-footer .brand-footer small,.site-footer .brand-footer small{color:#7a7568!important}
+.v3-footer .footer-brand>p,.site-footer .footer-brand>p{color:#5c6066!important}
+.v3-footer .footer-johar,.site-footer .footer-johar{color:#b97f10!important}
+.v3-footer .footer-links b,.site-footer .footer-links b{color:#9a7200!important}
+.v3-footer .footer-links a,.site-footer .footer-links a{color:#4a4e54!important}
+.v3-footer .footer-links a:hover,.site-footer .footer-links a:hover{color:#b97f10!important}
+.v3-footer .footer-bottom,.site-footer .footer-bottom{border-top-color:#eadfc2!important;color:#7a7568!important}
+.footer-johar{animation:joharGlowGold 3s ease-in-out infinite}
+@keyframes joharGlowGold{0%,100%{text-shadow:0 0 0 rgba(242,176,32,0)}50%{text-shadow:0 0 16px rgba(242,176,32,.75)}}
+.main-nav .nav-cta{background:linear-gradient(135deg,#ffc93c,#ff9d2e)!important;color:#221a04!important}
+.v3-announce{background:linear-gradient(90deg,#fffdf6,#fdeed0,#fffdf6)!important;color:#191c1e!important;border-bottom:1px solid #f0d48a}
+.v3-dot{background:#ff9d2e!important}
+.v3-links .v3-cta{background:linear-gradient(135deg,#ffc93c,#ff9d2e)!important;color:#221a04!important}
+.v3-links .v3-cta:hover{background:linear-gradient(135deg,#ffb62e,#ff8a1e)!important;color:#221a04!important}
+.v3-footer .serif{color:#101214!important}
+.v3-footer h3{color:#101214!important}
+.v3-footer a{color:#4a4e54!important}
+.v3-footer a:hover{color:#b97f10!important}
+.v3-footer .bani{color:#8a6d1f!important}
+.v3-footer p:has(>.bani)>span:first-of-type{color:#b97f10!important}
+.v3-footer .serif{color:#101214!important}
+.button,.hp-btn,.btn,.main-nav .nav-cta,.v3-cta,button[type="submit"]{box-shadow:0 0 0 1px rgba(255,176,32,.35),0 0 22px 1px rgba(255,170,40,.45),0 10px 26px -10px rgba(230,140,20,.55)!important}
+.button:hover,.hp-btn:hover,.btn:hover,.main-nav .nav-cta:hover,.v3-cta:hover,button[type="submit"]:hover{box-shadow:0 0 0 1px rgba(255,176,32,.55),0 0 34px 4px rgba(255,170,40,.65),0 14px 32px -10px rgba(230,140,20,.65)!important}
+@media (prefers-reduced-motion:reduce){.footer-johar{animation:none}}
+
+/* v60 GLASS — peeche halke rang, upar frosted glass surfaces */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(560px 420px at 10% -4%,rgba(242,193,78,.14),transparent 60%),radial-gradient(620px 460px at 90% 6%,rgba(61,220,151,.10),transparent 60%),radial-gradient(720px 540px at 50% 110%,rgba(255,157,46,.11),transparent 62%)}
+.site-header,.v3-header{background:rgba(255,253,247,.76)!important;backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5)}
+.v3-announce,.announcement,.page-hero{backdrop-filter:blur(10px) saturate(1.4);-webkit-backdrop-filter:blur(10px) saturate(1.4)}
+.fx-card,.fx-cat-card,.fx-gallery-tile,.library-item,.festival-card,.contribute-form,.community-note,.fx-story-card,.fx-feed-card,.search-box{background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.40))!important;backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(255,205,90,.35)!important;box-shadow:0 18px 40px -18px rgba(146,110,20,.25),inset 0 1px 0 rgba(255,255,255,.85)!important}
+.fx-card:hover,.fx-cat-card:hover,.fx-gallery-tile:hover,.library-item:hover{box-shadow:0 26px 50px -18px rgba(146,110,20,.35),0 0 26px -4px rgba(255,170,40,.35),inset 0 1px 0 rgba(255,255,255,.9)!important}
+.fx-chip{ background:rgba(255,255,255,.55)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,205,90,.35)!important}
+
+/* v60 NEUMORPHISM — owner ne Style 2 chuna: ivory base, naram ubhre hisse */
+:root{--ms-bg:#efe9dc;--neu-dark:rgba(163,150,120,.38);--neu-light:#fffdf4}
+body{background:#efe9dc!important}
+body::before{background:none!important}
+.announcement,.v3-announce{background:#efe9dc!important;color:#4c4636!important;border-bottom:0!important;box-shadow:0 10px 16px -12px var(--neu-dark)}
+.announcement .dot,.v3-dot{background:#ff9d2e!important}
+.site-header,.v3-header{background:#efe9dc!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 14px 22px -16px var(--neu-dark)}
+.page-hero{background:#efe9dc!important;border-bottom:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.fx-card,.fx-cat-card,.fx-gallery-tile,.fx-content-card,.fx-news-item,.fx-story-card,.fx-feed-card,.library-item,.festival-card,.contribute-form,.community-note,.search-box,.topic-modal,.dict-card{background:#efe9dc!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(255,253,244,.65)!important;border-radius:20px;box-shadow:9px 9px 18px var(--neu-dark),-9px -9px 18px var(--neu-light)!important}
+.fx-card:hover,.fx-cat-card:hover,.fx-gallery-tile:hover,.fx-content-card:hover,.library-item:hover{box-shadow:13px 13px 26px var(--neu-dark),-13px -13px 26px var(--neu-light)!important}
+.fx-chip{background:#efe9dc!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(255,253,244,.65)!important;box-shadow:5px 5px 10px var(--neu-dark),-5px -5px 10px var(--neu-light)!important}
+.contribute-form input,.contribute-form select,.contribute-form textarea,.dict-tools input,.dict-tools select{background:#efe9dc!important;border:1px solid rgba(255,253,244,.5)!important;box-shadow:inset 5px 5px 10px rgba(163,150,120,.30),inset -5px -5px 10px var(--neu-light)!important;border-radius:12px!important}
+.button,.btn,.v3-cta,.main-nav .nav-cta{background:#efe9dc!important;color:#8a6d1f!important;border:1px solid rgba(255,253,244,.65)!important;box-shadow:6px 6px 12px var(--neu-dark),-6px -6px 12px var(--neu-light)!important}
+.button:hover,.btn:hover,.v3-cta:hover,.main-nav .nav-cta:hover{box-shadow:3px 3px 7px var(--neu-dark),-3px -3px 7px var(--neu-light)!important}
+.v3-footer,.site-footer{background:#efe9dc!important;border-top:0!important;box-shadow:0 -16px 26px -20px var(--neu-dark)}

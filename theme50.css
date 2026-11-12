@@ -279,3 +279,55 @@ html.motion .hp-script .bani-tile{opacity:0;transform:translateY(30px) scale(.8)
   .hp-hero::before,.hp-hero::after,.particle,.hp-stage-text h1 em{animation:none}
   html.motion .hp-script .bani-tile{opacity:1;transform:none}
 }
+
+/* v60 — homepage topline: sirf golden-orange, black segments khatm */
+.hp-topline{background:linear-gradient(90deg,#f2c14e,#ff9d2e,#f2c14e)!important}
+/* v60 — homepage footer bhi soft-white (theme40 wala hi group, yahan
+   isliye taaki is file ki purani kaali footer rule se jeete) */
+.v3-footer,.site-footer{background:#fdfaf0!important;color:#3a3e44!important;border-top:2px solid #f2c14e}
+.v3-footer .serif{color:#101214!important}
+.v3-footer h3{color:#101214!important}
+.v3-footer a{color:#4a4e54!important}
+.v3-footer a:hover{color:#b97f10!important}
+.v3-footer .bani{color:#8a6d1f!important}
+.v3-footer p:has(>.bani)>span:first-of-type{color:#b97f10!important}
+.v3-footer .serif{color:#101214!important}
+
+/* v60 GLASS — homepage header aur Bani tiles bhi frosted */
+.hp-header{background:rgba(255,253,247,.76)!important;backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5)}
+.bani-tile{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,205,90,.30)!important}
+
+/* v60 NEUMORPHISM — homepage */
+.hp-header{background:#efe9dc!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 14px 22px -16px rgba(163,150,120,.38)}
+.hp-nav .hp-join{background:#efe9dc!important;color:#8a6d1f!important;border:1px solid rgba(255,253,244,.65)!important;box-shadow:5px 5px 10px rgba(163,150,120,.35),-5px -5px 10px #fffdf4!important}
+.hp-stage-glow{display:none!important}
+.hp-stage-img{-webkit-mask-image:none!important;mask-image:none!important;border:6px solid #efe9dc;border-radius:26px;box-shadow:10px 10px 22px rgba(163,150,120,.38),-10px -10px 22px #fffdf4}
+.hp-stage-text{left:14px;right:14px;bottom:14px;padding:24px 22px 20px;background:#efe9dc;background-image:none!important;border-radius:22px;box-shadow:10px 10px 22px rgba(163,150,120,.38),-6px -6px 16px rgba(255,253,244,.85);color:#14161a}
+.hp-stage-text h1{color:#14161a!important}
+.hp-stage-text .hp-hero-sub{color:#4c4636!important}
+.hp-stage-text .hp-hero-bani{color:#6b6350!important}
+.hp-stage-text .hp-hero-bani .bani{color:#8a6d1f!important}
+.hp-stage-text .hp-btn.primary{background:linear-gradient(135deg,#ffc93c,#ff9d2e)!important;color:#221a04!important;box-shadow:0 0 22px 1px rgba(255,170,40,.5),6px 6px 12px rgba(163,150,120,.35)!important}
+.hp-stage-text .hp-btn.ghost{background:#efe9dc!important;color:#8a6d1f!important;border:1px solid rgba(255,253,244,.65)!important;box-shadow:6px 6px 12px rgba(163,150,120,.38),-6px -6px 12px #fffdf4!important}
+.hp-script-sec,.hp-script{background:#efe9dc!important}
+.bani-tile{background:#efe9dc!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(255,253,244,.65)!important;border-radius:14px;box-shadow:5px 5px 10px rgba(163,150,120,.35),-5px -5px 10px #fffdf4!important}
+.v3-footer,.site-footer{background:#efe9dc!important;border-top:0!important;box-shadow:0 -16px 26px -20px rgba(163,150,120,.38)}
+/* v60 hero fix — panel photo ke neeche, photo pura dikhega */
+.hp-stage-text{position:relative!important;left:auto;right:auto;bottom:auto;margin:-36px 14px 0}
+
+/* v60 hero — owner: headline photo ke upar bina background ke;
+   baaki text chhota, photo ke neeche; buttons bhi neeche */
+.hp-stage-head{position:absolute;left:20px;right:20px;bottom:20px;z-index:3;pointer-events:none}
+.hp-stage-head h1{margin:0;color:#fff9ec!important;font-size:clamp(34px,9.4vw,60px);line-height:1.08;text-shadow:0 2px 24px rgba(24,32,20,.55),0 1px 4px rgba(24,32,20,.65)}
+.hp-stage-head h1 em{color:#ffd34d!important}
+.hp-stage-head h1 .line{display:block;overflow:hidden}
+.hp-stage-head h1 .line>span{display:inline-block;transform:translateY(105%);animation:lineUp 1.1s var(--spring) forwards}
+.hp-stage-head h1 .line:nth-child(1)>span{animation-delay:.25s}
+.hp-stage-head h1 .line:nth-child(2)>span{animation-delay:.4s}
+.hp-stage-head h1 .line:nth-child(3)>span{animation-delay:.55s}
+.hp-stage-text{position:relative!important;left:auto;right:auto;bottom:auto;margin:16px 2px 0;padding:0;background:none!important;box-shadow:none!important;border-radius:0}
+.hp-stage-text .hp-hero-sub{font-size:13.5px!important;line-height:1.65;color:#4c4636!important;max-width:600px}
+.hp-stage-text .hp-hero-bani{font-size:13px!important;color:#6b6350!important}
+.hp-stage-text .hp-actions{margin-top:14px}
+@media (prefers-reduced-motion:reduce){.hp-stage-head h1 .line>span{transform:none;animation:none}}
+.hp-photo-wrap{position:relative}

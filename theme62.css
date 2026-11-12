@@ -117,4 +117,4 @@ h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif}
 
 /* ==== v63 — colour lock + Bani assurance (homepage) ==== */
 :root{color-scheme:only light}
-.bani{font-family:'Noto Nag Mundari','Hanken Grotesk',sans-serif}
+.bani{font-family:'Noto Nag Mundari','Noto Sans Nag Mundari','Hanken Grotesk',sans-serif}

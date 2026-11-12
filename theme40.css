@@ -308,4 +308,9 @@ html[data-theme="dark"]{--cream:#F8F2E7;--paper:#FFFFFF;--ink:#26181B;--muted:#5
 html[data-theme="dark"] .page-hero{background:linear-gradient(180deg,#F8F2E7,#F1E4CE)!important}
 html[data-theme="dark"] .v3-header{background:var(--d62-green)!important;color:var(--d62-cream)!important}
 html[data-theme="dark"] .v3-footer{background:var(--d62-green)!important;color:#F3E9DA!important}
-.bani{font-family:'Noto Nag Mundari','Hanken Grotesk',sans-serif}
+.bani{font-family:'Noto Nag Mundari','Noto Sans Nag Mundari','Hanken Grotesk',sans-serif}
+
+/* ==== v64 — note/callout boxes hamesha padhne layak ==== */
+.callout,.fx-note,.community-note{background:#F1E4CE!important;color:#26181B!important;border:1px solid #E6D8C4!important;border-left:4px solid #D9A441!important}
+.callout strong,.fx-note strong,.community-note strong{color:#A03A2A!important}
+.callout a,.fx-note a,.community-note a{color:#A03A2A!important;font-weight:700}

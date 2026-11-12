@@ -899,32 +899,18 @@ export default {
         }
       }
     } else {
-      // Clean URLs (v44, extended v53): /article/<slug>, /story/<slug>, /news/<slug>,
-      // /gallery/<slug>, /videos/<id> and /books/<id> serve the matching detail
-      // page; old ?id= links redirect to the clean form.
+      // v66: folder structure — old URLs redirect (301) to the new homes.
       const seg = path.split("/").filter(Boolean);
       const qid = url.searchParams.get("id");
-      const detailPage = { article: "/article.html", story: "/stories.html", news: "/news.html", gallery: "/photo.html", videos: "/videos.html", books: "/books.html" };
-      if (qid && (path === "/article" || path === "/article.html")) {
-        res = Response.redirect(new URL("/article/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (qid && (path === "/stories" || path === "/stories.html")) {
-        res = Response.redirect(new URL("/story/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (qid && (path === "/news" || path === "/news.html")) {
-        res = Response.redirect(new URL("/news/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (qid && (path === "/photo" || path === "/photo.html")) {
-        res = Response.redirect(new URL("/gallery/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (qid && (path === "/videos" || path === "/videos.html")) {
-        res = Response.redirect(new URL("/videos/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (qid && (path === "/books" || path === "/books.html")) {
-        res = Response.redirect(new URL("/books/" + encodeURIComponent(qid), url.origin), 301);
-      } else if (path === "/photo") {
-        res = Response.redirect(new URL("/gallery", url.origin), 301);
-      } else if (path === "/article") {
-        res = Response.redirect(new URL("/articles", url.origin), 301);
-      } else if (path === "/story") {
-        res = Response.redirect(new URL("/stories", url.origin), 301);
-      } else if (seg.length === 2 && detailPage[seg[0]]) {
-        res = await env.ASSETS.fetch(new Request(new URL(detailPage[seg[0]], url.origin), request));
+      const SECT = { dictionary:"/language/dictionary/", script:"/language/script/", grammar:"/language/grammar/", learn:"/language/learn/", history:"/heritage/history/", people:"/heritage/people/", movement:"/heritage/movement/", society:"/heritage/society/", odisha:"/heritage/odisha/", articles:"/library/articles/", books:"/library/books/", stories:"/library/stories/", library:"/library/", resources:"/library/resources/", videos:"/media/videos/", gallery:"/media/gallery/", photo:"/media/gallery/", instagram:"/media/instagram/", community:"/about/community/", festivals:"/culture/festivals/", sarhul:"/culture/festivals/sarhul/", karam:"/culture/festivals/karam/", phagu:"/culture/festivals/phagu/", "mage-parab":"/culture/festivals/mage-parab/", sohrai:"/culture/festivals/sohrai/", discover:"/search/", about:"/about/", contribute:"/contribute/", search:"/search/", culture:"/culture/", language:"/language/" };
+      const ITEM = { article:"/library/articles/", story:"/library/stories/", gallery:"/media/gallery/", videos:"/media/videos/", books:"/library/books/" };
+      const QPAGE = { "/article.html":"/library/articles/", "/article":"/library/articles/", "/stories.html":"/library/stories/", "/stories":"/library/stories/", "/photo.html":"/media/gallery/", "/photo":"/media/gallery/", "/videos.html":"/media/videos/", "/videos":"/media/videos/", "/books.html":"/library/books/", "/books":"/library/books/", "/news.html":"/news/", "/news":"/news/" };
+      if (qid && QPAGE[path]) {
+        res = Response.redirect(new URL(QPAGE[path] + encodeURIComponent(qid) + "/", url.origin), 301);
+      } else if (seg.length === 2 && ITEM[seg[0]]) {
+        res = Response.redirect(new URL(ITEM[seg[0]] + seg[1] + "/", url.origin), 301);
+      } else if (seg.length === 1 && SECT[seg[0].replace(/\.html$/, "")]) {
+        res = Response.redirect(new URL(SECT[seg[0].replace(/\.html$/, "")], url.origin), 301);
       } else {
         res = await env.ASSETS.fetch(request);
       }

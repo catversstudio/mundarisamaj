@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mundari Bani script · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/css/style.css"></head><body data-root="../../"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><a class="brand" href="../../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1f4a41"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../../language/" aria-current=page>Language</a><a href="../../heritage/">Heritage</a><a href="../../culture/">Culture</a><a href="../../library/">Library</a><a href="../../media/">Media</a><a href="../../news/">News</a><a class="cta" href="../../contribute/">Contribute</a></nav></header>
-<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../../">Home</a> / Our Language</nav><h1>Mundari Bani script</h1><p class="lead">The 27-letter script created by Rohidas Singh Nag. Tap a letter to hear how it is written in Roman.</p></div></section><section class="wrap sec"><div id="letters" class="letters"></div><p id="lsel" class="note">Select a letter.</p><img class="wide" loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg" alt="Mundari Bani script chart"></section><section class="wrap sec legacy">
+<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../../">Home</a> / Our Language</nav><h1>Mundari Bani script</h1><p class="lead">The 27-letter script created by Rohidas Singh Nag. Tap a letter to see how it is written in Roman.</p></div></section><section class="wrap sec"><div id="letters" class="letters"></div><p id="lsel" class="note">Select a letter.</p><img class="wide" loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg" alt="Mundari Bani script chart"></section><section class="wrap sec legacy">
 
 <section id="lipi" class="page" data-page="script">
   <div class="wrap">
@@ -50,11 +50,13 @@
         <h3 class="serif" style="font-size:1.3rem;margin:26px 0 10px">Digits — Leneka (0–9)</h3>
         <div class="digits" id="digits"></div>
         <p class="small" style="margin-bottom:0">Ten (10) is written with two digits — <span class="bani">𞓱𞓰</span>, <em>Gel</em> — in the decimal system, just like in English.</p>
+        <p class="small" style="margin:8px 0 0">Mundari Bani has its own digits, but some writers use Latin, Devanagari, Bengali or Odia digits instead — both are seen in print.</p>
       </div>
       <div class="card letter-detail" id="letterDetail" aria-live="polite"></div>
     </div>
 
     <h3 class="serif" style="font-size:1.5rem;margin:34px 0 12px">The 5 tone marks (diacritics)</h3>
+    <p style="color:var(--muted);margin:0 0 16px;max-width:46rem">Together, these five marks are called <b>Tong</b> (<span class="bani">𞓝𞓐𞓔</span> Toṅ). They play a secondary role in the script — depending on the writer’s tradition, none, some, or all of them may be used.</p>
     <div class="grid c3" id="tongs"></div>
 
     <div class="udhr">
@@ -70,4 +72,70 @@
 
 </section></main>
 <footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div><a href="../../about/">About</a><a href="../../contribute/">Contribute</a><a href="../../search/">Search</a></div><div><a href="https://www.instagram.com/mundarisamaj">Instagram</a><a href="https://www.threads.net/@mundaricommunity">Threads</a></div></div><p class="copy">© 2026 Mundari Samaj</p></footer>
-<script src="../../assets/data/data.js"></script><script src="../../assets/js/main.js"></script></body></html>
+<script src="../../assets/data/data.js"></script><script src="../../assets/js/main.js"></script><style>
+.lrow{margin:0 0 18px}.lrow-h{font:700 .8rem Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
+.dcell small{display:block;font:500 .8rem Inter;color:var(--mut)}
+#letterDetail .big{font-size:4.2rem;line-height:1.1;color:var(--g)}
+.tong-sign{font-size:2.6rem;line-height:1.2;color:var(--g)}
+</style>
+<script>
+(function(){
+var D=window.DATA; if(!D) return;
+var det=document.getElementById('letterDetail');
+function show(html){ if(det) det.innerHTML=html; }
+var chart=document.getElementById('chart');
+if(chart && D.letters){
+  var sizes=[5,5,5,5,7], idx=0;
+  sizes.forEach(function(n,ri){
+    var row=D.letters.slice(idx,idx+n); idx+=n;
+    var v=row[0][1];
+    var wrap=document.createElement('div'); wrap.className='lrow';
+    var h=document.createElement('p'); h.className='lrow-h'; h.textContent=v.toUpperCase()+' row'; wrap.appendChild(h);
+    var g=document.createElement('div'); g.className='letters';
+    row.forEach(function(x,i){
+      var name=(i===0)? x[1].toUpperCase() : (v+x[1]).toUpperCase();
+      var b=document.createElement('button'); b.type='button';
+      b.innerHTML=x[0]+'<small>'+name+'</small>';
+      b.onclick=function(){
+        chart.querySelectorAll('button.on').forEach(function(o){o.classList.remove('on')});
+        b.classList.add('on');
+        show('<div class="big bani">'+x[0]+'</div><h3 class="serif" style="margin:8px 0 4px">'+name+'</h3><p style="margin:0;color:var(--mut)">Written \u201C'+x[1]+'\u201D in Roman letters. From the '+v.toUpperCase()+' row of the alphabet.</p>');
+      };
+      g.appendChild(b);
+    });
+    wrap.appendChild(g); chart.appendChild(wrap);
+  });
+  show('<p style="margin:0;color:var(--mut)">Tap any letter in the chart \u2014 its name and sound will appear here.</p>');
+}
+var dig=document.getElementById('digits');
+if(dig){
+  dig.classList.add('letters');
+  var names=['','miad','baria','apia','upunia','monea','turia','eea','iralia','area'];
+  var glyphs=['\u{1E4F0}','\u{1E4F1}','\u{1E4F2}','\u{1E4F3}','\u{1E4F4}','\u{1E4F5}','\u{1E4F6}','\u{1E4F7}','\u{1E4F8}','\u{1E4F9}'];
+  glyphs.forEach(function(g,i){
+    var b=document.createElement('button'); b.type='button'; b.className='dcell';
+    b.innerHTML=g+'<small>'+i+(names[i]?' \u00B7 '+names[i]:'')+'</small>';
+    b.onclick=function(){
+      dig.querySelectorAll('button.on').forEach(function(o){o.classList.remove('on')});
+      b.classList.add('on');
+      show('<div class="big bani">'+g+'</div><h3 class="serif" style="margin:8px 0 4px">Digit '+i+'</h3><p style="margin:0;color:var(--mut)">'+(names[i]?('In Mundari counting, '+i+' is <b>'+names[i]+'</b> \u2014 see the Numbers page for the full counting table.'):'Zero in the Leneka digits of Mundari Bani.')+'</p>');
+    };
+    dig.appendChild(b);
+  });
+}
+var tg=document.getElementById('tongs');
+if(tg){
+  var T=[
+   ['\u{1E4EB}','OJOD','\u{1E4D0}\u{1E4D6}\u{1E4D0}\u{1E4E1}','A modifier letter that comes after a consonant. It marks checked consonants, and consonant doubling when writing other languages. Writers use it in different ways \u2014 some do not use it at all.'],
+   ['\u{1E4D5}\u{1E4EC}','MUHOR','\u{1E4E7}\u{1E4DF}\u{1E4EC}\u{1E4DE}\u{1E4D0}\u{1E4E3}','Written at the top right of a vowel, it nasalises that vowel \u2014 part of the sound comes through the nose. Shown here on the letter A.'],
+   ['\u{1E4D5}\u{1E4ED}','TOYOR','\u{1E4DD}\u{1E4D0}\u{1E4D3}\u{1E4D0}\u{1E4E3}','Written at the top right of a vowel, it marks a long vowel. A vowel written without Toyor is not always short. Shown here on the letter A.'],
+   ['\u{1E4D5}\u{1E4EE}','IKIR','\u{1E4DA}\u{1E4E2}\u{1E4DA}\u{1E4E3}','Written with a vowel, it shows that a /w/ sound comes just before that vowel. Shown here on the letter A.'],
+   ['\u{1E4D0}\u{1E4EF}','SUTUH','\u{1E4DB}\u{1E4DF}\u{1E4DD}\u{1E4DF}\u{1E4D9}','A small mark added to a letter to write sounds that are not native to Mundari. It can join any letter, vowel or consonant. Shown here on the letter O.']
+  ];
+  tg.innerHTML=T.map(function(t){
+    return '<div class="card" style="padding:20px"><div class="tong-sign bani">'+t[0]+'</div><h4 class="serif" style="margin:8px 0 2px;font-size:1.15rem">'+t[1]+'</h4><p class="bani" style="margin:0 0 8px;color:var(--mut)">'+t[2]+'</p><p style="margin:0;color:var(--mut);font-size:.95rem">'+t[3]+'</p></div>';
+  }).join('');
+}
+})();
+</script>
+</body></html>

@@ -909,7 +909,7 @@ export default {
         res = Response.redirect(new URL(QPAGE[path] + encodeURIComponent(qid) + "/", url.origin), 301);
       } else if (seg.length === 2 && ITEM[seg[0]]) {
         res = Response.redirect(new URL(ITEM[seg[0]] + seg[1] + "/", url.origin), 301);
-      } else if (seg.length === 1 && SECT[seg[0].replace(/\.html$/, "")]) {
+      } else if (seg.length === 1 && SECT[seg[0].replace(/\.html$/, "")] && SECT[seg[0].replace(/\.html$/, "")] !== path + "/") {
         res = Response.redirect(new URL(SECT[seg[0].replace(/\.html$/, "")], url.origin), 301);
       } else {
         res = await env.ASSETS.fetch(request);

@@ -1,7 +1,479 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reading Census and Official Records Responsibly · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../../assets/css/style.css"></head><body data-root="../../../"><a class="skip" href="#main">Skip to content</a>
-<header class="top"><a class="brand" href="../../../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1f4a41"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../../../language/">Language</a><a href="../../../heritage/">Heritage</a><a href="../../../culture/">Culture</a><a href="../../../library/" aria-current=page>Library</a><a href="../../../media/">Media</a><a href="../../../news/">News</a><a class="cta" href="../../../contribute/">Contribute</a></nav></header>
-<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../../../">Home</a> / <a href="../../">Library</a> / <a href="../">Articles</a></nav><h1>Reading Census and Official Records Responsibly</h1></div></section>
-<section class="wrap sec narrow prose"><p class="lead2">2026-11-04 · 3 min read · Heritage · Mundari Samaj Editorial Desk</p><img class="wide" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/reading-census-and-official-records-responsibly.jpg" alt="A Munda man and woman as depicted in Edward Tuite Dalton&#x27;s &#x27;Descriptive Ethnology of Bengal&#x27; (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur."><h2>Introduction</h2>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reading Census and Official Records Responsibly · Mundari Samaj</title>
+<meta name="description" content="Official records are essential for researching Munda history in Odisha. Census tables, government profiles, district gazetteers and tribal research publications">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#f2f6f3;
+--ink:#16302a;
+--mut:#57706a;
+--g:#1f4a41;
+--g2:#2f6b5d;
+--mist:#dfeae4;
+--sun:#e4b95f;
+--card:#fff;
+--line:#d3e0d9;
+--hero:#1f4a41;
+--ease-smooth:cubic-bezier(.16,1,.3,1);
+--spring:cubic-bezier(.34,1.56,.64,1);
+box-sizing:border-box;
+}
+
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]){
+--bg:#0f1c18;
+--ink:#e3eee9;
+--mut:#9db5ad;
+--g:#8fcab9;
+--g2:#8fcab9;
+--mist:#173029;
+--card:#15271f;
+--line:#243d34;
+--hero:#0b1713;
+}
+}
+
+:root[data-theme="dark"]{
+--bg:#0f1c18;
+--ink:#e3eee9;
+--mut:#9db5ad;
+--g:#8fcab9;
+--g2:#8fcab9;
+--mist:#173029;
+--card:#15271f;
+--line:#243d34;
+--hero:#0b1713;
+}
+
+*{box-sizing:border-box}
+
+html{
+scroll-behavior:smooth;
+scroll-padding-top:84px;
+}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font:17px/1.75 Inter,system-ui,sans-serif;
+}
+
+h1,h2,h3{
+font-family:Fraunces,Georgia,serif;
+font-weight:600;
+line-height:1.15;
+letter-spacing:-.01em;
+margin:0;
+}
+
+a{color:var(--g2)}
+img{max-width:100%;display:block}
+
+/* Reading progress */
+#bar{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+width:0;
+background:var(--sun);
+z-index:30;
+transition:width .1s linear;
+box-shadow:0 0 8px rgba(228,185,95,.5);
+will-change:width;
+}
+
+/* Header */
+.top{
+position:sticky;
+top:0;
+z-index:20;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 5%;
+background:color-mix(in srgb,var(--bg) 88%,transparent);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);
+transition:box-shadow .4s var(--ease-smooth),background .4s var(--ease-smooth);
+}
+
+.top.scrolled{
+box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.top a{
+text-decoration:none;
+color:var(--g);
+font:600 1.1rem Fraunces,serif;
+}
+
+.top span{
+font-size:.9rem;
+color:var(--mut);
+}
+
+/* Hero */
+.hero-photo{
+position:relative;
+width:100%;
+height:70vh;
+min-height:420px;
+overflow:hidden;
+background:linear-gradient(160deg,#2f6b5d,#173a32);
+display:grid;
+place-items:center;
+}
+
+.hero-photo svg{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+z-index:0;
+}
+
+.hero-photo img{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center top;
+transition:transform 1.2s var(--ease-smooth);
+z-index:1;
+}
+
+.hero-photo:hover img{
+transform:scale(1.04);
+}
+
+.hero-photo::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(0,0,0,.15) 0%,
+rgba(0,0,0,.35) 70%,
+rgba(15,28,24,.85) 100%
+);
+pointer-events:none;
+z-index:1;
+}
+
+.hero-caption{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+z-index:2;
+padding:48px 5% 40px;
+color:#fff;
+max-width:1120px;
+margin:0 auto;
+animation:up .9s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.hero-caption h1{
+font-size:clamp(2.4rem,6.4vw,4.6rem);
+color:#fff;
+text-shadow:0 2px 20px rgba(0,0,0,.3);
+}
+
+.hero-caption .dek{
+font-size:1.15rem;
+color:#e0eee8;
+max-width:56ch;
+margin:16px 0 0;
+}
+
+.hero-caption .meta{
+margin-top:20px;
+color:#b8d0c7;
+font-size:.95rem;
+}
+
+.hero-photo figcaption{
+position:absolute;
+top:16px;
+right:16px;
+z-index:2;
+font-size:.75rem;
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.3);
+padding:4px 10px;
+border-radius:99px;
+backdrop-filter:blur(4px);
+}
+
+@keyframes up{
+from{opacity:0;transform:translateY(26px)}
+to{opacity:1;transform:none}
+}
+
+/* Facts */
+.wrap{
+max-width:1120px;
+margin:auto;
+padding:0 5%;
+}
+
+.facts{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:1px;
+background:var(--line);
+border:1px solid var(--line);
+border-radius:18px;
+overflow:hidden;
+margin:-36px auto 0;
+max-width:1000px;
+position:relative;
+z-index:3;
+}
+
+.facts div{
+background:var(--card);
+padding:18px 20px;
+animation:factRise .8s var(--ease-smooth) both;
+}
+
+.facts div:nth-child(1){animation-delay:.15s}
+.facts div:nth-child(2){animation-delay:.25s}
+.facts div:nth-child(3){animation-delay:.35s}
+.facts div:nth-child(4){animation-delay:.45s}
+
+@keyframes factRise{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+.facts small{
+display:block;
+color:var(--mut);
+font-size:.82rem;
+}
+
+.facts b{
+font-family:Fraunces,serif;
+font-size:1.05rem;
+font-weight:600;
+}
+
+/* Article */
+.lay{
+max-width:720px;
+margin:0 auto;
+padding:72px 5% 40px;
+}
+
+article h2{
+font-size:clamp(1.6rem,3.4vw,2.2rem);
+margin:56px 0 16px;
+}
+
+article h2:first-child{
+margin-top:0;
+}
+
+article p{
+margin:0 0 1.15em;
+}
+
+.lead{
+font:400 1.35rem/1.6 Fraunces,Georgia,serif;
+color:var(--ink);
+}
+
+/* Article lists */
+article ul{
+margin:0 0 1.15em;
+padding-left:22px;
+}
+
+article ul li{
+margin-bottom:.5em;
+}
+
+/* Quote */
+blockquote{
+margin:36px 0;
+padding:6px 0 6px 24px;
+border-left:4px solid var(--sun);
+font:400 1.5rem/1.45 Fraunces,Georgia,serif;
+color:var(--g);
+animation:quoteGlow 4s ease-in-out infinite;
+}
+
+@keyframes quoteGlow{
+0%,100%{border-left-color:var(--sun)}
+50%{border-left-color:var(--g2)}
+}
+
+/* Notes */
+.note{
+background:var(--mist);
+border-radius:16px;
+padding:18px 22px;
+margin:28px 0;
+font-size:.95rem;
+}
+
+/* Timeline */
+.tl{
+list-style:none;
+margin:24px 0;
+padding:0;
+border-left:2px solid var(--line);
+}
+
+.tl li{
+position:relative;
+padding:0 0 22px 26px;
+}
+
+.tl li::before{
+content:"";
+position:absolute;
+left:-7px;
+top:9px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:var(--sun);
+border:2px solid var(--bg);
+animation:dotPulse 3s ease-in-out infinite;
+}
+
+.tl li:nth-child(odd)::before{animation-delay:.4s}
+.tl li:nth-child(3n)::before{animation-delay:.8s}
+
+@keyframes dotPulse{
+0%,100%{box-shadow:0 0 0 0 rgba(228,185,95,0)}
+50%{box-shadow:0 0 0 6px rgba(228,185,95,.18)}
+}
+
+.tl b{
+font-family:Fraunces,serif;
+display:block;
+}
+
+.tl span{
+color:var(--mut);
+font-size:.95rem;
+}
+
+/* Sources */
+.src{
+font-size:.9rem;
+color:var(--mut);
+border-top:1px solid var(--line);
+margin-top:48px;
+padding-top:20px;
+}
+
+.src a{
+overflow-wrap:anywhere;
+}
+
+/* More */
+.more{
+background:var(--mist);
+padding:56px 5%;
+text-align:center;
+}
+
+.more h2{
+font-size:1.8rem;
+margin-bottom:10px;
+}
+
+.more a{
+display:inline-block;
+margin-top:14px;
+background:var(--sun);
+color:#1b2b26;
+text-decoration:none;
+font-weight:600;
+padding:12px 26px;
+border-radius:99px;
+transition:transform .4s var(--spring),box-shadow .4s var(--ease-smooth);
+}
+
+.more a:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 14px 30px rgba(228,185,95,.35);
+}
+
+/* Footer */
+footer{
+background:#163a32;
+color:#cfe0d9;
+text-align:center;
+padding:28px 5% calc(28px + env(safe-area-inset-bottom,0px));
+font-size:.9rem;
+}
+
+:focus-visible{
+outline:3px solid var(--sun);
+outline-offset:3px;
+}
+
+@media(max-width:900px){
+.hero-photo{
+height:75vh;
+min-height:460px;
+}
+.hero-caption{
+padding:36px 6% 32px;
+}
+.lay{
+padding-top:56px;
+}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{
+animation:none!important;
+transition:none!important;
+}
+}
+
+.lay img{border-radius:14px;width:100%;height:auto;margin:24px 0}
+.src p{margin:0 0 .5em}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<header class="top"><a href="../../../">Mundari Samaj</a><a href="../../" style="font:500 .9rem Inter,sans-serif;color:var(--mut)">← Articles</a></header>
+<figure class="hero-photo" style="margin:0">
+  <svg viewBox="0 0 400 500" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#e4b95f" stroke-width="3" stroke-linecap="round" opacity=".55">
+      <path d="M200 140v220M90 250h220M122 172l156 156M278 172L122 328"/>
+    </g>
+    <circle cx="200" cy="250" r="118" fill="none" stroke="#e4b95f" stroke-width="2" opacity=".4"/>
+  </svg>
+  <img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/reading-census-and-official-records-responsibly.jpg" alt="A Munda man and woman as depicted in Edward Tuite Dalton&#x27;s &#x27;Descriptive Ethnology of Bengal&#x27; (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur." onerror="this.style.display='none'">
+  <div class="hero-caption">
+    <h1>Reading Census and Official Records Responsibly</h1>
+    <p class="dek">Official records are essential for researching Munda history in Odisha. Census tables, government profiles, district gazetteers and tribal research publications can help identify communities and…</p>
+    <p class="meta">Library · Articles · Heritage · About 3 minutes to read</p>
+  </div>
+  <figcaption>A Munda man and woman as depicted in Edward Tuite Dalton&#x27;s &#x27;Descriptive Ethnology of Bengal&#x27; (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur.</figcaption>
+</figure>
+<div class="wrap"><div class="facts">
+<div><small>Category</small><b>Heritage</b></div><div><small>Region</small><b>Odisha</b></div><div><small>Reading time</small><b>3 minutes</b></div><div><small>Published</small><b>4 November 2026</b></div></div>
+<div class="lay">
+<article>
+<h2>Introduction</h2>
 <p>Official records are essential for researching Munda history in Odisha. Census tables, government profiles, district gazetteers and tribal research publications can help identify communities and understand changes over time. However, these sources use specific definitions and categories. Reading them without context can produce misleading claims.</p>
 <p>This guide explains how Mundari Samaj should use official data.</p>
 <h2>1. A category is not always the same as a language</h2>
@@ -29,6 +501,26 @@
 <h2>Editorial notes</h2>
 <p>Never add Munda and Mundari totals without documentary justification.</p>
 <p>Do not use third-party summaries as substitutes for original census tables.</p>
-<p>Preserve the source note and survey year whenever quoting historical administrative data.</p><p class="note">A Munda man and woman as depicted in Edward Tuite Dalton&#x27;s &#x27;Descriptive Ethnology of Bengal&#x27; (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur. Dalton</p></section></main>
-<footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div><a href="../../../about/">About</a><a href="../../../contribute/">Contribute</a><a href="../../../search/">Search</a></div><div><a href="https://www.instagram.com/mundarisamaj">Instagram</a><a href="https://www.threads.net/@mundaricommunity">Threads</a></div></div><p class="copy">© 2026 Mundari Samaj</p></footer>
-<script src="../../../assets/data/data.js"></script><script src="../../../assets/js/main.js"></script></body></html>
+<p>Preserve the source note and survey year whenever quoting historical administrative data.</p><p class="note">A Munda man and woman as depicted in Edward Tuite Dalton&#x27;s &#x27;Descriptive Ethnology of Bengal&#x27; (1872), a colonial-era official ethnographic record of the peoples of Bengal and Chota Nagpur. Dalton</p>
+<div class="src">
+<b>Historical references and further reading</b>
+<p>1. <a href="https://censusindia.gov.in/nada/index.php/catalog/12247/study-description">Census of India, ST-14: Scheduled Tribe Population by Religious Community (district level), Odisha, 2011 — catalogue</a></p>
+<p>2. <a href="https://www.repository.tribal.gov.in/bitstream/123456789/73776/1/SCST_2018_book_0016.pdf">SCSTRTI, Demographic Profile of Scheduled Tribes in Odisha</a></p>
+<p>3. <a href="https://ostm.in/tribes_of_odisha/munda/">Odisha State Tribal Museum, &quot;Munda.&quot;</a></p>
+<p>4. <a href="https://ostm.in/tribes_of_odisha/mundari/">Odisha State Tribal Museum, &quot;Mundari.&quot;</a></p>
+<p>Featured photograph: Dalton · Public domain</p>
+</div>
+</article></div></div>
+<section class="more"><h2>Share what you know</h2><p>Do you have a story, photograph or correction connected with this article?</p><a href="../../../contribute/">Contribute to the archive</a></section>
+<footer>© 2026 Mundari Samaj · Johar! Jay Mundari!</footer>
+<script>
+(function(){
+  var b=document.getElementById('bar');
+  function s(){var h=document.documentElement;b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}
+  addEventListener('scroll',s,{passive:true});s();
+  var topBar=document.querySelector('.top');
+  addEventListener('scroll',function(){topBar.classList.toggle('scrolled',scrollY>30);},{passive:true});
+})();
+</script>
+</body>
+</html>

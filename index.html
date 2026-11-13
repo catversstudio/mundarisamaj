@@ -1,20 +1,78 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Language, Identity & Heritage · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Language, Identity & Heritage · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#143023"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css">
 <style>
-.upd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+:root{--fd:#143023;--fd2:#032217;--par:#F4F0E8;--sur:#FBF9F6;--ter:#A8531C;--och:#E6A838;--bw:#E8E2D8;--ink:#1A1A1A;--mut2:#555A54}
+body{background:var(--sur);color:var(--ink)}
+main h2{font-family:'Playfair Display',serif;color:var(--fd);letter-spacing:.01em}
+header.top{background:var(--sur);border-bottom:1px solid var(--bw);color:var(--fd)}
+header.top .brand span{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--fd)}
+nav.menu a{color:var(--ink)}
+nav.menu a:hover{color:var(--ter)}
+nav.menu a.cta{background:var(--fd);color:#fff;border-radius:999px}
+nav.menu a.cta:hover{background:var(--ter);color:#fff}
+.hero{min-height:600px}
+.hero .shade{background:linear-gradient(90deg,rgba(3,34,23,.85),rgba(3,34,23,.5) 55%,rgba(3,34,23,.18))}
+.hero .kick{color:var(--och);font-weight:600}
+.hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.5rem,6vw,4.3rem);line-height:1.08;color:#fff}
+.hero .lead{color:#F4F0E8}
+.btn{background:var(--ter);color:#fff;border-radius:999px;border:1px solid var(--ter)}
+.btn:hover{background:#8F4416}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.85);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.btn.dark{background:var(--fd);border-color:var(--fd);color:#fff}
+.btn.dark:hover{background:var(--ter);border-color:var(--ter)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chip{background:rgba(251,249,246,.13);border:1px solid rgba(251,249,246,.38);color:#fff;border-radius:999px;padding:7px 14px;font:600 .8rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em}
+.hero small{color:rgba(255,255,255,.78)}
+.grid{gap:18px}
+.card{position:relative;border:1px solid var(--bw);border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(20,48,35,.05);transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(20,48,35,.13)}
+.card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.card h3{font-family:'Playfair Display',serif;color:var(--fd);font-size:1.35rem}
+.card p{color:var(--mut2)}
+.arr{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--bw);display:grid;place-items:center;color:var(--fd);font-size:1rem;line-height:1;box-shadow:0 2px 6px rgba(20,48,35,.12)}
+.band{background:var(--par);border-top:1px solid var(--bw);border-bottom:1px solid var(--bw);padding:56px 0}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:10px;margin-top:20px}
+.gtile{background:#fff;border:1px solid var(--bw);border-radius:14px;padding:10px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;font:inherit}
+.gtile .bani{font-size:1.65rem;line-height:1.25;color:var(--fd)}
+.gtile small{font:600 .72rem Inter,sans-serif;color:var(--mut2)}
+.gtile:hover{border-color:var(--och)}
+.gtile.on{border-color:var(--ter);box-shadow:0 0 0 2px rgba(168,83,28,.28)}
+.gdetail{margin-top:16px;background:#fff;border:1px solid var(--bw);border-radius:16px;padding:14px 18px;display:flex;gap:16px;align-items:center}
+.gdetail .bani{font-size:2.9rem;line-height:1;color:var(--ter)}
+.gdetail b{font-family:'Plus Jakarta Sans',sans-serif;color:var(--fd);font-size:1.05rem}
+.gdetail p{margin:2px 0 0;color:var(--mut2);font-size:.92rem}
+.gnote{color:var(--mut2);margin-top:16px}
+.upd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .upd-card>div{display:flex;flex-direction:column;gap:8px;height:100%}
-.upd-date{font:600 .74rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.upd-date{font:600 .74rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ter)}
 .upd-card h3{margin:0;font-size:1.22rem;line-height:1.3}
-.upd-card p{margin:0;color:var(--mut);font-size:.95rem;line-height:1.55}
-.upd-more{margin-top:auto;padding-top:6px;font:600 .92rem Inter,sans-serif;color:var(--g)}
+.upd-card p{margin:0;color:var(--mut2);font-size:.95rem;line-height:1.55}
+.upd-more{margin-top:auto;padding-top:6px;font:600 .92rem Inter,sans-serif;color:var(--ter)}
 .upd-all{margin:18px 0 0}
-.upd-all a{font:600 .95rem Inter,sans-serif;color:var(--g);text-decoration:none}
-.upd-all a:hover{text-decoration:underline}
+.upd-all a{font:600 .95rem Inter,sans-serif;color:var(--fd);text-decoration:none}
+.upd-all a:hover{color:var(--ter);text-decoration:underline}
+.cband{background:var(--fd);border-radius:24px;padding:40px 34px;color:#F4F0E8}
+.cband h2{color:#fff;margin-top:0}
+.cband .lead2{color:#E8E2D8}
+footer{background:var(--fd2);color:#E8E2D8}
+footer a{color:#E8E2D8}
+footer a:hover{color:var(--och)}
+footer .bani{color:var(--och)}
+footer .copy{color:rgba(232,226,216,.6)}
+@media(max-width:640px){.hero{min-height:520px}.cband{padding:30px 22px}.gdetail .bani{font-size:2.3rem}}
 </style></head><body data-root=""><a class="skip" href="#main">Skip to content</a>
-<header class="top"><a class="brand" href=""><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1f4a41"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="language/">Language</a><a href="heritage/">Heritage</a><a href="culture/">Culture</a><a href="library/">Library</a><a href="media/">Media</a><a href="news/">News</a><a href="about/">About</a><a href="search/">Search</a><a class="cta" href="contribute/">Contribute</a></nav></header>
-<main id="main"><section class="hero"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg" alt="Sarhul celebrations at a sarna grove"><div class="shade"></div><div class="wrap hin"><p class="kick"><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p><h1>Our language. Our identity. Our heritage.</h1><p class="lead">Celebrating the voice, stories and living traditions of the Mundari people, and carrying them into the digital future.</p><div class="row"><a class="btn" href="language/">Explore the language</a><a class="btn ghost" href="about/">Our story</a></div><small>Photograph: Sarhul at a sarna grove, Gurpreet Singh Ranchi, CC BY-SA 4.0</small></div></section>
-<section class="wrap sec"><h2>Choose where to begin</h2><div class="grid"><a class="card" href="language/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg" alt=""><div><h3>Our Language</h3><p>Mundari is the living language of the Munda communities. Explore its script and its words.</p></div></a><a class="card" href="heritage/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg" alt=""><div><h3>Our Heritage</h3><p>From early times to the present day: history, the people who shaped it, and the language movement.</p></div></a><a class="card" href="culture/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-dance-ranchi.jpg" alt=""><div><h3>Culture & Traditions</h3><p>Festivals, dance, music, food and craft.</p></div></a><a class="card" href="library/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sohrai-wall-art-isko.jpg" alt=""><div><h3>Knowledge Library</h3><p>Books, long-form reading and downloadable resources and documents, reviewed before publishing.</p></div></a><a class="card" href="library/articles/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/jaipal-hockey-1928.jpg" alt=""><div><h3>Articles</h3><p>Community stories, historical essays and editorial ideas, reviewed before publishing.</p></div></a><a class="card" href="media/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg" alt=""><div><h3>Media</h3><p>Songs, films and photographs.</p></div></a><a class="card" href="news/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/nag-birthday-celebration-01.jpg" alt=""><div><h3>News & Updates</h3><p>Only published, editor-approved updates appear here.</p></div></a></div></section>
-<section class="band"><div class="wrap split"><div><h2>Every letter carries a story</h2><p>Mundari Bani has 27 letters, created by Rohidas Singh Nag. Open the script page to see each letter with its Roman sound.</p><a class="btn" href="language/script/">Open the script</a></div><div id="letters" class="letters mini"></div></div></section>
+<header class="top"><a class="brand" href=""><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#143023"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#E6A838" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="language/">Language</a><a href="heritage/">Heritage</a><a href="culture/">Culture</a><a href="library/">Library</a><a href="media/">Media</a><a href="news/">News</a><a href="about/">About</a><a href="search/">Search</a><a class="cta" href="contribute/">Contribute</a></nav></header>
+<main id="main"><section class="hero"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg" alt="Sarhul celebrations at a sarna grove"><div class="shade"></div><div class="wrap hin"><p class="kick"><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p><h1>Our language. Our identity. Our heritage.</h1><p class="lead">Celebrating the voice, stories and living traditions of the Mundari people, and carrying them into the digital future.</p><div class="row"><a class="btn" href="language/">Explore the language</a><a class="btn ghost" href="about/">Our story</a></div><div class="chips"><span class="chip">27 Bani letters</span><span class="chip">Script begun in 1949</span><span class="chip">1,634,150 speakers · Census 2011</span><span class="chip">128-word dictionary</span></div><small>Photograph: Sarhul at a sarna grove, Gurpreet Singh Ranchi, CC BY-SA 4.0</small></div></section>
+<section class="wrap sec"><h2>Choose where to begin</h2><div class="grid"><a class="card" href="language/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/mundari-bani-script-chart.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Our Language</h3><p>Mundari is the living language of the Munda communities. Explore its script and its words.</p></div></a><a class="card" href="heritage/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Our Heritage</h3><p>From early times to the present day: history, the people who shaped it, and the language movement.</p></div></a><a class="card" href="culture/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-dance-ranchi.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Culture &amp; Traditions</h3><p>Festivals, dance, music, food and craft.</p></div></a><a class="card" href="library/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sohrai-wall-art-isko.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Knowledge Library</h3><p>Books, long-form reading and downloadable resources and documents, reviewed before publishing.</p></div></a><a class="card" href="library/articles/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/jaipal-hockey-1928.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Articles</h3><p>Community stories, historical essays and editorial ideas, reviewed before publishing.</p></div></a><a class="card" href="media/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>Media</h3><p>Songs, films and photographs.</p></div></a><a class="card" href="news/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/nag-birthday-celebration-01.jpg" alt=""><span class="arr" aria-hidden="true">→</span><div><h3>News &amp; Updates</h3><p>Only published, editor-approved updates appear here.</p></div></a></div></section>
+<section class="band"><div class="wrap"><h2>Every letter carries a story</h2><p>Mundari Bani has 27 letters, created by Rohidas Singh Nag. Tap any letter to see its name and Roman sound.</p><div id="ggrid" class="ggrid"></div><div id="gdetail" class="gdetail" aria-live="polite"></div><p class="gnote">The script was begun in 1949, simplified to 27 letters in 1980, and joined Unicode in 2022. The full chart, the Leneka digits and the Tong marks are on the script page.</p><a class="btn dark" href="language/script/">Open the full script page</a></div></section>
 <section class="wrap sec"><h2>Latest updates</h2><div class="upd-grid"><a class="card upd-card" href="news/platform-update/"><div><span class="upd-date">2 November 2026</span><h3>Mundari Samaj introduces its articles and community publishing hub</h3><p>The new editorial structure is designed to make community knowledge easier to discover.</p><span class="upd-more">Read more →</span></div></a><a class="card upd-card" href="news/call-for-contributions/"><div><span class="upd-date">2 November 2026</span><h3>Invitation: share language resources and community histories</h3><p>Contributors are invited to share material they have the right to provide.</p><span class="upd-more">Read more →</span></div></a><a class="card upd-card" href="news/khunta-gb-nagar-memorandum-2026/"><div><span class="upd-date">28 October 2026</span><h3>Memorandums in Khunta and GB Nagar demand Eighth Schedule status for Mundari</h3><p>MLCC delegations in Khunta Block and Gopabandhu Nagar (GB Nagar) Block submitted demand memorandums to their Block Development Officers.</p><span class="upd-more">Read more →</span></div></a></div><p class="upd-all"><a href="news/">See all updates →</a></p></section>
-<section class="wrap sec"><h2>Help preserve our heritage</h2><p class="lead2">Know a story, a word, a song or a photograph that deserves to be documented? Submissions are reviewed before publishing. Share only what you have permission to provide.</p><a class="btn" href="contribute/">Share a contribution</a></section></main>
+<section class="wrap sec"><div class="cband"><h2>Help preserve our heritage</h2><p class="lead2">Know a story, a word, a song or a photograph that deserves to be documented? Submissions are reviewed before publishing. Share only what you have permission to provide.</p><a class="btn" href="contribute/">Share a contribution</a></div></section></main>
 <footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div><a href="about/">About</a><a href="contribute/">Contribute</a><a href="search/">Search</a></div><div><a href="https://www.instagram.com/mundarisamaj">Instagram</a><a href="https://www.threads.net/@mundaricommunity">Threads</a></div></div><p class="copy">© 2026 Mundari Samaj</p></footer>
-<script src="assets/data/data.js"></script><script src="assets/js/main.js"></script></body></html>
+<script src="assets/data/data.js"></script><script src="assets/js/main.js"></script>
+<script>
+(function(){var L=(window.DATA&&DATA.letters)||[];var grid=document.getElementById('ggrid');var det=document.getElementById('gdetail');if(!grid||!det||!L.length)return;var sizes=[5,5,5,5,7],rv=['o','a','i','u','e'];function meta(i){var r=0,acc=0;while(r<4&&i>=acc+sizes[r]){acc+=sizes[r];r++;}var s=L[i][1];return{name:(s===rv[r]?rv[r]:rv[r]+s).toUpperCase(),row:r+1};}
+var tiles=[];
+function select(i){var m=meta(i);tiles.forEach(function(t,j){t.classList.toggle('on',j===i);});det.innerHTML='<span class="bani">'+L[i][0]+'</span><div><b>'+m.name+'</b><p>Roman sound: '+L[i][1]+' · Letter '+(i+1)+' of 27 · Row '+m.row+'</p></div>';}
+L.forEach(function(it,i){var b=document.createElement('button');b.type='button';b.className='gtile';b.innerHTML='<span class="bani">'+it[0]+'</span><small>'+it[1]+'</small>';b.addEventListener('click',function(){select(i);});grid.appendChild(b);tiles.push(b);});
+select(0);})();
+</script></body></html>

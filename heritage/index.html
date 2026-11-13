@@ -1,5 +1,498 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Our Heritage · Mundari Samaj</title><meta name="description" content="Mundari language, script, history and culture."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/style.css"></head><body data-root="../"><a class="skip" href="#main">Skip to content</a>
-<header class="top"><a class="brand" href="../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1f4a41"/><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../language/">Language</a><a href="../heritage/" aria-current=page>Heritage</a><a href="../culture/">Culture</a><a href="../library/">Library</a><a href="../media/">Media</a><a href="../news/">News</a><a class="cta" href="../contribute/">Contribute</a></nav></header>
-<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../">Home</a></nav><h1>Our Heritage</h1><p class="lead">From early times to the present day: history, the people who shaped it, and the language movement.</p></div></section><section class="wrap sec"><div class="grid"><a class="card" href="../heritage/history/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg" alt=""><div><h3>History</h3><p>From early times to the present day. Detailed chapters are added here as they are reviewed.</p></div></a><a class="card" href="../heritage/people/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg" alt=""><div><h3>People & Leaders</h3><p>Leaders and thinkers who shaped Mundari identity.</p></div></a><a class="card" href="../heritage/movement/"><img loading="lazy" src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/nag-birthday-celebration-01.jpg" alt=""><div><h3>The Movement</h3><p>The living language movement: teaching, writing and publishing in Mundari.</p></div></a></div></section></main>
-<footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div><a href="../about/">About</a><a href="../contribute/">Contribute</a><a href="../search/">Search</a></div><div><a href="https://www.instagram.com/mundarisamaj">Instagram</a><a href="https://www.threads.net/@mundaricommunity">Threads</a></div></div><p class="copy">© 2026 Mundari Samaj</p></footer>
-<script src="../assets/data/data.js"></script><script src="../assets/js/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Heritage · Mundari Samaj</title>
+<meta name="description" content="History, people, movement and homeland — the heritage of the Munda community, each topic on its own page.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#f2f6f3;
+--ink:#16302a;
+--mut:#57706a;
+--g:#1f4a41;
+--g2:#2f6b5d;
+--mist:#dfeae4;
+--sun:#e4b95f;
+--card:#fff;
+--line:#d3e0d9;
+--hero:#1f4a41;
+--ease-smooth:cubic-bezier(.16,1,.3,1);
+--spring:cubic-bezier(.34,1.56,.64,1);
+box-sizing:border-box;
+}
+
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]){
+--bg:#0f1c18;
+--ink:#e3eee9;
+--mut:#9db5ad;
+--g:#8fcab9;
+--g2:#8fcab9;
+--mist:#173029;
+--card:#15271f;
+--line:#243d34;
+--hero:#0b1713;
+}
+}
+
+:root[data-theme="dark"]{
+--bg:#0f1c18;
+--ink:#e3eee9;
+--mut:#9db5ad;
+--g:#8fcab9;
+--g2:#8fcab9;
+--mist:#173029;
+--card:#15271f;
+--line:#243d34;
+--hero:#0b1713;
+}
+
+*{box-sizing:border-box}
+
+html{
+scroll-behavior:smooth;
+scroll-padding-top:84px;
+}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font:17px/1.75 Inter,system-ui,sans-serif;
+}
+
+h1,h2,h3{
+font-family:Fraunces,Georgia,serif;
+font-weight:600;
+line-height:1.15;
+letter-spacing:-.01em;
+margin:0;
+}
+
+a{color:var(--g2)}
+img{max-width:100%;display:block}
+
+/* Reading progress */
+#bar{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+width:0;
+background:var(--sun);
+z-index:30;
+transition:width .1s linear;
+box-shadow:0 0 8px rgba(228,185,95,.5);
+will-change:width;
+}
+
+/* Header */
+.top{
+position:sticky;
+top:0;
+z-index:20;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 5%;
+background:color-mix(in srgb,var(--bg) 88%,transparent);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);
+transition:box-shadow .4s var(--ease-smooth),background .4s var(--ease-smooth);
+}
+
+.top.scrolled{
+box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.top a{
+text-decoration:none;
+color:var(--g);
+font:600 1.1rem Fraunces,serif;
+}
+
+.top span{
+font-size:.9rem;
+color:var(--mut);
+}
+
+/* Hero */
+.hero-photo{
+position:relative;
+width:100%;
+height:70vh;
+min-height:420px;
+overflow:hidden;
+background:linear-gradient(160deg,#2f6b5d,#173a32);
+display:grid;
+place-items:center;
+}
+
+.hero-photo svg{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+z-index:0;
+}
+
+.hero-photo img{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center top;
+transition:transform 1.2s var(--ease-smooth);
+z-index:1;
+}
+
+.hero-photo:hover img{
+transform:scale(1.04);
+}
+
+.hero-photo::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(0,0,0,.15) 0%,
+rgba(0,0,0,.35) 70%,
+rgba(15,28,24,.85) 100%
+);
+pointer-events:none;
+z-index:1;
+}
+
+.hero-caption{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+z-index:2;
+padding:48px 5% 40px;
+color:#fff;
+max-width:1120px;
+margin:0 auto;
+animation:up .9s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.hero-caption h1{
+font-size:clamp(2.4rem,6.4vw,4.6rem);
+color:#fff;
+text-shadow:0 2px 20px rgba(0,0,0,.3);
+}
+
+.hero-caption .dek{
+font-size:1.15rem;
+color:#e0eee8;
+max-width:56ch;
+margin:16px 0 0;
+}
+
+.hero-caption .meta{
+margin-top:20px;
+color:#b8d0c7;
+font-size:.95rem;
+}
+
+.hero-photo figcaption{
+position:absolute;
+top:16px;
+right:16px;
+z-index:2;
+font-size:.75rem;
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.3);
+padding:4px 10px;
+border-radius:99px;
+backdrop-filter:blur(4px);
+}
+
+@keyframes up{
+from{opacity:0;transform:translateY(26px)}
+to{opacity:1;transform:none}
+}
+
+/* Facts */
+.wrap{
+max-width:1120px;
+margin:auto;
+padding:0 5%;
+}
+
+.facts{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:1px;
+background:var(--line);
+border:1px solid var(--line);
+border-radius:18px;
+overflow:hidden;
+margin:-36px auto 0;
+max-width:1000px;
+position:relative;
+z-index:3;
+}
+
+.facts div{
+background:var(--card);
+padding:18px 20px;
+animation:factRise .8s var(--ease-smooth) both;
+}
+
+.facts div:nth-child(1){animation-delay:.15s}
+.facts div:nth-child(2){animation-delay:.25s}
+.facts div:nth-child(3){animation-delay:.35s}
+.facts div:nth-child(4){animation-delay:.45s}
+
+@keyframes factRise{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+.facts small{
+display:block;
+color:var(--mut);
+font-size:.82rem;
+}
+
+.facts b{
+font-family:Fraunces,serif;
+font-size:1.05rem;
+font-weight:600;
+}
+
+/* Article */
+.lay{
+max-width:720px;
+margin:0 auto;
+padding:72px 5% 40px;
+}
+
+article h2{
+font-size:clamp(1.6rem,3.4vw,2.2rem);
+margin:56px 0 16px;
+}
+
+article h2:first-child{
+margin-top:0;
+}
+
+article p{
+margin:0 0 1.15em;
+}
+
+.lead{
+font:400 1.35rem/1.6 Fraunces,Georgia,serif;
+color:var(--ink);
+}
+
+/* Article lists */
+article ul{
+margin:0 0 1.15em;
+padding-left:22px;
+}
+
+article ul li{
+margin-bottom:.5em;
+}
+
+/* Quote */
+blockquote{
+margin:36px 0;
+padding:6px 0 6px 24px;
+border-left:4px solid var(--sun);
+font:400 1.5rem/1.45 Fraunces,Georgia,serif;
+color:var(--g);
+animation:quoteGlow 4s ease-in-out infinite;
+}
+
+@keyframes quoteGlow{
+0%,100%{border-left-color:var(--sun)}
+50%{border-left-color:var(--g2)}
+}
+
+/* Notes */
+.note{
+background:var(--mist);
+border-radius:16px;
+padding:18px 22px;
+margin:28px 0;
+font-size:.95rem;
+}
+
+/* Timeline */
+.tl{
+list-style:none;
+margin:24px 0;
+padding:0;
+border-left:2px solid var(--line);
+}
+
+.tl li{
+position:relative;
+padding:0 0 22px 26px;
+}
+
+.tl li::before{
+content:"";
+position:absolute;
+left:-7px;
+top:9px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:var(--sun);
+border:2px solid var(--bg);
+animation:dotPulse 3s ease-in-out infinite;
+}
+
+.tl li:nth-child(odd)::before{animation-delay:.4s}
+.tl li:nth-child(3n)::before{animation-delay:.8s}
+
+@keyframes dotPulse{
+0%,100%{box-shadow:0 0 0 0 rgba(228,185,95,0)}
+50%{box-shadow:0 0 0 6px rgba(228,185,95,.18)}
+}
+
+.tl b{
+font-family:Fraunces,serif;
+display:block;
+}
+
+.tl span{
+color:var(--mut);
+font-size:.95rem;
+}
+
+/* Sources */
+.src{
+font-size:.9rem;
+color:var(--mut);
+border-top:1px solid var(--line);
+margin-top:48px;
+padding-top:20px;
+}
+
+.src a{
+overflow-wrap:anywhere;
+}
+
+/* More */
+.more{
+background:var(--mist);
+padding:56px 5%;
+text-align:center;
+}
+
+.more h2{
+font-size:1.8rem;
+margin-bottom:10px;
+}
+
+.more a{
+display:inline-block;
+margin-top:14px;
+background:var(--sun);
+color:#1b2b26;
+text-decoration:none;
+font-weight:600;
+padding:12px 26px;
+border-radius:99px;
+transition:transform .4s var(--spring),box-shadow .4s var(--ease-smooth);
+}
+
+.more a:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 14px 30px rgba(228,185,95,.35);
+}
+
+/* Footer */
+footer{
+background:#163a32;
+color:#cfe0d9;
+text-align:center;
+padding:28px 5% calc(28px + env(safe-area-inset-bottom,0px));
+font-size:.9rem;
+}
+
+:focus-visible{
+outline:3px solid var(--sun);
+outline-offset:3px;
+}
+
+@media(max-width:900px){
+.hero-photo{
+height:75vh;
+min-height:460px;
+}
+.hero-caption{
+padding:36px 6% 32px;
+}
+.lay{
+padding-top:56px;
+}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{
+animation:none!important;
+transition:none!important;
+}
+}
+
+.hwrap{max-width:1120px;margin:auto;padding:0 5%}
+.intro{max-width:760px;margin:0 auto;padding:64px 5% 8px;font-size:1.06rem}
+.intro p{margin:0 0 1.1em}
+.sec-head{max-width:1120px;margin:54px auto 6px;padding:0 5%}
+.sec-head h2{font-size:clamp(1.5rem,3.2vw,2rem)}
+.sec-head p{color:var(--mut);margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;max-width:1120px;margin:22px auto 0;padding:0 5%}
+.gcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--ink);transition:transform .5s var(--spring),box-shadow .5s var(--ease-smooth);animation:up .8s var(--ease-smooth) both}
+.gcard:hover{transform:translateY(-5px);box-shadow:0 18px 42px rgba(20,40,32,.16)}
+.gcard img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform 1.1s var(--ease-smooth)}
+.gcard:hover img{transform:scale(1.05)}
+.gcard .pad{padding:16px 18px 18px}
+.gcard h3{font-size:1.22rem;margin:0 0 6px;color:var(--g)}
+.gcard p{color:var(--mut);font-size:.94rem;line-height:1.55;margin:0}
+.wide-card{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}
+.wide-card img{aspect-ratio:auto;height:100%}
+@media(max-width:700px){.wide-card{grid-template-columns:1fr}.wide-card img{aspect-ratio:16/9}}
+.txtlinks{max-width:1120px;margin:18px auto 0;padding:0 5%}
+.txtlinks a{display:flex;justify-content:space-between;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 18px;margin:0 0 12px;text-decoration:none;color:var(--ink);transition:transform .4s var(--spring)}
+.txtlinks a:hover{transform:translateY(-2px)}
+.txtlinks b{font-family:Fraunces,serif;color:var(--g)}
+.txtlinks span{color:var(--mut);font-size:.92rem;text-align:right}
+.peek{display:flex;flex-wrap:wrap;gap:10px;max-width:1120px;margin:18px auto 0;padding:0 5%}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;font-size:1rem}
+.chip .bani{font-size:1.15rem}
+.chip small{display:block;color:var(--mut);font-size:.78rem}
+table.nums{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:.98rem}
+table.nums th,table.nums td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
+table.nums th{font-family:Fraunces,serif;color:var(--g)}
+.lay table{width:100%;border-collapse:collapse;background:var(--card);font-size:.95rem}
+.lay table th,.lay table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+footer{margin-top:70px}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<header class="top"><a href="../">Mundari Samaj</a><a href="../" style="font:500 .9rem Inter,sans-serif;color:var(--mut)">← Home</a></header>
+<figure class="hero-photo" style="margin:0">
+  <svg viewBox="0 0 400 500" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><g stroke="#e4b95f" stroke-width="3" stroke-linecap="round" opacity=".55"><path d="M200 140v220M90 250h220M122 172l156 156M278 172L122 328"/></g><circle cx="200" cy="250" r="118" fill="none" stroke="#e4b95f" stroke-width="2" opacity=".4"/></svg>
+  <img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/betla-landscape.jpg" alt="The Chota Nagpur plateau" onerror="this.style.display='none'">
+  <div class="hero-caption"><h1>Heritage</h1><p class="dek">History, remembered leaders, living movements and homelands — what the Munda community carries with it.</p><p class="meta">Heritage · History · People · Odisha · Movement</p></div>
+  <figcaption>The land of Chota Nagpur</figcaption>
+</figure>
+<div class="intro"><p>Heritage is what the community carries with it — its history, its remembered leaders, its movements and its homelands. This section is the doorway to all of it; every topic below opens its own full page, and nothing here is copied from anywhere else on the site.</p></div><div class="sec-head"><h2>Start here</h2><p>The one question every visitor asks first.</p></div><div class="grid"><a class="gcard wide-card" href="../library/articles/who-are-the-munda-people/" style="animation-delay:0ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/who-are-the-munda-people.jpg" alt="Who Are the Munda People?" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>Who Are the Munda People?</h3><p>The Munda are an Adivasi people whose communities live in several parts of eastern and central India. Munda…</p></div></a></div><div class="sec-head"><h2>The four shelves of our heritage</h2></div><div class="grid"><a class="gcard" href="history/" style="animation-delay:0ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/palamau-forest.jpg" alt="History" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>History</h3><p>From the first clearers of the forest to the Kol rising and the Ulgulan — the long record of the Munda people.</p></div></a><a class="gcard" href="people/" style="animation-delay:90ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/birsa-munda-portrait.jpg" alt="People" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>People</h3><p>Birsa Munda, Jaipal Singh Munda, Ol Guru Rohidas Singh Nag and Gaya Munda — lives that shaped the community.</p></div></a><a class="gcard" href="odisha/" style="animation-delay:180ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-and-mundari-in-mayurbhanj.jpg" alt="Odisha" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>Odisha</h3><p>The Munda heartland of Mayurbhanj and northern Odisha — its records, villages and living language.</p></div></a><a class="gcard" href="movement/" style="animation-delay:270ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-in-other-movements.jpg" alt="Movement" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>Movement</h3><p>The living demand for the language — Eighth Schedule recognition and Mundari as an official language.</p></div></a></div><div class="sec-head"><h2>Memory, in their own words</h2></div><div class="grid"><a class="gcard wide-card" href="../library/articles/oral-history/" style="animation-delay:0ms"><img src="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/munda-lady.jpg" alt="Why oral histories matter" loading="lazy" onerror="this.style.display='none'"><div class="pad"><h3>Why oral histories matter</h3><p>Family memories and community accounts can preserve details that formal archives may not contain.</p></div></a></div>
+<section class="more"><h2>Share what you know</h2><p>Do you have a story, photograph or correction to add here?</p><a href="../contribute/">Contribute to the archive</a></section>
+<footer>© 2026 Mundari Samaj · Johar! Jay Mundari!</footer>
+<script>(function(){var b=document.getElementById('bar');function s(){var h=document.documentElement;b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}addEventListener('scroll',s,{passive:true});s();var t=document.querySelector('.top');addEventListener('scroll',function(){t.classList.toggle('scrolled',scrollY>30);},{passive:true});})();</script>
+</body>
+</html>

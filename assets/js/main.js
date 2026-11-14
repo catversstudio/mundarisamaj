@@ -41,3 +41,13 @@ document.querySelectorAll('.sec .card,.band .wrap').forEach(function(el){el.clas
     if (e.key === 'Escape') document.querySelectorAll('.pdfbox.fson').forEach(function(b){ exitFs(b); });
   });
 })();
+
+/* ==== FOOTER v81.2: accordion columns (all screens) ==== */
+(function(){
+  document.addEventListener('click', function(e){
+    var h = e.target.closest ? e.target.closest('.fcol h5') : null;
+    if (!h) return;
+    var col = h.closest('.fcol');
+    if (col) col.classList.toggle('open');
+  });
+})();

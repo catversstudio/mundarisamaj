@@ -883,3 +883,56 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;back
 .brand{font-size:1.02rem}
 .menu a{padding:4px 7px;font-size:.88rem}
 }
+
+/* ==== FOOTER v81: dark + gold refresh (demo-inspired) ==== */
+footer{background:#151d18;color:#e8e2d8;overflow:hidden}
+footer::before{background:linear-gradient(90deg,#8a6d2e,#c9a24b,#f0d68a,#c9a24b,#8a6d2e);background-size:200% 100%;animation:ftrShimmer 6s linear infinite}
+@keyframes ftrShimmer{from{background-position:0 0}to{background-position:200% 0}}
+footer::after{content:"";position:absolute;top:-110px;left:50%;transform:translateX(-50%);width:620px;height:300px;background:radial-gradient(ellipse,rgba(201,162,75,.09),transparent 70%);pointer-events:none}
+footer .wrap,footer .partners,footer .fstat,footer .copy,footer .totop{position:relative;z-index:1}
+.fgrid>div:first-child b{color:#e8c97a;font-size:1.25rem}
+.fgrid h5{color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem;margin:2px 0 10px;font-family:Inter,sans-serif}
+.fgrid>div a{position:relative;transition:color .2s ease,padding-left .2s ease}
+.fgrid>div a::before{content:"\2192";position:absolute;left:0;opacity:0;color:#c9a24b;transition:opacity .2s ease}
+.fgrid>div a:hover{color:#e8c97a;padding-left:15px}
+.fgrid>div a:hover::before{opacity:1}
+.fstat{width:fit-content;max-width:92%;margin:30px auto 0;padding:14px 34px;background:rgba(201,162,75,.06);border:1px solid rgba(201,162,75,.18);border-radius:12px;text-align:center}
+.fstat .fnum{display:block;font:700 1.9rem Fraunces,serif;color:#e8c97a;line-height:1.1;letter-spacing:.5px}
+.fstat .flab{display:block;font-size:.8rem;color:#b8b0a2;margin-top:4px;letter-spacing:.3px}
+footer .copy{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;text-align:left;border-top:1px solid #333d36;padding-top:16px;opacity:1;color:rgba(232,226,216,.55)}
+footer .copy .fnote{font-family:ui-monospace,'Courier New',monospace;color:#c9a24b;font-size:.78rem;opacity:1}
+.totop{position:fixed;right:18px;bottom:18px;z-index:90;margin:0;text-align:right;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop a{display:inline-block;background:#c9a24b;color:#1c1c1c;border-radius:99px;padding:10px 18px;font-weight:700;font-size:.9rem;box-shadow:0 8px 22px rgba(0,0,0,.35);text-decoration:none}
+.totop a:hover{background:#e0bd6a}
+@media(max-width:720px){
+.fgrid>div:not(:first-child) h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #333d36;padding-top:14px}
+.fgrid>div:not(:first-child) h5::after{content:"\25BE";font-size:1rem;transition:transform .3s ease}
+.fgrid>div.open:not(:first-child) h5::after{transform:rotate(180deg)}
+.fgrid>div:not(:first-child) a{display:none}
+.fgrid>div.open:not(:first-child) a{display:block}
+footer .copy{justify-content:center;text-align:center}
+}
+
+/* ==== FOOTER v81.1 polish ==== */
+footer .partner{background:rgba(255,255,255,.05);border-color:rgba(232,226,216,.16)}
+footer .partner b{color:#fff}
+footer .partner .pd{color:rgba(232,226,216,.72)}
+footer .partner:hover{border-color:rgba(201,162,75,.45)}
+footer .fstat{margin-bottom:26px;box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
+footer .copy{width:min(1120px,92%);margin-left:auto;margin-right:auto}
+@media(min-width:721px){.fgrid{grid-template-columns:1.7fr 1fr 1fr}}
+
+/* ==== FOOTER v81.2: four accordion columns ==== */
+.fgrid{grid-template-columns:1fr}
+.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:24px;text-align:left}
+.fcol h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0;padding:10px 0;border-top:1px solid #333d36;color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem;font-family:Inter,sans-serif}
+.fcol h5::after{content:"\25BE";font-size:1rem;transition:transform .3s ease}
+.fcol.open h5::after{transform:rotate(180deg)}
+.fcol .flinks{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.fcol.open .flinks{max-height:280px}
+.fgrid .fcol .flinks a{display:block;position:relative;color:#d8d0c2;text-decoration:none;padding:4px 0;transition:color .2s ease,padding-left .2s ease}
+.fgrid .fcol .flinks a::before{content:"\2192";position:absolute;left:0;opacity:0;color:#c9a24b;transition:opacity .2s ease}
+.fgrid .fcol .flinks a:hover{color:#e8c97a;padding-left:15px}
+.fgrid .fcol .flinks a:hover::before{opacity:1}
+@media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}

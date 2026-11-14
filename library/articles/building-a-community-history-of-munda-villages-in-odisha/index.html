@@ -507,6 +507,32 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;back
 
 /* header desktop v80 */
 @media(min-width:861px){.top{width:calc(100% - 24px);max-width:1140px;margin-left:auto;margin-right:auto}.top .brand{white-space:nowrap}}
+
+/* footer v81 */
+footer{background:#151d18;color:#e8e2d8}
+footer::before{background:linear-gradient(90deg,#8a6d2e,#c9a24b,#f0d68a,#c9a24b,#8a6d2e);background-size:200% 100%;animation:ftrShimmer 6s linear infinite}
+@keyframes ftrShimmer{from{background-position:0 0}to{background-position:200% 0}}
+.fstat{width:fit-content;max-width:92%;margin:6px auto 20px;padding:12px 28px;background:rgba(201,162,75,.06);border:1px solid rgba(201,162,75,.18);border-radius:12px;text-align:center}
+.fstat .fnum{display:block;font-size:1.7rem;font-weight:700;color:#e8c97a;line-height:1.1}
+.fstat .flab{display:block;font-size:.78rem;color:#b8b0a2;margin-top:3px}
+.fnote{font-family:ui-monospace,'Courier New',monospace;color:#c9a24b;font-size:.78rem;margin-top:10px}
+
+/* footer v81.1 */
+footer .partner{background:rgba(255,255,255,.05);border-color:rgba(232,226,216,.16)}
+footer .partner b{color:#fff}
+footer .partner .pd{color:rgba(232,226,216,.75)}
+footer .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
+
+/* footer accordion v81.2 */
+.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1120px;margin:0 auto 22px;text-align:left}
+.fcol h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0;padding:10px 0;border-top:1px solid #333d36;color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem}
+.fcol h5::after{content:"\25BE";font-size:1rem;transition:transform .3s ease}
+.fcol.open h5::after{transform:rotate(180deg)}
+.fcol .flinks{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.fcol.open .flinks{max-height:280px}
+.fcol .flinks a{display:block;color:#d8d0c2;text-decoration:none;padding:4px 0}
+.fcol .flinks a:hover{color:#e8c97a}
+@media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}
 </style>
 </head>
 <body>
@@ -577,7 +603,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;back
 </div>
 </article></div></div>
 <section class="more"><h2>Share what you know</h2><p>Do you have a story, photograph or correction connected with this article?</p><a href="../../../contribute/">Contribute to the archive</a></section>
-<footer><div class="partners"><h4>Our Partners</h4><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b> <span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b> <span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div>© 2026 Mundari Samaj · Johar! Jay Mundari!</footer>
+<footer><div class="fcols"><div class="fcol"><h5>Explore</h5><div class="flinks"><a href="../../../">Home</a><a href="../../../language/">Language</a><a href="../../../heritage/">Heritage</a><a href="../../../culture/">Culture</a></div></div><div class="fcol"><h5>Learn</h5><div class="flinks"><a href="../../../language/script/">Bani Script</a><a href="../../../language/numbers/">Numbers &amp; Counting</a><a href="../../../language/dictionary/">Dictionary</a><a href="../../../language/learn/">Learn Mundari</a></div></div><div class="fcol"><h5>Community</h5><div class="flinks"><a href="../../../contribute/">Contribute</a><a href="../../../news/">News &amp; Updates</a><a href="mailto:mundarisamaj@outlook.com">Email Us</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></div><div class="fcol"><h5>About</h5><div class="flinks"><a href="../../../about/">About Us</a><a href="../../../library/">Library</a><a href="../../../media/">Media</a><a href="../../../search/">Search</a></div></div></div><div class="partners"><h4>Our Partners</h4><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b> <span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b> <span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div>© 2026 Mundari Samaj · Johar! Jay Mundari!<div class="fnote">Bani script · Unicode since 2022</div></footer>
 <script>
 (function(){
   var b=document.getElementById('bar');
@@ -588,5 +614,5 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;back
 })();
 </script>
 <script>(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;addEventListener('scroll',function(){var y=window.scrollY;if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y},{passive:true})})();</script>
-</body>
+<script>document.addEventListener('click',function(e){var h=e.target.closest?e.target.closest('.fcol h5'):null;if(!h)return;var c=h.closest('.fcol');if(c)c.classList.toggle('open');});</script></body>
 </html>

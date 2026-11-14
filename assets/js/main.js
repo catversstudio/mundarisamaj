@@ -10,3 +10,5 @@ var S=$('#sq');if(S){var O=$('#sres'),f=function(){var v=S.value.toLowerCase();O
 var F=$('#cf');if(F)F.onsubmit=function(e){e.preventDefault();var d=new FormData(F);location='mailto:mundarisamaj@outlook.com?subject='+encodeURIComponent('Contribution: '+d.get('t'))+'&body='+encodeURIComponent('From: '+d.get('n')+'\n\n'+d.get('m'))};
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.sec .card,.band .wrap').forEach(function(el){el.classList.add('rv');io.observe(el)})})();
+
+(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;function f(){var y=window.scrollY;t.classList.toggle('scrolled',y>30);if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y}addEventListener('scroll',f,{passive:true});f()})();/*hdrScroll*/

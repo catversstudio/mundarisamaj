@@ -480,6 +480,25 @@ transition:none!important;
 /* header hide-on-scroll v76 */
 .top{transition:transform .45s cubic-bezier(.16,1,.3,1),padding .35s ease,box-shadow .35s ease}
 .top.hide{transform:translateY(-175%);pointer-events:none}
+
+/* header stars v77 */
+.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards}
+.top::after{content:"";display:block;position:absolute;inset:0;border-radius:999px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='64'%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(28,20)' fill='%23E6A838' fill-opacity='.85'/%3E%3Ccircle cx='88' cy='42' r='3' fill='%23ffffff' fill-opacity='.55'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(150,34) scale(.62)' fill='%23ffffff' fill-opacity='.6'/%3E%3Ccircle cx='212' cy='12' r='2.4' fill='%23E6A838' fill-opacity='.65'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(272,18) scale(.8)' fill='%23F2C14E' fill-opacity='.7'/%3E%3Ccircle cx='330' cy='44' r='2.8' fill='%23ffffff' fill-opacity='.45'/%3E%3C/svg%3E");background-repeat:repeat-x;background-size:360px 64px;opacity:.55;pointer-events:none;z-index:0;animation:hdrDrift 28s linear infinite,hdrBob 6.5s ease-in-out infinite alternate}
+@keyframes hdrDrift{from{background-position:0 0}to{background-position:360px 0}}
+@keyframes hdrBob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}
+@media(prefers-reduced-motion:reduce){.top::after{animation:none!important}}
+
+/* header overlap v77: hero photo runs behind the glass capsule */
+.hero-photo{margin-top:-70px!important}
+.hero-photo figcaption{top:88px!important}
+
+/* partners v77 */
+.partners{max-width:680px;margin:0 auto 16px;text-align:center}
+.partners h4{font:600 .76rem Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}
+.partner{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 8px;background:var(--card);color:var(--ink)}
+.partner b{font-family:Fraunces,Georgia,serif;color:var(--g);font-size:1rem}
+.partner .ph{color:#c9932b;font-weight:600;font-size:.83rem}
+.partner .pd{display:block;color:var(--mut);font-size:.88rem;margin-top:3px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -550,7 +569,7 @@ transition:none!important;
 </div>
 </article></div></div>
 <section class="more"><h2>Share what you know</h2><p>Do you have a story, photograph or correction connected with this article?</p><a href="../../../contribute/">Contribute to the archive</a></section>
-<footer>© 2026 Mundari Samaj · Johar! Jay Mundari!</footer>
+<footer><div class="partners"><h4>Our Partners</h4><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b> <span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b> <span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div>© 2026 Mundari Samaj · Johar! Jay Mundari!</footer>
 <script>
 (function(){
   var b=document.getElementById('bar');

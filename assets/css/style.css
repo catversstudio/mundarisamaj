@@ -861,3 +861,12 @@ body.menu-open .menu-shade{opacity:1;pointer-events:auto}
 .partner .ph{display:block;color:#c9932b;font-weight:600;font-size:.84rem;margin:2px 0 5px}
 .partner .pd{display:block;color:var(--mut);font-size:.89rem;line-height:1.45}
 @media(max-width:640px){.prow{grid-template-columns:1fr}}
+
+/* ==== MENU BLUR FIX + FOOTER LIFE (v78) ==== */
+main,footer{transition:filter .3s ease}
+body.menu-open main,body.menu-open footer{filter:blur(6px) brightness(.94)}
+.menu-shade{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(14,30,24,.22)}
+footer{position:relative}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:hdrSlide 7s linear infinite;pointer-events:none}
+.totop{text-align:center;margin:18px 0 2px}
+.totop a{display:inline-block;padding:8px 18px;border:1px solid rgba(228,185,95,.4);border-radius:99px;color:var(--sun);text-decoration:none;font-weight:600;font-size:.88rem;background:rgba(255,255,255,.05)}

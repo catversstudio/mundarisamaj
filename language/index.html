@@ -537,6 +537,11 @@ footer{margin-top:70px}
 .partner b{font-family:Fraunces,Georgia,serif;color:var(--g);font-size:1rem}
 .partner .ph{color:#c9932b;font-weight:600;font-size:.83rem}
 .partner .pd{display:block;color:var(--mut);font-size:.88rem;margin-top:3px;line-height:1.45}
+
+/* footer gold line v78 */
+footer{position:relative}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:ftrSlide 7s linear infinite;pointer-events:none}
+@keyframes ftrSlide{from{background-position:0% 0}to{background-position:220% 0}}
 </style>
 </head>
 <body>

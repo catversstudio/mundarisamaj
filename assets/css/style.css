@@ -870,3 +870,16 @@ footer{position:relative}
 footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:hdrSlide 7s linear infinite;pointer-events:none}
 .totop{text-align:center;margin:18px 0 2px}
 .totop a{display:inline-block;padding:8px 18px;border:1px solid rgba(228,185,95,.4);border-radius:99px;color:var(--sun);text-decoration:none;font-weight:600;font-size:.88rem;background:rgba(255,255,255,.05)}
+
+/* ==== HEADER DESKTOP (v80): capsule sized for wide screens ==== */
+@media(min-width:861px){
+.top{width:calc(100% - 24px);max-width:1140px;margin-left:auto;margin-right:auto;padding:10px 26px}
+.brand{flex:0 0 auto}
+.brand span{white-space:nowrap}
+.menu a{white-space:nowrap}
+}
+@media(min-width:861px) and (max-width:1160px){
+.top{padding:10px 18px}
+.brand{font-size:1.02rem}
+.menu a{padding:4px 7px;font-size:.88rem}
+}

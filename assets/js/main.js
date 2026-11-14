@@ -12,3 +12,32 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll('.sec .card,.band .wrap').forEach(function(el){el.classList.add('rv');io.observe(el)})})();
 
 (function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;function f(){var y=window.scrollY;t.classList.toggle('scrolled',y>30);if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y}addEventListener('scroll',f,{passive:true});f()})();/*hdrScroll*/
+
+/* ==== PDF reader fullscreen (v80) ==== */
+(function(){
+  function exitFs(box){
+    if (box) box.classList.remove('fson');
+    document.body.classList.remove('noscroll');
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  }
+  function toggleFs(box){
+    if (box.classList.contains('fson') || document.fullscreenElement === box) { exitFs(box); return; }
+    box.classList.add('fson'); document.body.classList.add('noscroll');
+    if (box.requestFullscreen) box.requestFullscreen().catch(function(){});
+  }
+  document.addEventListener('click', function(e){
+    var fb = e.target.closest ? e.target.closest('.fsbtn') : null;
+    var fc = e.target.closest ? e.target.closest('.fsclose') : null;
+    if (fb) { var b1 = fb.closest('.pdfbox'); if (b1) toggleFs(b1); }
+    if (fc) { var b2 = fc.closest('.pdfbox'); if (b2) exitFs(b2); }
+  });
+  document.addEventListener('fullscreenchange', function(){
+    if (!document.fullscreenElement) {
+      document.querySelectorAll('.pdfbox.fson').forEach(function(b){ b.classList.remove('fson'); });
+      document.body.classList.remove('noscroll');
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') document.querySelectorAll('.pdfbox.fson').forEach(function(b){ exitFs(b); });
+  });
+})();

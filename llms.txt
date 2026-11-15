@@ -42,3 +42,8 @@
 ## Optional
 
 - [Sitemap](https://mundarisamaj.pages.dev/sitemap.xml): Full list of pages on this website
+
+## Help & Policies
+
+- [FAQ](https://mundarisamaj.pages.dev/faq/): Frequently asked questions about the site, the language and contributing
+- [Privacy Policy](https://mundarisamaj.pages.dev/privacy/): What the website collects, analytics consent and contact

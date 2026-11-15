@@ -5,113 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin — Mundari Samaj</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--forest:#173F35;--deep:#102F29;--cream:#F7F3E9;--paper:#FFFDF7;--earth:#79543A;--terra:#B65F43;--ink:#252A27;--mut:#68756B;--line:#E2DCC9}
+:root{--bg:#f2f6f3;--ink:#16302a;--mut:#57706a;--g:#1f4a41;--g2:#2f6b5d;--mist:#dfeae4;--sun:#e4b95f;--card:#fff;--line:#d3e0d9;--danger:#a03d2a;--ease:cubic-bezier(.16,1,.3,1)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.55 "DM Sans",system-ui,sans-serif}
-.bani{font-family:"Noto Nag Mundari","DM Sans",sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}
+.bani{font-family:"Noto Nag Mundari",Inter,sans-serif}
 button{font:inherit;cursor:pointer}
-.topbar{position:sticky;top:0;z-index:20;background:var(--deep);color:#F3EDD8;display:flex;align-items:center;gap:10px;padding:10px 14px}
-.topbar img{width:30px;height:30px}
-.topbar b{font-size:13px;letter-spacing:.12em}
-.topbar .who{margin-left:auto;font-size:12px;color:#CBBfa5;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.topbar .logout{background:transparent;border:1px solid #547064;color:#F3EDD8;border-radius:999px;padding:6px 12px;font-size:12px}
-.wrap{max-width:760px;margin:0 auto;padding:18px 14px 60px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
-h1{font:600 26px "Playfair Display",Georgia,serif;margin:4px 0 8px;color:var(--forest)}
-h2{font:600 20px "Playfair Display",Georgia,serif;margin:0 0 10px;color:var(--forest)}
+h1{font:600 26px Fraunces,Georgia,serif;margin:4px 0 8px;color:var(--g)}
+h2{font:600 20px Fraunces,Georgia,serif;margin:0 0 10px;color:var(--g)}
 p.sub{color:var(--mut);font-size:13.5px;margin:0 0 12px}
-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--earth);margin:14px 0 5px}
-input,select,textarea{width:100%;padding:12px 13px;border:1px solid #CCD5CA;border-radius:12px;background:#fff;font:inherit;font-size:15px}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g2);margin:14px 0 5px}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:15px;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
 textarea{min-height:110px;resize:vertical}
-textarea.code{font:12.5px/1.5 ui-monospace,Menlo,monospace;min-height:170px}
-input:focus,select:focus,textarea:focus{border-color:var(--terra);outline:0;box-shadow:0 0 0 3px rgba(182,95,67,.15)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--forest);color:#fff;border:0;border-radius:999px;padding:13px 20px;font-weight:700;font-size:14px;min-height:48px}
+textarea.code{font:12.5px/1.6 ui-monospace,Menlo,monospace;min-height:340px}
+input:focus,select:focus,textarea:focus{border-color:var(--sun);outline:0;box-shadow:0 0 0 3px rgba(228,185,95,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--g);color:#fff;border:0;border-radius:999px;padding:13px 20px;font-weight:600;font-size:14px;min-height:48px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -10px rgba(20,40,35,.45)}
 .btn.block{width:100%}
-.btn.ghost{background:transparent;color:var(--forest);border:1px solid var(--forest)}
-.btn.danger{background:#A03D2A}
+.btn.gold{background:var(--sun);color:#1b2b26}
+.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--g)}
+.btn.danger{background:var(--danger);color:#fff}
 .btn.small{min-height:40px;padding:8px 14px;font-size:13px}
-.err{background:#FBEDE8;border:1px solid #E5B4A4;color:#8C2F1B;border-radius:12px;padding:11px 13px;font-size:13.5px;margin:12px 0;display:none}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--deep);color:#F3EDD8;padding:11px 18px;border-radius:999px;font-size:13.5px;box-shadow:0 10px 30px rgba(16,47,41,.35);display:none;z-index:50;max-width:92vw;text-align:center}
-.tabs{position:sticky;top:51px;z-index:15;display:flex;gap:8px;background:var(--cream);padding:10px 0 6px}
-.tabs button{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:10px 6px;font-weight:700;font-size:13.5px;color:var(--forest)}
-.tabs button.on{background:var(--forest);color:#fff;border-color:var(--forest)}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-.chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--earth)}
-.chips button.on{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
+.err{background:#fbede8;border:1px solid #e5b4a4;color:#8c2f1b;border-radius:12px;padding:11px 13px;font-size:13.5px;margin:12px 0;display:none}
+@media (prefers-color-scheme:dark){.err{background:#3a1d16;color:#f0b9a6}}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--g);color:#f3edd8;padding:11px 18px;border-radius:999px;font-size:13.5px;box-shadow:0 10px 30px rgba(16,47,41,.35);display:none;z-index:80;max-width:92vw;text-align:center}
+.hidden{display:none!important}
+.hint{font-size:12px;color:var(--mut);margin-top:5px}
+.center{text-align:center;padding:40px 10px;color:var(--mut)}
 .row{display:flex;align-items:center;gap:10px}
+details{margin-top:14px}
+summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
+
+/* ---- top bar: liquid glass capsule, same as the website header ---- */
+.topbar{position:sticky;top:10px;z-index:40;margin:10px auto 0;max-width:1140px;width:calc(100% - 20px);display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;border:1px solid transparent;background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.25)) padding-box,linear-gradient(115deg,rgba(255,255,255,.9),rgba(228,185,95,.55) 45%,rgba(255,255,255,.25)) border-box;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 16px 36px -14px rgba(20,40,35,.35),inset 0 1px 0 rgba(255,255,255,.7)}
+@media (prefers-color-scheme:dark){.topbar{background:linear-gradient(rgba(16,34,28,.6),rgba(16,34,28,.45)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box}}
+.topbar img{width:28px;height:28px}
+.topbar b{font:600 15px Fraunces,serif;color:var(--g);white-space:nowrap}
+.topbar .who{margin-left:auto;font-size:12px;color:var(--mut);max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .logout{background:transparent;border:1px solid var(--g);color:var(--g);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600}
+.wrap{max-width:1140px;margin:0 auto;padding:18px 14px 60px}
+.wrap.narrow{max-width:760px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 12px 30px -22px rgba(20,40,35,.35)}
+.bigmark{width:54px;height:54px;margin:6px auto 10px;display:block}
+.foot{margin-top:26px;font-size:12px;color:var(--mut);text-align:center}
+
+/* ---- tabs ---- */
+.tabs{position:sticky;top:76px;z-index:30;display:flex;gap:8px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);padding:10px 0 8px}
+.tabs button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:11px 6px;font-weight:600;font-size:13.5px;color:var(--g);transition:all .3s var(--ease)}
+.tabs button.on{background:var(--g);color:#fff;border-color:var(--g);box-shadow:0 8px 18px -8px rgba(20,40,35,.5)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.chips button,.chips span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--g2)}
+.chips button.on{background:var(--sun);border-color:var(--sun);color:#1b2b26}
 .searchrow{display:flex;gap:8px;margin:8px 0 4px}
 .searchrow input{flex:1}
 .list{margin:10px 0}
-.item{display:flex;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin:0 0 9px;text-align:left;width:100%}
+.item{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin:0 0 9px;text-align:left;width:100%;color:var(--ink);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.item:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(20,40,35,.4)}
 .item .grow{flex:1;min-width:0}
 .item b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item small{color:var(--mut);font-size:12px}
 .pill{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
-.pill.pub{background:#DDEBD8;color:#2C5B2A}
-.pill.draft{background:#EFE9DA;color:#8A6D3B}
-.addbar{position:sticky;bottom:14px;display:flex;justify-content:flex-end;pointer-events:none}
+.pill.pub{background:#ddebd8;color:#2c5b2a}
+.pill.draft{background:#efe9da;color:#8a6d3b}
+.addbar{position:sticky;bottom:14px;display:flex;justify-content:flex-end;pointer-events:none;z-index:20}
 .addbar button{pointer-events:auto;box-shadow:0 10px 24px rgba(16,47,41,.3)}
-details{margin-top:14px}
-summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
-.hint{font-size:12px;color:var(--mut);margin-top:5px}
-.hidden{display:none!important}
-.center{text-align:center;padding:40px 10px;color:var(--mut)}
-.bigmark{width:54px;height:54px;margin:6px auto 10px;display:block}
-.foot{margin-top:26px;font-size:12px;color:var(--mut);text-align:center}
+
+/* ---- full-page editor ---- */
+.edbar{position:sticky;top:76px;z-index:30;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);padding:10px 0 8px}
+.edbar .sp{flex:1}
+.modegrp{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.modegrp button{border:0;background:transparent;padding:9px 16px;font-weight:600;font-size:13px;color:var(--g)}
+.modegrp button.on{background:var(--g);color:#fff}
+.ed-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+@media(max-width:860px){.ed-grid{grid-template-columns:1fr}}
+.ed-title{font:600 24px Fraunces,Georgia,serif;padding:14px 16px}
+.wc{font-size:12px;color:var(--mut);text-align:right;margin-top:6px}
+
+/* ---- visual editor (reader-style) ---- */
+.ved-wrap{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 6% 40px;box-shadow:0 12px 30px -22px rgba(20,40,35,.35)}
+.ved{max-width:720px;margin:0 auto;font:17px/1.75 Inter,system-ui,sans-serif;color:var(--ink)}
+.ved h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,3.2vw,2.1rem);line-height:1.15;margin:0;color:var(--ink)}
+.ved p{margin:0}
+.ved .lead{font:400 1.3rem/1.6 Fraunces,Georgia,serif}
+.ved blockquote{margin:0;padding:6px 0 6px 24px;border-left:4px solid var(--sun);font:400 1.4rem/1.45 Fraunces,Georgia,serif;color:var(--g)}
+.ved ul,.ved ol{margin:0;padding-left:24px}
+.ved img{max-width:100%;display:block;border-radius:10px}
+.ved .note{background:var(--mist);border-radius:16px;padding:18px 22px;font-size:.95rem}
+.ved a{color:var(--g2)}
+.vblock{position:relative;border-radius:10px;padding:6px 8px;margin:0 -8px 10px;transition:box-shadow .25s var(--ease),background .25s}
+.vblock:hover{box-shadow:0 0 0 2px rgba(228,185,95,.55)}
+.vblock.sel{box-shadow:0 0 0 2px var(--sun);background:color-mix(in srgb,var(--sun) 6%,transparent)}
+.vblock [contenteditable]{outline:none;min-height:1.2em}
+.vtools{position:absolute;top:-14px;right:6px;z-index:5;display:none;gap:4px;background:var(--g);border-radius:999px;padding:3px}
+.vblock:hover .vtools,.vblock.sel .vtools{display:inline-flex}
+.vtools button{border:0;background:transparent;color:#fff;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px}
+.vtools button:hover{background:rgba(255,255,255,.18)}
+.fmtbar{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.fmtbar button{border:1px solid var(--line);background:var(--card);color:var(--g);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600}
+.fmtbar button:hover{border-color:var(--sun)}
+.addbar2{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-top:1px dashed var(--line);padding-top:14px}
+.addbar2 button{border:1px dashed var(--g2);background:transparent;color:var(--g);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600}
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <img src="https://res.cloudinary.com/lkgpy2ls/image/upload/mark.svg" alt="">
-  <b>MUNDARI SAMAJ · ADMIN</b>
+  <b>Mundari Samaj · Admin</b>
   <span class="who" id="who"></span>
-  <button class="logout hidden" id="logoutBtn" type="button">Logout</button>
+  <button class="logout hidden" id="logoutBtn" type="button">Log out</button>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="mainWrap">
 
   <!-- loading -->
   <section id="view-loading" class="center">
     <img class="bigmark" src="https://res.cloudinary.com/lkgpy2ls/image/upload/mark.svg" alt="">
-    <p>Admin panel khul raha hai…</p>
+    <p>Loading the admin panel…</p>
   </section>
 
   <!-- API unreachable (e.g. GitHub preview copy) -->
   <section id="view-unavailable" class="card hidden">
-    <h1>Admin yahan nahi chalega</h1>
-    <p class="sub">Yeh copy sirf preview hai. Asli admin panel main website par chalega —
-    <b>mundarisamaj.pages.dev/admin</b> — jab naya version wahan chadh jayega.
-    Wahan aapko pehle apna password set karna hoga (one-time setup), phir login karke
-    saara content phone se badal sakenge.</p>
+    <h1>The admin panel does not run here</h1>
+    <p class="sub">This copy is only a preview. The live admin panel runs on the main website —
+    <b>mundarisamaj.pages.dev/admin</b> — once the new version is deployed there.
+    Sign in there to manage all content from your phone.</p>
   </section>
 
   <!-- one-time setup -->
   <section id="view-setup" class="card hidden">
-    <h1>Pehla setup — apna password banaiye</h1>
-    <p class="sub">Yeh sirf <b>ek baar</b> hoga. Mira ne aapko ek one-time setup code diya hai —
-    woh code, apna email aur apna naya password yahan daliye. Password sirf aapko pata hoga;
-    woh database mein bhi band (hashed) roop mein save hota hai, koi use padh nahi sakta.</p>
+    <h1>First-time setup — create your password</h1>
+    <p class="sub">This happens only <b>once</b>. Enter the one-time setup code you received,
+    your email and a new password. Your password is stored only in hashed form in the
+    database — nobody can read it.</p>
     <div class="err" id="setupErr"></div>
     <form id="setupForm">
       <label for="setupCode">One-time setup code</label>
-      <input id="setupCode" autocomplete="off" placeholder="Mira se mila code" required>
-      <label for="setupEmail">Aapka email</label>
+      <input id="setupCode" autocomplete="off" placeholder="The code you received" required>
+      <label for="setupEmail">Your email</label>
       <input id="setupEmail" type="email" autocomplete="username" placeholder="you@example.com" required>
-      <label for="setupPass">Naya password (kam se kam 8 akshar)</label>
+      <label for="setupPass">New password (at least 8 characters)</label>
       <input id="setupPass" type="password" autocomplete="new-password" minlength="8" required>
-      <label for="setupPass2">Password dobara likhiye</label>
+      <label for="setupPass2">Repeat the password</label>
       <input id="setupPass2" type="password" autocomplete="new-password" minlength="8" required>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
-    <p style="margin-top:18px"><button class="btn block" type="submit">Password set karo aur login karo</button></p>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Set password &amp; sign in</button></p>
     </form>
   </section>
 
   <!-- login -->
   <section id="view-login" class="card hidden">
-    <h1>Admin login</h1>
-    <p class="sub">Apne email aur password se login kijiye. Login 7 din tak yaad rehta hai.</p>
+    <h1>Admin sign in</h1>
+    <p class="sub">Sign in with your email and password. Your session is remembered for 7 days.</p>
     <div class="err" id="loginErr"></div>
     <form id="loginForm">
       <label for="loginEmail">Email</label>
@@ -119,232 +168,279 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
       <label for="loginPass">Password</label>
       <input id="loginPass" type="password" autocomplete="current-password" required>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
-      <p style="margin-top:18px"><button class="btn block" type="submit">Login</button></p>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Sign in</button></p>
     </form>
-    <p style="text-align:center;margin-top:14px"><button class="btn ghost small" type="button" id="forgotLink">Password bhool gaye? Recovery code se reset karein</button></p>
+    <p style="text-align:center;margin-top:14px"><button class="btn ghost small" type="button" id="forgotLink">Forgot your password? Reset it with a recovery code</button></p>
   </section>
 
   <!-- recovery code reset -->
   <section id="view-recover" class="card hidden">
-    <h1>Password reset — recovery code se</h1>
-    <p class="sub">Apna recovery code daliye (jo aapne admin panel ke Suraksha hisse se banakar
-    sambhal kar rakha tha), apna email aur naya password. Code ek hi baar chalta hai —
-    reset ke baad naya code banana hoga.</p>
+    <h1>Reset password — with a recovery code</h1>
+    <p class="sub">Enter your recovery code (the one you created in the Security section of
+    this panel and kept somewhere safe), your email and a new password. A recovery code
+    works only once — after a reset you will need to create a new one.</p>
     <div class="err" id="recoverErr"></div>
     <form id="recoverForm">
       <label for="recEmail">Email</label>
       <input id="recEmail" type="email" autocomplete="username" required>
       <label for="recCode">Recovery code</label>
       <input id="recCode" autocomplete="off" placeholder="XXXX-XXXX-XXXX-XXXX" required>
-      <label for="recPass">Naya password (kam se kam 10 akshar)</label>
+      <label for="recPass">New password (at least 10 characters)</label>
       <input id="recPass" type="password" autocomplete="new-password" minlength="10" required>
-      <label for="recPass2">Naya password dobara likho</label>
+      <label for="recPass2">Repeat the new password</label>
       <input id="recPass2" type="password" autocomplete="new-password" minlength="10" required>
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
-      <p style="margin-top:18px"><button class="btn block" type="submit">Password reset karo</button></p>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Reset password</button></p>
     </form>
-    <p style="text-align:center;margin-top:12px"><button class="btn ghost small" type="button" id="backToLogin">Wapas — login par jao</button></p>
+    <p style="text-align:center;margin-top:12px"><button class="btn ghost small" type="button" id="backToLogin">Back to sign in</button></p>
   </section>
 
   <!-- the panel -->
   <section id="view-app" class="hidden">
-    <nav class="tabs" aria-label="Admin sections">
-      <button type="button" data-tab="content" class="on">Content</button>
-      <button type="button" data-tab="dict">Dictionary</button>
-      <button type="button" data-tab="backup">Backup</button>
-    </nav>
 
-    <!-- content tab -->
-    <div id="tab-content">
-      <div id="contentListView">
+    <div id="listViews">
+      <nav class="tabs" aria-label="Admin sections">
+        <button type="button" data-tab="content" class="on">Content</button>
+        <button type="button" data-tab="dict">Dictionary</button>
+        <button type="button" data-tab="backup">Backup &amp; Security</button>
+      </nav>
+
+      <!-- content tab -->
+      <div id="tab-content">
         <div class="chips" id="statStrip"></div>
         <div class="chips" id="typeChips"></div>
         <div class="searchrow">
-          <input id="contentSearch" type="search" placeholder="Title se khojein…" aria-label="Search content">
+          <input id="contentSearch" type="search" placeholder="Search by title…" aria-label="Search content">
         </div>
         <div class="list" id="contentList"></div>
         <p class="hint" id="contentCount"></p>
-        <div class="addbar"><button class="btn" id="addContentBtn" type="button">＋ Add new</button></div>
+        <div class="addbar"><button class="btn gold" id="addContentBtn" type="button">＋ Add new</button></div>
       </div>
 
-      <form id="contentEditor" class="card hidden">
-        <h2 id="ceHeading">Edit</h2>
-        <div class="err" id="ceErr"></div>
-        <label for="ceType">Type</label>
-        <select id="ceType">
-          <option value="article">Article</option>
-          <option value="news">News</option>
-          <option value="story">Story</option>
-          <option value="gallery">Gallery</option>
-          <option value="video">Video</option>
-          <option value="book">Book</option>
-        </select>
-        <label for="ceTitle">Title</label>
-        <input id="ceTitle" required>
-        <label for="ceSlug">Page address (slug) — khali chhodein to title se banega</label>
-        <input id="ceSlug" placeholder="auto">
-        <div class="row">
-          <div style="flex:1">
-            <label for="ceStatus">Status</label>
-            <select id="ceStatus">
-              <option value="published">Published (sabko dikhega)</option>
-              <option value="draft">Draft (sirf aapko)</option>
-            </select>
+      <!-- dictionary tab -->
+      <div id="tab-dict" class="hidden">
+        <div id="dictListView">
+          <div class="searchrow">
+            <input id="dictSearch" type="search" placeholder="Search words… (word, meaning)" aria-label="Search dictionary">
           </div>
-          <div style="flex:1">
-            <label for="ceDate">Date</label>
-            <input id="ceDate" type="date">
-          </div>
+          <div class="list" id="dictList"></div>
+          <p class="hint" id="dictCount"></p>
+          <div class="addbar"><button class="btn gold" id="addDictBtn" type="button">＋ Add word</button></div>
         </div>
-        <div id="ceShortWrap">
-          <label for="ceShort" id="ceShortLabel">Short text</label>
-          <textarea id="ceShort" style="min-height:70px"></textarea>
-        </div>
-        <div id="ceImageWrap">
-          <label for="ceImage">Photo ka path / URL</label>
-          <input id="ceImage" placeholder="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg">
-        </div>
-        <div id="ceVideoWrap" class="hidden">
-          <label for="ceYoutube">YouTube video ID</label>
-          <input id="ceYoutube" placeholder="jaise cTCYynrgjqM">
-          <label for="ceChannel">Channel ka naam</label>
-          <input id="ceChannel">
-        </div>
-        <label for="ceCategory">Category / topic</label>
-        <input id="ceCategory" placeholder="History, Culture, Language…">
-        <label for="ceAuthor">Author</label>
-        <input id="ceAuthor">
-        <div id="ceBodyWrap">
-          <label for="ceBody">Poora text</label>
-          <textarea id="ceBody" style="min-height:190px" placeholder="Har khali line ke baad naya paragraph. Heading ke liye line ki shuruaat mein ## likhein."></textarea>
-          <p class="hint">Khali line = naya paragraph · <b>## </b> se shuru line = heading</p>
-        </div>
-        <div id="ceHtmlWrap" class="hidden">
-          <label for="ceHtml">Asal text (HTML) — yahi website par dikhta hai</label>
-          <textarea id="ceHtml" class="code" style="min-height:230px" spellcheck="false"></textarea>
-          <p class="hint">Yeh is page ka asal text hai. Isi ko badlo — save karte hi website par naya text dikhega. Paragraph ke liye &lt;p&gt;...&lt;/p&gt;, heading ke liye &lt;h2&gt;...&lt;/h2&gt;.</p>
-        </div>
-        <details>
-          <summary>Advanced — SEO aur poora record (JSON)</summary>
-          <label for="ceSeoTitle">SEO title (khali = title hi chalega)</label>
-          <input id="ceSeoTitle">
-          <label for="ceSeoDesc">SEO description (Google mein dikhne wali line)</label>
-          <input id="ceSeoDesc">
-          <label for="ceJson">Poora record (JSON)</label>
-          <textarea id="ceJson" class="code" spellcheck="false"></textarea>
-          <p class="hint">Upar wale khaane is JSON par bhaari padte hain. Galat JSON save nahi hoga.</p>
-        </details>
-        <p class="row" style="margin-top:18px;flex-wrap:wrap">
-          <button class="btn" type="submit">Save karo</button>
-          <button class="btn ghost hidden" type="button" id="cePreview">Website par dekho ↗</button>
-          <button class="btn ghost" type="button" id="ceCancel">Wapas</button>
-          <button class="btn danger hidden" type="button" id="ceDelete" style="margin-left:auto">Delete</button>
-        </p>
-      </form>
-    </div>
 
-    <!-- dictionary tab -->
-    <div id="tab-dict" class="hidden">
-      <div id="dictListView">
-        <div class="searchrow">
-          <input id="dictSearch" type="search" placeholder="Shabd khojein… (word, meaning)" aria-label="Search dictionary">
-        </div>
-        <div class="list" id="dictList"></div>
-        <p class="hint" id="dictCount"></p>
-        <div class="addbar"><button class="btn" id="addDictBtn" type="button">＋ Add word</button></div>
-      </div>
-
-      <form id="dictEditor" class="card hidden">
-        <h2 id="deHeading">Edit word</h2>
-        <div class="err" id="deErr"></div>
-        <label for="deWord">Word (Roman)</label>
-        <input id="deWord" required>
-        <label for="deBani">Mundari Bani mein</label>
-        <input id="deBani" class="bani">
-        <label for="deMeaning">Meaning (English)</label>
-        <input id="deMeaning">
-        <label for="deMeaningHi">Meaning (Hindi)</label>
-        <input id="deMeaningHi">
-        <label for="deMeaningOd">Meaning (Odia)</label>
-        <input id="deMeaningOd">
-        <div class="row">
-          <div style="flex:1">
-            <label for="dePos">Word type</label>
-            <input id="dePos" placeholder="noun, verb…">
+        <form id="dictEditor" class="card hidden">
+          <h2 id="deHeading">Edit word</h2>
+          <div class="err" id="deErr"></div>
+          <label for="deWord">Word (Roman)</label>
+          <input id="deWord" required>
+          <label for="deBani">In Mundari Bani</label>
+          <input id="deBani" class="bani">
+          <label for="deMeaning">Meaning (English)</label>
+          <input id="deMeaning">
+          <label for="deMeaningHi">Meaning (Hindi)</label>
+          <input id="deMeaningHi">
+          <label for="deMeaningOd">Meaning (Odia)</label>
+          <input id="deMeaningOd">
+          <div class="row">
+            <div style="flex:1">
+              <label for="dePos">Word type</label>
+              <input id="dePos" placeholder="noun, verb…">
+            </div>
+            <div style="flex:1">
+              <label for="deCategory">Category</label>
+              <input id="deCategory" list="dictCats" placeholder="Family, Food…">
+              <datalist id="dictCats"></datalist>
+            </div>
           </div>
-          <div style="flex:1">
-            <label for="deCategory">Category</label>
-            <input id="deCategory" list="dictCats" placeholder="Family, Food…">
-            <datalist id="dictCats"></datalist>
-          </div>
-        </div>
-        <label for="deExample">Example sentence</label>
-        <input id="deExample">
-        <label for="deExampleMeaning">Example ka meaning</label>
-        <input id="deExampleMeaning">
-        <label for="deStatus">Status</label>
-        <select id="deStatus">
-          <option value="published">Published</option>
-          <option value="draft">Draft</option>
-        </select>
-        <p class="row" style="margin-top:18px;flex-wrap:wrap">
-          <button class="btn" type="submit">Save karo</button>
-          <button class="btn ghost" type="button" id="deCancel">Wapas</button>
-          <button class="btn danger hidden" type="button" id="deDelete" style="margin-left:auto">Delete</button>
-        </p>
-      </form>
-    </div>
-
-    <!-- backup tab -->
-    <div id="tab-backup" class="hidden">
-      <div class="card">
-        <h2>Backup download</h2>
-        <p class="sub">Poora content + dictionary ek JSON file mein download ho jayega.
-        Is file ko sambhal kar rakhein — yahi aapka backup hai.</p>
-        <button class="btn" id="exportBtn" type="button">Backup download karo</button>
-      </div>
-      <div class="card">
-        <h2>Backup wapas daalein (restore)</h2>
-        <p class="sub">Pehle wali backup file chunein. Jo cheez pehle se hai woh update hogi,
-        nayi cheez jud jayegi. Kuch delete nahi hoga.</p>
-        <input type="file" id="importFile" accept=".json,application/json">
-        <p style="margin-top:14px"><button class="btn ghost" id="importBtn" type="button">Import karo</button></p>
-        <p class="hint" id="importResult"></p>
-      </div>
-      <div class="card">
-        <h2>Suraksha — password badlo</h2>
-        <p class="sub">Password badalne par baaki sab devices se login band ho jayega —
-        sirf yeh device login rahega.</p>
-        <form id="pwForm">
-          <label for="pwCurrent">Abhi wala password</label>
-          <input id="pwCurrent" type="password" autocomplete="current-password" required>
-          <label for="pwNew">Naya password (kam se kam 10 akshar)</label>
-          <input id="pwNew" type="password" autocomplete="new-password" minlength="10" required>
-          <label for="pwNew2">Naya password dobara likho</label>
-          <input id="pwNew2" type="password" autocomplete="new-password" minlength="10" required>
-          <p style="margin-top:14px"><button class="btn" type="submit">Password badlo</button></p>
-          <p class="hint" id="pwResult"></p>
+          <label for="deExample">Example sentence</label>
+          <input id="deExample">
+          <label for="deExampleMeaning">Example meaning</label>
+          <input id="deExampleMeaning">
+          <label for="deStatus">Status</label>
+          <select id="deStatus">
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+          <p class="row" style="margin-top:18px;flex-wrap:wrap">
+            <button class="btn" type="submit">Save</button>
+            <button class="btn ghost" type="button" id="deCancel">Back</button>
+            <button class="btn danger hidden" type="button" id="deDelete" style="margin-left:auto">Delete</button>
+          </p>
         </form>
-        <h2 style="margin-top:22px">Sab devices se logout</h2>
-        <p class="sub">Agar lagta hai account kahin aur khula reh gaya hai, toh ek click mein
-        har jagah se logout ho jayega. Is device par bhi dobara login karna padega.</p>
-        <button class="btn ghost" id="logoutAllBtn" type="button">Sab devices se logout karo</button>
-        <h2 style="margin-top:22px">Recovery code — password bhool jane par</h2>
-        <p class="sub">Ek secret code bana kar kahi surakshit jagah likh kar rakho (notebook ya
-        password manager). Password bhool jao to login page par "Password bhool gaye?" se
-        isi code se khud naya password bana loge — Mira ki zaroorat nahi padegi.
-        Code sirf ek baar chalta hai; naya code banane par purana band ho jata hai.</p>
-        <p class="hint" id="rcStatus">Recovery code ki haalat jaanch rahe hain…</p>
-        <button class="btn ghost" id="rcGenBtn" type="button">Naya recovery code banao</button>
-        <div id="rcOut" class="hidden" style="margin-top:12px">
-          <label for="rcCode">Aapka naya recovery code — abhi likh lo, dobara nahi dikhega</label>
-          <input id="rcCode" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:17px;letter-spacing:.06em">
+      </div>
+
+      <!-- backup & security tab -->
+      <div id="tab-backup" class="hidden">
+        <div class="card">
+          <h2>Download backup</h2>
+          <p class="sub">All content and the dictionary in a single JSON file.
+          Keep this file safe — it is your backup.</p>
+          <button class="btn" id="exportBtn" type="button">Download backup</button>
+        </div>
+        <div class="card">
+          <h2>Restore a backup</h2>
+          <p class="sub">Choose an earlier backup file. Existing items are updated,
+          new items are added. Nothing is deleted.</p>
+          <input type="file" id="importFile" accept=".json,application/json">
+          <p style="margin-top:14px"><button class="btn ghost" id="importBtn" type="button">Import</button></p>
+          <p class="hint" id="importResult"></p>
+        </div>
+        <div class="card">
+          <h2>Security — change password</h2>
+          <p class="sub">Changing your password signs out every other device —
+          only this device stays signed in.</p>
+          <form id="pwForm">
+            <label for="pwCurrent">Current password</label>
+            <input id="pwCurrent" type="password" autocomplete="current-password" required>
+            <label for="pwNew">New password (at least 10 characters)</label>
+            <input id="pwNew" type="password" autocomplete="new-password" minlength="10" required>
+            <label for="pwNew2">Repeat the new password</label>
+            <input id="pwNew2" type="password" autocomplete="new-password" minlength="10" required>
+            <p style="margin-top:14px"><button class="btn" type="submit">Change password</button></p>
+            <p class="hint" id="pwResult"></p>
+          </form>
+          <h2 style="margin-top:22px">Sign out everywhere</h2>
+          <p class="sub">If your account may still be open somewhere else, sign out
+          on every device with one click. You will need to sign in again here too.</p>
+          <button class="btn ghost" id="logoutAllBtn" type="button">Sign out on all devices</button>
+          <h2 style="margin-top:22px">Recovery code — if you forget your password</h2>
+          <p class="sub">Create one secret code and keep it somewhere safe (a notebook or a
+          password manager). If you ever forget your password, use “Forgot your password?”
+          on the sign-in page with this code to set a new one yourself — no help needed.
+          A code works only once; creating a new one cancels the old one.</p>
+          <p class="hint" id="rcStatus">Checking recovery code status…</p>
+          <button class="btn ghost" id="rcGenBtn" type="button">Create a new recovery code</button>
+          <div id="rcOut" class="hidden" style="margin-top:12px">
+            <label for="rcCode">Your new recovery code — note it down now, it will not be shown again</label>
+            <input id="rcCode" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:17px;letter-spacing:.06em">
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- full-page content editor -->
+    <div id="editorView" class="hidden">
+      <div class="edbar">
+        <button class="btn ghost small" type="button" id="edBack">← Back</button>
+        <span class="modegrp" id="modeGrp">
+          <button type="button" id="modeVisual" class="on">Visual</button>
+          <button type="button" id="modeCode">Code</button>
+        </span>
+        <span class="sp"></span>
+        <button class="btn ghost small" type="button" id="edImportBtn">Import</button>
+        <input type="file" id="edImportFile" accept=".html,.htm,.txt" class="hidden">
+        <button class="btn ghost small hidden" type="button" id="edPreview">View on website ↗</button>
+        <button class="btn gold small" type="button" id="edSaveTop">Save</button>
+      </div>
+
+      <form id="contentEditor">
+        <div class="err" id="ceErr"></div>
+        <div class="ed-grid">
+          <div class="ed-main">
+            <div class="card" style="margin-top:0">
+              <label for="ceTitle" style="margin-top:0">Title</label>
+              <input id="ceTitle" class="ed-title" required>
+              <div id="ceShortWrap">
+                <label for="ceShort" id="ceShortLabel">Short text (excerpt)</label>
+                <textarea id="ceShort" style="min-height:70px"></textarea>
+              </div>
+            </div>
+
+            <div id="ceVisualWrap">
+              <div class="fmtbar" id="fmtBar">
+                <button type="button" data-fmt="bold"><b>Bold</b></button>
+                <button type="button" data-fmt="italic"><i>Italic</i></button>
+                <button type="button" data-fmt="link">Link</button>
+                <button type="button" data-fmt="unlink">Remove link</button>
+              </div>
+              <div class="ved-wrap">
+                <div class="ved" id="vEd"></div>
+                <div class="addbar2">
+                  <button type="button" data-add="p">＋ Paragraph</button>
+                  <button type="button" data-add="h2">＋ Heading</button>
+                  <button type="button" data-add="img">＋ Photo</button>
+                  <button type="button" data-add="quote">＋ Quote</button>
+                  <button type="button" data-add="list">＋ List</button>
+                  <button type="button" data-add="note">＋ Note box</button>
+                </div>
+              </div>
+              <p class="hint">Click any block to edit it right there — exactly as readers see it. Use the small buttons on a block to move it up or down, or delete it.</p>
+            </div>
+
+            <div id="ceCodeWrap" class="hidden">
+              <div class="card" style="margin-top:0">
+                <label for="ceHtml" style="margin-top:0">Body — HTML code</label>
+                <textarea id="ceHtml" class="code" spellcheck="false"></textarea>
+                <p class="hint">This is the exact code of the page body. Paragraph: &lt;p&gt;…&lt;/p&gt; · Heading: &lt;h2&gt;…&lt;/h2&gt; · Photo: &lt;img src="…"&gt;</p>
+              </div>
+            </div>
+
+            <div id="ceBodyWrap" class="hidden">
+              <div class="card" style="margin-top:0">
+                <label for="ceBody" style="margin-top:0">Full text</label>
+                <textarea id="ceBody" style="min-height:190px" placeholder="A blank line starts a new paragraph. Start a line with ## for a heading."></textarea>
+                <p class="hint">Blank line = new paragraph · a line starting with <b>## </b> = heading</p>
+              </div>
+            </div>
+            <p class="wc" id="wordCount"></p>
+          </div>
+
+          <div class="side">
+            <div class="card">
+              <label for="ceType" style="margin-top:0">Type</label>
+              <select id="ceType">
+                <option value="article">Article</option>
+                <option value="news">News</option>
+                <option value="story">Story</option>
+                <option value="gallery">Gallery</option>
+                <option value="video">Video</option>
+                <option value="book">Book</option>
+              </select>
+              <label for="ceStatus">Status</label>
+              <select id="ceStatus">
+                <option value="published">Published (visible to everyone)</option>
+                <option value="draft">Draft (only you)</option>
+              </select>
+              <label for="ceDate">Date</label>
+              <input id="ceDate" type="date">
+              <label for="ceSlug">Page address (slug) — leave empty to use the title</label>
+              <input id="ceSlug" placeholder="auto">
+              <label for="ceCategory">Category / topic</label>
+              <input id="ceCategory" placeholder="History, Culture, Language…">
+              <label for="ceAuthor">Author</label>
+              <input id="ceAuthor">
+              <div id="ceImageWrap">
+                <label for="ceImage">Photo path / URL</label>
+                <input id="ceImage" placeholder="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg">
+              </div>
+              <div id="ceVideoWrap" class="hidden">
+                <label for="ceYoutube">YouTube video ID</label>
+                <input id="ceYoutube" placeholder="e.g. cTCYynrgjqM">
+                <label for="ceChannel">Channel name</label>
+                <input id="ceChannel">
+              </div>
+              <details>
+                <summary>Advanced — SEO &amp; full record (JSON)</summary>
+                <label for="ceSeoTitle">SEO title (empty = the title is used)</label>
+                <input id="ceSeoTitle">
+                <label for="ceSeoDesc">SEO description (the line shown on Google)</label>
+                <input id="ceSeoDesc">
+                <label for="ceJson">Full record (JSON)</label>
+                <textarea id="ceJson" class="code" style="min-height:170px" spellcheck="false"></textarea>
+                <p class="hint">The fields above override this JSON. Invalid JSON will not be saved.</p>
+              </details>
+              <p class="row" style="margin-top:18px;flex-wrap:wrap">
+                <button class="btn" type="submit">Save</button>
+                <button class="btn danger hidden" type="button" id="ceDelete" style="margin-left:auto">Delete</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </section>
 
-  <p class="foot">Mundari Samaj admin · Content badalne par website khud update ho jati hai — dobara upload nahi karna padta.</p>
+  <p class="foot">Mundari Samaj admin · When you change content here, the website updates itself — no re-upload needed.</p>
 </main>
 
 <div class="toast" id="toast"></div>
@@ -354,7 +450,10 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
 "use strict";
 const $ = (id) => document.getElementById(id);
 const VIEWS = ["view-loading", "view-unavailable", "view-setup", "view-login", "view-recover", "view-app"];
-function show(id) { VIEWS.forEach((v) => $(v).classList.toggle("hidden", v !== id)); }
+function show(id) {
+  VIEWS.forEach((v) => $(v).classList.toggle("hidden", v !== id));
+  $("mainWrap").classList.toggle("narrow", id !== "view-app");
+}
 function toast(msg) {
   const t = $("toast"); t.textContent = msg; t.style.display = "block";
   clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = "none"; }, 3200);
@@ -364,22 +463,22 @@ function tsToken(form) { const el = form ? form.querySelector('[name="cf-turnsti
 function tsReset() { if (window.turnstile) { try { window.turnstile.reset(); } catch (e) {} } }
 
 const ERR = {
-  wrong_setup_code: "Setup code galat hai. Mira se mila code jaanch kar dobara daliye.",
-  setup_already_done: "Setup pehle ho chuka hai. Login kijiye.",
-  password_too_short: "Password kam se kam 8 akshar ka hona chahiye.",
-  invalid_email: "Email sahi nahi lag raha.",
-  wrong_email_or_password: "Email ya password galat hai.",
-  too_many_attempts: "Bahut baar galat koshish ho gayi. 15 minute ruk kar phir koshish kijiye.",
-  captcha_failed: "Bot-check fail ho gaya. Page refresh karke dobara koshish kijiye. Ad-blocker chalu hai toh use band karke dekhein.",
-  new_password_too_short: "Naya password kam se kam 10 akshar ka hona chahiye.",
-  wrong_current_password: "Abhi wala password galat hai.",
-  login_required: "Login khatm ho gaya hai. Dobara login kijiye.",
-  wrong_recovery_code: "Recovery code ya email galat hai.",
-  no_recovery_code: "Is account ke liye koi recovery code bana hi nahi hai. Mira se password reset karwaana hoga.",
-  title_required: "Title likhna zaroori hai.",
-  word_required: "Word likhna zaroori hai.",
+  wrong_setup_code: "That setup code is not correct. Check the code you received and try again.",
+  setup_already_done: "Setup is already complete. Please sign in.",
+  password_too_short: "The password must be at least 8 characters.",
+  invalid_email: "That email does not look right.",
+  wrong_email_or_password: "Email or password is incorrect.",
+  too_many_attempts: "Too many failed attempts. Please wait 15 minutes and try again.",
+  captcha_failed: "The bot check failed. Refresh the page and try again. If an ad-blocker is on, switch it off for this site.",
+  new_password_too_short: "The new password must be at least 10 characters.",
+  wrong_current_password: "The current password is incorrect.",
+  login_required: "Your session has ended. Please sign in again.",
+  title_required: "A title is required.",
+  word_required: "A word is required.",
+  wrong_recovery_code: "The recovery code or email is incorrect.",
+  no_recovery_code: "No recovery code has been created for this account. Please ask Mira to reset the password.",
 };
-const errText = (d, fallback) => ERR[d && d.error] || fallback || "Kuchh galat ho gaya. Dobara koshish kijiye.";
+const errText = (d, fallback) => ERR[d && d.error] || fallback || "Something went wrong. Please try again.";
 
 async function api(path, opts = {}) {
   const res = await fetch(path, {
@@ -393,6 +492,11 @@ async function api(path, opts = {}) {
 }
 const apiGet = (p) => api(p);
 const apiSend = (method, p, body) => api(p, { method, body: body ? JSON.stringify(body) : undefined });
+async function guarded(promise) {
+  const r = await promise.catch(() => ({ data: null }));
+  if (r.data && r.data.error === "login_required") { boot(); throw new Error("login"); }
+  return r;
+}
 
 /* ---------- boot ---------- */
 let myEmail = "";
@@ -414,16 +518,17 @@ function enterApp(email) {
   $("who").textContent = myEmail;
   $("logoutBtn").classList.remove("hidden");
   show("view-app");
+  closeEditor();
   loadContent();
   loadStats();
   loadRecoveryStatus();
 }
 
-/* ---------- setup + login ---------- */
+/* ---------- setup + login + recovery ---------- */
 $("setupForm").addEventListener("submit", async (e) => {
   e.preventDefault(); showErr("setupErr", "");
   if ($("setupPass").value !== $("setupPass2").value) {
-    showErr("setupErr", "Dono password ek jaise nahi hain."); return;
+    showErr("setupErr", "The two passwords do not match."); return;
   }
   const { data } = await apiSend("POST", "/api/admin/setup", {
     code: $("setupCode").value.trim(),
@@ -431,7 +536,7 @@ $("setupForm").addEventListener("submit", async (e) => {
     password: $("setupPass").value,
     turnstile: tsToken($("setupForm"))
   }).catch(() => ({ data: null }));
-  if (data && data.ok) { toast("Password set ho gaya. Swagat hai!"); enterApp(data.email); }
+  if (data && data.ok) { toast("Password set. Welcome!"); enterApp(data.email); }
   else { showErr("setupErr", errText(data)); tsReset(); }
 });
 
@@ -442,7 +547,7 @@ $("loginForm").addEventListener("submit", async (e) => {
     password: $("loginPass").value,
     turnstile: tsToken($("loginForm"))
   }).catch(() => ({ data: null }));
-  if (data && data.ok) { toast("Login ho gaya."); enterApp(data.email); }
+  if (data && data.ok) { toast("Signed in."); enterApp(data.email); }
   else { showErr("loginErr", errText(data)); tsReset(); }
 });
 
@@ -451,7 +556,7 @@ $("backToLogin").addEventListener("click", () => show("view-login"));
 $("recoverForm").addEventListener("submit", async (e) => {
   e.preventDefault(); showErr("recoverErr", "");
   if ($("recPass").value !== $("recPass2").value) {
-    showErr("recoverErr", "Dono naye password ek jaise nahi hain."); return;
+    showErr("recoverErr", "The two new passwords do not match."); return;
   }
   const { data } = await apiSend("POST", "/api/admin/recover", {
     email: $("recEmail").value.trim(),
@@ -460,35 +565,16 @@ $("recoverForm").addEventListener("submit", async (e) => {
     turnstile: tsToken($("recoverForm"))
   }).catch(() => ({ data: null }));
   if (data && data.ok) {
-    toast("Password reset ho gaya. Ab naye password se login kijiye.");
+    toast("Password reset. Sign in with your new password.");
     $("recoverForm").reset();
     show("view-login");
   } else { showErr("recoverErr", errText(data)); tsReset(); }
 });
 
-async function loadRecoveryStatus() {
-  const { data } = await apiGet("/api/admin/recovery-code").catch(() => ({ data: null }));
-  if (data && data.ok) {
-    $("rcStatus").textContent = data.hasCode
-      ? "Recovery code bana hua hai ✓ — use sambhal kar rakha hai to aap khud reset kar sakte hain."
-      : "Abhi koi recovery code nahi bana hai — abhi bana lo, taaki baad mein khud reset kar sako.";
-  }
-}
-$("rcGenBtn").addEventListener("click", async () => {
-  if (!confirm("Naya recovery code banega aur purana wala (agar hai) band ho jayega. Pakka?")) return;
-  const { data } = await guarded(apiSend("POST", "/api/admin/recovery-code", {}));
-  if (data && data.ok && data.code) {
-    $("rcOut").classList.remove("hidden");
-    $("rcCode").value = data.code;
-    $("rcStatus").textContent = "Naya code ban gaya — upar wala code abhi surakshit jagah likh lo.";
-    toast("Recovery code ban gaya.");
-  } else toast("Code nahi bana. Dobara koshish kijiye.");
-});
-
 $("logoutBtn").addEventListener("click", async () => {
   await apiSend("POST", "/api/admin/logout").catch(() => {});
   $("who").textContent = ""; $("logoutBtn").classList.add("hidden");
-  toast("Logout ho gaya."); boot();
+  toast("Signed out."); boot();
 });
 
 /* ---------- tabs ---------- */
@@ -501,6 +587,7 @@ document.querySelectorAll(".tabs button").forEach((b) => {
 });
 
 /* ---------- stats strip ---------- */
+const TYPES = [["", "All"], ["article", "Articles"], ["news", "News"], ["story", "Stories"], ["gallery", "Gallery"], ["video", "Videos"], ["book", "Books"]];
 async function loadStats() {
   const el = $("statStrip"); if (!el || el.dataset.done) return; el.dataset.done = "1";
   const parts = [];
@@ -515,13 +602,11 @@ async function loadStats() {
   parts.forEach((t) => {
     const sp = document.createElement("span");
     sp.textContent = t;
-    sp.style.cssText = "border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--earth)";
     el.appendChild(sp);
   });
 }
 
-/* ---------- content ---------- */
-const TYPES = [["", "All"], ["article", "Articles"], ["news", "News"], ["story", "Stories"], ["gallery", "Gallery"], ["video", "Videos"], ["book", "Books"]];
+/* ---------- content list ---------- */
 let curType = "", curItem = null;
 const chipsEl = $("typeChips");
 TYPES.forEach(([v, label]) => {
@@ -540,12 +625,6 @@ $("contentSearch").addEventListener("input", () => {
   clearTimeout(contentTimer); contentTimer = setTimeout(loadContent, 250);
 });
 
-async function guarded(promise) {
-  const r = await promise.catch(() => ({ data: null }));
-  if (r.data && r.data.error === "login_required") { boot(); throw new Error("login"); }
-  return r;
-}
-
 async function loadContent() {
   const qs = new URLSearchParams();
   if (curType) qs.set("type", curType);
@@ -553,9 +632,9 @@ async function loadContent() {
   qs.set("per", "100");
   const { data } = await guarded(apiGet("/api/admin/content?" + qs.toString()));
   const list = $("contentList"); list.innerHTML = "";
-  if (!data || !data.ok) { list.innerHTML = '<p class="center">List nahi khuli. Dobara koshish kijiye.</p>'; return; }
+  if (!data || !data.ok) { list.innerHTML = '<p class="center">The list could not be loaded. Please try again.</p>'; return; }
   $("contentCount").textContent = data.total + " item" + (data.total === 1 ? "" : "s");
-  if (!data.items.length) { list.innerHTML = '<p class="center">Yahan abhi kuch nahi hai.</p>'; }
+  if (!data.items.length) { list.innerHTML = '<p class="center">Nothing here yet.</p>'; }
   data.items.forEach((it) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "item";
@@ -573,8 +652,10 @@ async function loadContent() {
   });
 }
 
+/* ---------- content editor (full page, Visual + Code modes) ---------- */
 const SHORT_KEYS = { article: "excerpt", news: "excerpt", story: "excerpt", book: "excerpt", gallery: "caption", video: "note" };
 const BODY_TYPES = ["article", "news", "story", "book"];
+const DUAL_TYPES = ["article", "news", "story"];
 const TEMPLATES = {
   article: () => ({ excerpt: "", category: "", author: "Mundari Samaj Editorial Desk", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
   news: () => ({ excerpt: "", category: "", author: "Mundari Samaj Editorial Desk", image: { src: "", alt: "", credit: "" }, body: [{ type: "p", text: "" }] }),
@@ -583,10 +664,7 @@ const TEMPLATES = {
   gallery: () => ({ caption: "", credit: "", tone: "clay", image: { src: "", caption: "", credit: "" } }),
   video: () => ({ youtube: "", channel: "", category: "", note: "" }),
 };
-const dirty = {};
-["ceShort", "ceImage", "ceYoutube", "ceChannel", "ceCategory", "ceAuthor", "ceBody"].forEach((id) => {
-  $(id).addEventListener("input", () => { dirty[id] = true; });
-});
+const PUBLIC_PATHS = { article: "library/articles/", news: "news/", story: "library/stories/", book: "library/books/", gallery: "media/gallery/", video: "media/videos/" };
 
 function bodyToText(body) {
   if (!Array.isArray(body)) return "";
@@ -596,28 +674,171 @@ function textToBody(text) {
   return String(text || "").split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean)
     .map((s) => s.startsWith("## ") ? { type: "h2", text: s.slice(3).trim() } : { type: "p", text: s });
 }
+function escH(s) { const d = document.createElement("div"); d.textContent = s || ""; return d.innerHTML; }
+function metaBodyToHtml(body) {
+  if (!Array.isArray(body)) return "";
+  return body.map((b) => {
+    if (!b || !b.text) return "";
+    return b.type === "h2" ? "<h2>" + escH(b.text) + "</h2>" : "<p>" + escH(b.text) + "</p>";
+  }).join("\n");
+}
 
-const PUBLIC_PATHS = { article: "library/articles/", news: "news/", story: "library/stories/", book: "library/books/", gallery: "media/gallery/", video: "media/videos/" };
+/* ----- visual editor ----- */
+let edMode = "visual";
+const vEd = $("vEd");
+function makeBlock(el) {
+  const wrap = document.createElement("div");
+  wrap.className = "vblock";
+  const tools = document.createElement("div");
+  tools.className = "vtools";
+  tools.innerHTML = '<button type="button" data-act="up" title="Move up">↑</button>' +
+    '<button type="button" data-act="down" title="Move down">↓</button>' +
+    '<button type="button" data-act="edit" title="Change photo / focus">✎</button>' +
+    '<button type="button" data-act="del" title="Delete block">✕</button>';
+  wrap.appendChild(tools);
+  const tag = el.tagName;
+  if (!["IMG", "HR", "IFRAME"].includes(tag)) el.setAttribute("contenteditable", "true");
+  el.classList.add("vbody");
+  wrap.appendChild(el);
+  return wrap;
+}
+function renderBlocks(html) {
+  vEd.innerHTML = "";
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html || "";
+  tmp.querySelectorAll("script,style").forEach((n) => n.remove());
+  [...tmp.childNodes].forEach((node) => {
+    if (node.nodeType === 3) {
+      if (!node.textContent.trim()) return;
+      const p = document.createElement("p"); p.textContent = node.textContent.trim();
+      vEd.appendChild(makeBlock(p));
+    } else if (node.nodeType === 1) {
+      vEd.appendChild(makeBlock(node));
+    }
+  });
+  updateWordCount();
+}
+function serializeBlocks() {
+  const parts = [];
+  vEd.querySelectorAll(".vblock").forEach((w) => {
+    const el = w.querySelector(".vbody");
+    if (!el) return;
+    const clone = el.cloneNode(true);
+    clone.removeAttribute("contenteditable");
+    clone.classList.remove("vbody");
+    if (!clone.className) clone.removeAttribute("class");
+    parts.push(clone.outerHTML);
+  });
+  return parts.join("\n");
+}
+function getBodyHtml() { return edMode === "visual" ? serializeBlocks() : $("ceHtml").value; }
+function setBodyHtml(html) {
+  $("ceHtml").value = html || "";
+  renderBlocks(html || "");
+}
+function updateWordCount() {
+  const txt = (edMode === "visual" ? vEd.textContent : $("ceHtml").value.replace(/<[^>]+>/g, " ")) || "";
+  const words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  $("wordCount").textContent = words + " words · about " + Math.max(1, Math.round(words / 200)) + " min read";
+}
+vEd.addEventListener("click", (e) => {
+  const tbtn = e.target.closest(".vtools button");
+  const block = e.target.closest(".vblock");
+  vEd.querySelectorAll(".vblock").forEach((b) => b.classList.toggle("sel", b === block));
+  if (!tbtn || !block) return;
+  e.preventDefault();
+  const act = tbtn.dataset.act;
+  if (act === "up" && block.previousElementSibling) { block.parentNode.insertBefore(block, block.previousElementSibling); }
+  if (act === "down" && block.nextElementSibling) { block.parentNode.insertBefore(block.nextElementSibling, block); }
+  if (act === "del") { if (confirm("Delete this block?")) { block.remove(); updateWordCount(); } }
+  if (act === "edit") {
+    const img = block.querySelector("img");
+    if (img) {
+      const url = prompt("Photo URL:", img.getAttribute("src") || "");
+      if (url !== null) { img.setAttribute("src", url.trim()); updateWordCount(); }
+    } else {
+      const ed = block.querySelector("[contenteditable]");
+      if (ed) ed.focus();
+    }
+  }
+});
+vEd.addEventListener("input", updateWordCount);
+$("ceHtml").addEventListener("input", updateWordCount);
+document.querySelectorAll("#fmtBar button").forEach((b) => {
+  b.addEventListener("click", () => {
+    const f = b.dataset.fmt;
+    try {
+      if (f === "link") {
+        const url = prompt("Link address (URL):", "https://");
+        if (url) document.execCommand("createLink", false, url);
+      } else if (f === "unlink") document.execCommand("unlink", false, null);
+      else document.execCommand(f, false, null);
+    } catch (e) {}
+    vEd.focus();
+  });
+});
+document.querySelectorAll(".addbar2 button").forEach((b) => {
+  b.addEventListener("click", () => {
+    const kind = b.dataset.add;
+    let el = null;
+    if (kind === "p") { el = document.createElement("p"); el.textContent = "Write here…"; }
+    if (kind === "h2") { el = document.createElement("h2"); el.textContent = "Heading"; }
+    if (kind === "quote") { el = document.createElement("blockquote"); el.textContent = "Quote…"; }
+    if (kind === "note") { el = document.createElement("div"); el.className = "note"; el.textContent = "Note…"; }
+    if (kind === "list") { el = document.createElement("ul"); el.innerHTML = "<li>First point</li><li>Second point</li>"; }
+    if (kind === "img") {
+      const url = prompt("Photo URL (e.g. a Cloudinary link):", "https://");
+      if (!url) return;
+      el = document.createElement("img");
+      el.setAttribute("src", url.trim());
+      el.setAttribute("alt", prompt("Photo description (alt text):", "") || "");
+    }
+    if (!el) return;
+    const block = makeBlock(el);
+    const sel = vEd.querySelector(".vblock.sel");
+    if (sel && sel.nextSibling) vEd.insertBefore(block, sel.nextSibling); else vEd.appendChild(block);
+    const ed = block.querySelector("[contenteditable]");
+    if (ed) { ed.focus(); document.execCommand && document.execCommand("selectAll", false, null); }
+    updateWordCount();
+  });
+});
+function setMode(m) {
+  if (!DUAL_TYPES.includes($("ceType").value)) return;
+  if (m === edMode) return;
+  if (m === "code") { $("ceHtml").value = serializeBlocks(); }
+  else { renderBlocks($("ceHtml").value); }
+  edMode = m;
+  $("modeVisual").classList.toggle("on", m === "visual");
+  $("modeCode").classList.toggle("on", m === "code");
+  $("ceVisualWrap").classList.toggle("hidden", m !== "visual");
+  $("ceCodeWrap").classList.toggle("hidden", m !== "code");
+  updateWordCount();
+}
+$("modeVisual").addEventListener("click", () => setMode("visual"));
+$("modeCode").addEventListener("click", () => setMode("code"));
+
+/* ----- open / close editor ----- */
 function adaptEditorFields() {
   const t = $("ceType").value;
-  const hasHtml = !!(curItem && curItem.body && String(curItem.body).trim());
+  const dual = DUAL_TYPES.includes(t);
+  $("modeGrp").style.visibility = dual ? "visible" : "hidden";
   $("ceVideoWrap").classList.toggle("hidden", t !== "video");
   $("ceImageWrap").classList.toggle("hidden", t === "video");
-  $("ceHtmlWrap").classList.toggle("hidden", !(hasHtml && BODY_TYPES.includes(t)));
-  $("ceBodyWrap").classList.toggle("hidden", !BODY_TYPES.includes(t) || hasHtml);
+  $("ceVisualWrap").classList.toggle("hidden", !dual || edMode !== "visual");
+  $("ceCodeWrap").classList.toggle("hidden", !dual || edMode !== "code");
+  $("ceBodyWrap").classList.toggle("hidden", t !== "book");
+  $("fmtBar").classList.toggle("hidden", !dual || edMode !== "visual");
   $("ceShortLabel").textContent = t === "gallery" ? "Caption" : (t === "video" ? "Note" : "Short text (excerpt)");
 }
 $("ceType").addEventListener("change", adaptEditorFields);
 
 function openEditor(item) {
   curItem = item || null;
-  Object.keys(dirty).forEach((k) => delete dirty[k]);
   showErr("ceErr", "");
   const t = item ? item.type : (curType || "article");
   $("ceType").value = t;
   $("ceType").disabled = !!item;
   const meta = item ? (item.meta || {}) : TEMPLATES[t]();
-  $("ceHeading").textContent = item ? "Edit — " + (item.title || "") : "Naya " + t;
   $("ceTitle").value = item ? (item.title || "") : "";
   $("ceSlug").value = item ? (item.slug || "") : "";
   $("ceStatus").value = item ? item.status : "draft";
@@ -629,48 +850,52 @@ function openEditor(item) {
   $("ceCategory").value = meta.category || "";
   $("ceAuthor").value = meta.author || "";
   $("ceBody").value = bodyToText(meta.body);
-  $("ceHtml").value = item ? (item.body || "") : "";
   $("ceSeoTitle").value = item ? (item.seo_title || "") : "";
   $("ceSeoDesc").value = item ? (item.seo_description || "") : "";
-  const pv = $("cePreview");
+  $("ceJson").value = JSON.stringify(meta, null, 1);
+  $("ceDelete").classList.toggle("hidden", !item);
+  const pv = $("edPreview");
   if (item && PUBLIC_PATHS[t]) {
     pv.classList.remove("hidden");
     pv.onclick = () => window.open("/" + PUBLIC_PATHS[t] + (item.slug || "") + "/", "_blank");
   } else pv.classList.add("hidden");
-  $("ceJson").value = JSON.stringify(meta, null, 1);
-  $("ceDelete").classList.toggle("hidden", !item);
+  // body: the real HTML when present, else the stored paragraphs as HTML
+  const html = item && item.body && String(item.body).trim() ? String(item.body) : metaBodyToHtml(meta.body);
+  edMode = "visual";
+  $("modeVisual").classList.add("on"); $("modeCode").classList.remove("on");
+  setBodyHtml(html);
+  $("listViews").classList.add("hidden");
+  $("editorView").classList.remove("hidden");
   adaptEditorFields();
-  $("contentListView").classList.add("hidden");
-  $("contentEditor").classList.remove("hidden");
   window.scrollTo({ top: 0 });
 }
 function closeEditor() {
-  $("contentEditor").classList.add("hidden");
-  $("contentListView").classList.remove("hidden");
+  $("editorView").classList.add("hidden");
+  $("listViews").classList.remove("hidden");
 }
-$("ceCancel").addEventListener("click", closeEditor);
+$("edBack").addEventListener("click", closeEditor);
 $("addContentBtn").addEventListener("click", () => openEditor(null));
 
-$("contentEditor").addEventListener("submit", async (e) => {
-  e.preventDefault(); showErr("ceErr", "");
+async function saveEditor() {
+  showErr("ceErr", "");
   const t = $("ceType").value;
   let meta;
   try { meta = JSON.parse($("ceJson").value || "{}"); }
-  catch (err) { showErr("ceErr", "JSON galat hai — use theek karke dobara save kijiye."); return; }
-  if (!meta || typeof meta !== "object" || Array.isArray(meta)) { showErr("ceErr", "JSON ek object hona chahiye."); return; }
-  if (dirty.ceShort || !curItem) meta[SHORT_KEYS[t]] = $("ceShort").value;
-  if (t !== "video" && (dirty.ceImage || !curItem)) {
+  catch (err) { showErr("ceErr", "The JSON is invalid — fix it before saving."); return; }
+  if (!meta || typeof meta !== "object" || Array.isArray(meta)) { showErr("ceErr", "The JSON must be an object."); return; }
+  meta[SHORT_KEYS[t]] = $("ceShort").value;
+  if (t !== "video") {
     if (meta.image && typeof meta.image === "object") meta.image.src = $("ceImage").value;
     else meta.image = $("ceImage").value;
-    if (t === "gallery" && meta.image && typeof meta.image === "object" && dirty.ceShort) meta.image.caption = $("ceShort").value;
+    if (t === "gallery" && meta.image && typeof meta.image === "object") meta.image.caption = $("ceShort").value;
   }
   if (t === "video") {
-    if (dirty.ceYoutube || !curItem) meta.youtube = $("ceYoutube").value.trim();
-    if (dirty.ceChannel || !curItem) meta.channel = $("ceChannel").value;
+    meta.youtube = $("ceYoutube").value.trim();
+    meta.channel = $("ceChannel").value;
   }
-  if (dirty.ceCategory || !curItem) meta.category = $("ceCategory").value;
-  if (dirty.ceAuthor || !curItem) meta.author = $("ceAuthor").value;
-  if (BODY_TYPES.includes(t) && (dirty.ceBody || !curItem)) meta.body = textToBody($("ceBody").value);
+  meta.category = $("ceCategory").value;
+  meta.author = $("ceAuthor").value;
+  if (t === "book") meta.body = textToBody($("ceBody").value);
   const payload = {
     type: t,
     title: $("ceTitle").value.trim(),
@@ -681,20 +906,39 @@ $("contentEditor").addEventListener("submit", async (e) => {
     seo_description: $("ceSeoDesc").value.trim(),
     meta,
   };
-  if (!$("ceHtmlWrap").classList.contains("hidden")) payload.html = $("ceHtml").value;
+  if (DUAL_TYPES.includes(t)) payload.html = getBodyHtml();
   const r = curItem
     ? await guarded(apiSend("PUT", "/api/admin/content/" + curItem.id, payload))
     : await guarded(apiSend("POST", "/api/admin/content", payload));
-  if (r.data && r.data.ok) { toast("Save ho gaya ✓"); closeEditor(); loadContent(); }
+  if (r.data && r.data.ok) { toast("Saved ✓"); closeEditor(); loadContent(); }
   else showErr("ceErr", errText(r.data));
-});
+}
+$("contentEditor").addEventListener("submit", async (e) => { e.preventDefault(); await saveEditor().catch(() => {}); });
+$("edSaveTop").addEventListener("click", async () => { await saveEditor().catch(() => {}); });
 
 $("ceDelete").addEventListener("click", async () => {
   if (!curItem) return;
-  if (!confirm("Delete karein? \"" + (curItem.title || "") + "\" — yeh wapas nahi aayega.")) return;
+  if (!confirm("Delete \"" + (curItem.title || "") + "\"? This cannot be undone.")) return;
   const r = await guarded(apiSend("DELETE", "/api/admin/content/" + curItem.id));
-  if (r.data && r.data.ok) { toast("Delete ho gaya."); closeEditor(); loadContent(); }
+  if (r.data && r.data.ok) { toast("Deleted."); closeEditor(); loadContent(); }
   else showErr("ceErr", errText(r.data));
+});
+
+$("edImportBtn").addEventListener("click", () => $("edImportFile").click());
+$("edImportFile").addEventListener("change", async () => {
+  const f = $("edImportFile").files[0];
+  if (!f) return;
+  let text = await f.text();
+  const m = text.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (m) text = m[1];
+  if (DUAL_TYPES.includes($("ceType").value)) {
+    setBodyHtml(text.trim());
+    toast("Imported. Review it, then Save.");
+  } else {
+    $("ceBody").value = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    toast("Imported as plain text. Review it, then Save.");
+  }
+  $("edImportFile").value = "";
 });
 
 /* ---------- dictionary ---------- */
@@ -709,11 +953,11 @@ async function loadDict() {
   const { data } = await guarded(apiGet("/api/admin/dictionary?" + qs.toString()));
   const list = $("dictList"); list.innerHTML = "";
   list.dataset.loaded = "1";
-  if (!data || !data.ok) { list.innerHTML = '<p class="center">Dictionary nahi khuli.</p>'; return; }
+  if (!data || !data.ok) { list.innerHTML = '<p class="center">The dictionary could not be loaded.</p>'; return; }
   $("dictCount").textContent = data.total + " words";
   const dl = $("dictCats"); dl.innerHTML = "";
   (data.categories || []).forEach((c) => { const o = document.createElement("option"); o.value = c; dl.appendChild(o); });
-  if (!data.items.length) { list.innerHTML = '<p class="center">Koi shabd nahi mila.</p>'; }
+  if (!data.items.length) { list.innerHTML = '<p class="center">No words found.</p>'; }
   data.items.forEach((w) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "item";
@@ -734,7 +978,7 @@ async function loadDict() {
 function openWord(w) {
   curWord = w || null;
   showErr("deErr", "");
-  $("deHeading").textContent = w ? "Edit — " + w.word : "Naya shabd";
+  $("deHeading").textContent = w ? "Edit — " + w.word : "New word";
   $("deWord").value = w ? (w.word || "") : "";
   $("deBani").value = w ? (w.bani || "") : "";
   $("deMeaning").value = w ? (w.meaning_en || "") : "";
@@ -769,71 +1013,90 @@ $("dictEditor").addEventListener("submit", async (e) => {
   const r = curWord
     ? await guarded(apiSend("PUT", "/api/admin/dictionary/" + curWord.id, payload))
     : await guarded(apiSend("POST", "/api/admin/dictionary", payload));
-  if (r.data && r.data.ok) { toast("Save ho gaya ✓"); closeWord(); loadDict(); }
+  if (r.data && r.data.ok) { toast("Saved ✓"); closeWord(); loadDict(); }
   else showErr("deErr", errText(r.data));
 });
 
 $("deDelete").addEventListener("click", async () => {
   if (!curWord) return;
-  if (!confirm("Delete karein? \"" + (curWord.word || "") + "\" — yeh wapas nahi aayega.")) return;
+  if (!confirm("Delete \"" + (curWord.word || "") + "\"? This cannot be undone.")) return;
   const r = await guarded(apiSend("DELETE", "/api/admin/dictionary/" + curWord.id));
-  if (r.data && r.data.ok) { toast("Delete ho gaya."); closeWord(); loadDict(); }
+  if (r.data && r.data.ok) { toast("Deleted."); closeWord(); loadDict(); }
   else showErr("deErr", errText(r.data));
 });
 
-/* ---------- security: password change + logout everywhere ---------- */
+/* ---------- security ---------- */
 $("pwForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const out = $("pwResult");
   if ($("pwNew").value !== $("pwNew2").value) {
-    out.textContent = "Dono naye password ek jaise nahi hain."; return;
+    out.textContent = "The two new passwords do not match."; return;
   }
   const { data } = await apiSend("POST", "/api/admin/change-password", {
     current: $("pwCurrent").value, next: $("pwNew").value
   }).catch(() => ({ data: null }));
   if (data && data.ok) {
-    out.textContent = "Password badal gaya. Baaki sab devices se logout ho gaya hai.";
-    $("pwForm").reset(); toast("Password badal gaya.");
+    out.textContent = "Password changed. All other devices have been signed out.";
+    $("pwForm").reset(); toast("Password changed.");
   } else out.textContent = errText(data);
 });
 $("logoutAllBtn").addEventListener("click", async () => {
-  if (!confirm("Sab devices se logout ho jayega. Pakka?")) return;
+  if (!confirm("You will be signed out on all devices. Continue?")) return;
   await apiSend("POST", "/api/admin/logout-all", {}).catch(() => {});
-  toast("Sab jagah se logout ho gaya.");
+  toast("Signed out everywhere.");
   $("who").textContent = ""; $("logoutBtn").classList.add("hidden");
   boot();
+});
+
+async function loadRecoveryStatus() {
+  const { data } = await apiGet("/api/admin/recovery-code").catch(() => ({ data: null }));
+  if (data && data.ok) {
+    $("rcStatus").textContent = data.hasCode
+      ? "A recovery code has been created ✓ — keep it safe and you can reset your password yourself."
+      : "No recovery code yet — create one now so you can reset your password yourself later.";
+  }
+}
+$("rcGenBtn").addEventListener("click", async () => {
+  if (!confirm("A new recovery code will be created and the old one (if any) will stop working. Continue?")) return;
+  const { data } = await guarded(apiSend("POST", "/api/admin/recovery-code", {}));
+  if (data && data.ok && data.code) {
+    $("rcOut").classList.remove("hidden");
+    $("rcCode").value = data.code;
+    $("rcStatus").textContent = "New code created — note down the code above somewhere safe, right now.";
+    toast("Recovery code created.");
+  } else toast("The code could not be created. Please try again.");
 });
 
 /* ---------- backup ---------- */
 $("exportBtn").addEventListener("click", async () => {
   const { data } = await guarded(apiGet("/api/admin/export"));
-  if (!data || !data.ok) { toast("Backup nahi bana. Dobara koshish kijiye."); return; }
+  if (!data || !data.ok) { toast("The backup could not be created. Please try again."); return; }
   const blob = new Blob([JSON.stringify(data, null, 1)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "mundarisamaj-backup-" + new Date().toISOString().slice(0, 10) + ".json";
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-  toast("Backup download ho gaya ✓");
+  toast("Backup downloaded ✓");
 });
 
 $("importBtn").addEventListener("click", async () => {
   const f = $("importFile").files[0];
   $("importResult").textContent = "";
-  if (!f) { $("importResult").textContent = "Pehle backup file chunein."; return; }
+  if (!f) { $("importResult").textContent = "Choose a backup file first."; return; }
   let parsed;
   try { parsed = JSON.parse(await f.text()); }
-  catch (e) { $("importResult").textContent = "File sahi JSON nahi hai."; return; }
-  if (!confirm("Backup import karein? Maujooda cheezein update hongi, nayi jud jayengi.")) return;
+  catch (e) { $("importResult").textContent = "That file is not valid JSON."; return; }
+  if (!confirm("Import this backup? Existing items will be updated and new ones added.")) return;
   const r = await guarded(apiSend("POST", "/api/admin/import", { confirm: true, data: parsed }));
   if (r.data && r.data.ok) {
     const x = r.data.result;
     $("importResult").textContent =
-      "Import ho gaya — Content: " + x.content.inserted + " naye, " + x.content.updated +
-      " update · Dictionary: " + x.dictionary.inserted + " naye, " + x.dictionary.updated + " update.";
-    toast("Import ho gaya ✓");
+      "Import complete — Content: " + x.content.inserted + " new, " + x.content.updated +
+      " updated · Dictionary: " + x.dictionary.inserted + " new, " + x.dictionary.updated + " updated.";
+    toast("Import complete ✓");
   } else {
-    $("importResult").textContent = errText(r.data, "Import nahi hua.");
+    $("importResult").textContent = errText(r.data, "The import failed.");
   }
 });
 

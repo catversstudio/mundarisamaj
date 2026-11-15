@@ -124,4 +124,5 @@ var tiles=[];
 function select(i){var m=meta(i);tiles.forEach(function(t,j){t.classList.toggle('on',j===i);});det.innerHTML='<span class="bani">'+L[i][0]+'</span><div><b>'+m.name+'</b><p>Roman sound: '+L[i][1]+' · Letter '+(i+1)+' of 27 · Row '+m.row+'</p></div>';}
 L.forEach(function(it,i){var b=document.createElement('button');b.type='button';b.className='gtile';b.innerHTML='<span class="bani">'+it[0]+'</span><small>'+it[1]+'</small>';b.addEventListener('click',function(){select(i);});grid.appendChild(b);tiles.push(b);});
 select(0);})();
-</script></body></html>
+</script><script src="assets/js/live.js" defer></script>
+</body></html>

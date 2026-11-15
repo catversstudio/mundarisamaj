@@ -121,6 +121,29 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
       <p style="margin-top:18px"><button class="btn block" type="submit">Login</button></p>
     </form>
+    <p style="text-align:center;margin-top:14px"><button class="btn ghost small" type="button" id="forgotLink">Password bhool gaye? Recovery code se reset karein</button></p>
+  </section>
+
+  <!-- recovery code reset -->
+  <section id="view-recover" class="card hidden">
+    <h1>Password reset — recovery code se</h1>
+    <p class="sub">Apna recovery code daliye (jo aapne admin panel ke Suraksha hisse se banakar
+    sambhal kar rakha tha), apna email aur naya password. Code ek hi baar chalta hai —
+    reset ke baad naya code banana hoga.</p>
+    <div class="err" id="recoverErr"></div>
+    <form id="recoverForm">
+      <label for="recEmail">Email</label>
+      <input id="recEmail" type="email" autocomplete="username" required>
+      <label for="recCode">Recovery code</label>
+      <input id="recCode" autocomplete="off" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+      <label for="recPass">Naya password (kam se kam 10 akshar)</label>
+      <input id="recPass" type="password" autocomplete="new-password" minlength="10" required>
+      <label for="recPass2">Naya password dobara likho</label>
+      <input id="recPass2" type="password" autocomplete="new-password" minlength="10" required>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
+      <p style="margin-top:18px"><button class="btn block" type="submit">Password reset karo</button></p>
+    </form>
+    <p style="text-align:center;margin-top:12px"><button class="btn ghost small" type="button" id="backToLogin">Wapas — login par jao</button></p>
   </section>
 
   <!-- the panel -->
@@ -134,6 +157,7 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
     <!-- content tab -->
     <div id="tab-content">
       <div id="contentListView">
+        <div class="chips" id="statStrip"></div>
         <div class="chips" id="typeChips"></div>
         <div class="searchrow">
           <input id="contentSearch" type="search" placeholder="Title se khojein…" aria-label="Search content">
@@ -195,13 +219,24 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
           <textarea id="ceBody" style="min-height:190px" placeholder="Har khali line ke baad naya paragraph. Heading ke liye line ki shuruaat mein ## likhein."></textarea>
           <p class="hint">Khali line = naya paragraph · <b>## </b> se shuru line = heading</p>
         </div>
+        <div id="ceHtmlWrap" class="hidden">
+          <label for="ceHtml">Asal text (HTML) — yahi website par dikhta hai</label>
+          <textarea id="ceHtml" class="code" style="min-height:230px" spellcheck="false"></textarea>
+          <p class="hint">Yeh is page ka asal text hai. Isi ko badlo — save karte hi website par naya text dikhega. Paragraph ke liye &lt;p&gt;...&lt;/p&gt;, heading ke liye &lt;h2&gt;...&lt;/h2&gt;.</p>
+        </div>
         <details>
-          <summary>Advanced — poora record (JSON)</summary>
+          <summary>Advanced — SEO aur poora record (JSON)</summary>
+          <label for="ceSeoTitle">SEO title (khali = title hi chalega)</label>
+          <input id="ceSeoTitle">
+          <label for="ceSeoDesc">SEO description (Google mein dikhne wali line)</label>
+          <input id="ceSeoDesc">
+          <label for="ceJson">Poora record (JSON)</label>
           <textarea id="ceJson" class="code" spellcheck="false"></textarea>
           <p class="hint">Upar wale khaane is JSON par bhaari padte hain. Galat JSON save nahi hoga.</p>
         </details>
         <p class="row" style="margin-top:18px;flex-wrap:wrap">
           <button class="btn" type="submit">Save karo</button>
+          <button class="btn ghost hidden" type="button" id="cePreview">Website par dekho ↗</button>
           <button class="btn ghost" type="button" id="ceCancel">Wapas</button>
           <button class="btn danger hidden" type="button" id="ceDelete" style="margin-left:auto">Delete</button>
         </p>
@@ -294,6 +329,17 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
         <p class="sub">Agar lagta hai account kahin aur khula reh gaya hai, toh ek click mein
         har jagah se logout ho jayega. Is device par bhi dobara login karna padega.</p>
         <button class="btn ghost" id="logoutAllBtn" type="button">Sab devices se logout karo</button>
+        <h2 style="margin-top:22px">Recovery code — password bhool jane par</h2>
+        <p class="sub">Ek secret code bana kar kahi surakshit jagah likh kar rakho (notebook ya
+        password manager). Password bhool jao to login page par "Password bhool gaye?" se
+        isi code se khud naya password bana loge — Mira ki zaroorat nahi padegi.
+        Code sirf ek baar chalta hai; naya code banane par purana band ho jata hai.</p>
+        <p class="hint" id="rcStatus">Recovery code ki haalat jaanch rahe hain…</p>
+        <button class="btn ghost" id="rcGenBtn" type="button">Naya recovery code banao</button>
+        <div id="rcOut" class="hidden" style="margin-top:12px">
+          <label for="rcCode">Aapka naya recovery code — abhi likh lo, dobara nahi dikhega</label>
+          <input id="rcCode" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:17px;letter-spacing:.06em">
+        </div>
       </div>
     </div>
   </section>
@@ -307,7 +353,7 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--earth)}
 <script>
 "use strict";
 const $ = (id) => document.getElementById(id);
-const VIEWS = ["view-loading", "view-unavailable", "view-setup", "view-login", "view-app"];
+const VIEWS = ["view-loading", "view-unavailable", "view-setup", "view-login", "view-recover", "view-app"];
 function show(id) { VIEWS.forEach((v) => $(v).classList.toggle("hidden", v !== id)); }
 function toast(msg) {
   const t = $("toast"); t.textContent = msg; t.style.display = "block";
@@ -328,6 +374,8 @@ const ERR = {
   new_password_too_short: "Naya password kam se kam 10 akshar ka hona chahiye.",
   wrong_current_password: "Abhi wala password galat hai.",
   login_required: "Login khatm ho gaya hai. Dobara login kijiye.",
+  wrong_recovery_code: "Recovery code ya email galat hai.",
+  no_recovery_code: "Is account ke liye koi recovery code bana hi nahi hai. Mira se password reset karwaana hoga.",
   title_required: "Title likhna zaroori hai.",
   word_required: "Word likhna zaroori hai.",
 };
@@ -367,6 +415,8 @@ function enterApp(email) {
   $("logoutBtn").classList.remove("hidden");
   show("view-app");
   loadContent();
+  loadStats();
+  loadRecoveryStatus();
 }
 
 /* ---------- setup + login ---------- */
@@ -396,6 +446,45 @@ $("loginForm").addEventListener("submit", async (e) => {
   else { showErr("loginErr", errText(data)); tsReset(); }
 });
 
+$("forgotLink").addEventListener("click", () => show("view-recover"));
+$("backToLogin").addEventListener("click", () => show("view-login"));
+$("recoverForm").addEventListener("submit", async (e) => {
+  e.preventDefault(); showErr("recoverErr", "");
+  if ($("recPass").value !== $("recPass2").value) {
+    showErr("recoverErr", "Dono naye password ek jaise nahi hain."); return;
+  }
+  const { data } = await apiSend("POST", "/api/admin/recover", {
+    email: $("recEmail").value.trim(),
+    code: $("recCode").value.trim(),
+    newPassword: $("recPass").value,
+    turnstile: tsToken($("recoverForm"))
+  }).catch(() => ({ data: null }));
+  if (data && data.ok) {
+    toast("Password reset ho gaya. Ab naye password se login kijiye.");
+    $("recoverForm").reset();
+    show("view-login");
+  } else { showErr("recoverErr", errText(data)); tsReset(); }
+});
+
+async function loadRecoveryStatus() {
+  const { data } = await apiGet("/api/admin/recovery-code").catch(() => ({ data: null }));
+  if (data && data.ok) {
+    $("rcStatus").textContent = data.hasCode
+      ? "Recovery code bana hua hai ✓ — use sambhal kar rakha hai to aap khud reset kar sakte hain."
+      : "Abhi koi recovery code nahi bana hai — abhi bana lo, taaki baad mein khud reset kar sako.";
+  }
+}
+$("rcGenBtn").addEventListener("click", async () => {
+  if (!confirm("Naya recovery code banega aur purana wala (agar hai) band ho jayega. Pakka?")) return;
+  const { data } = await guarded(apiSend("POST", "/api/admin/recovery-code", {}));
+  if (data && data.ok && data.code) {
+    $("rcOut").classList.remove("hidden");
+    $("rcCode").value = data.code;
+    $("rcStatus").textContent = "Naya code ban gaya — upar wala code abhi surakshit jagah likh lo.";
+    toast("Recovery code ban gaya.");
+  } else toast("Code nahi bana. Dobara koshish kijiye.");
+});
+
 $("logoutBtn").addEventListener("click", async () => {
   await apiSend("POST", "/api/admin/logout").catch(() => {});
   $("who").textContent = ""; $("logoutBtn").classList.add("hidden");
@@ -410,6 +499,26 @@ document.querySelectorAll(".tabs button").forEach((b) => {
     if (b.dataset.tab === "dict" && !$("dictList").dataset.loaded) loadDict();
   });
 });
+
+/* ---------- stats strip ---------- */
+async function loadStats() {
+  const el = $("statStrip"); if (!el || el.dataset.done) return; el.dataset.done = "1";
+  const parts = [];
+  for (const [v, label] of TYPES) {
+    if (!v) continue;
+    const { data } = await apiGet("/api/admin/content?type=" + v + "&per=1").catch(() => ({ data: null }));
+    if (data && data.ok) parts.push(label + ": " + data.total);
+  }
+  const d = await apiGet("/api/admin/dictionary?per=1").catch(() => ({ data: null }));
+  if (d.data && d.data.ok) parts.push("Dictionary: " + d.data.total + " words");
+  el.innerHTML = "";
+  parts.forEach((t) => {
+    const sp = document.createElement("span");
+    sp.textContent = t;
+    sp.style.cssText = "border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--earth)";
+    el.appendChild(sp);
+  });
+}
 
 /* ---------- content ---------- */
 const TYPES = [["", "All"], ["article", "Articles"], ["news", "News"], ["story", "Stories"], ["gallery", "Gallery"], ["video", "Videos"], ["book", "Books"]];
@@ -488,11 +597,14 @@ function textToBody(text) {
     .map((s) => s.startsWith("## ") ? { type: "h2", text: s.slice(3).trim() } : { type: "p", text: s });
 }
 
+const PUBLIC_PATHS = { article: "library/articles/", news: "news/", story: "library/stories/", book: "library/books/", gallery: "media/gallery/", video: "media/videos/" };
 function adaptEditorFields() {
   const t = $("ceType").value;
+  const hasHtml = !!(curItem && curItem.body && String(curItem.body).trim());
   $("ceVideoWrap").classList.toggle("hidden", t !== "video");
   $("ceImageWrap").classList.toggle("hidden", t === "video");
-  $("ceBodyWrap").classList.toggle("hidden", !BODY_TYPES.includes(t));
+  $("ceHtmlWrap").classList.toggle("hidden", !(hasHtml && BODY_TYPES.includes(t)));
+  $("ceBodyWrap").classList.toggle("hidden", !BODY_TYPES.includes(t) || hasHtml);
   $("ceShortLabel").textContent = t === "gallery" ? "Caption" : (t === "video" ? "Note" : "Short text (excerpt)");
 }
 $("ceType").addEventListener("change", adaptEditorFields);
@@ -517,6 +629,14 @@ function openEditor(item) {
   $("ceCategory").value = meta.category || "";
   $("ceAuthor").value = meta.author || "";
   $("ceBody").value = bodyToText(meta.body);
+  $("ceHtml").value = item ? (item.body || "") : "";
+  $("ceSeoTitle").value = item ? (item.seo_title || "") : "";
+  $("ceSeoDesc").value = item ? (item.seo_description || "") : "";
+  const pv = $("cePreview");
+  if (item && PUBLIC_PATHS[t]) {
+    pv.classList.remove("hidden");
+    pv.onclick = () => window.open("/" + PUBLIC_PATHS[t] + (item.slug || "") + "/", "_blank");
+  } else pv.classList.add("hidden");
   $("ceJson").value = JSON.stringify(meta, null, 1);
   $("ceDelete").classList.toggle("hidden", !item);
   adaptEditorFields();
@@ -557,8 +677,11 @@ $("contentEditor").addEventListener("submit", async (e) => {
     slug: $("ceSlug").value.trim(),
     status: $("ceStatus").value,
     published_at: $("ceDate").value || null,
+    seo_title: $("ceSeoTitle").value.trim(),
+    seo_description: $("ceSeoDesc").value.trim(),
     meta,
   };
+  if (!$("ceHtmlWrap").classList.contains("hidden")) payload.html = $("ceHtml").value;
   const r = curItem
     ? await guarded(apiSend("PUT", "/api/admin/content/" + curItem.id, payload))
     : await guarded(apiSend("POST", "/api/admin/content", payload));

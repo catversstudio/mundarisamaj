@@ -579,7 +579,13 @@ function contentFields(body, existing) {
     body.summary ?? meta.excerpt ?? meta.caption ?? meta.note ??
     (existing ? existing.summary : "") ?? ""
   );
-  return { type, title, meta, status, date, summary };
+  const seoTitle = body.seo_title !== undefined ? String(body.seo_title || "")
+    : (existing ? (existing.seo_title || "") : "");
+  const seoDescription = body.seo_description !== undefined ? String(body.seo_description || "")
+    : (existing ? (existing.seo_description || "") : "");
+  const html = body.html !== undefined ? String(body.html || "")
+    : (existing ? (existing.body || "") : "");
+  return { type, title, meta, status, date, summary, seoTitle, seoDescription, html };
 }
 
 async function adminContentCreate(request, env) {
@@ -596,11 +602,12 @@ async function adminContentCreate(request, env) {
   const featured = (f.meta.image && typeof f.meta.image === "object" && f.meta.image.src)
     ? f.meta.image.src : (typeof f.meta.image === "string" ? f.meta.image : null);
   const ins = await env.DB.prepare(
-    "INSERT INTO content (type, title, slug, summary, body, category_id, author, featured_image, status, meta, published_at, created_at, updated_at) " +
-    "VALUES (?, ?, ?, ?, NULL, NULL, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT INTO content (type, title, slug, summary, body, category_id, author, featured_image, status, seo_title, seo_description, meta, published_at, created_at, updated_at) " +
+    "VALUES (?, ?, ?, ?, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   ).bind(
-    f.type, f.title, slug, f.summary || null,
+    f.type, f.title, slug, f.summary || null, f.html || null,
     f.meta.author || null, featured, f.status,
+    f.seoTitle || null, f.seoDescription || null,
     JSON.stringify(f.meta), publishedAt, nowISO(), nowISO()
   ).run();
   const id = ins && ins.meta ? ins.meta.last_row_id : null;
@@ -627,10 +634,11 @@ async function adminContentUpdate(request, env, id) {
   const featured = (f.meta.image && typeof f.meta.image === "object" && f.meta.image.src)
     ? f.meta.image.src : (typeof f.meta.image === "string" ? f.meta.image : existing.featured_image);
   await env.DB.prepare(
-    "UPDATE content SET type = ?, title = ?, slug = ?, summary = ?, author = ?, featured_image = ?, status = ?, meta = ?, published_at = ?, updated_at = ? WHERE id = ?"
+    "UPDATE content SET type = ?, title = ?, slug = ?, summary = ?, body = ?, author = ?, featured_image = ?, status = ?, seo_title = ?, seo_description = ?, meta = ?, published_at = ?, updated_at = ? WHERE id = ?"
   ).bind(
-    f.type, f.title, slug, f.summary || null,
+    f.type, f.title, slug, f.summary || null, f.html || null,
     f.meta.author || existing.author, featured, f.status,
+    f.seoTitle || null, f.seoDescription || null,
     JSON.stringify(f.meta), publishedAt, nowISO(), id
   ).run();
   const row = await env.DB.prepare("SELECT * FROM content WHERE id = ?").bind(id).first();
@@ -788,6 +796,178 @@ async function adminImport(request, env) {
   return jsonAdmin({ ok: true, result });
 }
 
+
+/* ================= v86: recovery code + live detail pages ================= */
+
+const DETAIL_HEAD = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"color-scheme\" content=\"light dark\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>{{TITLE}}</title>\n<meta name=\"description\" content=\"{{DESC}}\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap\" rel=\"stylesheet\">\n<style>\n:root{--bg:#f2f6f3;--ink:#16302a;--mut:#57706a;--g:#1f4a41;--g2:#2f6b5d;--mist:#dfeae4;--sun:#e4b95f;--card:#fff;--line:#d3e0d9;--hero:#1f4a41;--heroink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ease-smooth:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1)}\n@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}}\n:root[data-theme=\"dark\"]{--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}\nhtml{scroll-behavior:smooth;scroll-padding-top:84px}*{box-sizing:border-box}\nbody{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 Inter,system-ui,sans-serif}\nh1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:0}\na{color:var(--g2)}img{max-width:100%;display:block}\n\n/* Scroll progress bar */\n#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sun);z-index:30;transition:width .1s linear;box-shadow:0 0 8px rgba(228,185,95,.5)}\n\n/* Top bar */\n.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 5%;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .4s var(--ease-smooth),background .4s var(--ease-smooth)}\n.top.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.08)}\n.top a{text-decoration:none;color:var(--g);font:600 1.1rem Fraunces,serif}\n.top span{font-size:.9rem;color:var(--mut)}\n\n/* ===== FULL-WIDTH HERO PHOTO ===== */\n.hero-photo{\n  position:relative;\n  width:100%;\n  height:70vh;\n  min-height:420px;\n  overflow:hidden;\n  background:linear-gradient(160deg,#2f6b5d,#173a32);\n  display:grid;\n  place-items:center;\n}\n.hero-photo svg{\n  position:absolute;inset:0;width:100%;height:100%;\n}\n.hero-photo img{\n  position:absolute;inset:0;width:100%;height:100%;\n  object-fit:cover;object-position:center top;\n  transition:transform 1.2s var(--ease-smooth);\n}\n.hero-photo:hover img{transform:scale(1.04)}\n.hero-photo::after{\n  content:\"\";position:absolute;inset:0;\n  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 70%,rgba(15,28,24,.85) 100%);\n  pointer-events:none;\n}\n\n/* Overlay text on photo */\n.hero-caption{\n  position:absolute;bottom:0;left:0;right:0;z-index:2;\n  padding:48px 5% 40px;\n  color:#fff;\n  max-width:1120px;margin:0 auto;\n  animation:up .9s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption h1{\n  font-size:clamp(2.4rem,6.4vw,4.6rem);\n  color:#fff;\n  text-shadow:0 2px 20px rgba(0,0,0,.3);\n}\n.hero-caption .dek{\n  font-size:1.15rem;color:#e0eee8;max-width:56ch;margin:16px 0 0;\n  animation:up .9s .15s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption .meta{\n  margin-top:20px;color:#b8d0c7;font-size:.95rem;\n  animation:up .9s .3s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-photo figcaption{\n  position:absolute;top:16px;right:16px;z-index:2;\n  font-size:.75rem;color:rgba(255,255,255,.7);\n  background:rgba(0,0,0,.3);padding:4px 10px;border-radius:99px;\n  backdrop-filter:blur(4px);\n}\n@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}\n\n/* Facts bar with staggered fade-up */\n.wrap{max-width:1120px;margin:auto;padding:0 5%}\n.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:-36px auto 0;max-width:1000px;position:relative;z-index:3}\n.facts div{background:var(--card);padding:18px 20px;animation:factRise .8s var(--ease-smooth) both}\n.facts div:nth-child(1){animation-delay:.15s}\n.facts div:nth-child(2){animation-delay:.25s}\n.facts div:nth-child(3){animation-delay:.35s}\n.facts div:nth-child(4){animation-delay:.45s}\n@keyframes factRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}\n.facts small{display:block;color:var(--mut);font-size:.82rem}\n.facts b{font-family:Fraunces,serif;font-size:1.05rem;font-weight:600}\n\n/* Article \u2014 centered, no TOC sidebar */\n.lay{max-width:720px;margin:0 auto;padding:72px 5% 40px}\n\narticle h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:56px 0 16px;transition:transform .6s var(--ease-smooth)}\narticle h2:first-child{margin-top:0}\narticle p{margin:0 0 1.15em}\n.lead{font:400 1.35rem/1.6 Fraunces,Georgia,serif;color:var(--ink)}\n\n/* Blockquote with soft glow pulse */\nblockquote{margin:36px 0;padding:6px 0 6px 24px;border-left:4px solid var(--sun);font:400 1.5rem/1.45 Fraunces,Georgia,serif;color:var(--g);animation:quoteGlow 4s ease-in-out infinite}\n@keyframes quoteGlow{0%,100%{border-left-color:var(--sun)}50%{border-left-color:var(--g2)}}\n\n/* Note box */\n.note{background:var(--mist);border-radius:16px;padding:18px 22px;margin:28px 0;font-size:.95rem;transition:background .4s var(--ease-smooth),box-shadow .4s var(--ease-smooth)}\n.note:hover{box-shadow:0 10px 26px rgba(0,0,0,.08)}\n\n/* Timeline with pulsing dots */\n.tl{list-style:none;margin:24px 0;padding:0;border-left:2px solid var(--line)}\n.tl li{position:relative;padding:0 0 22px 26px}\n.tl li::before{content:\"\";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--sun);border:2px solid var(--bg);animation:dotPulse 3s ease-in-out infinite}\n.tl li:nth-child(odd)::before{animation-delay:.4s}\n.tl li:nth-child(3n)::before{animation-delay:.8s}\n@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(228,185,95,0)}50%{box-shadow:0 0 0 6px rgba(228,185,95,.18)}}\n.tl b{font-family:Fraunces,serif;display:block}\n.tl span{color:var(--mut);font-size:.95rem}\n\n/* Sources */\n.src{font-size:.9rem;color:var(--mut);border-top:1px solid var(--line);margin-top:48px;padding-top:20px}\n\n/* More CTA with smooth lift */\n.more{background:var(--mist);padding:56px 5%;text-align:center}\n.more h2{font-size:1.8rem;margin-bottom:10px}\n.more a{display:inline-block;margin-top:14px;background:var(--sun);color:#1b2b26;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:99px;transition:transform .4s var(--spring),box-shadow .4s var(--ease-smooth)}\n.more a:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 30px rgba(228,185,95,.35)}\n\n/* Footer */\nfooter{background:#163a32;color:#cfe0d9;text-align:center;padding:28px 5% calc(28px + env(safe-area-inset-bottom,0px));font-size:.9rem}\n\n:focus-visible{outline:3px solid var(--sun);outline-offset:3px}\n\n@media(max-width:900px){\n  .hero-photo{height:75vh;min-height:460px}\n  .hero-caption{padding:36px 6% 32px}\n  .lay{padding-top:56px}\n}\n@media(prefers-reduced-motion:reduce){\n  *{animation:none!important;transition:none!important}\n}\n\n/* ==== HEADER STYLE (v76) ==== */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) both}\n@keyframes hdrIn{from{transform:translateY(-100%)}to{transform:translateY(0)}}\n.top::after{content:\"\";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:hdrSlide 7s linear infinite;pointer-events:none}\n@keyframes hdrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n.top.scrolled{padding-top:7px;padding-bottom:7px;box-shadow:0 12px 30px -12px rgba(20,40,35,.38)}\n.top a:first-child{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;color:var(--g);text-decoration:none;display:inline-flex;align-items:center}\n.top a:first-child::before{content:\"\";width:10px;height:10px;margin-right:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f6dc9a,var(--sun) 55%,#c96f2e);box-shadow:0 0 8px rgba(228,185,95,.8);animation:hdrPulse 3.2s ease-in-out infinite}\n@keyframes hdrPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}\n@media(prefers-reduced-motion:reduce){.top,.top::after,.top a:first-child::before{animation:none!important}}\n\n/* header glass v76 */\n.top{background:color-mix(in srgb,var(--bg) 50%,transparent);-webkit-backdrop-filter:blur(18px) saturate(165%);backdrop-filter:blur(18px) saturate(165%);border-bottom:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 24px -18px rgba(20,40,35,.35)}\n.top::before{content:\"\";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.3),rgba(255,255,255,0) 42%);pointer-events:none;z-index:0}\n.top>*{position:relative;z-index:1}\n.top::after{z-index:2}\n.top.scrolled{background:color-mix(in srgb,var(--bg) 66%,transparent)}\n\n/* header liquid v76 */\n.top{margin:10px 10px 0;top:10px;border-radius:999px;padding:10px 18px;border:1px solid transparent;background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,.06)) padding-box,linear-gradient(115deg,rgba(255,255,255,.9),rgba(228,185,95,.55) 45%,rgba(255,255,255,.25)) border-box;background-size:auto,230% 100%;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 16px 36px -14px rgba(20,40,35,.42),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -12px 20px -12px rgba(255,255,255,.4);animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards,hdrRim 7s linear infinite}\n@keyframes hdrRim{from{background-position:0 0,0% 0}to{background-position:0 0,230% 0}}\n.top::before{content:\"\";position:absolute;inset:0;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 55%);pointer-events:none;z-index:0}\n.top::after{display:none}\n.top.scrolled{padding-top:10px;padding-bottom:10px}\n@media(prefers-color-scheme:dark){:root:not([data-theme=\"light\"]) .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}}\n:root[data-theme=\"dark\"] .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}\n\n/* header hide-on-scroll v76 */\n.top{transition:transform .45s cubic-bezier(.16,1,.3,1),padding .35s ease,box-shadow .35s ease}\n.top.hide{transform:translateY(-175%);pointer-events:none}\n\n/* header stars v77 */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards}\n.top::after{content:\"\";display:block;position:absolute;inset:0;border-radius:999px;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='64'%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(28,20)' fill='%23E6A838' fill-opacity='.85'/%3E%3Ccircle cx='88' cy='42' r='3' fill='%23ffffff' fill-opacity='.55'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(150,34) scale(.62)' fill='%23ffffff' fill-opacity='.6'/%3E%3Ccircle cx='212' cy='12' r='2.4' fill='%23E6A838' fill-opacity='.65'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(272,18) scale(.8)' fill='%23F2C14E' fill-opacity='.7'/%3E%3Ccircle cx='330' cy='44' r='2.8' fill='%23ffffff' fill-opacity='.45'/%3E%3C/svg%3E\");background-repeat:repeat-x;background-size:360px 64px;opacity:.55;pointer-events:none;z-index:0;animation:hdrDrift 28s linear infinite,hdrBob 6.5s ease-in-out infinite alternate}\n@keyframes hdrDrift{from{background-position:0 0}to{background-position:360px 0}}\n@keyframes hdrBob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}\n@media(prefers-reduced-motion:reduce){.top::after{animation:none!important}}\n\n/* partners v77 */\n.partners{max-width:680px;margin:0 auto 16px;text-align:center}\n.partners h4{font:600 .76rem Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}\n.partner{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 8px;background:var(--card);color:var(--ink)}\n.partner b{font-family:Fraunces,Georgia,serif;color:var(--g);font-size:1rem}\n.partner .ph{color:#c9932b;font-weight:600;font-size:.83rem}\n.partner .pd{display:block;color:var(--mut);font-size:.88rem;margin-top:3px;line-height:1.45}\n\n/* footer gold line v78 */\nfooter{position:relative}\nfooter::before{content:\"\";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:ftrSlide 7s linear infinite;pointer-events:none}\n@keyframes ftrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n\n/* header desktop v80 */\n@media(min-width:861px){.top{width:calc(100% - 24px);max-width:1140px;margin-left:auto;margin-right:auto}.top .brand{white-space:nowrap}}\n\n/* footer v81 */\nfooter{background:#151d18;color:#e8e2d8}\nfooter::before{background:linear-gradient(90deg,#8a6d2e,#c9a24b,#f0d68a,#c9a24b,#8a6d2e);background-size:200% 100%;animation:ftrShimmer 6s linear infinite}\n@keyframes ftrShimmer{from{background-position:0 0}to{background-position:200% 0}}\n.fstat{width:fit-content;max-width:92%;margin:6px auto 20px;padding:12px 28px;background:rgba(201,162,75,.06);border:1px solid rgba(201,162,75,.18);border-radius:12px;text-align:center}\n.fstat .fnum{display:block;font-size:1.7rem;font-weight:700;color:#e8c97a;line-height:1.1}\n.fstat .flab{display:block;font-size:.78rem;color:#b8b0a2;margin-top:3px}\n.fnote{font-family:ui-monospace,'Courier New',monospace;color:#c9a24b;font-size:.78rem;margin-top:10px}\n\n/* footer v81.1 */\nfooter .partner{background:rgba(255,255,255,.05);border-color:rgba(232,226,216,.16)}\nfooter .partner b{color:#fff}\nfooter .partner .pd{color:rgba(232,226,216,.75)}\nfooter .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}\n\n/* footer accordion v81.2 */\n.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1120px;margin:0 auto 22px;text-align:left}\n.fcol h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0;padding:10px 0;border-top:1px solid #333d36;color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem}\n.fcol h5::after{content:\"\\25BE\";font-size:1rem;transition:transform .3s ease}\n.fcol.open h5::after{transform:rotate(180deg)}\n.fcol .flinks{max-height:0;overflow:hidden;transition:max-height .35s ease}\n.fcol.open .flinks{max-height:280px}\n.fcol .flinks a{display:block;color:#d8d0c2;text-decoration:none;padding:4px 0}\n.fcol .flinks a:hover{color:#e8c97a}\n@media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}\n</style>";
+const DETAIL_TAIL = "</article></div></div>\n\n<section class=\"more\"><h2>Share what you know</h2><p>Do you have a story, song or family memory to share with the archive?</p><a href=\"{{P}}contribute/\">Contribute to the archive</a></section>\n<footer><div class=\"fcols\"><div class=\"fcol\"><h5>Explore</h5><div class=\"flinks\"><a href=\"{{P}}\">Home</a><a href=\"{{P}}language/\">Language</a><a href=\"{{P}}heritage/\">Heritage</a><a href=\"{{P}}culture/\">Culture</a></div></div><div class=\"fcol\"><h5>Learn</h5><div class=\"flinks\"><a href=\"{{P}}language/script/\">Bani Script</a><a href=\"{{P}}language/numbers/\">Numbers &amp; Counting</a><a href=\"{{P}}language/dictionary/\">Dictionary</a><a href=\"{{P}}language/learn/\">Learn Mundari</a></div></div><div class=\"fcol\"><h5>Community</h5><div class=\"flinks\"><a href=\"{{P}}contribute/\">Contribute</a><a href=\"{{P}}news/\">News &amp; Updates</a><a href=\"mailto:mundarisamaj@outlook.com\">Email Us</a><a href=\"https://www.threads.net/@mundaricommunity\" target=\"_blank\" rel=\"noopener\">Threads</a></div></div><div class=\"fcol\"><h5>About</h5><div class=\"flinks\"><a href=\"{{P}}about/\">About Us</a><a href=\"{{P}}library/\">Library</a><a href=\"{{P}}media/\">Media</a><a href=\"{{P}}search/\">Search</a></div></div></div><div class=\"partners\"><h4>Our Partners</h4><a class=\"partner\" href=\"https://www.instagram.com/mundarisamaj\" target=\"_blank\" rel=\"noopener\"><b>Mundari Samaj</b> <span class=\"ph\">@mundarisamaj \u00b7 Instagram</span><span class=\"pd\">Our official Instagram page \u2014 Mundari culture, language, traditions and community news.</span></a><a class=\"partner\" href=\"https://www.instagram.com/mundariarchive\" target=\"_blank\" rel=\"noopener\"><b>Mundari Archive</b> <span class=\"ph\">@mundariarchive \u00b7 Instagram</span><span class=\"pd\">The cultural archive of the Mundari people \u2014 stories, traditions, history and heritage, preserved for the future.</span></a></div>\u00a9 2026 Mundari Samaj \u00b7 Johar! Jay Mundari!<div class=\"fnote\">Bani script \u00b7 Unicode since 2022</div></footer>\n<script>\n(function(){\n  var b=document.getElementById('bar');\n  function s(){\n    var h=document.documentElement;\n    b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';\n  }\n  addEventListener('scroll',s,{passive:true});s();\n\n  var topBar=document.querySelector('.top');\n  addEventListener('scroll',function(){\n    topBar.classList.toggle('scrolled',scrollY>30);\n  },{passive:true});\n})();\n</script>\n<script>(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;addEventListener('scroll',function(){var y=window.scrollY;if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y},{passive:true})})();</script>\n<script>document.addEventListener('click',function(e){var h=e.target.closest?e.target.closest('.fcol h5'):null;if(!h)return;var c=h.closest('.fcol');if(c)c.classList.toggle('open');});</script></body>\n</html>\n";
+
+function escHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+function fmtDate(iso) {
+  const m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return "";
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return parseInt(m[3], 10) + " " + months[parseInt(m[2], 10) - 1] + " " + m[1];
+}
+function metaBodyToHtml(body) {
+  if (!Array.isArray(body)) return "";
+  return body.map((b) => {
+    if (!b || typeof b !== "object") return "";
+    const t = escHtml(b.text || "");
+    if (!t) return "";
+    return b.type === "h2" ? "<h2>" + t + "</h2>" : "<p>" + t + "</p>";
+  }).join("\n");
+}
+
+/* ---- recovery code: self-service password reset ---- */
+
+function normalizeCode(s) {
+  return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+function generateRecoveryCode() {
+  const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  let raw = "";
+  for (const b of bytes) raw += alphabet[b % alphabet.length];
+  return raw.replace(/(.{4})(?=.)/g, "$1-");
+}
+
+async function adminRecover(request, env) {
+  const body = await readBody(request);
+  if (!body) return jsonAdmin({ ok: false, error: "bad_json" }, 400);
+  const ip = request.headers.get("cf-connecting-ip") || "unknown";
+  const email = String(body.email || "").trim().toLowerCase();
+  const acctKey = "acct:" + email;
+  if (await attemptLocked(env, ip, 8) || await attemptLocked(env, acctKey, 20)) {
+    return jsonAdmin({ ok: false, error: "too_many_attempts" }, 429);
+  }
+  if (!(await verifyTurnstile(env, body.turnstile, ip))) {
+    return jsonAdmin({ ok: false, error: "captcha_failed" }, 403);
+  }
+  const next = String(body.newPassword || "");
+  if (next.length < 10) {
+    return jsonAdmin({ ok: false, error: "new_password_too_short" }, 400);
+  }
+  const fail = async (error, status) => {
+    await recordFail(env, ip);
+    await recordFail(env, acctKey);
+    return jsonAdmin({ ok: false, error }, status);
+  };
+  const stored = await getSetting(env, "recovery_code_hash");
+  if (!stored) return fail("no_recovery_code", 403);
+  const given = normalizeCode(body.code);
+  if (!given) return fail("wrong_recovery_code", 403);
+  const givenHash = await sha256hex(given);
+  const a = te.encode(givenHash), b = te.encode(String(stored).trim().toLowerCase());
+  if (!safeEqual(a, b)) return fail("wrong_recovery_code", 403);
+  const user = await env.DB.prepare(
+    "SELECT * FROM admin_users WHERE email = ?"
+  ).bind(email).first();
+  if (!user) return fail("wrong_recovery_code", 403);
+  const passwordHash = await hashPassword(next);
+  await env.DB.prepare(
+    "UPDATE admin_users SET password_hash = ? WHERE id = ?"
+  ).bind(passwordHash, user.id).run();
+  await env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(user.id).run();
+  await env.DB.prepare("DELETE FROM settings WHERE key = 'recovery_code_hash'").run();
+  await clearAttempts(env, ip);
+  await clearAttempts(env, acctKey);
+  return jsonAdmin({ ok: true });
+}
+
+async function adminRecoveryStatus(env) {
+  const stored = await getSetting(env, "recovery_code_hash");
+  return jsonAdmin({ ok: true, hasCode: !!stored });
+}
+async function adminRecoveryGenerate(env) {
+  const code = generateRecoveryCode();
+  const hash = await sha256hex(normalizeCode(code));
+  await env.DB.prepare("DELETE FROM settings WHERE key = 'recovery_code_hash'").run();
+  await env.DB.prepare(
+    "INSERT INTO settings (key, value) VALUES ('recovery_code_hash', ?)"
+  ).bind(hash).run();
+  return jsonAdmin({ ok: true, code });
+}
+
+/* ---- live detail pages (article / news / story) ---- */
+
+const DETAIL_KINDS = [
+  { re: /^\/library\/articles\/([^/]+)$/, type: "article", prefix: "../../../", back: "library/articles/", backLabel: "Articles", crumb: "Library · Articles" },
+  { re: /^\/library\/stories\/([^/]+)$/, type: "story", prefix: "../../../", back: "library/stories/", backLabel: "Stories", crumb: "Library · Stories" },
+  { re: /^\/news\/([^/]+)$/, type: "news", prefix: "../../", back: "news/", backLabel: "News", crumb: "News" },
+];
+
+function renderDetailPage(row, kind, origin) {
+  let meta = {};
+  try { meta = JSON.parse(row.meta || "{}"); } catch (e) { meta = {}; }
+  const title = row.title || "Mundari Samaj";
+  const desc = row.seo_description || row.summary || meta.excerpt || "";
+  const pageTitle = row.seo_title || (title + " · Mundari Samaj");
+  const img = (meta.image && typeof meta.image === "object")
+    ? meta.image
+    : (typeof meta.image === "string" ? { src: meta.image } : {});
+  const imgSrc = img.src || row.featured_image || "";
+  const dateStr = fmtDate(row.published_at || meta.date);
+  const cat = meta.category || "";
+  const metaLine = kind.crumb + (cat ? " · " + cat : "") + (kind.type === "news" && dateStr ? " · " + dateStr : "");
+  const bodyHtml = (row.body && String(row.body).trim())
+    ? String(row.body)
+    : (metaBodyToHtml(meta.body) || (desc ? "<p>" + escHtml(desc) + "</p>" : ""));
+  const P = kind.prefix;
+  const canon = origin + "/" + kind.back + row.slug + "/";
+  let h = DETAIL_HEAD.split("{{TITLE}}").join(escHtml(pageTitle))
+    .split("{{DESC}}").join(escHtml(desc));
+  h += '<link rel="canonical" href="' + canon + '">'
+    + '<meta property="og:type" content="article">'
+    + '<meta property="og:site_name" content="Mundari Samaj">'
+    + '<meta property="og:title" content="' + escHtml(pageTitle) + '">'
+    + '<meta property="og:description" content="' + escHtml(desc) + '">'
+    + '<meta property="og:url" content="' + canon + '">'
+    + (imgSrc ? '<meta property="og:image" content="' + escHtml(imgSrc) + '">' : "")
+    + '<meta name="twitter:card" content="summary_large_image">'
+    + "</head>\n<body>\n";
+  h += '<div id="bar"></div>\n<header class="top"><a href="' + P + '">Mundari Samaj</a>'
+    + '<a href="' + P + kind.back + '" style="font:500 .9rem Inter,sans-serif;color:var(--mut)">\u2190 ' + kind.backLabel + "</a></header>\n";
+  h += '<figure class="hero-photo" style="margin:0">'
+    + '<svg viewBox="0 0 400 500" aria-hidden="true" preserveAspectRatio="xMidYMid slice"><g stroke="#e4b95f" stroke-width="3" stroke-linecap="round" opacity=".55"><path d="M200 140v220M90 250h220M122 172l156 156M278 172L122 328"/></g><circle cx="200" cy="250" r="118" fill="none" stroke="#e4b95f" stroke-width="2" opacity=".4"/></svg>'
+    + (imgSrc ? '<img src="' + escHtml(imgSrc) + '" alt="' + escHtml(img.alt || "") + '" onerror="this.style.display=\'none\'">' : "")
+    + '<div class="hero-caption"><h1>' + escHtml(title) + "</h1>"
+    + (desc ? '<p class="dek">' + escHtml(desc) + "</p>" : "")
+    + '<p class="meta">' + escHtml(metaLine) + "</p></div>"
+    + (img.credit ? "<figcaption>" + escHtml(img.credit) + "</figcaption>" : "")
+    + "</figure>\n";
+  h += '<div class="wrap"><div class="lay">\n<article>' + bodyHtml;
+  h += DETAIL_TAIL.split("{{P}}").join(P);
+  return new Response(h, {
+    status: 200,
+    headers: {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "public, max-age=60, s-maxage=120",
+    },
+  });
+}
+
+async function detailOrAsset(request, env, path, kind, slug) {
+  let row = null;
+  try {
+    row = await env.DB.prepare(
+      "SELECT * FROM content WHERE slug = ? AND type = ? AND status = 'published'"
+    ).bind(slug, kind.type).first();
+  } catch (e) { row = null; }
+  if (!row) return env.ASSETS.fetch(request);
+  let since = null;
+  try { since = await getSetting(env, "content_live_since"); } catch (e) { since = null; }
+  const edited = !!(since && row.updated_at && String(row.updated_at) > String(since));
+  if (edited) return renderDetailPage(row, kind, new URL(request.url).origin);
+  const asset = await env.ASSETS.fetch(request);
+  if (asset.status === 404) return renderDetailPage(row, kind, new URL(request.url).origin);
+  return asset;
+}
+
 /* ---- admin router ---- */
 
 async function apiAdmin(request, env, path) {
@@ -801,6 +981,9 @@ async function apiAdmin(request, env, path) {
   }
   if (path === "/api/admin/login" && request.method === "POST") {
     return adminLogin(request, env);
+  }
+  if (path === "/api/admin/recover" && request.method === "POST") {
+    return adminRecover(request, env);
   }
   if (path === "/api/admin/logout" && request.method === "POST") {
     return adminLogout(request, env);
@@ -820,6 +1003,10 @@ async function apiAdmin(request, env, path) {
   }
   if (path === "/api/admin/logout-all" && request.method === "POST") {
     return adminLogoutAll(request, env, user);
+  }
+  if (path === "/api/admin/recovery-code") {
+    if (request.method === "GET") return adminRecoveryStatus(env);
+    if (request.method === "POST") return adminRecoveryGenerate(env);
   }
   if (path === "/api/admin/content") {
     if (request.method === "GET") return adminContentList(new URL(request.url), env);
@@ -898,6 +1085,20 @@ export default {
           res = json({ ok: false, error: "query_failed" }, 500);
         }
       }
+    } else if (request.method === "GET" && env.DB && (path.startsWith("/library/articles/") || path.startsWith("/library/stories/") || path.startsWith("/news/"))) {
+      // v86: detail pages — render from the database when the item was
+      // edited in the admin panel (or has no static page), else static.
+      let handled = false;
+      for (const kind of DETAIL_KINDS) {
+        const m = path.match(kind.re);
+        if (m) {
+          try { res = await detailOrAsset(request, env, path, kind, decodeURIComponent(m[1])); }
+          catch (e) { res = await env.ASSETS.fetch(request); }
+          handled = true;
+          break;
+        }
+      }
+      if (!handled) res = await env.ASSETS.fetch(request);
     } else {
       // v66: folder structure — old URLs redirect (301) to the new homes.
       const seg = path.split("/").filter(Boolean);

@@ -84,4 +84,40 @@
       });
     });
   }
+
+  // Instagram page — prepend any post the static list does not have yet
+  // (the 6-hour sync keeps the database current; this keeps the page current).
+  var iggrid = document.getElementById("iggrid");
+  if (iggrid && typeof window.IGPOSTS !== "undefined" && Array.isArray(window.IGPOSTS)) {
+    get("/api/content?type=instagram&per=200").then(function (d) {
+      if (!d || !d.ok || !d.items) return;
+      var have = {};
+      window.IGPOSTS.forEach(function (x) { have[String(x.u || "").replace(/\/$/, "")] = true; });
+      var fresh = [];
+      d.items.forEach(function (it) {
+        var u = String(it.url || "").replace(/\/$/, "");
+        if (u && !have[u]) fresh.push({ u: it.url, a: it.account || "", t: it.title || "" });
+      });
+      if (!fresh.length) return;
+      for (var i = fresh.length - 1; i >= 0; i--) window.IGPOSTS.unshift(fresh[i]);
+      var frag = document.createDocumentFragment();
+      fresh.forEach(function (x) {
+        var div = document.createElement("div");
+        div.className = "igembed";
+        var f = document.createElement("iframe");
+        f.setAttribute("loading", "lazy");
+        f.setAttribute("src", String(x.u).replace(/\/$/, "") + "/embed");
+        f.setAttribute("title", String(x.t || "").replace(/"/g, ""));
+        f.setAttribute("scrolling", "no");
+        div.appendChild(f);
+        frag.appendChild(div);
+      });
+      iggrid.insertBefore(frag, iggrid.firstChild);
+      if (typeof window.igN === "number") {
+        window.igN += fresh.length;
+        var more = document.getElementById("igmore");
+        if (more && window.igN >= window.IGPOSTS.length) more.style.display = "none";
+      }
+    });
+  }
 })();

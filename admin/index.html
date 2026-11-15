@@ -362,7 +362,9 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
                   <button type="button" data-add="quote">＋ Quote</button>
                   <button type="button" data-add="list">＋ List</button>
                   <button type="button" data-add="note">＋ Note box</button>
+                  <button type="button" data-add="upload">⬆ Upload photo</button>
                 </div>
+                <input type="file" id="vUploadFile" accept="image/*" class="hidden">
               </div>
               <p class="hint">Click any block to edit it right there — exactly as readers see it. Use the small buttons on a block to move it up or down, or delete it.</p>
             </div>
@@ -412,6 +414,12 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
               <div id="ceImageWrap">
                 <label for="ceImage">Photo path / URL</label>
                 <input id="ceImage" placeholder="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/karam-festival.jpg">
+                <div class="row" style="margin-top:8px">
+                  <button class="btn ghost small" type="button" id="ceUploadBtn">⬆ Upload photo</button>
+                  <input type="file" id="ceUploadFile" accept="image/*" class="hidden">
+                  <img id="ceImagePrev" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:10px;display:none">
+                </div>
+                <p class="hint">Upload sends the photo to your Cloudinary library and fills the link automatically.</p>
               </div>
               <div id="ceVideoWrap" class="hidden">
                 <label for="ceYoutube">YouTube video ID</label>
@@ -777,9 +785,30 @@ document.querySelectorAll("#fmtBar button").forEach((b) => {
     vEd.focus();
   });
 });
+async function uploadToCloudinary(file) {
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("upload_preset", "mundari_unsigned");
+  const res = await fetch("https://api.cloudinary.com/v1_1/lkgpy2ls/image/upload", { method: "POST", body: fd });
+  const data = await res.json().catch(() => null);
+  if (!res.ok || !data || !data.secure_url) {
+    throw new Error((data && data.error && data.error.message) || "Upload failed");
+  }
+  return data.secure_url.replace("/image/upload/", "/image/upload/f_auto,q_auto/");
+}
+function insertBlock(el) {
+  const block = makeBlock(el);
+  const sel = vEd.querySelector(".vblock.sel");
+  if (sel && sel.nextSibling) vEd.insertBefore(block, sel.nextSibling); else vEd.appendChild(block);
+  const ed = block.querySelector("[contenteditable]");
+  if (ed) { ed.focus(); if (document.execCommand) document.execCommand("selectAll", false, null); }
+  updateWordCount();
+  return block;
+}
 document.querySelectorAll(".addbar2 button").forEach((b) => {
   b.addEventListener("click", () => {
     const kind = b.dataset.add;
+    if (kind === "upload") { $("vUploadFile").click(); return; }
     let el = null;
     if (kind === "p") { el = document.createElement("p"); el.textContent = "Write here…"; }
     if (kind === "h2") { el = document.createElement("h2"); el.textContent = "Heading"; }
@@ -794,14 +823,44 @@ document.querySelectorAll(".addbar2 button").forEach((b) => {
       el.setAttribute("alt", prompt("Photo description (alt text):", "") || "");
     }
     if (!el) return;
-    const block = makeBlock(el);
-    const sel = vEd.querySelector(".vblock.sel");
-    if (sel && sel.nextSibling) vEd.insertBefore(block, sel.nextSibling); else vEd.appendChild(block);
-    const ed = block.querySelector("[contenteditable]");
-    if (ed) { ed.focus(); document.execCommand && document.execCommand("selectAll", false, null); }
-    updateWordCount();
+    insertBlock(el);
   });
 });
+$("vUploadFile").addEventListener("change", async () => {
+  const f = $("vUploadFile").files[0];
+  $("vUploadFile").value = "";
+  if (!f) return;
+  toast("Uploading photo…");
+  try {
+    const url = await uploadToCloudinary(f);
+    const el = document.createElement("img");
+    el.setAttribute("src", url);
+    el.setAttribute("alt", prompt("Photo description (alt text):", "") || "");
+    insertBlock(el);
+    toast("Photo uploaded and added ✓");
+  } catch (err) { toast("Upload failed: " + err.message); }
+});
+$("ceUploadBtn").addEventListener("click", () => $("ceUploadFile").click());
+$("ceUploadFile").addEventListener("change", async () => {
+  const f = $("ceUploadFile").files[0];
+  $("ceUploadFile").value = "";
+  if (!f) return;
+  const btn = $("ceUploadBtn");
+  btn.disabled = true; btn.textContent = "Uploading…";
+  try {
+    const url = await uploadToCloudinary(f);
+    $("ceImage").value = url;
+    syncImagePreview();
+    toast("Photo uploaded ✓");
+  } catch (err) { toast("Upload failed: " + err.message); }
+  btn.disabled = false; btn.textContent = "⬆ Upload photo";
+});
+function syncImagePreview() {
+  const v = $("ceImage").value.trim();
+  const img = $("ceImagePrev");
+  if (v) { img.src = v; img.style.display = "block"; } else { img.style.display = "none"; }
+}
+$("ceImage").addEventListener("input", syncImagePreview);
 function setMode(m) {
   if (!DUAL_TYPES.includes($("ceType").value)) return;
   if (m === edMode) return;
@@ -859,6 +918,7 @@ function openEditor(item) {
     pv.classList.remove("hidden");
     pv.onclick = () => window.open("/" + PUBLIC_PATHS[t] + (item.slug || "") + "/", "_blank");
   } else pv.classList.add("hidden");
+  syncImagePreview();
   // body: the real HTML when present, else the stored paragraphs as HTML
   const html = item && item.body && String(item.body).trim() ? String(item.body) : metaBodyToHtml(meta.body);
   edMode = "visual";

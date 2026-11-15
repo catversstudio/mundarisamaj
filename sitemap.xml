@@ -1,33 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://mundarisamaj.pages.dev/</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/discover.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/identity.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/language.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/script.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/grammar.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/learn.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/dictionary.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/culture.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/festivals.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/history.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/movement.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/people.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/community.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/library.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/resources.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/about.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/contribute.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/search.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/articles.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/news.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/stories.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/gallery.html</loc></url>
-<url><loc>https://mundarisamaj.pages.dev/books.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/videos.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/sarhul.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/karam.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/mage-parab.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/phagu.html</loc></url>
-  <url><loc>https://mundarisamaj.pages.dev/sohrai.html</loc></url>
+  <url><loc>https://mundarisamaj.pages.dev/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/about/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/about/community/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/contribute/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/karam/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/mage-parab/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/phagu/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/sarhul/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/culture/festivals/sohrai/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/heritage/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/heritage/history/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/heritage/movement/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/heritage/odisha/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/heritage/people/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/dictionary/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/grammar/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/learn/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/numbers/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/language/script/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/birsa-munda/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/building-a-community-history-of-munda-villages-in-odisha/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/community-archive/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/gaya-munda/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/history-and-origins-of-the-munda-community/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/jaipal-singh-munda/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/kol-rebellion-1831-32/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/language-identity-and-multilingual-life-in-mayurbhanj/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/manki-munda-governance/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-and-mundari-in-mayurbhanj/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-clan-killi-system/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-communities-in-odisha/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-folk-songs-and-dance/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-history-chronological-timeline/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-in-other-movements/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-language-ancestry-and-historical-identity/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-marriage-customs/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-settlements-and-historical-geography/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/munda-village-life/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/mundari-dialects/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/mundari-khuntkatti/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/mundari-language/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/mundari-oral-literature/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/oral-history/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/reading-census-and-official-records-responsibly/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/rohidas-singh-nag/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/ulgulan-movement/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/articles/who-are-the-munda-people/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/aabuha-hatu-class-iii/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/abua-mulikuti-jagar-class-iii-evs/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/abuajagar-abuaha-kahani-class-iii/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/abuwah-jagar-abuwah-duran-class-iv/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/aingya-hisab-puthi-class-iii/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/ama-katha-ama-gita-class-iv/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/ama-katha-ama-kahani-class-iii/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/asa-bhasa-sikhiba-class-iv/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/bambaru-mundari-kavita-sangrah/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/bhasa-sikhiba-class-iii/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-1/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-10/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-2/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-4/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-6/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-7/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/encyclopaedia-mundarica-vol-8/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/hindi-mundari-vyakaran-tulnatmak-vivechan/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/hoffmann-short-mundari-grammar-simplified/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/hone-koa-sida-kitab/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/indo-aryan-linguistics-omkar-koul/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/lets-learn-mundari-bani/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/munda-jagar-itun-puthi/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-bhasa-shiksha/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-bhasha-evam-lipi/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-bol-gyan-bhag-1/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-dorpon/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-grammar-1903/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-grammar-sinha-1975/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-path-ramdayal-munda/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-primer-ciil/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/mundari-textbooks-bharatvani/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/sankshipt-mundari-vyakaran/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/speak-mundari-in-thirty-days/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/subodh-mundari-vyakaran/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/books/the-mundas-and-their-country-1912/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/resources/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/stories/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/stories/story-memory/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/stories/story-voices/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/stories/the-asur-legend/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/library/stories/the-karam-raja-legend/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/birsa-munda-1875-1900/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/birsa-munda-statue-patna/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/craft-and-making/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/folk-dance-in-khunti/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/gatherings-and-festivals/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/karam-festival/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/karam-puja/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/landscape-and-place/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/language-in-use/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/ol-guru-s-birthday-celebration/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/sarhul-at-the-sarna-grove/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/sohrai-wall-art-at-isko-village/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/gallery/the-mandar-drum/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/instagram/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/am-nel-asra-tana-dulad/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/amke-edi-meyaing-gating/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/baha-leka-menaa/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/baroing-bajao-jana/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/dakh-nadi-buta-re/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/dil-banjara/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/gada-gena-ra/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/jobe-kinyam/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/karam-dance-chandua/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/learn-mundari-bani-01/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/mone-re/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/mundari-grammar-proposition/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/mundari-tutorial-beginners/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/ncert-birsa-documentary/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/otang-jana/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/rourkela-karam-chain-dance/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/sarjom-ba-jadur/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/media/videos/tala-pidi-re/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/adi-vaani-beta-launch/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/adi-vaani-full-launch/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/call-for-contributions/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/khunta-gb-nagar-memorandum-2026/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/palash-mundari-schools/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/platform-update/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/news/ranchi-multilingual-conclave/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://mundarisamaj.pages.dev/search/</loc><lastmod>2026-11-15</lastmod></url>
 </urlset>

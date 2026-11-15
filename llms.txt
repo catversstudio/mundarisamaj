@@ -1,0 +1,44 @@
+# Mundari Samaj
+
+> Mundari Samaj is a community website dedicated to preserving and promoting the Mundari language (endonym: horo jagar), the Mundari Bani script, and the history, culture and living traditions of the Munda people. Mundari is an Austroasiatic (North Munda) language, ISO code unr, Glottolog mund1320, spoken by 1,634,150 people (Census of India 2011: 1,128,228 recorded as "Mundari" and 505,922 as "Munda"). It is an additional official language of Jharkhand since 2011 and is listed by UNESCO as Vulnerable. The Mundari Bani script was created by Rohidas Singh Nag; its modern form has 27 letters and is encoded in Unicode 15.0 (2022), block U+1E4D0–U+1E4FF. The site's motto is "Our Language. Our Identity. Our Heritage."
+
+## Language
+
+- [Language hub](https://mundarisamaj.pages.dev/language/): Overview of the Mundari language, its speakers and its status
+- [Mundari Bani Script](https://mundarisamaj.pages.dev/language/script/): The 27-letter Bani alphabet chart, Leneka digits and Tong signs, with the script's history
+- [Numbers & Counting](https://mundarisamaj.pages.dev/language/numbers/): Mundari counting, which is vigesimal (counting in twenties, base word hisi)
+- [Dictionary](https://mundarisamaj.pages.dev/language/dictionary/): A growing Mundari–English dictionary (128 words) with Bani script for every word
+- [Learn Mundari](https://mundarisamaj.pages.dev/language/learn/): Flashcards and everyday sentences for learners
+
+## Heritage
+
+- [Heritage hub](https://mundarisamaj.pages.dev/heritage/): History and heritage of the Munda people
+- [History](https://mundarisamaj.pages.dev/heritage/history/): History and origins of the Munda community
+- [Articles](https://mundarisamaj.pages.dev/library/articles/): Long-form articles and biographies, including Birsa Munda, Jaipal Singh Munda and Rohidas Singh Nag
+
+## Culture
+
+- [Culture hub](https://mundarisamaj.pages.dev/culture/): Festivals, traditions, stories and community life
+- [Stories](https://mundarisamaj.pages.dev/library/stories/): Mundari folk tales and legends
+
+## Library
+
+- [Library](https://mundarisamaj.pages.dev/library/): Books, long-form reading and downloadable resources
+- [Books](https://mundarisamaj.pages.dev/library/books/): 36 Mundari books and textbooks, free to read online in the browser, including CIIL primers and classic grammars
+
+## Media
+
+- [Media hub](https://mundarisamaj.pages.dev/media/): Photos, videos and social feeds
+- [Gallery](https://mundarisamaj.pages.dev/media/gallery/): Photo gallery of Mundari culture and community events
+- [Videos](https://mundarisamaj.pages.dev/media/videos/): Mundari videos and songs
+- [Instagram](https://mundarisamaj.pages.dev/media/instagram/): Latest posts from the community's Instagram accounts @mundarisamaj and @mundariarchive
+
+## News and community
+
+- [News & Updates](https://mundarisamaj.pages.dev/news/): Community news, including the movement for Mundari in the Eighth Schedule of the Indian Constitution
+- [About](https://mundarisamaj.pages.dev/about/): About the Mundari Samaj project, a Catvers Studio project
+- [Contribute](https://mundarisamaj.pages.dev/contribute/): How community members can contribute words, photos, stories and corrections
+
+## Optional
+
+- [Sitemap](https://mundarisamaj.pages.dev/sitemap.xml): Full list of pages on this website

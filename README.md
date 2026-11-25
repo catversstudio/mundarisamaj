@@ -1,165 +1,43 @@
-# Mundari Samaj — Website (v12)
+# Mundari Samaj — Website
 
 **Our Language. Our Identity. Our Heritage.**
+
 Live site: https://mundarisamaj.pages.dev
-GitHub Pages mirror: https://catversstudio.github.io/mundarisamaj/
+Greeting: **Johar! Jay Mundari!**
 
-Mundari Samaj is a digital knowledge platform for the Mundari language,
-history, culture and community. Tagline greeting: **Johar! Jay Mundari!**
+Mundari Samaj is a digital platform for preserving and promoting the Mundari
+language, culture, history and heritage of the Munda community — built and
+maintained by Catvers Studio.
 
-## How the site is organised
+**Current version: v91** (25 November 2026)
 
-The visitor-facing structure has six sections, shown in the top navigation:
+## Update history
 
-| Section | Hub page | What lives there |
-|---|---|---|
-| Our Language | `language.html` | `script.html` (Mundari Bani), `grammar.html`, `learn.html`, `dictionary.html` |
-| Our Heritage | `history.html` | `movement.html`, `people.html`, `identity.html`, `culture.html`, `festivals.html`, `discover.html` |
-| Knowledge Library | `library.html` | `articles.html` + `article.html`, `books.html`, `stories.html`, `resources.html` |
-| News & Updates | `news.html` | News listing and news reader (same file, `?id=`) |
-| Media Gallery | `gallery.html` | Photographs and video/media items |
-| About Us | `about.html` | Mission, editorial policy, contact, `contribute.html`, `community.html` |
+Every version of this website, from **v1 to v91**, with its date, time and
+what changed, is recorded here:
 
-Pages stay at the site root on purpose: the URLs (for example
-`history.html`) are already shared in the community and indexed, so they
-must not change. Organisation is expressed through the navigation,
-breadcrumbs, footer and this map — not by moving files into folders.
+**[UPDATE-HISTORY.md](UPDATE-HISTORY.md)**
 
-## File map
+## What the site holds
 
-```
-index.html            Homepage (hero, category cards, Today's Mundari Bulletin, ...)
-*.html                One file per page, at the root (URLs must stay stable)
-content/
-  articles.json       Articles        (reader: article.html?id=...)
-  news.json           News & updates  (reader: news.html?id=...)
-  stories.json        Community stories (reader: stories.html?id=...)
-  gallery.json        Gallery items   (page: gallery.html)
-  books.json          Books & publications (page: books.html)
-assets/
-  mark.svg            Official logo (terracotta 8-petal star on cream)
-  preview-banner.png  Social sharing image (Open Graph)
-  img/                Photographs (openly licensed, credited on-page)
-styles.css            Main design system (+ v12 hero/cards/bulletin block)
-features.css          Cards/news/gallery styles for content pages
-app.js                Homepage menu, topic search, contribution form
-features.js           Loads content/*.json into home, listing and reader pages
-admin/                Optional local draft helper (no login, stores nothing online)
-sitemap.xml, robots.txt, _headers, 404.html
-```
+- **Language** — the Mundari Bani script (27 letters) with its alphabet chart,
+  a 128-word dictionary, numbers and counting in twenties, and learn pages
+- **Library** — 28 articles, 36 books with an in-page PDF reader, community
+  stories
+- **News** — community news and the language movement
+- **Media** — photo gallery, videos, and a live Instagram feed from
+  @mundarisamaj and @mundariarchive
+- **Engagement** — likes, views and comments on articles, stories and news
+- **Admin panel** — a full content studio at /admin/ for managing everything
 
-## Updating content (manual workflow — there is no admin login)
+## How it runs
 
-All updates are made manually by editing the JSON files in `content/`
-and re-deploying. Only records with `"status": "published"` appear on
-the site; use `"status": "draft"` to prepare something privately.
-
-- **News:** add a record to `content/news.json` with
-  `id, title, category, date (YYYY-MM-DD), excerpt, body, related, status`.
-  It appears in News & Updates and in Today's Mundari Bulletin.
-- **Article:** add to `content/articles.json` with
-  `id, title, category, date, author, excerpt, body, readTime, image, media, related, verified, status`.
-  Keep `verified: false` until the content has been checked against sources.
-- **Story:** add to `content/stories.json` with
-  `id, title, contributor, place, excerpt, body, related, status`.
-- **Gallery item:** add to `content/gallery.json` with
-  `title, caption, credit, tone, status` (plus `image` when a photo is used).
-- **Book:** add to `content/books.json` with
-  `id, title, author, language, year, publisher, description, link, image, status`.
-  Add a `link` only where the book is legally available to read or download.
-
-Rules that must never be broken: do not invent Mundari history, dates,
-vocabulary or traditions; mark unverified material "Research in progress";
-show Mundari Bani script beside every Mundari word; use only public-domain
-or openly licensed (CC BY / CC BY-SA / CC0) photographs, credited on the
-page and in About.
-
-## Deploying to Cloudflare Pages
-
-The project `mundarisamaj` uses **Direct Upload** (it is not connected to
-GitHub):
-
-1. Zip the whole site folder (this README's folder) — files and folders
-   must keep their structure inside the zip.
-2. Cloudflare dashboard → Workers & Pages → `mundarisamaj` →
-   Create deployment → upload the zip → Deploy.
-3. Check https://mundarisamaj.pages.dev (hard-refresh once if the old
-   version is cached).
-
-## Publishing to GitHub
-
-Two repositories mirror this site:
-
-- `catversstudio/mundari-samaj` — main mirror of the Cloudflare site.
-- `catversstudio/mundarisamaj` — GitHub Pages copy
-  (https://catversstudio.github.io/mundarisamaj/).
-
-Text files can be pushed with the GitHub connector's snapshot sync;
-binary files (photographs, the preview banner) must be uploaded through
-the GitHub web UI ("Add file → Upload files"), because the connector
-accepts text only. After every live Cloudflare deploy, push the same
-code to GitHub.
+- Hosted on Cloudflare Pages (project `mundarisamaj`) with a D1 database
+- This repository is the website's only code home. GitHub Pages is switched
+  off — the public website is mundarisamaj.pages.dev alone
+- The companion repository `catversstudio/mundari-samaj` was removed on
+  25 November 2026 on the owner's order; all code lives here now
 
 ## Credits
 
-Photographs are from Wikimedia Commons under the licences credited on
-each page and in About ("Photo & media credits"). Videos are embedded
-with YouTube's official player; social posts are linked or embedded by
-official methods only — never downloaded or re-uploaded.
-
-
-## v13 additions (2026-11-03)
-- Full sourced biographies of Birsa Munda and Rohidas Singh Nag are records in
-  `content/articles.json` (category "People & Personalities"). A record may carry a
-  `sources` array of {label, url} — rendered as a "Sources & further reading" block
-  at the end of the article.
-- The Gallery accepts social-preview records in `content/gallery.json`:
-  {type: "social", platform: "instagram"|"facebook", url, title, caption, credit,
-  status: "published"}. The post is embedded by link only — media is never copied.
-- Music & Videos page (`videos.html`) reads `content/videos.json`:
-  {id, title, channel, category, youtube: "<video id>", note, status: "published"}.
-  Videos play through YouTube's official embedded player (youtube-nocookie).
-  To add a video: append a record with its YouTube video ID and redeploy.
-
-
-## v14 (2026-11-03) — faster videos, one player, restricted queue
-- The Videos page no longer loads 12 YouTube iframes. Cards show lightweight
-  YouTube thumbnails; clicking one opens a single watch player at the top of
-  the page (player, then description, then the other videos below). Only one
-  video can play at a time.
-- The watch player is restricted to this site's own list: it is loaded with
-  `playlist=<all curated video ids>` and `rel=0`, so Up Next / end-screen
-  suggestions stay inside `content/videos.json` instead of drifting to
-  unrelated videos.
-- The homepage "Watch & learn" embeds use the same click-to-play thumbnails
-  (class `fx-facade`, attribute `data-yt`); a small handler in features.js
-  keeps at most one live player on any page.
-
-
-## v15 (2026-11-03) — the Gallery is now an endless one-photo feed
-- On the Gallery page, photos no longer sit two-to-a-row in narrow cropped
-  tiles. Each photo takes the full width of a single column in its natural
-  shape, with its caption and credit underneath — like an Instagram feed.
-- The feed loads in small batches as the visitor scrolls and, at the end
-  of the set, loops back to the beginning, so it never runs out. From the
-  second pass onward, Instagram items become light link-cards instead of
-  heavy embed iframes, keeping endless scrolling fast.
-- Eight more of the community's own @mundarisamaj Instagram photo posts
-  were added as link previews (24 gallery items in total).
-
-
-## v16 (2026-11-03) — Instagram items show their photos in the feed
-- In the Gallery feed, Instagram items are now photo-preview cards built
-  from each post's own thumbnail link (the image stays on Instagram;
-  nothing is downloaded or re-hosted), and they look the same on every
-  pass of the endless loop. If a thumbnail link ever expires, the card
-  falls back to a styled link-card so the layout never breaks.
-- Feed batches are throttled so the loop advances at scroll pace, and
-  the homepage gallery strip is capped at 8 tiles.
-
-## v17 (2026-11-03) — all Instagram items removed from the Gallery
-- At the owner's direction, every Instagram item was removed from the
-  Gallery (first he kept only the language-related one, then asked for
-  all of them to go). The Gallery now holds only the 9 Wikimedia
-  Commons photos and the section tile (10 items), still shown as the
-  endless one-photo-per-row feed.
+A Catvers Studio project, made with the Mundari community.

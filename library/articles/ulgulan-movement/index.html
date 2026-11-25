@@ -533,6 +533,49 @@ footer .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
 .fcol .flinks a{display:block;color:#d8d0c2;text-decoration:none;padding:4px 0}
 .fcol .flinks a:hover{color:#e8c97a}
 @media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}
+
+/* ==== ENGAGE v90: likes, views, comments ==== */
+.engage{max-width:720px;margin:8px auto 0;padding:8px 5% 56px;font-family:Inter,system-ui,sans-serif;color:var(--ink)}
+.engage-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--line)}
+.eg-like{display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);color:var(--g);font:600 .95rem Inter,system-ui,sans-serif;padding:10px 20px;border-radius:99px;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,background .3s ease,border-color .3s ease}
+.eg-like:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(20,40,35,.4);border-color:var(--sun)}
+.eg-like .eg-heart{font-size:1.05rem;line-height:1;color:#c0532f;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.eg-like.liked{background:var(--g);color:#fff;border-color:var(--g)}
+.eg-like.liked .eg-heart{color:var(--sun);transform:scale(1.2)}
+.eg-like:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.eg-views{color:var(--mut);font-size:.92rem;display:inline-flex;align-items:center;gap:7px}
+.engage h2.eg-h{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.55rem;margin:26px 0 4px;color:var(--ink)}
+.engage .eg-sub{color:var(--mut);font-size:.95rem;margin:0 0 18px}
+.eg-form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 12px 30px -24px rgba(20,40,35,.35)}
+.eg-form label{display:block;font-size:.85rem;font-weight:600;color:var(--g);margin:12px 0 6px}
+.eg-form label:first-child{margin-top:0}
+.eg-form input[type="text"],.eg-form textarea{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:400 .98rem Inter,system-ui,sans-serif;color:var(--ink)}
+.eg-form textarea{min-height:96px;resize:vertical}
+.eg-form input[type="text"]:focus,.eg-form textarea:focus{outline:2px solid var(--sun);outline-offset:1px;border-color:var(--sun)}
+.eg-stars{display:flex;gap:4px;margin:2px 0 4px}
+.eg-stars button{background:none;border:0;padding:2px;cursor:pointer;font-size:1.45rem;line-height:1;color:var(--line);transition:transform .2s ease,color .2s ease}
+.eg-stars button:hover{transform:scale(1.18)}
+.eg-stars button.on{color:var(--sun)}
+.eg-submit{margin-top:16px;background:var(--sun);color:#1b2b26;border:0;font:600 .98rem Inter,system-ui,sans-serif;padding:12px 26px;border-radius:99px;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease}
+.eg-submit:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(228,185,95,.55)}
+.eg-submit:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.eg-msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
+.eg-msg.ok{color:var(--g2)}
+.eg-msg.bad{color:#a03d2a}
+.eg-list{margin-top:26px;display:grid;gap:14px}
+.eg-comment{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.eg-comment .eg-meta{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.eg-comment .eg-name{font-weight:600;color:var(--g)}
+.eg-comment .eg-stars-static{color:var(--sun);font-size:.9rem;letter-spacing:2px}
+.eg-comment .eg-date{color:var(--mut);font-size:.82rem;margin-left:auto}
+.eg-comment .eg-body{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:break-word}
+.eg-report{margin-top:10px;background:none;border:0;padding:0;color:var(--mut);font:500 .82rem Inter,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.eg-report:hover{color:#a03d2a}
+.eg-report:disabled{opacity:.55;cursor:default;text-decoration:none}
+.eg-empty{color:var(--mut);font-size:.95rem;border:1px dashed var(--line);border-radius:16px;padding:18px;text-align:center}
+.eg-more{margin:4px auto 0;display:block;background:none;border:1px solid var(--line);color:var(--g);font:600 .9rem Inter,system-ui,sans-serif;padding:10px 22px;border-radius:99px;cursor:pointer}
+.eg-more:hover{border-color:var(--sun)}
+.eg-note{color:var(--mut);font-size:.82rem;margin-top:12px}
 </style>
 <link rel="canonical" href="https://mundarisamaj.pages.dev/library/articles/ulgulan-movement/"><meta property="og:type" content="article"><meta property="og:site_name" content="Mundari Samaj"><meta property="og:title" content="The Ulgulan — Causes, Events and Consequences (1899–1900) · Mundari Samaj"><meta property="og:description" content="The Ulgulan — the &amp;#x27;Great Tumult&amp;#x27; of 1899–1900 — grew out of forty years of struggle over Munda land, and it changed the law of Chotanagpur forever."><meta property="og:url" content="https://mundarisamaj.pages.dev/library/articles/ulgulan-movement/"><meta property="og:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><meta property="og:image:alt" content="Sarhul at a sarna grove"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The Ulgulan — Causes, Events and Consequences (1899–1900) · Mundari Samaj"><meta name="twitter:description" content="The Ulgulan — the &amp;#x27;Great Tumult&amp;#x27; of 1899–1900 — grew out of forty years of struggle over Munda land, and it changed the law of Chotanagpur forever."><meta name="twitter:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><script src="../../../assets/js/analytics.js" defer></script></head>
 <body>
@@ -582,6 +625,8 @@ footer .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
 <p>Featured photograph: Pinakpani · CC BY-SA 4.0</p>
 </div>
 </article></div></div>
+<div id="engage" class="engage"></div>
+<script src="../../../assets/js/engage.js" defer></script>
 <section class="more"><h2>Share what you know</h2><p>Do you have a story, photograph or correction connected with this article?</p><a href="../../../contribute/">Contribute to the archive</a></section>
 <footer><div class="fcols"><div class="fcol"><h5>Explore</h5><div class="flinks"><a href="../../../">Home</a><a href="../../../language/">Language</a><a href="../../../heritage/">Heritage</a><a href="../../../culture/">Culture</a></div></div><div class="fcol"><h5>Learn</h5><div class="flinks"><a href="../../../language/script/">Bani Script</a><a href="../../../language/numbers/">Numbers &amp; Counting</a><a href="../../../language/dictionary/">Dictionary</a><a href="../../../language/learn/">Learn Mundari</a></div></div><div class="fcol"><h5>Community</h5><div class="flinks"><a href="../../../contribute/">Contribute</a><a href="../../../news/">News &amp; Updates</a><a href="mailto:mundarisamaj@outlook.com">Email Us</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></div><div class="fcol"><h5>About</h5><div class="flinks"><a href="../../../about/">About Us</a><a href="../../../library/">Library</a><a href="../../../media/">Media</a><a href="../../../search/">Search</a><a href="../../../privacy/">Privacy Policy</a><a href="../../../faq/">FAQ</a></div></div></div><div class="partners"><h4>Our Partners</h4><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b> <span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b> <span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div>© 2026 Mundari Samaj · Johar! Jay Mundari!<div class="fnote">Bani script · Unicode since 2022</div></footer>
 <script>

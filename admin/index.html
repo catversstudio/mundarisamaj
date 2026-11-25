@@ -5,110 +5,260 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin — Mundari Samaj</title>
 <meta name="robots" content="noindex, nofollow">
+<script>(function(){try{var t=localStorage.getItem("ms-admin-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f2f6f3;--ink:#16302a;--mut:#57706a;--g:#1f4a41;--g2:#2f6b5d;--mist:#dfeae4;--sun:#e4b95f;--card:#fff;--line:#d3e0d9;--danger:#a03d2a;--ease:cubic-bezier(.16,1,.3,1)}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34}}
+:root{--bg:#F7F8F6;--surface:#FFFFFF;--surface2:#F0F2EF;--ink:#202823;--mut:#778078;--green:#245744;--green2:#39735C;--gold:#D2AD68;--gold-ink:#2A2118;--gold-deep:#A97F2F;--line:#E6E9E4;--success:#27865B;--success-tx:#1E6B45;--warning:#C58A32;--warning-tx:#8A5F14;--danger:#C84B4B;--danger-tx:#B03A3A;--btn-bg:#245744;--btn-ink:#FFFFFF;--ring:rgba(210,173,104,.35);--shadow:0 1px 2px rgba(23,32,27,.05),0 10px 30px -22px rgba(23,32,27,.25);--ease:cubic-bezier(.16,1,.3,1);--topbar-h:55px;--side-w:248px;--side-slim:78px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000000;--surface:#101012;--surface2:#17171A;--ink:#F5F5F4;--mut:#A3A3A3;--green:#75A58A;--green2:#75A58A;--gold:#D5B16B;--gold-deep:#D5B16B;--line:#26262A;--success-tx:#82C9A4;--warning-tx:#E3B76B;--danger-tx:#F09393;--btn-bg:#75A58A;--btn-ink:#0A0A0A;--ring:rgba(213,177,107,.35);--shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px -22px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#000000;--surface:#101012;--surface2:#17171A;--ink:#F5F5F4;--mut:#A3A3A3;--green:#75A58A;--green2:#75A58A;--gold:#D5B16B;--gold-deep:#D5B16B;--line:#26262A;--success-tx:#82C9A4;--warning-tx:#E3B76B;--danger-tx:#F09393;--btn-bg:#75A58A;--btn-ink:#0A0A0A;--ring:rgba(213,177,107,.35);--shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px -22px rgba(0,0,0,.6)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}
 .bani{font-family:"Noto Nag Mundari",Inter,sans-serif}
-button{font:inherit;cursor:pointer}
-h1{font:600 26px Fraunces,Georgia,serif;margin:4px 0 8px;color:var(--g)}
-h2{font:600 20px Fraunces,Georgia,serif;margin:0 0 10px;color:var(--g)}
+button{font:inherit;cursor:pointer;color:inherit}
+h1{font:600 27px/1.2 Fraunces,Georgia,serif;margin:4px 0 8px;color:var(--ink)}
+h2{font:600 16px/1.35 Inter,system-ui,sans-serif;margin:0 0 10px;color:var(--ink)}
 p.sub{color:var(--mut);font-size:13.5px;margin:0 0 12px}
-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g2);margin:14px 0 5px}
-input,select,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:15px;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:14px 0 5px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;transition:border-color .18s,box-shadow .18s}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--mut) 72%,transparent)}
 textarea{min-height:110px;resize:vertical}
 textarea.code{font:12.5px/1.6 ui-monospace,Menlo,monospace;min-height:340px}
-input:focus,select:focus,textarea:focus{border-color:var(--sun);outline:0;box-shadow:0 0 0 3px rgba(228,185,95,.25)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--g);color:#fff;border:0;border-radius:999px;padding:13px 20px;font-weight:600;font-size:14px;min-height:48px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -10px rgba(20,40,35,.45)}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:0;box-shadow:0 0 0 3px var(--ring)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+::selection{background:color-mix(in srgb,var(--gold) 35%,transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--btn-bg);color:var(--btn-ink);border:1px solid transparent;border-radius:10px;padding:12px 18px;font-weight:600;font-size:14px;min-height:46px;transition:background .18s,box-shadow .18s,transform .18s}
+.btn:hover{box-shadow:0 6px 16px -8px rgba(23,32,27,.35)}
+.btn:active{transform:translateY(1px)}
 .btn.block{width:100%}
-.btn.gold{background:var(--sun);color:#1b2b26}
-.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--g)}
+.btn.gold{background:var(--gold);color:var(--gold-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--surface2);box-shadow:none}
 .btn.danger{background:var(--danger);color:#fff}
-.btn.small{min-height:40px;padding:8px 14px;font-size:13px}
+.btn.small{min-height:38px;padding:7px 13px;font-size:13px;border-radius:9px}
 .btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
-.err{background:#fbede8;border:1px solid #e5b4a4;color:#8c2f1b;border-radius:12px;padding:11px 13px;font-size:13.5px;margin:12px 0;display:none}
-@media (prefers-color-scheme:dark){.err{background:#3a1d16;color:#f0b9a6}}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--g);color:#f3edd8;padding:11px 18px;border-radius:999px;font-size:13.5px;box-shadow:0 10px 30px rgba(16,47,41,.35);display:none;z-index:80;max-width:92vw;text-align:center}
+.err{background:color-mix(in srgb,var(--danger) 9%,var(--surface));border:1px solid color-mix(in srgb,var(--danger) 35%,var(--line));color:var(--danger-tx);border-radius:10px;padding:11px 13px;font-size:13.5px;margin:12px 0;display:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-size:13.5px;box-shadow:var(--shadow);display:none;z-index:90;max-width:92vw;text-align:center}
+@media(max-width:600px){.toast{bottom:88px}}
 .hidden{display:none!important}
 .hint{font-size:12px;color:var(--mut);margin-top:5px}
 .center{text-align:center;padding:40px 10px;color:var(--mut)}
 .row{display:flex;align-items:center;gap:10px}
 details{margin-top:14px}
-summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
+summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--green2)}
 
-/* ---- top bar: liquid glass capsule, same as the website header ---- */
-.topbar{position:sticky;top:10px;z-index:40;margin:10px auto 0;max-width:1140px;width:calc(100% - 20px);display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;border:1px solid transparent;background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.25)) padding-box,linear-gradient(115deg,rgba(255,255,255,.9),rgba(228,185,95,.55) 45%,rgba(255,255,255,.25)) border-box;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 16px 36px -14px rgba(20,40,35,.35),inset 0 1px 0 rgba(255,255,255,.7)}
-@media (prefers-color-scheme:dark){.topbar{background:linear-gradient(rgba(16,34,28,.6),rgba(16,34,28,.45)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box}}
-.topbar img{width:28px;height:28px}
-.topbar b{font:600 15px Fraunces,serif;color:var(--g);white-space:nowrap}
-.topbar .who{margin-left:auto;font-size:12px;color:var(--mut);max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.topbar .logout{background:transparent;border:1px solid var(--g);color:var(--g);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600}
-.wrap{max-width:1140px;margin:0 auto;padding:18px 14px 60px}
+/* ---- top bar: flat, minimal ---- */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--line)}
+.topbar img{width:28px;height:28px;border-radius:8px}
+.topbar b{font:600 15px Fraunces,serif;color:var(--ink);white-space:nowrap}
+.topbar .pagetitle{display:none;font:600 15px Inter,system-ui,sans-serif;color:var(--ink)}
+.topbar .who{margin-left:auto;font-size:12px;color:var(--mut);max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar .logout{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;min-height:36px}
+.topbar .logout:hover{background:var(--surface2)}
+.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--mut);flex:0 0 auto;padding:0}
+.iconbtn:hover{background:var(--surface2);color:var(--ink)}
+.iconbtn svg{width:19px;height:19px}
+@media(max-width:600px){.topbar .who{display:none}}
+@media(min-width:601px){
+  body:has(#view-app:not(.hidden)) .topbar{margin-left:var(--side-slim)}
+  body:has(#view-app:not(.hidden)) .topbar img,body:has(#view-app:not(.hidden)) .topbar b{display:none}
+  body:has(#view-app:not(.hidden)) .topbar .pagetitle{display:block}
+}
+@media(min-width:1025px){body:has(#view-app:not(.hidden)) .topbar{margin-left:var(--side-w)}}
+.wrap{max-width:1200px;margin:0 auto;padding:20px 16px 96px}
 .wrap.narrow{max-width:760px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 12px 30px -22px rgba(20,40,35,.35)}
+@media(min-width:601px) and (max-width:1024px){.wrap:has(> #view-app:not(.hidden)){margin-left:var(--side-slim);margin-right:0}}
+@media(min-width:1025px){.wrap:has(> #view-app:not(.hidden)){margin-left:var(--side-w);margin-right:0}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}
 .bigmark{width:54px;height:54px;margin:6px auto 10px;display:block}
 .foot{margin-top:26px;font-size:12px;color:var(--mut);text-align:center}
 
-/* ---- tabs ---- */
-.tabs{position:sticky;top:76px;z-index:30;display:flex;gap:8px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);padding:10px 0 8px}
-.tabs button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:11px 6px;font-weight:600;font-size:13.5px;color:var(--g);transition:all .3s var(--ease)}
-.tabs button.on{background:var(--g);color:#fff;border-color:var(--g);box-shadow:0 8px 18px -8px rgba(20,40,35,.5)}
+/* ---- side navigation (sidebar on tablet/desktop, bottom bar on mobile) ---- */
+.tabs button svg{flex:0 0 auto}
+@media(max-width:600px){
+  .sidenav{position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--surface);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .sidebrand,.sidefoot{display:none}
+  .sidenav .tabs{display:flex;gap:2px}
+  .sidenav .tabs button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;border-radius:10px;padding:7px 2px;font-size:10.5px;font-weight:600;color:var(--mut);min-height:52px}
+  .sidenav .tabs button svg{width:21px;height:21px}
+  .sidenav .tabs button.on{color:var(--green);background:color-mix(in srgb,var(--green) 10%,transparent)}
+  .sidenav .tabs .nl-full{display:none}
+}
+@media(min-width:601px){
+  .sidenav{position:fixed;top:0;left:0;bottom:0;z-index:55;width:var(--side-slim);background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:16px 12px}
+  .sidebrand{display:flex;align-items:center;gap:10px;padding:2px 6px 16px}
+  .sidebrand img{width:30px;height:30px;border-radius:8px}
+  .sb-name{display:none}
+  .sidenav .tabs{display:flex;flex-direction:column;gap:4px}
+  .sidenav .tabs button{display:flex;align-items:center;gap:11px;border:0;background:transparent;border-radius:10px;padding:11px 12px;font-size:13.5px;font-weight:600;color:var(--mut);text-align:left;min-height:44px}
+  .sidenav .tabs button svg{width:20px;height:20px}
+  .sidenav .tabs button:hover{background:var(--surface2)}
+  .sidenav .tabs button.on{background:color-mix(in srgb,var(--green) 11%,transparent);color:var(--green)}
+  .sidenav .tabs .nl-short{display:none}
+  .sidefoot{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+  .sidewho{font-size:11.5px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px}
+  .side-logout{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:transparent;border-radius:10px;padding:10px 12px;font-weight:600;font-size:13px;color:var(--ink);min-height:44px}
+  .side-logout:hover{background:var(--surface2)}
+  .side-logout svg{width:18px;height:18px;flex:0 0 auto}
+}
+@media(min-width:601px) and (max-width:1024px){
+  .sidebrand{justify-content:center;padding:2px 0 14px}
+  .sidenav .tabs button{justify-content:center;padding:11px 6px}
+  .sidenav .tabs .nl-full{display:none}
+  .sidewho{display:none}
+  .side-logout{justify-content:center}
+  .side-logout span{display:none}
+}
+@media(min-width:1025px){
+  .sidenav{width:var(--side-w);padding:18px 14px}
+  .sb-name{display:block;font:600 15px/1.15 Fraunces,serif;color:var(--ink)}
+  .sb-name small{display:block;font:600 10.5px Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin-top:2px}
+}
+
+/* ---- chips, search, lists ---- */
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-.chips button,.chips span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--g2)}
-.chips button.on{background:var(--sun);border-color:var(--sun);color:#1b2b26}
+.chips button,.chips span{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;color:var(--mut)}
+.chips span{background:var(--surface2);border-color:transparent}
+.chips button.on{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
 .searchrow{display:flex;gap:8px;margin:8px 0 4px}
 .searchrow input{flex:1}
 .list{margin:10px 0}
-.item{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin:0 0 9px;text-align:left;width:100%;color:var(--ink);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.item:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(20,40,35,.4)}
+.item{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin:0 0 9px;text-align:left;width:100%;color:var(--ink);transition:border-color .18s,background .18s;min-height:44px}
+.item:hover{border-color:color-mix(in srgb,var(--green) 40%,var(--line));background:color-mix(in srgb,var(--green) 3%,var(--surface))}
 .item .grow{flex:1;min-width:0}
-.item b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item small{color:var(--mut);font-size:12px}
 .pill{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
-.pill.pub{background:#ddebd8;color:#2c5b2a}
-.pill.draft{background:#efe9da;color:#8a6d3b}
+.pill.pub{background:color-mix(in srgb,var(--success) 14%,var(--surface));color:var(--success-tx)}
+.pill.draft{background:color-mix(in srgb,var(--warning) 16%,var(--surface));color:var(--warning-tx)}
 .addbar{position:sticky;bottom:14px;display:flex;justify-content:flex-end;pointer-events:none;z-index:20}
-.addbar button{pointer-events:auto;box-shadow:0 10px 24px rgba(16,47,41,.3)}
+.addbar button{pointer-events:auto;box-shadow:0 10px 24px -8px rgba(23,32,27,.35)}
+@media(max-width:600px){.addbar{bottom:86px}}
+
+/* ---- dashboard (v91) ---- */
+.dash-head{margin:6px 0 2px}
+.dash-head .sub{margin:0 0 2px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+@media(max-width:860px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.stat-num{display:block;font:600 28px/1.1 Inter,system-ui,sans-serif;color:var(--ink)}
+.stat-lbl{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-top:5px}
+.stat-sub{display:block;font-size:12px;color:var(--warning-tx);margin-top:3px}
+.dash-cols{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+.dash-cols .card{margin-top:0}
+@media(max-width:860px){.dash-cols{grid-template-columns:1fr}}
+.qa-grid{display:flex;flex-direction:column;gap:8px}
+.qa-grid .btn{justify-content:flex-start}
 
 /* ---- full-page editor ---- */
-.edbar{position:sticky;top:76px;z-index:30;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);padding:10px 0 8px}
+.edbar{position:sticky;top:var(--topbar-h);z-index:30;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 0 8px}
 .edbar .sp{flex:1}
-.modegrp{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
-.modegrp button{border:0;background:transparent;padding:9px 16px;font-weight:600;font-size:13px;color:var(--g)}
-.modegrp button.on{background:var(--g);color:#fff}
-.ed-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.modegrp{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.modegrp button{border:0;background:transparent;padding:9px 16px;font-weight:600;font-size:13px;color:var(--mut);min-height:38px}
+.modegrp button.on{background:var(--btn-bg);color:var(--btn-ink)}
+.ed-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
 @media(max-width:860px){.ed-grid{grid-template-columns:1fr}}
-.ed-title{font:600 24px Fraunces,Georgia,serif;padding:14px 16px}
+#settingsToggle{display:none;width:100%;align-items:center;justify-content:space-between;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-weight:600;font-size:14px;color:var(--ink);min-height:48px}
+#settingsToggle svg{transition:transform .18s}
+.ed-grid.settings-open #settingsToggle svg{transform:rotate(180deg)}
+@media(max-width:860px){
+  #settingsToggle{display:flex}
+  .ed-grid .side{display:none}
+  .ed-grid.settings-open .side{display:block}
+}
+.ed-title{font:600 23px Fraunces,Georgia,serif;padding:13px 15px}
 .wc{font-size:12px;color:var(--mut);text-align:right;margin-top:6px}
 
 /* ---- visual editor (reader-style) ---- */
-.ved-wrap{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 6% 40px;box-shadow:0 12px 30px -22px rgba(20,40,35,.35)}
+.ved-wrap{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:34px 6% 40px;box-shadow:var(--shadow)}
 .ved{max-width:720px;margin:0 auto;font:17px/1.75 Inter,system-ui,sans-serif;color:var(--ink)}
 .ved h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.5rem,3.2vw,2.1rem);line-height:1.15;margin:0;color:var(--ink)}
 .ved p{margin:0}
 .ved .lead{font:400 1.3rem/1.6 Fraunces,Georgia,serif}
-.ved blockquote{margin:0;padding:6px 0 6px 24px;border-left:4px solid var(--sun);font:400 1.4rem/1.45 Fraunces,Georgia,serif;color:var(--g)}
+.ved blockquote{margin:0;padding:6px 0 6px 24px;border-left:4px solid var(--gold);font:400 1.4rem/1.45 Fraunces,Georgia,serif;color:var(--green)}
 .ved ul,.ved ol{margin:0;padding-left:24px}
 .ved img{max-width:100%;display:block;border-radius:10px}
-.ved .note{background:var(--mist);border-radius:16px;padding:18px 22px;font-size:.95rem}
-.ved a{color:var(--g2)}
-.vblock{position:relative;border-radius:10px;padding:6px 8px;margin:0 -8px 10px;transition:box-shadow .25s var(--ease),background .25s}
-.vblock:hover{box-shadow:0 0 0 2px rgba(228,185,95,.55)}
-.vblock.sel{box-shadow:0 0 0 2px var(--sun);background:color-mix(in srgb,var(--sun) 6%,transparent)}
+.ved .note{background:var(--surface2);border-radius:16px;padding:18px 22px;font-size:.95rem}
+.ved a{color:var(--green2)}
+.vblock{position:relative;border-radius:10px;padding:6px 8px;margin:0 -8px 10px;transition:box-shadow .18s,background .18s}
+.vblock:hover{box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 55%,transparent)}
+.vblock.sel{box-shadow:0 0 0 2px var(--gold);background:color-mix(in srgb,var(--gold) 7%,transparent)}
 .vblock [contenteditable]{outline:none;min-height:1.2em}
-.vtools{position:absolute;top:-14px;right:6px;z-index:5;display:none;gap:4px;background:var(--g);border-radius:999px;padding:3px}
+.vtools{position:absolute;top:-14px;right:6px;z-index:5;display:none;gap:4px;background:var(--btn-bg);border-radius:999px;padding:3px}
 .vblock:hover .vtools,.vblock.sel .vtools{display:inline-flex}
-.vtools button{border:0;background:transparent;color:#fff;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px}
+.vtools button{border:0;background:transparent;color:var(--btn-ink);font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;min-height:26px}
 .vtools button:hover{background:rgba(255,255,255,.18)}
 .fmtbar{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
-.fmtbar button{border:1px solid var(--line);background:var(--card);color:var(--g);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600}
-.fmtbar button:hover{border-color:var(--sun)}
+.fmtbar button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600;min-height:36px}
+.fmtbar button:hover{border-color:var(--gold)}
 .addbar2{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-top:1px dashed var(--line);padding-top:14px}
-.addbar2 button{border:1px dashed var(--g2);background:transparent;color:var(--g);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600}
+.addbar2 button{border:1px dashed color-mix(in srgb,var(--green) 45%,var(--line));background:transparent;color:var(--green);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600;min-height:36px}
+
+/* ---- comments / security log / blocked IPs ---- */
+.cmt{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:10px 0;background:var(--surface)}
+.cmt .meta{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;font-size:.86rem;color:var(--mut)}
+.cmt .meta b{color:var(--ink);font-size:.95rem}
+.cmt .body{margin:7px 0 0;white-space:pre-wrap;overflow-wrap:break-word}
+.cmt .rowend{display:flex;justify-content:space-between;align-items:center;margin-top:9px;gap:10px;flex-wrap:wrap}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.74rem;font-weight:700;letter-spacing:.02em}
+.badge.live{background:color-mix(in srgb,var(--success) 13%,var(--surface));color:var(--success-tx)}
+.badge.reported{background:color-mix(in srgb,var(--warning) 18%,var(--surface));color:var(--warning-tx)}
+.badge.ok{background:color-mix(in srgb,var(--success) 13%,var(--surface));color:var(--success-tx)}
+.badge.fail{background:color-mix(in srgb,var(--danger) 12%,var(--surface));color:var(--danger-tx)}
+.badge.lock{background:color-mix(in srgb,var(--warning) 18%,var(--surface));color:var(--warning-tx)}
+.logrow{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:8px 2px;border-bottom:1px solid var(--line);font-size:.88rem}
+.logrow .ua{color:var(--mut);font-size:.78rem;flex-basis:100%}
+.stars-static{color:var(--gold-deep);letter-spacing:2px;font-size:.85rem}
+
+/* ---- password visibility toggle (v91) ---- */
+.pw-wrap{position:relative;display:block}
+.pw-wrap input{padding-right:50px}
+.pw-eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:42px;height:38px;border:0;border-radius:8px;background:transparent;color:var(--mut);padding:0}
+.pw-eye:hover{background:var(--surface2);color:var(--ink)}
+.pw-eye svg{width:19px;height:19px}
+
+/* ---- v91 rev2: mobile-only editor proxies, add-block bar + sheet ---- */
+.ed-mobile-only{display:none}
+#mobileAddBar{display:none}
+#addBlockSheet{display:none;position:fixed;inset:0;z-index:80}
+#addBlockSheet.open{display:block}
+#addBlockSheet .abs-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+#addBlockSheet .abs-panel{position:absolute;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:var(--shadow)}
+.abs-head{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 6px;font-weight:600;font-size:14.5px}
+.abs-head .iconbtn{width:34px;height:34px}
+.abs-list{display:flex;flex-direction:column}
+.abs-list button{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;border:0;border-top:1px solid var(--line);background:transparent;color:var(--ink);font-size:15px;font-weight:500;padding:10px 6px;text-align:left}
+.abs-list button:first-child{border-top:0}
+.abs-list button .abs-plus{color:var(--green);font-weight:700}
+.abs-list button.abs-upload{margin-top:6px;border-top:1px solid var(--line);color:var(--green);font-weight:600}
+@media(max-width:600px){
+  /* editor header: ONE compact sticky row, no wrapping */
+  .edbar{flex-wrap:nowrap;height:48px;padding:5px 0;gap:6px}
+  .edbar .btn.small{min-height:36px}
+  #edBack{font-size:0;width:38px;padding-left:0;padding-right:0;flex:0 0 auto}
+  #edBack::before{content:"←";font-size:17px;line-height:1}
+  .modegrp{flex:0 0 auto}
+  .modegrp button{padding:7px 11px;min-height:36px;font-size:12.5px}
+  #edImportBtn{display:none}
+  #edPreview{font-size:0;width:38px;padding-left:0;padding-right:0;flex:0 0 auto}
+  #edPreview::before{content:"↗";font-size:16px;line-height:1}
+  #edSaveTop{padding:8px 13px;flex:0 0 auto}
+  .ed-mobile-only{display:inline-flex}
+  .edbar .iconbtn{width:38px;height:38px;flex:0 0 auto}
+  .edbar .iconbtn.del{color:var(--danger-tx);border-color:color-mix(in srgb,var(--danger) 40%,var(--line))}
+  /* tighter editor spacing: maximum room for the writing area */
+  #editorView .card{padding:14px}
+  .ved-wrap{padding:16px 10px 20px;border-radius:12px}
+  .ved{font-size:16px;line-height:1.7}
+  .ed-title{font-size:20px;padding:11px 12px}
+  .fmtbar{margin:0 0 8px}
+  /* slim sticky add-block bar instead of the full button row */
+  .addbar2{display:none}
+  #mobileAddBar{display:block;position:sticky;bottom:76px;z-index:25;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+  #mobileAddBar button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;border:0;background:transparent;color:var(--green);font-weight:600;font-size:14px}
+}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -116,7 +266,9 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
 <header class="topbar">
   <img src="https://res.cloudinary.com/lkgpy2ls/image/upload/mark.svg" alt="Mark">
   <b>Mundari Samaj · Admin</b>
+  <span class="pagetitle" id="pageTitle">Dashboard</span>
   <span class="who" id="who"></span>
+  <button class="iconbtn" id="themeToggle" type="button" aria-label="Switch theme"></button>
   <button class="logout hidden" id="logoutBtn" type="button">Log out</button>
 </header>
 
@@ -199,14 +351,58 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
   <section id="view-app" class="hidden">
 
     <div id="listViews">
-      <nav class="tabs" aria-label="Admin sections">
-        <button type="button" data-tab="content" class="on">Content</button>
-        <button type="button" data-tab="dict">Dictionary</button>
-        <button type="button" data-tab="backup">Backup &amp; Security</button>
-      </nav>
+      <div class="sidenav">
+        <div class="sidebrand">
+          <img src="https://res.cloudinary.com/lkgpy2ls/image/upload/mark.svg" alt="">
+          <span class="sb-name">Mundari Samaj<small>Admin Studio</small></span>
+        </div>
+        <nav class="tabs" aria-label="Admin sections">
+          <button type="button" data-tab="dashboard" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span class="nl-full">Dashboard</span><span class="nl-short">Dashboard</span></button>
+          <button type="button" data-tab="content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span class="nl-full">Content</span><span class="nl-short">Content</span></button>
+          <button type="button" data-tab="dict"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span class="nl-full">Dictionary</span><span class="nl-short">Dictionary</span></button>
+          <button type="button" data-tab="comments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="nl-full">Comments</span><span class="nl-short">Comments</span></button>
+          <button type="button" data-tab="backup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span class="nl-full">Backup &amp; Security</span><span class="nl-short">More</span></button>
+        </nav>
+        <div class="sidefoot">
+          <span class="sidewho" id="sideWho"></span>
+          <button type="button" class="side-logout" id="sideLogout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button>
+        </div>
+      </div>
+
+      <!-- dashboard tab (v91) -->
+      <div id="tab-dashboard">
+        <div class="dash-head">
+          <h1>Welcome back</h1>
+          <p class="sub" id="dashWho"></p>
+          <p class="sub" id="dashDate"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-num" id="dashPub">–</span><span class="stat-lbl">Published</span></div>
+          <div class="stat-card"><span class="stat-num" id="dashDraft">–</span><span class="stat-lbl">Drafts</span></div>
+          <div class="stat-card"><span class="stat-num" id="dashWords">–</span><span class="stat-lbl">Dictionary words</span></div>
+          <div class="stat-card"><span class="stat-num" id="dashComments">–</span><span class="stat-lbl">Comments</span><span class="stat-sub" id="dashReported"></span></div>
+        </div>
+        <div class="dash-cols">
+          <div class="card">
+            <h2>Recent content</h2>
+            <p class="sub">The most recently updated items. Tap one to open it in the editor.</p>
+            <div class="list" id="dashRecent"><p class="hint">Loading…</p></div>
+          </div>
+          <div class="card">
+            <h2>Quick actions</h2>
+            <div class="qa-grid">
+              <button class="btn" type="button" id="dashNewArticle">Create Article</button>
+              <button class="btn ghost" type="button" id="dashNewNews">Create News</button>
+              <button class="btn ghost" type="button" id="dashNewStory">Add Story</button>
+              <button class="btn ghost" type="button" id="dashNewWord">Add Dictionary Word</button>
+              <button class="btn ghost" type="button" id="dashReview">Review Comments</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- content tab -->
-      <div id="tab-content">
+      <div id="tab-content" class="hidden">
         <div class="chips" id="statStrip"></div>
         <div class="chips" id="typeChips"></div>
         <div class="searchrow">
@@ -269,6 +465,20 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
         </form>
       </div>
 
+      <!-- comments tab (v90) -->
+      <div id="tab-comments" class="hidden">
+        <div class="card">
+          <h2>Comments</h2>
+          <p class="sub">Comments appear on the website right away — there is no approval queue.
+          An automatic filter removes abusive words, links and spam before a comment goes live.
+          If something slips through, delete it here. Comments a reader has reported are marked
+          “Reported” and are hidden from the website until you decide.</p>
+          <p style="margin-top:10px"><button class="btn ghost small" type="button" id="commentsRefresh">Refresh</button></p>
+          <div id="commentsList"></div>
+          <p class="hint" id="commentsCount"></p>
+        </div>
+      </div>
+
       <!-- backup & security tab -->
       <div id="tab-backup" class="hidden">
         <div class="card">
@@ -276,6 +486,8 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
           <p class="sub">All content and the dictionary in a single JSON file.
           Keep this file safe — it is your backup.</p>
           <button class="btn" id="exportBtn" type="button">Download backup</button>
+          <p style="margin-top:14px"><button class="btn ghost" id="engBackupBtn" type="button">Download engagement backup</button></p>
+          <p class="hint">Likes, views, comments, blocked IPs and the security log — the engagement data only.</p>
         </div>
         <div class="card">
           <h2>Restore a backup</h2>
@@ -314,6 +526,31 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
             <label for="rcCode">Your new recovery code — note it down now, it will not be shown again</label>
             <input id="rcCode" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:17px;letter-spacing:.06em">
           </div>
+        </div>
+        <div class="card">
+          <h2>Security log</h2>
+          <p class="sub">The most recent admin sign-in activity. A successful sign-in, a failed
+          attempt and a lockout are all recorded here automatically.</p>
+          <p style="margin-top:10px"><button class="btn ghost small" type="button" id="secLogRefresh">Refresh</button></p>
+          <div id="secLogList"><p class="hint">Loading…</p></div>
+        </div>
+        <div class="card">
+          <h2>Blocked IP addresses</h2>
+          <p class="sub">A blocked address cannot like, view-count or comment anywhere on the
+          website. Use this only for repeated abuse or spam.</p>
+          <div id="blockedList"></div>
+          <div class="row" style="margin-top:14px">
+            <div style="flex:1;min-width:150px">
+              <label for="blockIp">IP address</label>
+              <input id="blockIp" placeholder="e.g. 203.0.113.7">
+            </div>
+            <div style="flex:2;min-width:180px">
+              <label for="blockReason">Reason (optional)</label>
+              <input id="blockReason" placeholder="Repeated spam comments">
+            </div>
+          </div>
+          <p style="margin-top:12px"><button class="btn ghost small" type="button" id="blockAddBtn">Block this IP</button></p>
+          <p class="hint" id="blockResult"></p>
         </div>
       </div>
     </div>
@@ -387,6 +624,7 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--g2)}
             <p class="wc" id="wordCount"></p>
           </div>
 
+          <button type="button" id="settingsToggle" aria-expanded="false"><span>Content settings</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
           <div class="side">
             <div class="card">
               <label for="ceType" style="margin-top:0">Type</label>
@@ -589,8 +827,10 @@ $("logoutBtn").addEventListener("click", async () => {
 document.querySelectorAll(".tabs button").forEach((b) => {
   b.addEventListener("click", () => {
     document.querySelectorAll(".tabs button").forEach((x) => x.classList.toggle("on", x === b));
-    ["content", "dict", "backup"].forEach((t) => $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab));
+    ["content", "dict", "comments", "backup"].forEach((t) => $("tab-" + t).classList.toggle("hidden", t !== b.dataset.tab));
     if (b.dataset.tab === "dict" && !$("dictList").dataset.loaded) loadDict();
+    if (b.dataset.tab === "comments") loadComments();
+    if (b.dataset.tab === "backup") { loadSecLog(); loadBlocked(); }
   });
 });
 
@@ -1160,7 +1400,388 @@ $("importBtn").addEventListener("click", async () => {
   }
 });
 
+/* ---------- v90: comments moderation ---------- */
+function starsStr(n) {
+  n = parseInt(n, 10) || 0;
+  if (!n) return "";
+  let s = "";
+  for (let i = 0; i < 5; i++) s += i < n ? "★" : "☆";
+  return s;
+}
+async function loadComments() {
+  const list = $("commentsList");
+  list.innerHTML = '<p class="hint">Loading…</p>';
+  const { data } = await guarded(apiGet("/api/admin/comments?per=100"));
+  list.innerHTML = "";
+  if (!data || !data.ok) {
+    list.innerHTML = '<p class="hint">' +
+      (data && data.error === "comments_unavailable"
+        ? "Comments are not connected yet — the Supabase service key still has to be added to the website settings."
+        : "The comments could not be loaded. Please try again.") + "</p>";
+    $("commentsCount").textContent = "";
+    return;
+  }
+  $("commentsCount").textContent = data.items.length + " most recent comment" + (data.items.length === 1 ? "" : "s");
+  if (!data.items.length) { list.innerHTML = '<p class="hint">No comments yet.</p>'; return; }
+  data.items.forEach((c) => {
+    const d = document.createElement("div");
+    d.className = "cmt";
+    const meta = document.createElement("div"); meta.className = "meta";
+    const nm = document.createElement("b"); nm.textContent = c.name || "Reader";
+    meta.appendChild(nm);
+    if (c.rating) {
+      const st = document.createElement("span"); st.className = "stars-static"; st.textContent = starsStr(c.rating);
+      meta.appendChild(st);
+    }
+    const pg = document.createElement("span"); pg.textContent = "on " + (c.slug || "");
+    meta.appendChild(pg);
+    const dt = document.createElement("span"); dt.textContent = String(c.created_at || "").slice(0, 10);
+    meta.appendChild(dt);
+    const badge = document.createElement("span");
+    badge.className = "badge " + (c.status === "reported" ? "reported" : "live");
+    badge.textContent = c.status === "reported" ? "Reported" : "Live";
+    meta.appendChild(badge);
+    const body = document.createElement("p"); body.className = "body"; body.textContent = c.body || "";
+    const row = document.createElement("div"); row.className = "rowend";
+    const note = document.createElement("span"); note.className = "hint"; note.style.margin = "0";
+    note.textContent = c.status === "reported" ? "Hidden from the website after a reader report." : "";
+    const del = document.createElement("button");
+    del.type = "button"; del.className = "btn danger small"; del.textContent = "Delete";
+    del.addEventListener("click", async () => {
+      if (!confirm("Delete this comment permanently?")) return;
+      const r = await guarded(apiSend("DELETE", "/api/admin/comments?id=" + encodeURIComponent(c.id)));
+      if (r.data && r.data.ok) { toast("Comment deleted."); loadComments(); }
+      else toast("The comment could not be deleted. Please try again.");
+    });
+    row.appendChild(note); row.appendChild(del);
+    d.appendChild(meta); d.appendChild(body); d.appendChild(row);
+    list.appendChild(d);
+  });
+}
+$("commentsRefresh").addEventListener("click", loadComments);
+
+/* ---------- v90: security log ---------- */
+const LOG_LABEL = { login_success: ["Signed in", "ok"], login_fail: ["Failed attempt", "fail"], lockout: ["Lockout", "lock"] };
+async function loadSecLog() {
+  const list = $("secLogList"); if (!list) return;
+  const { data } = await guarded(apiGet("/api/admin/security-log"));
+  list.innerHTML = "";
+  if (!data || !data.ok || !data.items.length) {
+    list.innerHTML = '<p class="hint">No sign-in activity recorded yet.</p>';
+    return;
+  }
+  data.items.forEach((ev) => {
+    const row = document.createElement("div"); row.className = "logrow";
+    const [label, cls] = LOG_LABEL[ev.event] || [ev.event || "Event", "live"];
+    const badge = document.createElement("span"); badge.className = "badge " + cls; badge.textContent = label;
+    const ip = document.createElement("span"); ip.textContent = "IP " + (ev.ip || "—");
+    const when = document.createElement("span"); when.style.color = "var(--mut)";
+    when.textContent = String(ev.created_at || "").replace("T", " ").slice(0, 19);
+    const ua = document.createElement("span"); ua.className = "ua"; ua.textContent = ev.ua || "";
+    row.appendChild(badge); row.appendChild(ip); row.appendChild(when); row.appendChild(ua);
+    list.appendChild(row);
+  });
+}
+$("secLogRefresh").addEventListener("click", loadSecLog);
+
+/* ---------- v90: blocked IPs ---------- */
+async function loadBlocked() {
+  const list = $("blockedList"); if (!list) return;
+  const { data } = await guarded(apiGet("/api/admin/blocked-ips"));
+  list.innerHTML = "";
+  if (!data || !data.ok) { list.innerHTML = '<p class="hint">The list could not be loaded.</p>'; return; }
+  if (!data.items.length) { list.innerHTML = '<p class="hint">No IP addresses are blocked.</p>'; return; }
+  data.items.forEach((b) => {
+    const row = document.createElement("div"); row.className = "logrow";
+    const ip = document.createElement("b"); ip.textContent = b.ip;
+    const rs = document.createElement("span"); rs.textContent = b.reason || "";
+    const when = document.createElement("span"); when.style.color = "var(--mut)";
+    when.textContent = String(b.created_at || "").slice(0, 10);
+    const rm = document.createElement("button");
+    rm.type = "button"; rm.className = "btn ghost small"; rm.textContent = "Remove";
+    rm.style.marginLeft = "auto";
+    rm.addEventListener("click", async () => {
+      const r = await guarded(apiSend("DELETE", "/api/admin/blocked-ips?ip=" + encodeURIComponent(b.ip)));
+      if (r.data && r.data.ok) { toast("IP unblocked."); loadBlocked(); }
+      else toast("The IP could not be removed. Please try again.");
+    });
+    row.appendChild(ip); row.appendChild(rs); row.appendChild(when); row.appendChild(rm);
+    list.appendChild(row);
+  });
+}
+$("blockAddBtn").addEventListener("click", async () => {
+  const ip = $("blockIp").value.trim();
+  $("blockResult").textContent = "";
+  if (!ip) { $("blockResult").textContent = "Type the IP address first."; return; }
+  const r = await guarded(apiSend("POST", "/api/admin/blocked-ips", { ip, reason: $("blockReason").value.trim() }));
+  if (r.data && r.data.ok) {
+    $("blockIp").value = ""; $("blockReason").value = "";
+    $("blockResult").textContent = "Blocked. This IP can no longer like or comment.";
+    loadBlocked();
+  } else {
+    $("blockResult").textContent = errText(r.data, "That does not look like a valid IP address.");
+  }
+});
+
+/* ---------- v90: engagement backup ---------- */
+$("engBackupBtn").addEventListener("click", async () => {
+  const res = await fetch("/api/admin/backup-engagement", {
+    credentials: "same-origin",
+    headers: { "x-requested-with": "fetch" },
+  }).catch(() => null);
+  if (!res || !res.ok) { toast("The engagement backup could not be created. Please try again."); return; }
+  const blob = await res.blob();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "mundarisamaj-engagement-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("Engagement backup downloaded ✓");
+});
+
 boot();
+</script>
+<script>
+"use strict";
+/* ================= v91 additions — appended only; no existing handler is changed.
+   Theme toggle, dashboard, shell extras, password visibility, unsaved-changes guard. */
+const SUN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+const MOON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+const EYE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYEOFF_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>';
+
+/* ---------- theme toggle ---------- */
+(function () {
+  const btn = $("themeToggle");
+  if (!btn) return;
+  const paint = () => {
+    const dark = document.documentElement.dataset.theme === "dark";
+    btn.innerHTML = dark ? SUN_SVG : MOON_SVG;
+    btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  };
+  paint();
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("ms-admin-theme", next); } catch (e) {}
+    paint();
+  });
+})();
+
+/* ---------- page title + dashboard tab plumbing ---------- */
+const TAB_TITLES = { dashboard: "Dashboard", content: "Content", dict: "Dictionary", comments: "Comments", backup: "Backup & Security" };
+let curTab = "dashboard";
+function setPageTitle(t) { const el = $("pageTitle"); if (el) el.textContent = t; }
+document.querySelectorAll(".tabs button").forEach((b) => {
+  b.addEventListener("click", () => {
+    curTab = b.dataset.tab || "content";
+    $("tab-dashboard").classList.toggle("hidden", curTab !== "dashboard");
+    setPageTitle(TAB_TITLES[curTab] || "");
+    if (curTab === "dashboard") loadDashboard();
+  });
+});
+setPageTitle("Dashboard");
+
+/* ---------- sidebar identity mirror + logout ---------- */
+function mirrorWho() { const s = $("sideWho"); if (s) s.textContent = $("who").textContent || ""; }
+$("sideLogout").addEventListener("click", () => $("logoutBtn").click());
+new MutationObserver(mirrorWho).observe($("who"), { childList: true, characterData: true, subtree: true });
+
+/* ---------- dashboard ---------- */
+let dashBusy = false;
+async function loadDashboard() {
+  if (dashBusy) return; dashBusy = true;
+  try {
+    $("dashWho").textContent = myEmail || "";
+    $("dashDate").textContent = new Date().toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const rc = await guarded(apiGet("/api/admin/content?per=200")).catch(() => ({ data: null }));
+    const items = rc.data && rc.data.ok ? (rc.data.items || []) : null;
+    if (items) {
+      $("dashPub").textContent = items.filter((i) => i.status === "published").length;
+      $("dashDraft").textContent = items.filter((i) => i.status !== "published").length;
+      const box = $("dashRecent"); box.innerHTML = "";
+      if (!items.length) box.innerHTML = '<p class="hint">Nothing here yet.</p>';
+      items.slice(0, 5).forEach((it) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "item";
+        const grow = document.createElement("span"); grow.className = "grow";
+        const t = document.createElement("b"); t.textContent = it.title || "(no title)";
+        const sm = document.createElement("small");
+        sm.textContent = it.type + (it.published_at ? " · " + String(it.published_at).slice(0, 10) : "");
+        grow.append(t, sm);
+        const pill = document.createElement("span");
+        pill.className = "pill " + (it.status === "published" ? "pub" : "draft");
+        pill.textContent = it.status === "published" ? "Published" : "Draft";
+        b.append(grow, pill);
+        b.addEventListener("click", () => openEditor(it));
+        box.appendChild(b);
+      });
+    }
+    const rd = await guarded(apiGet("/api/admin/dictionary?per=1")).catch(() => ({ data: null }));
+    if (rd.data && rd.data.ok) $("dashWords").textContent = rd.data.total;
+    const cm = await guarded(apiGet("/api/admin/comments?per=100")).catch(() => ({ data: null }));
+    if (cm.data && cm.data.ok) {
+      const list = cm.data.items || [];
+      $("dashComments").textContent = list.length;
+      const rep = list.filter((c) => c.status === "reported").length;
+      $("dashReported").textContent = rep ? rep + " reported — needs review" : "";
+    } else if (cm.data && cm.data.error === "comments_unavailable") {
+      $("dashComments").textContent = "—";
+      $("dashReported").textContent = "Comments are not connected yet.";
+    }
+  } finally { dashBusy = false; }
+}
+new MutationObserver(() => {
+  if (!$("view-app").classList.contains("hidden") && !$("tab-dashboard").classList.contains("hidden")) loadDashboard();
+}).observe($("view-app"), { attributes: true, attributeFilter: ["class"] });
+
+/* ---------- quick actions ---------- */
+function dashNew(type) {
+  curType = type;
+  document.querySelectorAll("#typeChips button").forEach((x) => x.classList.toggle("on", x.dataset.v === type));
+  openEditor(null);
+}
+$("dashNewArticle").addEventListener("click", () => dashNew("article"));
+$("dashNewNews").addEventListener("click", () => dashNew("news"));
+$("dashNewStory").addEventListener("click", () => dashNew("story"));
+$("dashNewWord").addEventListener("click", () => { document.querySelector('.tabs button[data-tab="dict"]').click(); openWord(null); });
+$("dashReview").addEventListener("click", () => { document.querySelector('.tabs button[data-tab="comments"]').click(); });
+
+/* ---------- editor settings toggle (narrow screens) ---------- */
+(function () {
+  const btn = $("settingsToggle"); if (!btn) return;
+  const grid = document.querySelector(".ed-grid");
+  btn.addEventListener("click", () => {
+    const open = grid.classList.toggle("settings-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.querySelector("span").textContent = open ? "Hide settings" : "Content settings";
+  });
+})();
+
+/* ---------- password visibility toggles ---------- */
+document.querySelectorAll('#view-login input[type="password"], #view-setup input[type="password"], #view-recover input[type="password"], #pwForm input[type="password"]').forEach((inp) => {
+  const wrap = document.createElement("span"); wrap.className = "pw-wrap";
+  inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "pw-eye"; b.setAttribute("aria-label", "Show password"); b.innerHTML = EYE_SVG;
+  b.addEventListener("click", () => {
+    const show = inp.type === "password";
+    inp.type = show ? "text" : "password";
+    b.innerHTML = show ? EYEOFF_SVG : EYE_SVG;
+    b.setAttribute("aria-label", show ? "Hide password" : "Show password");
+    inp.focus();
+  });
+  wrap.appendChild(b);
+});
+
+/* ---------- unsaved-changes guard (content editor) ---------- */
+let edDirty = false;
+const editorViewEl = $("editorView");
+["input", "change"].forEach((ev) => editorViewEl.addEventListener(ev, () => { edDirty = true; }, true));
+editorViewEl.addEventListener("click", (e) => {
+  if (e.target.closest(".vtools button, .addbar2 button, #fmtBar button")) edDirty = true;
+}, true);
+editorViewEl.addEventListener("click", (e) => {
+  if (e.target.closest("#edBack") && edDirty) {
+    if (!confirm("You have unsaved changes. Leave without saving?")) { e.stopPropagation(); e.preventDefault(); }
+    else edDirty = false;
+  }
+}, true);
+new MutationObserver(() => {
+  edDirty = false;
+  if (editorViewEl.classList.contains("hidden")) setPageTitle(TAB_TITLES[curTab] || "");
+  else setPageTitle(curItem ? "Edit content" : "New content");
+}).observe(editorViewEl, { attributes: true, attributeFilter: ["class"] });
+window.addEventListener("beforeunload", (e) => {
+  if (edDirty && !editorViewEl.classList.contains("hidden")) { e.preventDefault(); e.returnValue = ""; }
+});
+
+/* ---------- v91 rev2: mobile editor header proxies (Import / Delete icons) ---------- */
+(function () {
+  const bar = document.querySelector(".edbar");
+  if (!bar) return;
+  const imp = document.createElement("button");
+  imp.type = "button"; imp.id = "edImportIcon"; imp.className = "iconbtn ed-mobile-only";
+  imp.setAttribute("aria-label", "Import");
+  imp.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  imp.addEventListener("click", () => $("edImportBtn").click());
+  $("edImportBtn").after(imp);
+  const del = document.createElement("button");
+  del.type = "button"; del.id = "edDeleteIcon"; del.className = "iconbtn ed-mobile-only del";
+  del.setAttribute("aria-label", "Delete");
+  del.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+  del.addEventListener("click", () => {
+    const d = $("ceDelete");
+    if (d && !d.classList.contains("hidden")) d.click();
+  });
+  $("edSaveTop").after(del);
+  const syncDel = () => { del.style.display = $("ceDelete").classList.contains("hidden") ? "none" : ""; };
+  new MutationObserver(syncDel).observe($("ceDelete"), { attributes: true, attributeFilter: ["class"] });
+  syncDel();
+})();
+
+/* ---------- v91 rev2: mobile add-block bar + bottom sheet ---------- */
+(function () {
+  const wrap = $("ceVisualWrap"); if (!wrap) return;
+  const bar = document.createElement("div");
+  bar.id = "mobileAddBar";
+  const openBtn = document.createElement("button");
+  openBtn.type = "button"; openBtn.id = "mobileAddBtn"; openBtn.textContent = "+ Add block";
+  bar.appendChild(openBtn);
+  const vedWrap = wrap.querySelector(".ved-wrap");
+  if (vedWrap) vedWrap.after(bar); else wrap.appendChild(bar);
+
+  const sheet = document.createElement("div");
+  sheet.id = "addBlockSheet";
+  sheet.setAttribute("role", "dialog");
+  sheet.setAttribute("aria-modal", "true");
+  sheet.setAttribute("aria-label", "Add a block");
+  const kinds = [["p", "Paragraph"], ["h2", "Heading"], ["img", "Photo"], ["quote", "Quote"], ["list", "List"], ["note", "Note box"]];
+  let rows = kinds.map(([k, label]) =>
+    '<button type="button" data-add="' + k + '"><span class="abs-plus">+</span>' + label + "</button>").join("");
+  rows += '<button type="button" data-add="upload" class="abs-upload"><span class="abs-plus">↑</span>Upload photo</button>';
+  sheet.innerHTML = '<div class="abs-backdrop"></div><div class="abs-panel">' +
+    '<div class="abs-head"><span>Add a block</span>' +
+    '<button type="button" class="iconbtn abs-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>' +
+    '<div class="abs-list">' + rows + "</div></div>";
+  document.body.appendChild(sheet);
+  const close = () => sheet.classList.remove("open");
+  openBtn.addEventListener("click", () => sheet.classList.add("open"));
+  sheet.querySelector(".abs-backdrop").addEventListener("click", close);
+  sheet.querySelector(".abs-close").addEventListener("click", close);
+  sheet.querySelectorAll(".abs-list button").forEach((b) => {
+    b.addEventListener("click", () => {
+      close();
+      const orig = document.querySelector('.addbar2 button[data-add="' + b.dataset.add + '"]');
+      if (orig) orig.click();
+    });
+  });
+})();
+
+/* ---------- v91 rev2: mobile tap-to-select for visual blocks ----------
+   On small screens a tap on a block only selects it (outline + tool row);
+   editing starts from the ✎ tool (or continues if the block already has
+   focus). Tool-button taps always pass through to the original handler. */
+(function () {
+  const mq = window.matchMedia("(max-width:600px)");
+  function guard(e) {
+    if (!mq.matches) return;
+    if (e.target.closest(".vtools")) return;
+    const block = e.target.closest(".vblock");
+    if (!block || !vEd.contains(block)) return;
+    const ed = block.querySelector("[contenteditable]");
+    if (ed && document.activeElement === ed) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "pointerdown") {
+      vEd.querySelectorAll(".vblock").forEach((b) => b.classList.toggle("sel", b === block));
+      const ae = document.activeElement;
+      if (ae && ae !== document.body && vEd.contains(ae)) ae.blur();
+    }
+  }
+  vEd.addEventListener("pointerdown", guard, true);
+  vEd.addEventListener("click", guard, true);
+})();
 </script>
 </body>
 </html>

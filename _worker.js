@@ -246,6 +246,483 @@ async function apiSearch(url, env) {
   return json({ ok: true, content: found, dictionary: d.results || [] });
 }
 
+/* ================= v90: engagement (likes / views / comments) =================
+   Likes + views live in D1; comments live in Supabase (project
+   mundari-engagement) behind the worker, using the SUPABASE_SERVICE_KEY
+   secret binding. Comments go LIVE immediately after an automatic
+   censorship filter (user decision 2026-11-25 — no manual pre-approval).
+   Security: per-IP rate limits, an IP block list, an admin sign-in log
+   and optional login alert emails via the ALERT_WEBHOOK_URL binding. */
+
+const SUPABASE_URL = "https://ulqqsyxvnqsuohoxqdeo.supabase.co/rest/v1";
+const ENGAGE_RATE_LIMIT = 30;        // engage POST actions per IP per 10 min
+const COMMENT_RATE_LIMIT = 5;        // comments per IP per 10 min
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+
+let _engageTablesReady = false;
+async function ensureEngageTables(env) {
+  if (_engageTablesReady) return;
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS engagement (slug TEXT PRIMARY KEY, likes INTEGER DEFAULT 0, views INTEGER DEFAULT 0, updated_at TEXT)"
+  ).run();
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS like_log (slug TEXT NOT NULL, ip TEXT, device_token TEXT, ua TEXT, created_at TEXT, UNIQUE(slug, ip), UNIQUE(slug, device_token))"
+  ).run();
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS censor_log (id INTEGER PRIMARY KEY AUTOINCREMENT, ip TEXT, body_hash TEXT, blocked INTEGER DEFAULT 0, created_at TEXT)"
+  ).run();
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS engage_rate (ip TEXT PRIMARY KEY, count INTEGER DEFAULT 0, window_start TEXT)"
+  ).run();
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS blocked_ips (ip TEXT PRIMARY KEY, reason TEXT, created_at TEXT)"
+  ).run();
+  _engageTablesReady = true;
+}
+
+let _adminLogReady = false;
+async function ensureAdminLog(env) {
+  if (_adminLogReady) return;
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS admin_log (id INTEGER PRIMARY KEY AUTOINCREMENT, event TEXT, ip TEXT, ua TEXT, created_at TEXT)"
+  ).run();
+  _adminLogReady = true;
+}
+
+function clientIp(request) {
+  return request.headers.get("cf-connecting-ip")
+    || (request.headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    || "unknown";
+}
+
+/* ---- admin sign-in log + best-effort alert email ---- */
+
+async function logAdminEvent(env, event, request) {
+  try {
+    await ensureAdminLog(env);
+    await env.DB.prepare(
+      "INSERT INTO admin_log (event, ip, ua, created_at) VALUES (?, ?, ?, ?)"
+    ).bind(event, clientIp(request), request.headers.get("user-agent") || "", nowISO()).run();
+  } catch (e) { /* logging must never break the login flow */ }
+}
+
+// Best-effort: POSTs to the webhook in the ALERT_WEBHOOK_URL binding (any
+// email-relay webhook the owner configures). Unset binding = skip silently;
+// the panel Security log is the always-on record.
+async function sendLoginAlert(env, subject, text, ip) {
+  const hook = env.ALERT_WEBHOOK_URL;
+  if (!hook) return;
+  try {
+    await fetch(hook, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ subject, text, ip, time: nowISO() }),
+    });
+  } catch (e) { /* best-effort only */ }
+}
+
+/* ---- rate limiting + block list ---- */
+
+async function engageRateExceeded(env, ip) {
+  const windowStart = new Date(Date.now() - RATE_WINDOW_MS).toISOString();
+  const row = await env.DB.prepare("SELECT * FROM engage_rate WHERE ip = ?").bind(ip).first();
+  if (!row || row.window_start <= windowStart) {
+    await env.DB.prepare("DELETE FROM engage_rate WHERE ip = ?").bind(ip).run();
+    await env.DB.prepare(
+      "INSERT INTO engage_rate (ip, count, window_start) VALUES (?, 1, ?)"
+    ).bind(ip, nowISO()).run();
+    return false;
+  }
+  if (row.count >= ENGAGE_RATE_LIMIT) return true;
+  await env.DB.prepare("UPDATE engage_rate SET count = ? WHERE ip = ?").bind(row.count + 1, ip).run();
+  return false;
+}
+
+async function ipBlocked(env, ip) {
+  const row = await env.DB.prepare("SELECT ip FROM blocked_ips WHERE ip = ?").bind(ip).first();
+  return !!row;
+}
+
+/* ---- Supabase REST (comments) ---- */
+
+function supabaseReady(env) { return !!env.SUPABASE_SERVICE_KEY; }
+
+async function sbFetch(env, pathAndQuery, opts = {}) {
+  const r = await fetch(SUPABASE_URL + pathAndQuery, {
+    ...opts,
+    headers: {
+      apikey: env.SUPABASE_SERVICE_KEY,
+      authorization: "Bearer " + env.SUPABASE_SERVICE_KEY,
+      "content-type": "application/json",
+      ...(opts.headers || {}),
+    },
+  });
+  if (!r.ok) throw new Error("supabase_" + r.status);
+  if (r.status === 204) return null;
+  const text = await r.text();
+  return text ? JSON.parse(text) : null;
+}
+
+async function sbListComments(env, slug, page, per) {
+  const offset = (page - 1) * per;
+  const items = await sbFetch(env,
+    "/comments?select=id,slug,name,rating,body,created_at" +
+    "&slug=eq." + encodeURIComponent(slug) +
+    "&status=eq.live&order=created_at.desc,id.desc&limit=" + per + "&offset=" + offset,
+    { headers: { prefer: "count=exact" } });
+  return items || [];
+}
+
+async function sbCountComments(env, slug) {
+  const r = await fetch(SUPABASE_URL +
+    "/comments?select=id&slug=eq." + encodeURIComponent(slug) + "&status=eq.live",
+    {
+      headers: {
+        apikey: env.SUPABASE_SERVICE_KEY,
+        authorization: "Bearer " + env.SUPABASE_SERVICE_KEY,
+        prefer: "count=exact",
+        range: "0-0",
+      },
+    });
+  if (!r.ok) return 0;
+  const cr = r.headers.get("content-range") || "";
+  const total = parseInt(cr.split("/")[1] || "0", 10);
+  return Number.isFinite(total) ? total : 0;
+}
+
+/* ---- automatic censorship filter ---- */
+
+// Abuse words (English + Roman Hindi), matched on a normalised copy of the
+// text (lowercase, leet-speak folded, separators stripped per token) so
+// common spelling tricks do not slip through.
+const BAD_WORDS = [
+  // English profanity / abuse
+  "fuck", "fucker", "fucking", "motherfucker", "bitch", "bastard", "whore",
+  "slut", "dick", "cock", "pussy", "porn", "sex", "nigger", "faggot",
+  "asshole", "shithead", "bullshit", "damn you",
+  // Roman Hindi abuse + common spelling variants
+  "madarchod", "madarchodd", "madar chod", "behenchod", "bhenchod",
+  "behen chod", "bhen chod", "chutiya", "chutiye", "chutia", "bhosdike",
+  "bhosdi", "bhosda", "gandu", "gaandu", "harami", "haraami", "kamina",
+  "kamine", "kutta", "kutti", "randi", "raandi", "lund", "lauda", "laude",
+  "chod", "chodu", "jhaat", "jhatu", "saala", "sala", "saale", "haramkhor",
+  "maa ki", "teri maa", "teri behen", "behen ke", "maa ke",
+];
+
+function normaliseForFilter(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replace(/0/g, "o").replace(/1/g, "i").replace(/3/g, "e")
+    .replace(/4/g, "a").replace(/5/g, "s").replace(/7/g, "t")
+    .replace(/@/g, "a").replace(/\$/g, "s");
+}
+
+function containsBadWord(text) {
+  const norm = normaliseForFilter(text);
+  const squashed = norm.replace(/[^a-z]+/g, "");
+  for (const w of BAD_WORDS) {
+    if (w.includes(" ")) {
+      if (norm.includes(w)) return true;
+    } else if (norm.split(/[^a-z]+/).includes(w) || squashed.includes(w)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function containsLink(text) {
+  const t = String(text || "").toLowerCase();
+  return /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|io|xyz|info|biz|online|site|top|click|link|ru|su)\b)/.test(t);
+}
+
+// Returns "" when the comment may go live, else a block reason.
+// Checks (in order): links, bad words in body or name, per-IP comment rate
+// (censor_log), identical repeated text from the same IP in the window.
+async function censorCheck(env, ip, name, body) {
+  if (containsLink(body) || containsLink(name)) return "link";
+  if (containsBadWord(body) || containsBadWord(name)) return "bad_word";
+  const windowStart = new Date(Date.now() - RATE_WINDOW_MS).toISOString();
+  const cnt = await env.DB.prepare(
+    "SELECT COUNT(*) AS n FROM censor_log WHERE ip = ? AND created_at > ?"
+  ).bind(ip, windowStart).first();
+  if (cnt && cnt.n >= COMMENT_RATE_LIMIT) return "rate";
+  const hash = await sha256hex(normaliseForFilter(body).trim());
+  const dup = await env.DB.prepare(
+    "SELECT COUNT(*) AS n FROM censor_log WHERE ip = ? AND body_hash = ? AND created_at > ?"
+  ).bind(ip, hash, windowStart).first();
+  if (dup && dup.n >= 1) return "repeat";
+  return "";
+}
+
+async function censorRecord(env, ip, body, blocked) {
+  try {
+    const hash = await sha256hex(normaliseForFilter(body).trim());
+    await env.DB.prepare(
+      "INSERT INTO censor_log (ip, body_hash, blocked, created_at) VALUES (?, ?, ?, ?)"
+    ).bind(ip, hash, blocked ? 1 : 0, nowISO()).run();
+  } catch (e) { /* bookkeeping only */ }
+}
+
+/* ---- public engagement endpoints ---- */
+
+async function getEngagement(env, slug) {
+  const row = await env.DB.prepare(
+    "SELECT likes, views FROM engagement WHERE slug = ?"
+  ).bind(slug).first();
+  return { likes: row ? row.likes || 0 : 0, views: row ? row.views || 0 : 0 };
+}
+
+async function bumpEngagement(env, slug, field) {
+  await env.DB.prepare(
+    "INSERT INTO engagement (slug, likes, views, updated_at) VALUES (?, " +
+    (field === "likes" ? "1, 0" : "0, 1") + ", ?) " +
+    "ON CONFLICT(slug) DO UPDATE SET " + field + " = " + field + " + 1, updated_at = excluded.updated_at"
+  ).bind(slug, nowISO()).run();
+}
+
+async function apiEngageGet(url, env) {
+  const slug = (url.searchParams.get("slug") || "").trim();
+  if (!slug) return json({ ok: false, error: "slug_required" }, 400);
+  await ensureEngageTables(env);
+  const { page, per } = paginate(url, 10, 50);
+  const counts = await getEngagement(env, slug);
+  let comments = { items: [], total: 0, page, per };
+  if (supabaseReady(env)) {
+    try {
+      const [items, total] = await Promise.all([
+        sbListComments(env, slug, page, per),
+        sbCountComments(env, slug),
+      ]);
+      comments = { items, total, page, per };
+    } catch (e) { /* comments unavailable — counts still return */ }
+  }
+  return json({ ok: true, slug, likes: counts.likes, views: counts.views, comments });
+}
+
+async function apiEngagePost(request, env) {
+  const body = await readBody(request);
+  if (!body) return json({ ok: false, error: "bad_json" }, 400);
+  const slug = String(body.slug || "").trim().slice(0, 300);
+  const action = String(body.action || "");
+  if (!slug) return json({ ok: false, error: "slug_required" }, 400);
+  await ensureEngageTables(env);
+  const ip = clientIp(request);
+  const ua = request.headers.get("user-agent") || "";
+  const deviceToken = String(body.device_token || "").slice(0, 100);
+
+  // Block list is checked before anything else.
+  if (await ipBlocked(env, ip)) {
+    return json({ ok: false, error: "blocked", message: "This action is not available right now." }, 403);
+  }
+  // General per-IP rate limit across all engage actions.
+  if (await engageRateExceeded(env, ip)) {
+    return json({ ok: false, error: "rate_limited", message: "Too many actions. Please wait a little while and try again." }, 429);
+  }
+
+  if (action === "view") {
+    await bumpEngagement(env, slug, "views");
+    const c = await getEngagement(env, slug);
+    return json({ ok: true, slug, views: c.views, likes: c.likes });
+  }
+
+  if (action === "like" || action === "unlike") {
+    if (!deviceToken) return json({ ok: false, error: "device_required" }, 400);
+    const existing = await env.DB.prepare(
+      "SELECT slug FROM like_log WHERE slug = ? AND (ip = ? OR device_token = ?) LIMIT 1"
+    ).bind(slug, ip, deviceToken).first();
+    if (action === "like") {
+      if (!existing) {
+        try {
+          await env.DB.prepare(
+            "INSERT INTO like_log (slug, ip, device_token, ua, created_at) VALUES (?, ?, ?, ?, ?)"
+          ).bind(slug, ip, deviceToken, ua, nowISO()).run();
+          await bumpEngagement(env, slug, "likes");
+        } catch (e) { /* UNIQUE race — a parallel like already counted */ }
+      }
+      const c = await getEngagement(env, slug);
+      return json({ ok: true, slug, likes: c.likes, liked: true });
+    }
+    // unlike
+    if (existing) {
+      const del = await env.DB.prepare(
+        "DELETE FROM like_log WHERE slug = ? AND (ip = ? OR device_token = ?)"
+      ).bind(slug, ip, deviceToken).run();
+      const changed = del && del.meta ? del.meta.changes || 0 : 0;
+      if (changed > 0) {
+        await env.DB.prepare(
+          "UPDATE engagement SET likes = MAX(likes - 1, 0), updated_at = ? WHERE slug = ?"
+        ).bind(nowISO(), slug).run();
+      }
+    }
+    const c = await getEngagement(env, slug);
+    return json({ ok: true, slug, likes: c.likes, liked: false });
+  }
+
+  if (action === "comment") {
+    if (!supabaseReady(env)) {
+      return json({ ok: false, error: "comments_unavailable", message: "Comments are not available right now. Please try again later." }, 503);
+    }
+    if (!(await verifyTurnstile(env, body.turnstile, ip))) {
+      return json({ ok: false, error: "captcha_failed", message: "The bot check failed. Please refresh the page and try again." }, 403);
+    }
+    const name = String(body.name || "").trim().slice(0, 60);
+    const text = String(body.body || "").trim().slice(0, 1500);
+    let rating = body.rating === null || body.rating === undefined || body.rating === ""
+      ? null : parseInt(body.rating, 10);
+    if (rating !== null && !(rating >= 1 && rating <= 5)) rating = null;
+    if (!name) return json({ ok: false, error: "name_required", message: "Please write your name." }, 400);
+    if (!text) return json({ ok: false, error: "comment_required", message: "Please write a comment first." }, 400);
+    const reason = await censorCheck(env, ip, name, text);
+    await censorRecord(env, ip, text, !!reason);
+    if (reason) {
+      return json({
+        ok: false, error: "comment_blocked",
+        message: "Your comment could not be posted. Comments with abusive words, links or repeated text are removed automatically — please reword it and try again.",
+      }, 400);
+    }
+    try {
+      const created = await sbFetch(env, "/comments", {
+        method: "POST",
+        headers: { prefer: "return=representation" },
+        body: JSON.stringify({
+          slug, name, rating, body: text,
+          status: "live", // explicit — the table default is 'pending'
+          created_at: nowISO(),
+        }),
+      });
+      const item = Array.isArray(created) ? created[0] : created;
+      return json({ ok: true, comment: item || null }, 201);
+    } catch (e) {
+      return json({ ok: false, error: "save_failed", message: "Your comment could not be saved. Please try again." }, 502);
+    }
+  }
+
+  if (action === "report") {
+    if (!supabaseReady(env)) {
+      return json({ ok: false, error: "comments_unavailable" }, 503);
+    }
+    const id = parseInt(body.comment_id, 10);
+    if (!id) return json({ ok: false, error: "comment_id_required" }, 400);
+    try {
+      await sbFetch(env, "/comments?id=eq." + id, {
+        method: "PATCH",
+        body: JSON.stringify({ status: "reported" }),
+      });
+      return json({ ok: true });
+    } catch (e) {
+      return json({ ok: false, error: "report_failed" }, 502);
+    }
+  }
+
+  return json({ ok: false, error: "unknown_action" }, 400);
+}
+
+/* ---- admin: comments, security log, block list, engagement backup ---- */
+
+async function adminCommentsList(url, env) {
+  if (!supabaseReady(env)) {
+    return jsonAdmin({ ok: false, error: "comments_unavailable", message: "SUPABASE_SERVICE_KEY is not set on the worker yet." }, 503);
+  }
+  const { page, per, offset } = paginate(url, 50, 200);
+  try {
+    const items = await sbFetch(env,
+      "/comments?select=id,slug,name,rating,body,status,created_at&order=created_at.desc,id.desc&limit=" + per + "&offset=" + offset);
+    return jsonAdmin({ ok: true, items: items || [], page, per });
+  } catch (e) {
+    return jsonAdmin({ ok: false, error: "comments_unavailable" }, 502);
+  }
+}
+
+async function adminCommentDelete(env, id) {
+  if (!supabaseReady(env)) {
+    return jsonAdmin({ ok: false, error: "comments_unavailable" }, 503);
+  }
+  try {
+    await sbFetch(env, "/comments?id=eq." + id, { method: "DELETE" });
+    return jsonAdmin({ ok: true, deleted: id });
+  } catch (e) {
+    return jsonAdmin({ ok: false, error: "delete_failed" }, 502);
+  }
+}
+
+async function adminSecurityLog(env) {
+  await ensureAdminLog(env);
+  const res = await env.DB.prepare(
+    "SELECT id, event, ip, ua, created_at FROM admin_log ORDER BY id DESC LIMIT 100"
+  ).all();
+  return jsonAdmin({ ok: true, items: res.results || [] });
+}
+
+async function adminBlockedList(env) {
+  await ensureEngageTables(env);
+  const res = await env.DB.prepare(
+    "SELECT ip, reason, created_at FROM blocked_ips ORDER BY created_at DESC"
+  ).all();
+  return jsonAdmin({ ok: true, items: res.results || [] });
+}
+
+async function adminBlockedAdd(request, env) {
+  const body = await readBody(request);
+  if (!body) return jsonAdmin({ ok: false, error: "bad_json" }, 400);
+  const ip = String(body.ip || "").trim();
+  if (!/^[0-9a-fA-F.:]{3,45}$/.test(ip)) {
+    return jsonAdmin({ ok: false, error: "invalid_ip" }, 400);
+  }
+  await ensureEngageTables(env);
+  await env.DB.prepare(
+    "INSERT INTO blocked_ips (ip, reason, created_at) VALUES (?, ?, ?) " +
+    "ON CONFLICT(ip) DO UPDATE SET reason = excluded.reason"
+  ).bind(ip, String(body.reason || "").slice(0, 200), nowISO()).run();
+  return jsonAdmin({ ok: true, ip });
+}
+
+async function adminBlockedRemove(url, env) {
+  const ip = (url.searchParams.get("ip") || "").trim();
+  if (!ip) return jsonAdmin({ ok: false, error: "ip_required" }, 400);
+  await ensureEngageTables(env);
+  await env.DB.prepare("DELETE FROM blocked_ips WHERE ip = ?").bind(ip).run();
+  return jsonAdmin({ ok: true, removed: ip });
+}
+
+async function adminBackupEngagement(env) {
+  await ensureEngageTables(env);
+  await ensureAdminLog(env);
+  const grab = async (t) => {
+    try {
+      const r = await env.DB.prepare("SELECT * FROM " + t).all();
+      return r.results || [];
+    } catch (e) { return []; }
+  };
+  const data = {
+    ok: true,
+    exportedAt: nowISO(),
+    engagement: await grab("engagement"),
+    like_log: await grab("like_log"),
+    blocked_ips: await grab("blocked_ips"),
+    admin_log: await grab("admin_log"),
+    comments: null,
+    commentsNote: "",
+  };
+  if (supabaseReady(env)) {
+    try {
+      data.comments = await sbFetch(env,
+        "/comments?select=id,slug,name,rating,body,status,created_at&order=id.asc&limit=1000");
+    } catch (e) {
+      data.commentsNote = "Supabase comments could not be read during this export.";
+    }
+  } else {
+    data.commentsNote = "SUPABASE_SERVICE_KEY is not set on the worker, so comments are not included in this backup.";
+  }
+  return new Response(JSON.stringify(data, null, 2), {
+    status: 200,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+      "content-disposition": "attachment; filename=\"engagement-backup.json\"",
+    },
+  });
+}
+
 /* ================= Stage 3 — admin ================= */
 
 const ADMIN_TYPES = ["article", "news", "story", "gallery", "video", "book"];
@@ -470,6 +947,9 @@ async function adminLogin(request, env) {
   // Two locks: per-IP (8 fails / 15 min) and per-account (20 fails / 15 min),
   // so password guessing is blocked even from many different IPs.
   if (await attemptLocked(env, ip, 8) || await attemptLocked(env, acctKey, 20)) {
+    await logAdminEvent(env, "lockout", request);
+    await sendLoginAlert(env, "Mundari Samaj admin: sign-in locked",
+      "Too many failed sign-in attempts for " + email + ". Sign-in is temporarily locked for IP " + ip + ".", ip);
     return jsonAdmin({ ok: false, error: "too_many_attempts" }, 429);
   }
   if (!(await verifyTurnstile(env, body.turnstile, ip))) {
@@ -483,6 +963,7 @@ async function adminLogin(request, env) {
   if (!ok) {
     await recordFail(env, ip);
     await recordFail(env, acctKey);
+    await logAdminEvent(env, "login_fail", request);
     return jsonAdmin({ ok: false, error: "wrong_email_or_password" }, 401);
   }
   await clearAttempts(env, ip);
@@ -490,6 +971,10 @@ async function adminLogin(request, env) {
   await env.DB.prepare(
     "UPDATE admin_users SET last_login_at = ? WHERE id = ?"
   ).bind(nowISO(), user.id).run();
+  await logAdminEvent(env, "login_success", request);
+  await sendLoginAlert(env, "Mundari Samaj admin: new sign-in",
+    "A successful admin sign-in just happened for " + email + " from IP " + ip +
+    ". If this was not you, change the password and use Sign out everywhere in the admin panel.", ip);
   const token = await createSession(env, user.id);
   return jsonAdmin({ ok: true, email: user.email }, 200, {
     "set-cookie": sessionCookie(token, SESSION_DAYS * 86400),
@@ -799,8 +1284,8 @@ async function adminImport(request, env) {
 
 /* ================= v86: recovery code + live detail pages ================= */
 
-const DETAIL_HEAD = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"color-scheme\" content=\"light dark\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>{{TITLE}}</title>\n<meta name=\"description\" content=\"{{DESC}}\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap\" rel=\"stylesheet\">\n<style>\n:root{--bg:#f2f6f3;--ink:#16302a;--mut:#57706a;--g:#1f4a41;--g2:#2f6b5d;--mist:#dfeae4;--sun:#e4b95f;--card:#fff;--line:#d3e0d9;--hero:#1f4a41;--heroink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ease-smooth:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1)}\n@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}}\n:root[data-theme=\"dark\"]{--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}\nhtml{scroll-behavior:smooth;scroll-padding-top:84px}*{box-sizing:border-box}\nbody{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 Inter,system-ui,sans-serif}\nh1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:0}\na{color:var(--g2)}img{max-width:100%;display:block}\n\n/* Scroll progress bar */\n#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sun);z-index:30;transition:width .1s linear;box-shadow:0 0 8px rgba(228,185,95,.5)}\n\n/* Top bar */\n.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 5%;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .4s var(--ease-smooth),background .4s var(--ease-smooth)}\n.top.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.08)}\n.top a{text-decoration:none;color:var(--g);font:600 1.1rem Fraunces,serif}\n.top span{font-size:.9rem;color:var(--mut)}\n\n/* ===== FULL-WIDTH HERO PHOTO ===== */\n.hero-photo{\n  position:relative;\n  width:100%;\n  height:70vh;\n  min-height:420px;\n  overflow:hidden;\n  background:linear-gradient(160deg,#2f6b5d,#173a32);\n  display:grid;\n  place-items:center;\n}\n.hero-photo svg{\n  position:absolute;inset:0;width:100%;height:100%;\n}\n.hero-photo img{\n  position:absolute;inset:0;width:100%;height:100%;\n  object-fit:cover;object-position:center top;\n  transition:transform 1.2s var(--ease-smooth);\n}\n.hero-photo:hover img{transform:scale(1.04)}\n.hero-photo::after{\n  content:\"\";position:absolute;inset:0;\n  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 70%,rgba(15,28,24,.85) 100%);\n  pointer-events:none;\n}\n\n/* Overlay text on photo */\n.hero-caption{\n  position:absolute;bottom:0;left:0;right:0;z-index:2;\n  padding:48px 5% 40px;\n  color:#fff;\n  max-width:1120px;margin:0 auto;\n  animation:up .9s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption h1{\n  font-size:clamp(2.4rem,6.4vw,4.6rem);\n  color:#fff;\n  text-shadow:0 2px 20px rgba(0,0,0,.3);\n}\n.hero-caption .dek{\n  font-size:1.15rem;color:#e0eee8;max-width:56ch;margin:16px 0 0;\n  animation:up .9s .15s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption .meta{\n  margin-top:20px;color:#b8d0c7;font-size:.95rem;\n  animation:up .9s .3s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-photo figcaption{\n  position:absolute;top:16px;right:16px;z-index:2;\n  font-size:.75rem;color:rgba(255,255,255,.7);\n  background:rgba(0,0,0,.3);padding:4px 10px;border-radius:99px;\n  backdrop-filter:blur(4px);\n}\n@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}\n\n/* Facts bar with staggered fade-up */\n.wrap{max-width:1120px;margin:auto;padding:0 5%}\n.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:-36px auto 0;max-width:1000px;position:relative;z-index:3}\n.facts div{background:var(--card);padding:18px 20px;animation:factRise .8s var(--ease-smooth) both}\n.facts div:nth-child(1){animation-delay:.15s}\n.facts div:nth-child(2){animation-delay:.25s}\n.facts div:nth-child(3){animation-delay:.35s}\n.facts div:nth-child(4){animation-delay:.45s}\n@keyframes factRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}\n.facts small{display:block;color:var(--mut);font-size:.82rem}\n.facts b{font-family:Fraunces,serif;font-size:1.05rem;font-weight:600}\n\n/* Article \u2014 centered, no TOC sidebar */\n.lay{max-width:720px;margin:0 auto;padding:72px 5% 40px}\n\narticle h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:56px 0 16px;transition:transform .6s var(--ease-smooth)}\narticle h2:first-child{margin-top:0}\narticle p{margin:0 0 1.15em}\n.lead{font:400 1.35rem/1.6 Fraunces,Georgia,serif;color:var(--ink)}\n\n/* Blockquote with soft glow pulse */\nblockquote{margin:36px 0;padding:6px 0 6px 24px;border-left:4px solid var(--sun);font:400 1.5rem/1.45 Fraunces,Georgia,serif;color:var(--g);animation:quoteGlow 4s ease-in-out infinite}\n@keyframes quoteGlow{0%,100%{border-left-color:var(--sun)}50%{border-left-color:var(--g2)}}\n\n/* Note box */\n.note{background:var(--mist);border-radius:16px;padding:18px 22px;margin:28px 0;font-size:.95rem;transition:background .4s var(--ease-smooth),box-shadow .4s var(--ease-smooth)}\n.note:hover{box-shadow:0 10px 26px rgba(0,0,0,.08)}\n\n/* Timeline with pulsing dots */\n.tl{list-style:none;margin:24px 0;padding:0;border-left:2px solid var(--line)}\n.tl li{position:relative;padding:0 0 22px 26px}\n.tl li::before{content:\"\";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--sun);border:2px solid var(--bg);animation:dotPulse 3s ease-in-out infinite}\n.tl li:nth-child(odd)::before{animation-delay:.4s}\n.tl li:nth-child(3n)::before{animation-delay:.8s}\n@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(228,185,95,0)}50%{box-shadow:0 0 0 6px rgba(228,185,95,.18)}}\n.tl b{font-family:Fraunces,serif;display:block}\n.tl span{color:var(--mut);font-size:.95rem}\n\n/* Sources */\n.src{font-size:.9rem;color:var(--mut);border-top:1px solid var(--line);margin-top:48px;padding-top:20px}\n\n/* More CTA with smooth lift */\n.more{background:var(--mist);padding:56px 5%;text-align:center}\n.more h2{font-size:1.8rem;margin-bottom:10px}\n.more a{display:inline-block;margin-top:14px;background:var(--sun);color:#1b2b26;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:99px;transition:transform .4s var(--spring),box-shadow .4s var(--ease-smooth)}\n.more a:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 30px rgba(228,185,95,.35)}\n\n/* Footer */\nfooter{background:#163a32;color:#cfe0d9;text-align:center;padding:28px 5% calc(28px + env(safe-area-inset-bottom,0px));font-size:.9rem}\n\n:focus-visible{outline:3px solid var(--sun);outline-offset:3px}\n\n@media(max-width:900px){\n  .hero-photo{height:75vh;min-height:460px}\n  .hero-caption{padding:36px 6% 32px}\n  .lay{padding-top:56px}\n}\n@media(prefers-reduced-motion:reduce){\n  *{animation:none!important;transition:none!important}\n}\n\n/* ==== HEADER STYLE (v76) ==== */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) both}\n@keyframes hdrIn{from{transform:translateY(-100%)}to{transform:translateY(0)}}\n.top::after{content:\"\";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:hdrSlide 7s linear infinite;pointer-events:none}\n@keyframes hdrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n.top.scrolled{padding-top:7px;padding-bottom:7px;box-shadow:0 12px 30px -12px rgba(20,40,35,.38)}\n.top a:first-child{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;color:var(--g);text-decoration:none;display:inline-flex;align-items:center}\n.top a:first-child::before{content:\"\";width:10px;height:10px;margin-right:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f6dc9a,var(--sun) 55%,#c96f2e);box-shadow:0 0 8px rgba(228,185,95,.8);animation:hdrPulse 3.2s ease-in-out infinite}\n@keyframes hdrPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}\n@media(prefers-reduced-motion:reduce){.top,.top::after,.top a:first-child::before{animation:none!important}}\n\n/* header glass v76 */\n.top{background:color-mix(in srgb,var(--bg) 50%,transparent);-webkit-backdrop-filter:blur(18px) saturate(165%);backdrop-filter:blur(18px) saturate(165%);border-bottom:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 24px -18px rgba(20,40,35,.35)}\n.top::before{content:\"\";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.3),rgba(255,255,255,0) 42%);pointer-events:none;z-index:0}\n.top>*{position:relative;z-index:1}\n.top::after{z-index:2}\n.top.scrolled{background:color-mix(in srgb,var(--bg) 66%,transparent)}\n\n/* header liquid v76 */\n.top{margin:10px 10px 0;top:10px;border-radius:999px;padding:10px 18px;border:1px solid transparent;background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,.06)) padding-box,linear-gradient(115deg,rgba(255,255,255,.9),rgba(228,185,95,.55) 45%,rgba(255,255,255,.25)) border-box;background-size:auto,230% 100%;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 16px 36px -14px rgba(20,40,35,.42),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -12px 20px -12px rgba(255,255,255,.4);animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards,hdrRim 7s linear infinite}\n@keyframes hdrRim{from{background-position:0 0,0% 0}to{background-position:0 0,230% 0}}\n.top::before{content:\"\";position:absolute;inset:0;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 55%);pointer-events:none;z-index:0}\n.top::after{display:none}\n.top.scrolled{padding-top:10px;padding-bottom:10px}\n@media(prefers-color-scheme:dark){:root:not([data-theme=\"light\"]) .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}}\n:root[data-theme=\"dark\"] .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}\n\n/* header hide-on-scroll v76 */\n.top{transition:transform .45s cubic-bezier(.16,1,.3,1),padding .35s ease,box-shadow .35s ease}\n.top.hide{transform:translateY(-175%);pointer-events:none}\n\n/* header stars v77 */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards}\n.top::after{content:\"\";display:block;position:absolute;inset:0;border-radius:999px;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='64'%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(28,20)' fill='%23E6A838' fill-opacity='.85'/%3E%3Ccircle cx='88' cy='42' r='3' fill='%23ffffff' fill-opacity='.55'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(150,34) scale(.62)' fill='%23ffffff' fill-opacity='.6'/%3E%3Ccircle cx='212' cy='12' r='2.4' fill='%23E6A838' fill-opacity='.65'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(272,18) scale(.8)' fill='%23F2C14E' fill-opacity='.7'/%3E%3Ccircle cx='330' cy='44' r='2.8' fill='%23ffffff' fill-opacity='.45'/%3E%3C/svg%3E\");background-repeat:repeat-x;background-size:360px 64px;opacity:.55;pointer-events:none;z-index:0;animation:hdrDrift 28s linear infinite,hdrBob 6.5s ease-in-out infinite alternate}\n@keyframes hdrDrift{from{background-position:0 0}to{background-position:360px 0}}\n@keyframes hdrBob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}\n@media(prefers-reduced-motion:reduce){.top::after{animation:none!important}}\n\n/* partners v77 */\n.partners{max-width:680px;margin:0 auto 16px;text-align:center}\n.partners h4{font:600 .76rem Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}\n.partner{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 8px;background:var(--card);color:var(--ink)}\n.partner b{font-family:Fraunces,Georgia,serif;color:var(--g);font-size:1rem}\n.partner .ph{color:#c9932b;font-weight:600;font-size:.83rem}\n.partner .pd{display:block;color:var(--mut);font-size:.88rem;margin-top:3px;line-height:1.45}\n\n/* footer gold line v78 */\nfooter{position:relative}\nfooter::before{content:\"\";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:ftrSlide 7s linear infinite;pointer-events:none}\n@keyframes ftrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n\n/* header desktop v80 */\n@media(min-width:861px){.top{width:calc(100% - 24px);max-width:1140px;margin-left:auto;margin-right:auto}.top .brand{white-space:nowrap}}\n\n/* footer v81 */\nfooter{background:#151d18;color:#e8e2d8}\nfooter::before{background:linear-gradient(90deg,#8a6d2e,#c9a24b,#f0d68a,#c9a24b,#8a6d2e);background-size:200% 100%;animation:ftrShimmer 6s linear infinite}\n@keyframes ftrShimmer{from{background-position:0 0}to{background-position:200% 0}}\n.fstat{width:fit-content;max-width:92%;margin:6px auto 20px;padding:12px 28px;background:rgba(201,162,75,.06);border:1px solid rgba(201,162,75,.18);border-radius:12px;text-align:center}\n.fstat .fnum{display:block;font-size:1.7rem;font-weight:700;color:#e8c97a;line-height:1.1}\n.fstat .flab{display:block;font-size:.78rem;color:#b8b0a2;margin-top:3px}\n.fnote{font-family:ui-monospace,'Courier New',monospace;color:#c9a24b;font-size:.78rem;margin-top:10px}\n\n/* footer v81.1 */\nfooter .partner{background:rgba(255,255,255,.05);border-color:rgba(232,226,216,.16)}\nfooter .partner b{color:#fff}\nfooter .partner .pd{color:rgba(232,226,216,.75)}\nfooter .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}\n\n/* footer accordion v81.2 */\n.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1120px;margin:0 auto 22px;text-align:left}\n.fcol h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0;padding:10px 0;border-top:1px solid #333d36;color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem}\n.fcol h5::after{content:\"\\25BE\";font-size:1rem;transition:transform .3s ease}\n.fcol.open h5::after{transform:rotate(180deg)}\n.fcol .flinks{max-height:0;overflow:hidden;transition:max-height .35s ease}\n.fcol.open .flinks{max-height:280px}\n.fcol .flinks a{display:block;color:#d8d0c2;text-decoration:none;padding:4px 0}\n.fcol .flinks a:hover{color:#e8c97a}\n@media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}\n</style>";
-const DETAIL_TAIL = "</article></div></div>\n\n<section class=\"more\"><h2>Share what you know</h2><p>Do you have a story, song or family memory to share with the archive?</p><a href=\"{{P}}contribute/\">Contribute to the archive</a></section>\n<footer><div class=\"fcols\"><div class=\"fcol\"><h5>Explore</h5><div class=\"flinks\"><a href=\"{{P}}\">Home</a><a href=\"{{P}}language/\">Language</a><a href=\"{{P}}heritage/\">Heritage</a><a href=\"{{P}}culture/\">Culture</a></div></div><div class=\"fcol\"><h5>Learn</h5><div class=\"flinks\"><a href=\"{{P}}language/script/\">Bani Script</a><a href=\"{{P}}language/numbers/\">Numbers &amp; Counting</a><a href=\"{{P}}language/dictionary/\">Dictionary</a><a href=\"{{P}}language/learn/\">Learn Mundari</a></div></div><div class=\"fcol\"><h5>Community</h5><div class=\"flinks\"><a href=\"{{P}}contribute/\">Contribute</a><a href=\"{{P}}news/\">News &amp; Updates</a><a href=\"mailto:mundarisamaj@outlook.com\">Email Us</a><a href=\"https://www.threads.net/@mundaricommunity\" target=\"_blank\" rel=\"noopener\">Threads</a></div></div><div class=\"fcol\"><h5>About</h5><div class=\"flinks\"><a href=\"{{P}}about/\">About Us</a><a href=\"{{P}}library/\">Library</a><a href=\"{{P}}media/\">Media</a><a href=\"{{P}}search/\">Search</a></div></div></div><div class=\"partners\"><h4>Our Partners</h4><a class=\"partner\" href=\"https://www.instagram.com/mundarisamaj\" target=\"_blank\" rel=\"noopener\"><b>Mundari Samaj</b> <span class=\"ph\">@mundarisamaj \u00b7 Instagram</span><span class=\"pd\">Our official Instagram page \u2014 Mundari culture, language, traditions and community news.</span></a><a class=\"partner\" href=\"https://www.instagram.com/mundariarchive\" target=\"_blank\" rel=\"noopener\"><b>Mundari Archive</b> <span class=\"ph\">@mundariarchive \u00b7 Instagram</span><span class=\"pd\">The cultural archive of the Mundari people \u2014 stories, traditions, history and heritage, preserved for the future.</span></a></div>\u00a9 2026 Mundari Samaj \u00b7 Johar! Jay Mundari!<div class=\"fnote\">Bani script \u00b7 Unicode since 2022</div></footer>\n<script>\n(function(){\n  var b=document.getElementById('bar');\n  function s(){\n    var h=document.documentElement;\n    b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';\n  }\n  addEventListener('scroll',s,{passive:true});s();\n\n  var topBar=document.querySelector('.top');\n  addEventListener('scroll',function(){\n    topBar.classList.toggle('scrolled',scrollY>30);\n  },{passive:true});\n})();\n</script>\n<script>(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;addEventListener('scroll',function(){var y=window.scrollY;if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y},{passive:true})})();</script>\n<script>document.addEventListener('click',function(e){var h=e.target.closest?e.target.closest('.fcol h5'):null;if(!h)return;var c=h.closest('.fcol');if(c)c.classList.toggle('open');});</script></body>\n</html>\n";
+const DETAIL_HEAD = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"color-scheme\" content=\"light dark\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>{{TITLE}}</title>\n<meta name=\"description\" content=\"{{DESC}}\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap\" rel=\"stylesheet\">\n<style>\n:root{--bg:#f2f6f3;--ink:#16302a;--mut:#57706a;--g:#1f4a41;--g2:#2f6b5d;--mist:#dfeae4;--sun:#e4b95f;--card:#fff;--line:#d3e0d9;--hero:#1f4a41;--heroink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ease-smooth:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1)}\n@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}}\n:root[data-theme=\"dark\"]{--bg:#0f1c18;--ink:#e3eee9;--mut:#9db5ad;--g:#8fcab9;--g2:#8fcab9;--mist:#173029;--card:#15271f;--line:#243d34;--hero:#0b1713}\nhtml{scroll-behavior:smooth;scroll-padding-top:84px}*{box-sizing:border-box}\nbody{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 Inter,system-ui,sans-serif}\nh1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:0}\na{color:var(--g2)}img{max-width:100%;display:block}\n\n/* Scroll progress bar */\n#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sun);z-index:30;transition:width .1s linear;box-shadow:0 0 8px rgba(228,185,95,.5)}\n\n/* Top bar */\n.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 5%;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transition:box-shadow .4s var(--ease-smooth),background .4s var(--ease-smooth)}\n.top.scrolled{box-shadow:0 6px 20px rgba(0,0,0,.08)}\n.top a{text-decoration:none;color:var(--g);font:600 1.1rem Fraunces,serif}\n.top span{font-size:.9rem;color:var(--mut)}\n\n/* ===== FULL-WIDTH HERO PHOTO ===== */\n.hero-photo{\n  position:relative;\n  width:100%;\n  height:70vh;\n  min-height:420px;\n  overflow:hidden;\n  background:linear-gradient(160deg,#2f6b5d,#173a32);\n  display:grid;\n  place-items:center;\n}\n.hero-photo svg{\n  position:absolute;inset:0;width:100%;height:100%;\n}\n.hero-photo img{\n  position:absolute;inset:0;width:100%;height:100%;\n  object-fit:cover;object-position:center top;\n  transition:transform 1.2s var(--ease-smooth);\n}\n.hero-photo:hover img{transform:scale(1.04)}\n.hero-photo::after{\n  content:\"\";position:absolute;inset:0;\n  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 70%,rgba(15,28,24,.85) 100%);\n  pointer-events:none;\n}\n\n/* Overlay text on photo */\n.hero-caption{\n  position:absolute;bottom:0;left:0;right:0;z-index:2;\n  padding:48px 5% 40px;\n  color:#fff;\n  max-width:1120px;margin:0 auto;\n  animation:up .9s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption h1{\n  font-size:clamp(2.4rem,6.4vw,4.6rem);\n  color:#fff;\n  text-shadow:0 2px 20px rgba(0,0,0,.3);\n}\n.hero-caption .dek{\n  font-size:1.15rem;color:#e0eee8;max-width:56ch;margin:16px 0 0;\n  animation:up .9s .15s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-caption .meta{\n  margin-top:20px;color:#b8d0c7;font-size:.95rem;\n  animation:up .9s .3s cubic-bezier(.2,.7,.2,1) both;\n}\n.hero-photo figcaption{\n  position:absolute;top:16px;right:16px;z-index:2;\n  font-size:.75rem;color:rgba(255,255,255,.7);\n  background:rgba(0,0,0,.3);padding:4px 10px;border-radius:99px;\n  backdrop-filter:blur(4px);\n}\n@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}\n\n/* Facts bar with staggered fade-up */\n.wrap{max-width:1120px;margin:auto;padding:0 5%}\n.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:-36px auto 0;max-width:1000px;position:relative;z-index:3}\n.facts div{background:var(--card);padding:18px 20px;animation:factRise .8s var(--ease-smooth) both}\n.facts div:nth-child(1){animation-delay:.15s}\n.facts div:nth-child(2){animation-delay:.25s}\n.facts div:nth-child(3){animation-delay:.35s}\n.facts div:nth-child(4){animation-delay:.45s}\n@keyframes factRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}\n.facts small{display:block;color:var(--mut);font-size:.82rem}\n.facts b{font-family:Fraunces,serif;font-size:1.05rem;font-weight:600}\n\n/* Article \u2014 centered, no TOC sidebar */\n.lay{max-width:720px;margin:0 auto;padding:72px 5% 40px}\n\narticle h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:56px 0 16px;transition:transform .6s var(--ease-smooth)}\narticle h2:first-child{margin-top:0}\narticle p{margin:0 0 1.15em}\n.lead{font:400 1.35rem/1.6 Fraunces,Georgia,serif;color:var(--ink)}\n\n/* Blockquote with soft glow pulse */\nblockquote{margin:36px 0;padding:6px 0 6px 24px;border-left:4px solid var(--sun);font:400 1.5rem/1.45 Fraunces,Georgia,serif;color:var(--g);animation:quoteGlow 4s ease-in-out infinite}\n@keyframes quoteGlow{0%,100%{border-left-color:var(--sun)}50%{border-left-color:var(--g2)}}\n\n/* Note box */\n.note{background:var(--mist);border-radius:16px;padding:18px 22px;margin:28px 0;font-size:.95rem;transition:background .4s var(--ease-smooth),box-shadow .4s var(--ease-smooth)}\n.note:hover{box-shadow:0 10px 26px rgba(0,0,0,.08)}\n\n/* Timeline with pulsing dots */\n.tl{list-style:none;margin:24px 0;padding:0;border-left:2px solid var(--line)}\n.tl li{position:relative;padding:0 0 22px 26px}\n.tl li::before{content:\"\";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--sun);border:2px solid var(--bg);animation:dotPulse 3s ease-in-out infinite}\n.tl li:nth-child(odd)::before{animation-delay:.4s}\n.tl li:nth-child(3n)::before{animation-delay:.8s}\n@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(228,185,95,0)}50%{box-shadow:0 0 0 6px rgba(228,185,95,.18)}}\n.tl b{font-family:Fraunces,serif;display:block}\n.tl span{color:var(--mut);font-size:.95rem}\n\n/* Sources */\n.src{font-size:.9rem;color:var(--mut);border-top:1px solid var(--line);margin-top:48px;padding-top:20px}\n\n/* More CTA with smooth lift */\n.more{background:var(--mist);padding:56px 5%;text-align:center}\n.more h2{font-size:1.8rem;margin-bottom:10px}\n.more a{display:inline-block;margin-top:14px;background:var(--sun);color:#1b2b26;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:99px;transition:transform .4s var(--spring),box-shadow .4s var(--ease-smooth)}\n.more a:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 30px rgba(228,185,95,.35)}\n\n/* Footer */\nfooter{background:#163a32;color:#cfe0d9;text-align:center;padding:28px 5% calc(28px + env(safe-area-inset-bottom,0px));font-size:.9rem}\n\n:focus-visible{outline:3px solid var(--sun);outline-offset:3px}\n\n@media(max-width:900px){\n  .hero-photo{height:75vh;min-height:460px}\n  .hero-caption{padding:36px 6% 32px}\n  .lay{padding-top:56px}\n}\n@media(prefers-reduced-motion:reduce){\n  *{animation:none!important;transition:none!important}\n}\n\n/* ==== HEADER STYLE (v76) ==== */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) both}\n@keyframes hdrIn{from{transform:translateY(-100%)}to{transform:translateY(0)}}\n.top::after{content:\"\";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:hdrSlide 7s linear infinite;pointer-events:none}\n@keyframes hdrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n.top.scrolled{padding-top:7px;padding-bottom:7px;box-shadow:0 12px 30px -12px rgba(20,40,35,.38)}\n.top a:first-child{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;color:var(--g);text-decoration:none;display:inline-flex;align-items:center}\n.top a:first-child::before{content:\"\";width:10px;height:10px;margin-right:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f6dc9a,var(--sun) 55%,#c96f2e);box-shadow:0 0 8px rgba(228,185,95,.8);animation:hdrPulse 3.2s ease-in-out infinite}\n@keyframes hdrPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}\n@media(prefers-reduced-motion:reduce){.top,.top::after,.top a:first-child::before{animation:none!important}}\n\n/* header glass v76 */\n.top{background:color-mix(in srgb,var(--bg) 50%,transparent);-webkit-backdrop-filter:blur(18px) saturate(165%);backdrop-filter:blur(18px) saturate(165%);border-bottom:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 24px -18px rgba(20,40,35,.35)}\n.top::before{content:\"\";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.3),rgba(255,255,255,0) 42%);pointer-events:none;z-index:0}\n.top>*{position:relative;z-index:1}\n.top::after{z-index:2}\n.top.scrolled{background:color-mix(in srgb,var(--bg) 66%,transparent)}\n\n/* header liquid v76 */\n.top{margin:10px 10px 0;top:10px;border-radius:999px;padding:10px 18px;border:1px solid transparent;background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,.06)) padding-box,linear-gradient(115deg,rgba(255,255,255,.9),rgba(228,185,95,.55) 45%,rgba(255,255,255,.25)) border-box;background-size:auto,230% 100%;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 16px 36px -14px rgba(20,40,35,.42),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -12px 20px -12px rgba(255,255,255,.4);animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards,hdrRim 7s linear infinite}\n@keyframes hdrRim{from{background-position:0 0,0% 0}to{background-position:0 0,230% 0}}\n.top::before{content:\"\";position:absolute;inset:0;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 55%);pointer-events:none;z-index:0}\n.top::after{display:none}\n.top.scrolled{padding-top:10px;padding-bottom:10px}\n@media(prefers-color-scheme:dark){:root:not([data-theme=\"light\"]) .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}}\n:root[data-theme=\"dark\"] .top{background:linear-gradient(rgba(16,34,28,.42),rgba(16,34,28,.3)) padding-box,linear-gradient(115deg,rgba(255,255,255,.5),rgba(228,185,95,.4) 45%,rgba(255,255,255,.15)) border-box;background-size:auto,230% 100%}\n\n/* header hide-on-scroll v76 */\n.top{transition:transform .45s cubic-bezier(.16,1,.3,1),padding .35s ease,box-shadow .35s ease}\n.top.hide{transform:translateY(-175%);pointer-events:none}\n\n/* header stars v77 */\n.top{animation:hdrIn .55s cubic-bezier(.16,1,.3,1) backwards}\n.top::after{content:\"\";display:block;position:absolute;inset:0;border-radius:999px;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='64'%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(28,20)' fill='%23E6A838' fill-opacity='.85'/%3E%3Ccircle cx='88' cy='42' r='3' fill='%23ffffff' fill-opacity='.55'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(150,34) scale(.62)' fill='%23ffffff' fill-opacity='.6'/%3E%3Ccircle cx='212' cy='12' r='2.4' fill='%23E6A838' fill-opacity='.65'/%3E%3Cpath d='M0,-7 L2,-2 L7,0 L2,2 L0,7 L-2,2 L-7,0 L-2,-2 Z' transform='translate(272,18) scale(.8)' fill='%23F2C14E' fill-opacity='.7'/%3E%3Ccircle cx='330' cy='44' r='2.8' fill='%23ffffff' fill-opacity='.45'/%3E%3C/svg%3E\");background-repeat:repeat-x;background-size:360px 64px;opacity:.55;pointer-events:none;z-index:0;animation:hdrDrift 28s linear infinite,hdrBob 6.5s ease-in-out infinite alternate}\n@keyframes hdrDrift{from{background-position:0 0}to{background-position:360px 0}}\n@keyframes hdrBob{from{transform:translateY(-2px)}to{transform:translateY(2px)}}\n@media(prefers-reduced-motion:reduce){.top::after{animation:none!important}}\n\n/* partners v77 */\n.partners{max-width:680px;margin:0 auto 16px;text-align:center}\n.partners h4{font:600 .76rem Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin:0 0 10px}\n.partner{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 8px;background:var(--card);color:var(--ink)}\n.partner b{font-family:Fraunces,Georgia,serif;color:var(--g);font-size:1rem}\n.partner .ph{color:#c9932b;font-weight:600;font-size:.83rem}\n.partner .pd{display:block;color:var(--mut);font-size:.88rem;margin-top:3px;line-height:1.45}\n\n/* footer gold line v78 */\nfooter{position:relative}\nfooter::before{content:\"\";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--sun),#c96f2e,var(--sun),var(--g));background-size:220% 100%;animation:ftrSlide 7s linear infinite;pointer-events:none}\n@keyframes ftrSlide{from{background-position:0% 0}to{background-position:220% 0}}\n\n/* header desktop v80 */\n@media(min-width:861px){.top{width:calc(100% - 24px);max-width:1140px;margin-left:auto;margin-right:auto}.top .brand{white-space:nowrap}}\n\n/* footer v81 */\nfooter{background:#151d18;color:#e8e2d8}\nfooter::before{background:linear-gradient(90deg,#8a6d2e,#c9a24b,#f0d68a,#c9a24b,#8a6d2e);background-size:200% 100%;animation:ftrShimmer 6s linear infinite}\n@keyframes ftrShimmer{from{background-position:0 0}to{background-position:200% 0}}\n.fstat{width:fit-content;max-width:92%;margin:6px auto 20px;padding:12px 28px;background:rgba(201,162,75,.06);border:1px solid rgba(201,162,75,.18);border-radius:12px;text-align:center}\n.fstat .fnum{display:block;font-size:1.7rem;font-weight:700;color:#e8c97a;line-height:1.1}\n.fstat .flab{display:block;font-size:.78rem;color:#b8b0a2;margin-top:3px}\n.fnote{font-family:ui-monospace,'Courier New',monospace;color:#c9a24b;font-size:.78rem;margin-top:10px}\n\n/* footer v81.1 */\nfooter .partner{background:rgba(255,255,255,.05);border-color:rgba(232,226,216,.16)}\nfooter .partner b{color:#fff}\nfooter .partner .pd{color:rgba(232,226,216,.75)}\nfooter .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}\n\n/* footer accordion v81.2 */\n.fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1120px;margin:0 auto 22px;text-align:left}\n.fcol h5{cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0;padding:10px 0;border-top:1px solid #333d36;color:#c9a24b;text-transform:uppercase;letter-spacing:.6px;font-size:.82rem}\n.fcol h5::after{content:\"\\25BE\";font-size:1rem;transition:transform .3s ease}\n.fcol.open h5::after{transform:rotate(180deg)}\n.fcol .flinks{max-height:0;overflow:hidden;transition:max-height .35s ease}\n.fcol.open .flinks{max-height:280px}\n.fcol .flinks a{display:block;color:#d8d0c2;text-decoration:none;padding:4px 0}\n.fcol .flinks a:hover{color:#e8c97a}\n@media(max-width:720px){.fcols{grid-template-columns:1fr;gap:0}}\n/* ==== ENGAGE v90: likes, views, comments ==== */ .engage{max-width:720px;margin:8px auto 0;padding:8px 5% 56px;font-family:Inter,system-ui,sans-serif;color:var(--ink)} .engage-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--line)} .eg-like{display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);color:var(--g);font:600 .95rem Inter,system-ui,sans-serif;padding:10px 20px;border-radius:99px;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,background .3s ease,border-color .3s ease} .eg-like:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(20,40,35,.4);border-color:var(--sun)} .eg-like .eg-heart{font-size:1.05rem;line-height:1;color:#c0532f;transition:transform .3s cubic-bezier(.34,1.56,.64,1)} .eg-like.liked{background:var(--g);color:#fff;border-color:var(--g)} .eg-like.liked .eg-heart{color:var(--sun);transform:scale(1.2)} .eg-like:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none} .eg-views{color:var(--mut);font-size:.92rem;display:inline-flex;align-items:center;gap:7px} .engage h2.eg-h{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.55rem;margin:26px 0 4px;color:var(--ink)} .engage .eg-sub{color:var(--mut);font-size:.95rem;margin:0 0 18px} .eg-form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 12px 30px -24px rgba(20,40,35,.35)} .eg-form label{display:block;font-size:.85rem;font-weight:600;color:var(--g);margin:12px 0 6px} .eg-form label:first-child{margin-top:0} .eg-form input[type=\"text\"],.eg-form textarea{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:400 .98rem Inter,system-ui,sans-serif;color:var(--ink)} .eg-form textarea{min-height:96px;resize:vertical} .eg-form input[type=\"text\"]:focus,.eg-form textarea:focus{outline:2px solid var(--sun);outline-offset:1px;border-color:var(--sun)} .eg-stars{display:flex;gap:4px;margin:2px 0 4px} .eg-stars button{background:none;border:0;padding:2px;cursor:pointer;font-size:1.45rem;line-height:1;color:var(--line);transition:transform .2s ease,color .2s ease} .eg-stars button:hover{transform:scale(1.18)} .eg-stars button.on{color:var(--sun)} .eg-submit{margin-top:16px;background:var(--sun);color:#1b2b26;border:0;font:600 .98rem Inter,system-ui,sans-serif;padding:12px 26px;border-radius:99px;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease} .eg-submit:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(228,185,95,.55)} .eg-submit:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none} .eg-msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em} .eg-msg.ok{color:var(--g2)} .eg-msg.bad{color:#a03d2a} .eg-list{margin-top:26px;display:grid;gap:14px} .eg-comment{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px} .eg-comment .eg-meta{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap} .eg-comment .eg-name{font-weight:600;color:var(--g)} .eg-comment .eg-stars-static{color:var(--sun);font-size:.9rem;letter-spacing:2px} .eg-comment .eg-date{color:var(--mut);font-size:.82rem;margin-left:auto} .eg-comment .eg-body{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:break-word} .eg-report{margin-top:10px;background:none;border:0;padding:0;color:var(--mut);font:500 .82rem Inter,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px} .eg-report:hover{color:#a03d2a} .eg-report:disabled{opacity:.55;cursor:default;text-decoration:none} .eg-empty{color:var(--mut);font-size:.95rem;border:1px dashed var(--line);border-radius:16px;padding:18px;text-align:center} .eg-more{margin:4px auto 0;display:block;background:none;border:1px solid var(--line);color:var(--g);font:600 .9rem Inter,system-ui,sans-serif;padding:10px 22px;border-radius:99px;cursor:pointer} .eg-more:hover{border-color:var(--sun)} .eg-note{color:var(--mut);font-size:.82rem;margin-top:12px}</style>";
+const DETAIL_TAIL = "</article></div></div>\n<div id=\"engage\" class=\"engage\"></div>\n<script src=\"{{P}}assets/js/engage.js\" defer></script>\n\n<section class=\"more\"><h2>Share what you know</h2><p>Do you have a story, song or family memory to share with the archive?</p><a href=\"{{P}}contribute/\">Contribute to the archive</a></section>\n<footer><div class=\"fcols\"><div class=\"fcol\"><h5>Explore</h5><div class=\"flinks\"><a href=\"{{P}}\">Home</a><a href=\"{{P}}language/\">Language</a><a href=\"{{P}}heritage/\">Heritage</a><a href=\"{{P}}culture/\">Culture</a></div></div><div class=\"fcol\"><h5>Learn</h5><div class=\"flinks\"><a href=\"{{P}}language/script/\">Bani Script</a><a href=\"{{P}}language/numbers/\">Numbers &amp; Counting</a><a href=\"{{P}}language/dictionary/\">Dictionary</a><a href=\"{{P}}language/learn/\">Learn Mundari</a></div></div><div class=\"fcol\"><h5>Community</h5><div class=\"flinks\"><a href=\"{{P}}contribute/\">Contribute</a><a href=\"{{P}}news/\">News &amp; Updates</a><a href=\"mailto:mundarisamaj@outlook.com\">Email Us</a><a href=\"https://www.threads.net/@mundaricommunity\" target=\"_blank\" rel=\"noopener\">Threads</a></div></div><div class=\"fcol\"><h5>About</h5><div class=\"flinks\"><a href=\"{{P}}about/\">About Us</a><a href=\"{{P}}library/\">Library</a><a href=\"{{P}}media/\">Media</a><a href=\"{{P}}search/\">Search</a></div></div></div><div class=\"partners\"><h4>Our Partners</h4><a class=\"partner\" href=\"https://www.instagram.com/mundarisamaj\" target=\"_blank\" rel=\"noopener\"><b>Mundari Samaj</b> <span class=\"ph\">@mundarisamaj \u00b7 Instagram</span><span class=\"pd\">Our official Instagram page \u2014 Mundari culture, language, traditions and community news.</span></a><a class=\"partner\" href=\"https://www.instagram.com/mundariarchive\" target=\"_blank\" rel=\"noopener\"><b>Mundari Archive</b> <span class=\"ph\">@mundariarchive \u00b7 Instagram</span><span class=\"pd\">The cultural archive of the Mundari people \u2014 stories, traditions, history and heritage, preserved for the future.</span></a></div>\u00a9 2026 Mundari Samaj \u00b7 Johar! Jay Mundari!<div class=\"fnote\">Bani script \u00b7 Unicode since 2022</div></footer>\n<script>\n(function(){\n  var b=document.getElementById('bar');\n  function s(){\n    var h=document.documentElement;\n    b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';\n  }\n  addEventListener('scroll',s,{passive:true});s();\n\n  var topBar=document.querySelector('.top');\n  addEventListener('scroll',function(){\n    topBar.classList.toggle('scrolled',scrollY>30);\n  },{passive:true});\n})();\n</script>\n<script>(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;addEventListener('scroll',function(){var y=window.scrollY;if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y},{passive:true})})();</script>\n<script>document.addEventListener('click',function(e){var h=e.target.closest?e.target.closest('.fcol h5'):null;if(!h)return;var c=h.closest('.fcol');if(c)c.classList.toggle('open');});</script></body>\n</html>\n";
 
 function escHtml(s) {
   return String(s == null ? "" : s)
@@ -1034,6 +1519,28 @@ async function apiAdmin(request, env, path) {
   if (path === "/api/admin/import" && request.method === "POST") {
     return adminImport(request, env);
   }
+  if (path === "/api/admin/comments") {
+    if (request.method === "GET") return adminCommentsList(new URL(request.url), env);
+    if (request.method === "DELETE") {
+      const cid = parseInt(new URL(request.url).searchParams.get("id") || "0", 10);
+      if (cid) return adminCommentDelete(env, cid);
+    }
+  }
+  const commentId = path.match(/^\/api\/admin\/comments\/(\d+)$/);
+  if (commentId && request.method === "DELETE") {
+    return adminCommentDelete(env, parseInt(commentId[1], 10));
+  }
+  if (path === "/api/admin/security-log" && request.method === "GET") {
+    return adminSecurityLog(env);
+  }
+  if (path === "/api/admin/blocked-ips") {
+    if (request.method === "GET") return adminBlockedList(env);
+    if (request.method === "POST") return adminBlockedAdd(request, env);
+    if (request.method === "DELETE") return adminBlockedRemove(new URL(request.url), env);
+  }
+  if (path === "/api/admin/backup-engagement" && request.method === "GET") {
+    return adminBackupEngagement(env);
+  }
   return jsonAdmin({ ok: false, error: "not_found" }, 404);
 }
 
@@ -1067,7 +1574,20 @@ export default {
         }
       }
     } else if (path.startsWith("/api/")) {
-      if (request.method !== "GET") {
+      if (path === "/api/engage") {
+        // v90 engagement: GET reads counts + comments, POST takes actions.
+        if (!env.DB) {
+          res = json({ ok: false, error: "database_not_bound" }, 503);
+        } else {
+          try {
+            if (request.method === "GET") res = await apiEngageGet(url, env);
+            else if (request.method === "POST") res = await apiEngagePost(request, env);
+            else res = json({ ok: false, error: "method_not_allowed" }, 405);
+          } catch (e) {
+            res = json({ ok: false, error: "engage_failed" }, 500);
+          }
+        }
+      } else if (request.method !== "GET") {
         res = json({ ok: false, error: "method_not_allowed" }, 405);
       } else if (!env.DB) {
         res = json({ ok: false, error: "database_not_bound" }, 503);

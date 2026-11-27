@@ -79,7 +79,8 @@
     ".eg-auth-link{background:none;border:0;color:var(--g,#1f4a41);font:600 .92rem Inter,system-ui,sans-serif;text-decoration:underline;cursor:pointer;padding:0}" +
     ".eg-login-prompt{padding:16px;border:1px dashed var(--line,#d8ded6);border-radius:14px;text-align:center}" +
     ".eg-login-prompt p{margin:0 0 10px;color:var(--muted,#5a6b62);font-size:.94rem}" +
-    ".eg-asline{margin:0 0 6px;font-size:.9rem;color:var(--muted,#5a6b62)}";
+    ".eg-asline{margin:0 0 6px;font-size:.9rem;color:var(--muted,#5a6b62)}" +
+    ".eg-share{background:var(--card,#fff);border:1px solid var(--line,#d8ded6);color:var(--g,#1f4a41);font:600 .95rem Inter,system-ui,sans-serif;padding:10px 18px;border-radius:99px;cursor:pointer}";
   document.head.appendChild(authStyle);
 
   function account() { return window.MSAccount || null; }
@@ -158,6 +159,7 @@
         '<span class="eg-count" id="egLikeCount">·</span>' +
       '</button>' +
       '<span class="eg-views" id="egViews">👁 <span id="egViewCount">·</span> views</span>' +
+      '<button type="button" class="eg-share" id="egShare">↗ Share</button>' +
     '</div>' +
     '<h2 class="eg-h">Comments</h2>' +
     '<p class="eg-sub">Share your thoughts. Comments appear right away — please keep them kind and respectful.</p>' +
@@ -295,6 +297,24 @@
       }
     } catch (e) { /* ignore — state refreshes on next load */ }
     likeBtn.disabled = false;
+  });
+
+  /* ---------- share this page ---------- */
+  var shareBtn = document.getElementById("egShare");
+  if (shareBtn) shareBtn.addEventListener("click", async function () {
+    if (navigator.share) {
+      try { await navigator.share({ title: document.title, url: location.href }); } catch (e) {}
+      return;
+    }
+    var done = function (label) {
+      shareBtn.textContent = label;
+      setTimeout(function () { shareBtn.textContent = "↗ Share"; }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(location.href).then(
+        function () { done("✓ Link copied"); },
+        function () { done("Copy the address-bar link"); });
+    } else { done("Copy the address-bar link"); }
   });
 
   /* ---------- star rating picker ---------- */

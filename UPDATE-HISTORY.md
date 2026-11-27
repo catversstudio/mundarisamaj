@@ -296,3 +296,6 @@ Menu fix (user ka order): "My Account" (login) option ab menu mein SABSE UPAR ha
 
 ## v97 — 27 November 2026, 06:43 PM IST
 Menu correction (user ki clarification): v96 mein My Account galti se menu ke sabse upar chala gaya tha. Ab aisa hai — menu ke neeche wale button row se Instagram aur Threads ke buttons HATA diye, aur unhi ki jagah (Contribute ke bagal mein) My Account (login) option hai. Home phir se pehla item hai. Sirf account.js badla. Local test: 4/4 pass.
+
+## v98 — 27 November 2026, 06:45 PM IST
+Profile page naya roop (user ka order): My Account page ab pehle PROFILE VIEW dikhata hai — upar badi photo (user ki apni upload ki hui; na ho to Gmail/Google wali photo; wo bhi na ho to naam ka pehla akshar), uske neeche naam, phir @username, phir email. Edit sirf "Edit profile" button dabane par khulta hai; bina edit mode ke kuch badla nahi ja sakta. Username likhte hi live check — available hai ya kisi aur ne le liya hai (Instagram jaisa); database mein username pehle se hi unique hai, do log ek username rakh hi nahi sakte. Save dabate hi page wapas profile view par refresh ho jata hai naye naam/username/photo ke saath. Local test: 10/10 pass.

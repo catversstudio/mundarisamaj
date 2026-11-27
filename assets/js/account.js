@@ -45,7 +45,8 @@
       user: {
         id: u.id || "",
         email: u.email || "",
-        name: meta.full_name || meta.name || ""
+        name: meta.full_name || meta.name || "",
+        picture: meta.avatar_url || meta.picture || ""
       }
     };
     save();
@@ -405,6 +406,7 @@
     signOut: signOut,
     signInWithGoogle: signInWithGoogle,
     fetchProfile: fetchProfile,
+    usernameTaken: usernameTaken,
     saveProfile: saveProfile,
     ensureProfile: ensureProfile,
     accountUrl: accountUrl,

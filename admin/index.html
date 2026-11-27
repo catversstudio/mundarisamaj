@@ -322,6 +322,9 @@ summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--green2)}
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAFyQTGNyCN1voCrR" style="margin-top:16px"></div>
       <p style="margin-top:18px"><button class="btn block" type="submit">Sign in</button></p>
     </form>
+    <p style="text-align:center;color:var(--muted,#5a6b62);margin:18px 0 10px">— or —</p>
+    <p style="margin:0"><button class="btn block ghost" type="button" id="googleLoginBtn">Sign in with Google</button></p>
+    <p class="sub" style="text-align:center;margin-top:10px">Only the owner's Google account can sign in this way.</p>
     <p style="text-align:center;margin-top:14px"><button class="btn ghost small" type="button" id="forgotLink">Forgot your password? Reset it with a recovery code</button></p>
   </section>
 
@@ -796,6 +799,24 @@ $("loginForm").addEventListener("submit", async (e) => {
   if (data && data.ok) { toast("Signed in."); enterApp(data.email); }
   else { showErr("loginErr", errText(data)); tsReset(); }
 });
+
+/* Sign in with Google: Supabase Auth verifies the account, then the
+   worker issues the normal panel session for the owner account. */
+$("googleLoginBtn").addEventListener("click", () => {
+  location.href = "https://ulqqsyxvnqsuohoxqdeo.supabase.co/auth/v1/authorize?provider=google&redirect_to=" +
+    encodeURIComponent(location.origin + "/admin/");
+});
+(async () => {
+  if (!location.hash.includes("access_token=")) return;
+  const params = new URLSearchParams(location.hash.slice(1));
+  const accessToken = params.get("access_token");
+  history.replaceState(null, "", location.pathname);
+  if (!accessToken) return;
+  const { data } = await apiSend("POST", "/api/admin/google-login", { access_token: accessToken })
+    .catch(() => ({ data: null }));
+  if (data && data.ok) { toast("Signed in with Google."); enterApp(data.email); }
+  else showErr("loginErr", (data && data.message) || "Google sign-in failed. Please use your password instead.");
+})();
 
 $("forgotLink").addEventListener("click", () => show("view-recover"));
 $("backToLogin").addEventListener("click", () => show("view-login"));

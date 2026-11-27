@@ -420,6 +420,21 @@ async function sbAuthUser(env, accessToken) {
   } catch (e) { return null; }
 }
 
+// The name a signed-in reader comments under: the display name on
+// their profile when they have set one, empty string otherwise.
+async function sbProfileName(env, userId) {
+  if (!userId) return "";
+  try {
+    const r = await fetch(sbRest(env) + "/profiles?select=display_name,username&id=eq." +
+      encodeURIComponent(userId) + "&limit=1",
+      { headers: { apikey: sbKey(env), authorization: "Bearer " + sbKey(env) } });
+    if (!r.ok) return "";
+    const rows = await r.json().catch(() => []);
+    if (!Array.isArray(rows) || !rows.length) return "";
+    return String(rows[0].display_name || rows[0].username || "").trim().slice(0, 60);
+  } catch (e) { return ""; }
+}
+
 function sbOrFilter(ip, deviceToken, userId) {
   const parts = [];
   if (ip) parts.push("ip.eq." + encodeURIComponent(ip));
@@ -605,6 +620,11 @@ async function apiEngagePost(request, env) {
     return json({ ok: false, error: "rate_limited", message: "Too many actions. Please wait a little while and try again." }, 429);
   }
 
+  // Reading is open to everyone; liking and commenting need an account.
+  if ((action === "like" || action === "unlike" || action === "comment") && !sbUser) {
+    return json({ ok: false, error: "login_required", message: "Please login to interact with us." }, 401);
+  }
+
   if (action === "view") {
     await bumpEngagement(env, slug, "views");
     const c = await getEngagement(env, slug);
@@ -664,8 +684,10 @@ async function apiEngagePost(request, env) {
     if (!(await verifyTurnstile(env, body.turnstile, ip))) {
       return json({ ok: false, error: "captcha_failed", message: "The bot check failed. Please refresh the page and try again." }, 403);
     }
-    let name = String(body.name || "").trim().slice(0, 60);
-    if (!name && sbUser && sbUser.name) name = String(sbUser.name).trim().slice(0, 60);
+    let name = await sbProfileName(env, userId);
+    if (!name && sbUser.name) name = String(sbUser.name).trim().slice(0, 60);
+    if (!name && sbUser.email) name = sbUser.email.split("@")[0].slice(0, 60);
+    if (!name) name = "Reader";
     const text = String(body.body || "").trim().slice(0, 1500);
     let rating = body.rating === null || body.rating === undefined || body.rating === ""
       ? null : parseInt(body.rating, 10);
@@ -1077,6 +1099,56 @@ async function adminLogin(request, env) {
   await sendLoginAlert(env, "Mundari Samaj admin: new sign-in",
     "A successful admin sign-in just happened for " + email + " from IP " + ip +
     ". If this was not you, change the password and use Sign out everywhere in the admin panel.", ip);
+  const token = await createSession(env, user.id);
+  return jsonAdmin({ ok: true, email: user.email }, 200, {
+    "set-cookie": sessionCookie(token, SESSION_DAYS * 86400),
+  });
+}
+
+
+/* ---- admin: sign in with Google ----
+   The panel also accepts a Google sign-in, but only from the owner's
+   own Google account (settings key admin_google_email; the address
+   below is the default). The visitor token is verified with Supabase
+   Auth, and a normal panel session is issued on success. */
+const ADMIN_GOOGLE_EMAIL = "asiksingh.143@gmail.com";
+
+async function adminGoogleLogin(request, env) {
+  const body = await readBody(request);
+  if (!body) return jsonAdmin({ ok: false, error: "bad_json" }, 400);
+  const ip = request.headers.get("cf-connecting-ip") || "unknown";
+  const accessToken = String(body.access_token || "").slice(0, 2000);
+  const sbUser = accessToken ? await sbAuthUser(env, accessToken) : null;
+  if (!sbUser || !sbUser.email) {
+    await logAdminEvent(env, "login_fail", request);
+    return jsonAdmin({ ok: false, error: "google_signin_failed" }, 401);
+  }
+  let allowed = ADMIN_GOOGLE_EMAIL;
+  try {
+    const row = await env.DB.prepare(
+      "SELECT value FROM settings WHERE key = 'admin_google_email'"
+    ).first();
+    if (row && row.value) allowed = String(row.value).trim().toLowerCase();
+  } catch (e) { /* the settings table is created with the panel schema */ }
+  if (sbUser.email.trim().toLowerCase() !== allowed) {
+    await logAdminEvent(env, "login_fail", request);
+    await sendLoginAlert(env, "Mundari Samaj admin: Google sign-in refused",
+      "A Google sign-in to the admin panel was refused for " + sbUser.email +
+      " from IP " + ip + ". Only the owner's Google account is allowed.", ip);
+    return jsonAdmin({ ok: false, error: "not_admin_account",
+      message: "This Google account is not the admin account." }, 403);
+  }
+  const user = await env.DB.prepare(
+    "SELECT id, email FROM admin_users ORDER BY id LIMIT 1"
+  ).first();
+  if (!user) return jsonAdmin({ ok: false, error: "no_admin_account" }, 409);
+  await env.DB.prepare(
+    "UPDATE admin_users SET last_login_at = ? WHERE id = ?"
+  ).bind(nowISO(), user.id).run();
+  await logAdminEvent(env, "login_success", request);
+  await sendLoginAlert(env, "Mundari Samaj admin: new sign-in (Google)",
+    "A successful admin sign-in with Google just happened for " + sbUser.email +
+    " from IP " + ip + ". If this was not you, use Sign out everywhere in the admin panel.", ip);
   const token = await createSession(env, user.id);
   return jsonAdmin({ ok: true, email: user.email }, 200, {
     "set-cookie": sessionCookie(token, SESSION_DAYS * 86400),
@@ -1568,6 +1640,9 @@ async function apiAdmin(request, env, path) {
   }
   if (path === "/api/admin/login" && request.method === "POST") {
     return adminLogin(request, env);
+  }
+  if (path === "/api/admin/google-login" && request.method === "POST") {
+    return adminGoogleLogin(request, env);
   }
   if (path === "/api/admin/recover" && request.method === "POST") {
     return adminRecover(request, env);

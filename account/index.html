@@ -1,0 +1,155 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Account · Mundari Samaj</title><meta name="description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/style.css"><link rel="canonical" href="https://mundarisamaj.pages.dev/account/"><meta property="og:type" content="website"><meta property="og:site_name" content="Mundari Samaj"><meta property="og:title" content="Frequently Asked Questions · Mundari Samaj"><meta property="og:description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta property="og:url" content="https://mundarisamaj.pages.dev/account/"><meta property="og:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><meta property="og:image:alt" content="Sarhul at a sarna grove"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Frequently Asked Questions · Mundari Samaj"><meta name="twitter:description" content="Mundari language, script, history and culture."><meta name="twitter:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><script src="../assets/js/analytics.js" defer></script><style>
+.acct-card{background:#fff;border:1px solid #d8ded6;border-radius:18px;padding:24px;max-width:580px}
+.acct-card h2{margin-top:0}
+.acct-head{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+.acct-avatar{width:72px;height:72px;flex:0 0 72px;border-radius:50%;background:#1f4a41;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:600;overflow:hidden}
+.acct-avatar img{width:100%;height:100%;object-fit:cover}
+.acct-mail{margin:2px 0 0;color:#5a6b62;font-size:.92rem}
+.acct-card label{display:block;margin:16px 0 6px;font-weight:600;font-size:.94rem}
+.acct-card input[type="text"]{width:100%;box-sizing:border-box;border:1px solid #d8ded6;border-radius:12px;padding:11px 13px;font-size:.98rem;background:#f6f4ec;color:#1b2b26}
+.acct-card input[type="text"]:focus{outline:2px solid #e4b95f;border-color:#e4b95f}
+.acct-hint{font-size:.84rem;color:#5a6b62;margin:6px 0 0}
+.acct-photo-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.acct-btn{background:#1f4a41;color:#fff;border:0;font-weight:600;font-size:.95rem;padding:11px 22px;border-radius:99px;cursor:pointer;margin-top:18px}
+.acct-btn.ghost{background:#fff;color:#1f4a41;border:1px solid #1f4a41;margin-left:8px}
+.acct-btn:disabled{opacity:.55;cursor:default}
+.acct-msg{min-height:1.2em;margin:12px 0 0;font-size:.92rem;color:#2f6b5d}
+</style>
+</head><body data-root="../"><a class="skip" href="#main">Skip to content</a>
+<header class="top" id="top"><a class="brand" href="../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../">Home</a><a href="../language/">Language</a><a href="../heritage/">Heritage</a><a href="../culture/">Culture</a><a href="../library/">Library</a><a href="../media/">Media</a><a href="../news/">News</a><a href="../about/">About</a><a href="../search/">Search</a><a class="cta" href="../contribute/">Contribute</a><div class="msocial"><a href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener">Instagram</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></nav></header>
+<main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../">Home</a></nav><h1>My Account</h1><p class="lead">Your reader profile on Mundari Samaj — the name and username that appear with your likes and comments.</p></div></section>
+<section class="wrap sec narrow">
+<div id="acctLoading"><p>Loading…</p></div>
+<div id="acctOut" style="display:none">
+<div class="acct-card">
+<h2>You are not signed in</h2>
+<p>Sign in to like, comment and keep your name the same on every device.</p>
+<p><button type="button" class="acct-btn" id="acctLogin">Login</button></p>
+</div>
+</div>
+<div id="acctIn" style="display:none">
+<div class="acct-card">
+<div class="acct-head">
+<div class="acct-avatar"><span id="acctInitial">?</span><img id="acctPhoto" alt="Your profile photo" style="display:none"></div>
+<div><h2 id="acctHello">Johar!</h2><p class="acct-mail" id="acctEmail"></p></div>
+</div>
+<label for="acctName">Your name</label>
+<input type="text" id="acctName" maxlength="60" placeholder="Your name">
+<label for="acctUsername">Username</label>
+<input type="text" id="acctUsername" maxlength="20" placeholder="e.g. birsa_reader">
+<p class="acct-hint">Small letters, numbers, dot or underscore — 3 to 20 characters. This is your unique name on the site.</p>
+<label>Profile photo <span class="acct-hint">(optional, up to 20 KB)</span></label>
+<div class="acct-photo-row">
+<input type="file" id="acctFile" accept="image/*">
+<button type="button" class="acct-btn ghost" id="acctRemovePhoto" style="display:none;margin-top:0">Remove photo</button>
+</div>
+<p class="acct-msg" id="acctMsg" role="status"></p>
+<p><button type="button" class="acct-btn" id="acctSave">Save profile</button><button type="button" class="acct-btn ghost" id="acctLogout">Logout</button></p>
+</div>
+</div>
+</section></main>
+<footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div class="fcols"><div class="fcol"><h5>Explore</h5><div class="flinks"><a href="../">Home</a><a href="../language/">Language</a><a href="../heritage/">Heritage</a><a href="../culture/">Culture</a></div></div><div class="fcol"><h5>Learn</h5><div class="flinks"><a href="../language/script/">Bani Script</a><a href="../language/numbers/">Numbers &amp; Counting</a><a href="../language/dictionary/">Dictionary</a><a href="../language/learn/">Learn Mundari</a></div></div><div class="fcol"><h5>Community</h5><div class="flinks"><a href="../contribute/">Contribute</a><a href="../news/">News &amp; Updates</a><a href="mailto:mundarisamaj@outlook.com">Email Us</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></div><div class="fcol"><h5>About</h5><div class="flinks"><a href="../about/">About Us</a><a href="../library/">Library</a><a href="../media/">Media</a><a href="../search/">Search</a><a href="../privacy/">Privacy Policy</a><a href="../faq/">FAQ</a></div></div></div></div><div class="partners"><h4>Our Partners</h4><div class="prow"><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b><span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b><span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div></div><p class="copy"><span>© 2026 Mundari Samaj</span><span class="fnote">Bani script · Unicode since 2022</span></p></footer>
+<script src="../assets/data/data.js"></script><script src="../assets/js/main.js"></script><script src="../assets/js/account.js"></script>
+<script>
+(function () {
+  var MAX_PHOTO = 20 * 1024;
+  var pendingPhoto;
+  function $(id) { return document.getElementById(id); }
+  function show(state) {
+    $("acctLoading").style.display = state === "loading" ? "" : "none";
+    $("acctOut").style.display = state === "out" ? "" : "none";
+    $("acctIn").style.display = state === "in" ? "" : "none";
+  }
+  function note(text, bad) {
+    var m = $("acctMsg");
+    if (!m) return;
+    m.textContent = text || "";
+    m.style.color = bad ? "#b3261e" : "";
+  }
+  function setPhoto(data) {
+    var img = $("acctPhoto"), ini = $("acctInitial");
+    if (data) {
+      img.src = data; img.style.display = ""; ini.style.display = "none";
+      $("acctRemovePhoto").style.display = "";
+    } else {
+      img.removeAttribute("src"); img.style.display = "none"; ini.style.display = "";
+      $("acctRemovePhoto").style.display = "none";
+    }
+  }
+  async function render() {
+    var a = window.MSAccount;
+    if (!a) return;
+    var u = a.user();
+    if (!u) { show("out"); return; }
+    show("in");
+    $("acctEmail").textContent = u.email || "";
+    $("acctHello").textContent = "Johar, " + (u.name || "Reader") + "!";
+    $("acctInitial").textContent = (u.name || u.email || "?").charAt(0).toUpperCase();
+    var p = await a.fetchProfile();
+    if (!p) p = await a.ensureProfile();
+    if (p) {
+      if (document.activeElement !== $("acctName")) $("acctName").value = p.display_name || "";
+      if (document.activeElement !== $("acctUsername")) $("acctUsername").value = p.username || "";
+      if (pendingPhoto === undefined) setPhoto(p.avatar_data || null);
+    }
+  }
+  function ready() {
+    $("acctLogin").addEventListener("click", function () { window.MSAccount.openLogin(); });
+    $("acctLogout").addEventListener("click", async function () {
+      await window.MSAccount.signOut();
+      pendingPhoto = undefined;
+      render();
+    });
+    $("acctFile").addEventListener("change", function () {
+      var f = this.files && this.files[0];
+      if (!f) return;
+      if (f.size > MAX_PHOTO) {
+        note("That photo is bigger than 20 KB. Please choose a smaller one.", true);
+        this.value = "";
+        return;
+      }
+      var rd = new FileReader();
+      rd.onload = function () {
+        pendingPhoto = String(rd.result);
+        setPhoto(pendingPhoto);
+        note("Photo ready — press Save profile to keep it.");
+      };
+      rd.readAsDataURL(f);
+    });
+    $("acctRemovePhoto").addEventListener("click", function () {
+      pendingPhoto = null;
+      setPhoto(null);
+      $("acctFile").value = "";
+    });
+    $("acctSave").addEventListener("click", async function () {
+      var name = $("acctName").value.trim();
+      var uname = $("acctUsername").value.trim().toLowerCase();
+      if (!name) { note("Please write your name.", true); return; }
+      if (!/^[a-z0-9_.]{3,20}$/.test(uname)) {
+        note("Username must be 3 to 20 characters: small letters, numbers, dot or underscore.", true);
+        return;
+      }
+      var btn = $("acctSave");
+      btn.disabled = true;
+      note("Saving…");
+      try {
+        var fields = { display_name: name, username: uname };
+        if (pendingPhoto !== undefined) fields.avatar_data = pendingPhoto;
+        await window.MSAccount.saveProfile(fields);
+        pendingPhoto = undefined;
+        note("Saved. Your profile is up to date.");
+      } catch (e) {
+        var taken = /duplicate|unique/i.test((e && e.message) || "");
+        note(taken ? "That username is already taken. Please choose another."
+                   : "Your profile could not be saved. Please try again.", true);
+      }
+      btn.disabled = false;
+    });
+    window.addEventListener("ms-account", render);
+    render();
+  }
+  if (window.MSAccount) ready();
+  else window.addEventListener("ms-account-ready", ready, { once: true });
+})();
+</script>
+</body></html>

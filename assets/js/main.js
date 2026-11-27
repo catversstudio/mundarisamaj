@@ -51,3 +51,6 @@ document.querySelectorAll('.sec .card,.band .wrap').forEach(function(el){el.clas
     if (col) col.classList.toggle('open');
   });
 })();
+
+/* Reader accounts: the shared account script (sign-in popup, My Account menu entry). */
+(function(){if(window.MSAccount)return;var t=document.querySelector('script[src*="assets/js/main.js"]');if(!t)return;var s=document.createElement('script');s.src=t.getAttribute('src').replace(/main\.js(\?.*)?$/,'account.js');document.head.appendChild(s)})();

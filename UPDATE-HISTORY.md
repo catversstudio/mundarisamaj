@@ -284,3 +284,6 @@ Premium motion layer, from the @kairvinbuilds reel the owner shared — the 10 c
 
 ## v93 — 27 November 2026 (17:12 IST)
 Visitor login arrives — always optional, never forced. Readers can now sign in with Google (two taps, no password) or with a 6-digit email code; signing in ties their name and likes to one ID that stays the same on every device, and the comment form fills their name in automatically. Likes and comments now live in Supabase: like records moved there (one like per person, checked by account, device and network together), and comments — which had been paused — are live again through the site's own safety filter, with the automatic bad-words/link check and rate limits unchanged. Guests lose nothing: browsing, liking and commenting all work exactly as before without any login. The v92 motion layer and the v91 admin panel ride along in the same release.
+
+## v94 — 27 November 2026, 05:24 PM IST
+Login zaroori for like/comment (sirf padhna sab ke liye khula); blur + freeze wala "Please login to interact with us" popup, bahar click par band; User Agreement sign-in par; menu mein My Account + naya /account/ profile page (username, naam, photo sirf 20 KB tak); comment ka naam profile se aata hai; admin panel mein Sign in with Google — sirf owner ke Google account (asiksingh.143@gmail.com) ke liye. Local test: 13/13 worker + 21/21 page test pass.

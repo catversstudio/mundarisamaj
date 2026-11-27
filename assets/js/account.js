@@ -347,6 +347,8 @@
   /* ---------- menu entry ---------- */
 
   function accountUrl() {
+    // Archive-style mastheads (the v100 redesign) brand-link to the root.
+    if (document.querySelector(".newmast, header.mast")) return "/account/";
     var about = document.querySelector('header.top nav.menu a[href$="about/"]');
     if (about) return about.getAttribute("href").replace(/about\/$/, "account/");
     var brand = document.querySelector("header.top a");
@@ -356,6 +358,28 @@
   }
 
   function addMenuEntry() {
+    // Archive-style mastheads: the account entry sits in the tools row,
+    // before the Contribute pill, and at the end of the mobile menu.
+    var tools = document.querySelector(".newtools") || document.querySelector("header.mast .tools");
+    if (tools) {
+      if (!tools.querySelector(".msa-account-link")) {
+        var a2 = document.createElement("a");
+        a2.href = "/account/";
+        a2.className = "msa-account-link";
+        a2.textContent = "My Account";
+        var pill = tools.querySelector(".contrib, .join");
+        if (pill) tools.insertBefore(a2, pill); else tools.appendChild(a2);
+      }
+      var mnav = document.querySelector(".newmenu nav") || document.querySelector(".mobilemenu nav");
+      if (mnav && !mnav.querySelector(".msa-account-link")) {
+        var a3 = document.createElement("a");
+        a3.href = "/account/";
+        a3.className = "msa-account-link";
+        a3.textContent = "My Account";
+        mnav.appendChild(a3);
+      }
+      return;
+    }
     var menu = document.querySelector("header.top nav.menu") || document.querySelector("nav.menu");
     if (menu) {
       // The menu's bottom row held Instagram and Threads buttons;

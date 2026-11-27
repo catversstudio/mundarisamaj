@@ -357,16 +357,24 @@
   function addMenuEntry() {
     var menu = document.querySelector("header.top nav.menu") || document.querySelector("nav.menu");
     if (menu) {
-      // The Instagram and Threads links live in the footer; the menu
-      // carries the account entry instead, first in the list.
+      // The menu's bottom row held Instagram and Threads buttons;
+      // the account entry takes their place, next to Contribute.
+      // (The social links themselves live on in the footer.)
       var social = menu.querySelector(".msocial");
-      if (social) social.remove();
-      if (menu.querySelector(".msa-account-link")) return;
+      if (menu.querySelector(".msa-account-link")) {
+        if (social) social.remove();
+        return;
+      }
       var a = document.createElement("a");
       a.href = accountUrl();
       a.className = "msa-account-link";
       a.textContent = "My Account";
-      menu.insertBefore(a, menu.firstChild);
+      if (social) {
+        menu.insertBefore(a, social);
+        social.remove();
+      } else {
+        menu.appendChild(a);
+      }
       return;
     }
     // Reading pages carry a slim header without a menu; the account

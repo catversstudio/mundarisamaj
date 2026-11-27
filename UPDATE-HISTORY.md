@@ -291,5 +291,8 @@ Login zaroori for like/comment (sirf padhna sab ke liye khula); blur + freeze wa
 ## v95 — 27 November 2026, 06:39 PM IST
 Gallery fix: Like + Comment ab Gallery page par aur har photo ke apne page (13 photo pages) par bhi — pehle ye sirf article/story/news pages par tha. Login popup: "Sign in with Google" button default aur uske andar Google ka official logo + text; agreement wala checkbox hata diya (agreement ab sirf ek chhoti note line hai, tick nahi karna padta). Admin panel ke Google button par bhi logo. Local test: 11/11 pass.
 
-## v96 — 27 November 2026, 06:44 PM IST
+## v96 — 27 November 2026, 06:40 PM IST
 Menu fix (user ka order): "My Account" (login) option ab menu mein SABSE UPAR hai — Home se bhi pehle. Menu se Instagram aur Threads wali row hata di (wo links footer mein pehle se hain). Sirf account.js badla. Local test: 5/5 pass.
+
+## v97 — 27 November 2026, 06:43 PM IST
+Menu correction (user ki clarification): v96 mein My Account galti se menu ke sabse upar chala gaya tha. Ab aisa hai — menu ke neeche wale button row se Instagram aur Threads ke buttons HATA diye, aur unhi ki jagah (Contribute ke bagal mein) My Account (login) option hai. Home phir se pehla item hai. Sirf account.js badla. Local test: 4/4 pass.

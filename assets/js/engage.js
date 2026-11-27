@@ -272,3 +272,51 @@
 
   load(true);
 })();
+
+/* Mundari Samaj v92 — motion: when a post is liked, the heart bursts
+   with small hearts and gold sparks that fly out along an arc
+   (principles 7 Arcs + 10 Exaggerated feedback). Purely decorative;
+   it only watches the Like button's .liked class and never touches
+   the like/comment logic above. Reduced-motion visitors get none. */
+(function () {
+  "use strict";
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var tries = 0;
+  (function wait() {
+    var btn = document.getElementById("egLike");
+    if (!btn) { if (++tries < 40) setTimeout(wait, 150); return; }
+    var was = btn.classList.contains("liked");
+    new MutationObserver(function () {
+      var on = btn.classList.contains("liked");
+      if (on && !was) burst(btn);
+      was = on;
+    }).observe(btn, { attributes: true, attributeFilter: ["class"] });
+  })();
+  function burst(btn) {
+    var heart = btn.querySelector(".eg-heart");
+    if (!heart) return;
+    var r = heart.getBoundingClientRect();
+    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (var i = 0; i < 7; i++) {
+      (function (i) {
+        var s = document.createElement("span");
+        var isHeart = i % 3 === 0;
+        s.textContent = isHeart ? "♥" : "•";
+        s.style.cssText = "position:fixed;left:" + cx + "px;top:" + cy + "px;z-index:9999;" +
+          "pointer-events:none;line-height:1;color:" + (isHeart ? "#c0532f" : "#e4b95f") +
+          ";font-size:" + (isHeart ? 14 : 20) + "px";
+        document.body.appendChild(s);
+        var ang = (-165 + i * (150 / 6)) * Math.PI / 180;
+        var dist = 46 + (i % 3) * 15;
+        var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
+        var mx = dx * 0.5, my = dy * 0.5 - 18; /* arc: rise first, then fall out */
+        var anim = s.animate([
+          { transform: "translate(-50%,-50%) scale(.6)", opacity: 1 },
+          { transform: "translate(calc(-50% + " + mx + "px),calc(-50% + " + my + "px)) scale(1.05)", opacity: 1, offset: 0.55 },
+          { transform: "translate(calc(-50% + " + dx + "px),calc(-50% + " + dy + "px)) scale(.8)", opacity: 0 }
+        ], { duration: 650, easing: "cubic-bezier(.16,1,.3,1)" });
+        anim.onfinish = function () { s.remove(); };
+      })(i);
+    }
+  }
+})();

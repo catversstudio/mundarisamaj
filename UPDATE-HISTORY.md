@@ -275,6 +275,9 @@ Engagement features: Like and Views with server-side IP + device-token de-duplic
 ## v91 — 25 November 2026 (16:26 IST)
 Premium Minimal admin-panel redesign, built to the owner's master redesign prompt: a new Dashboard with real counts and quick actions, a sidebar/bottom-navigation shell, and — after the owner's revision — a pure-black dark theme, a one-line mobile editor toolbar and tap-to-select blocks. Pushed to GitHub; the Cloudflare ZIP was handed to the user for upload.
 
+## v92 — 27 November 2026 (16:35 IST)
+Premium motion layer, from the @kairvinbuilds reel the owner shared — the 10 classic animation principles applied to the site's real components: button wind-up, squash-and-stretch and shine sweep; card pose-lift with staging dim; hero entrance stagger; mobile drawer follow-through with staggered links; Bani tile and chip squash; and a Like-button heart pop with a gold ring burst and arc particles. A pure CSS/JS layer on top of v91 — reduced-motion visitors keep the calm site. Pushed to GitHub; the Cloudflare ZIP was handed to the user for upload.
+
 ---
 
 *Note: the companion code repo catversstudio/mundari-samaj was removed on 2026-11-25 on the owner's order; this repo (catversstudio/mundarisamaj) is now the single code home of the website.*

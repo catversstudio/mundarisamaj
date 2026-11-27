@@ -357,14 +357,16 @@
   function addMenuEntry() {
     var menu = document.querySelector("header.top nav.menu") || document.querySelector("nav.menu");
     if (menu) {
+      // The Instagram and Threads links live in the footer; the menu
+      // carries the account entry instead, first in the list.
+      var social = menu.querySelector(".msocial");
+      if (social) social.remove();
       if (menu.querySelector(".msa-account-link")) return;
       var a = document.createElement("a");
       a.href = accountUrl();
       a.className = "msa-account-link";
       a.textContent = "My Account";
-      var social = menu.querySelector(".msocial");
-      if (social) menu.insertBefore(a, social);
-      else menu.appendChild(a);
+      menu.insertBefore(a, menu.firstChild);
       return;
     }
     // Reading pages carry a slim header without a menu; the account

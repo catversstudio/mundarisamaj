@@ -18,7 +18,6 @@
   var SUPABASE_URL = "https://ulqqsyxvnqsuohoxqdeo.supabase.co";
   var PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVscXFzeXh2bnFzdW9ob3hxZGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MjU3MjIsImV4cCI6MjExMDQwMTcyMn0.8ZrMrf8_xpC2ZfjoWDkx7tQlsWUN2uFrhVX69gta5g4";
   var SESSION_KEY = "ms_account_session";
-  var AGREED_KEY = "ms_account_agreed";
 
   var session = null;
   try { session = JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); } catch (e) { session = null; }
@@ -236,7 +235,8 @@
     ".msa-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;",
     "border:1px solid #dfe5df;background:#fff;font-size:1rem;cursor:pointer;color:#1b2b26}",
     ".msa-google{width:100%;background:#fff;border:1px solid #cfd8cf;color:#1b2b26;font-weight:600;",
-    "font-size:.98rem;padding:12px;border-radius:99px;cursor:pointer}",
+    "font-size:.98rem;padding:12px;border-radius:99px;cursor:pointer;display:flex;align-items:center;",
+    "justify-content:center;gap:10px;box-shadow:0 1px 3px rgba(20,40,30,.12)}",
     ".msa-google:disabled,.msa-btn:disabled{opacity:.45;cursor:default}",
     ".msa-or{text-align:center;color:#82918a;font-size:.82rem;margin:12px 0 4px}",
     ".msa-row{display:flex;gap:8px;margin-top:8px}",
@@ -244,9 +244,7 @@
     "font-size:.95rem;color:#1b2b26;background:#fff}",
     ".msa-btn{background:#1f4a41;color:#fff;border:0;font-weight:600;font-size:.95rem;",
     "padding:11px 16px;border-radius:99px;cursor:pointer;white-space:nowrap}",
-    ".msa-agree{display:flex;gap:9px;align-items:flex-start;margin-top:16px;font-size:.83rem;",
-    "color:#51635a;line-height:1.45;cursor:pointer}",
-    ".msa-agree input{margin-top:2px;width:16px;height:16px;accent-color:#1f4a41}",
+    ".msa-note{margin:16px 0 0;font-size:.82rem;color:#82918a;line-height:1.5}",
     ".msa-msg{min-height:1.2em;margin:10px 0 0;font-size:.88rem;color:#51635a}",
     ".msa-msg.bad{color:#b3261e}",
     "body.msa-open{overflow:hidden}"
@@ -268,7 +266,7 @@
         '<button type="button" class="msa-close" aria-label="Close">✕</button>' +
         "<h3>Please login to interact with us</h3>" +
         "<p>Sign in to like, comment and join the conversation. It only takes a few seconds.</p>" +
-        '<button type="button" class="msa-google">Sign in with Google</button>' +
+        '<button type="button" class="msa-google"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path fill="#FFC107" d="M43.61 20.08H42V20H24v8h11.3C33.65 32.69 29.22 36 24 36c-6.63 0-12-5.37-12-12s5.37-12 12-12c3.06 0 5.84 1.15 7.96 3.04l5.66-5.66C34.22 6.09 29.33 4 24 4 12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20c0-1.34-.13-2.65-.39-3.92z"/><path fill="#FF3D00" d="M6.31 14.69l6.57 4.82C14.64 15.1 18.97 12 24 12c3.06 0 5.84 1.15 7.96 3.04l5.66-5.66C34.22 6.09 29.33 4 24 4 16.32 4 9.66 8.34 6.31 14.69z"/><path fill="#4CAF50" d="M24 44c5.17 0 9.86-1.98 13.41-5.24l-6.19-5.24C29.24 35.09 26.75 36 24 36c-5.2 0-9.61-3.31-11.29-7.94l-6.51 5.02C9.53 39.62 16.34 44 24 44z"/><path fill="#1976D2" d="M43.61 20.08H42V20H24v8h11.3c-.79 2.28-2.21 4.31-4.08 5.94l6.19 5.24C36.86 39.25 44 34.05 44 24c0-1.34-.13-2.65-.39-3.92z"/></svg><span>Sign in with Google</span></button>' +
         '<div class="msa-or">or sign in with email</div>' +
         '<div class="msa-row">' +
           '<input type="email" class="msa-email" placeholder="Your email address" autocomplete="email">' +
@@ -278,45 +276,29 @@
           '<input type="text" class="msa-code" inputmode="numeric" maxlength="6" placeholder="6-digit code">' +
           '<button type="button" class="msa-btn msa-verify">Verify</button>' +
         "</div>" +
-        '<label class="msa-agree"><input type="checkbox" class="msa-agree-box">' +
-          "<span><strong>User Agreement:</strong> Mundari Samaj only sees your name and email " +
-          "to run your account. Your details are never shared with anyone.</span></label>" +
+        '<p class="msa-note">By signing in, you agree to our <strong>User Agreement</strong>: ' +
+          "Mundari Samaj only sees your name and email to run your account. " +
+          "Your details are never shared with anyone.</p>" +
         '<p class="msa-msg" role="status"></p>' +
       "</div>";
     document.body.appendChild(overlay);
 
-    var card = overlay.querySelector(".msa-card");
-    var agree = overlay.querySelector(".msa-agree-box");
     var google = overlay.querySelector(".msa-google");
     var send = overlay.querySelector(".msa-send");
     var verify = overlay.querySelector(".msa-verify");
     var msg = overlay.querySelector(".msa-msg");
 
-    try { if (localStorage.getItem(AGREED_KEY)) agree.checked = true; } catch (e) { /* ignore */ }
-    function gate() {
-      var on = agree.checked;
-      google.disabled = !on;
-      send.disabled = !on;
-      verify.disabled = !on;
-    }
-    agree.addEventListener("change", gate);
-    gate();
-
     function note(text, bad) {
       msg.textContent = text || "";
       msg.classList.toggle("bad", !!bad);
     }
-    function agreed() {
-      try { localStorage.setItem(AGREED_KEY, new Date().toISOString()); } catch (e) { /* ignore */ }
-    }
-
     overlay.querySelector(".msa-close").addEventListener("click", closeLogin);
     overlay.addEventListener("click", function (e) { if (e.target === overlay) closeLogin(); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && overlay.style.display !== "none") closeLogin();
     });
 
-    google.addEventListener("click", function () { agreed(); signInWithGoogle(); });
+    google.addEventListener("click", function () { signInWithGoogle(); });
 
     send.addEventListener("click", async function () {
       var email = overlay.querySelector(".msa-email").value.trim();
@@ -328,7 +310,7 @@
         overlay.querySelector(".msa-code-row").style.display = "";
         note("Code sent — check your email and enter the 6-digit code.");
       } catch (e) { note("The code could not be sent. Please try again.", true); }
-      gate();
+      send.disabled = false;
     });
 
     verify.addEventListener("click", async function () {
@@ -339,10 +321,9 @@
       note("Checking…");
       try {
         await verifyEmailCode(email, code);
-        agreed();
         closeLogin();
       } catch (e) { note("That code did not work. Please check it and try again.", true); }
-      gate();
+      verify.disabled = false;
     });
 
     return overlay;

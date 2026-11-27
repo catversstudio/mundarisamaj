@@ -287,3 +287,6 @@ Visitor login arrives — always optional, never forced. Readers can now sign in
 
 ## v94 — 27 November 2026, 05:24 PM IST
 Login zaroori for like/comment (sirf padhna sab ke liye khula); blur + freeze wala "Please login to interact with us" popup, bahar click par band; User Agreement sign-in par; menu mein My Account + naya /account/ profile page (username, naam, photo sirf 20 KB tak); comment ka naam profile se aata hai; admin panel mein Sign in with Google — sirf owner ke Google account (asiksingh.143@gmail.com) ke liye. Local test: 13/13 worker + 21/21 page test pass.
+
+## v95 — 27 November 2026, 06:39 PM IST
+Gallery fix: Like + Comment ab Gallery page par aur har photo ke apne page (13 photo pages) par bhi — pehle ye sirf article/story/news pages par tha. Login popup: "Sign in with Google" button default aur uske andar Google ka official logo + text; agreement wala checkbox hata diya (agreement ab sirf ek chhoti note line hai, tick nahi karna padta). Admin panel ke Google button par bhi logo. Local test: 11/11 pass.

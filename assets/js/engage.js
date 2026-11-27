@@ -57,6 +57,146 @@
     return s;
   }
 
+  /* ---------- v93: optional visitor login (Google / email code) ----------
+     Login is NEVER forced: likes and guest comments work without it.
+     Signing in only ties the visitor's name and likes to one ID that
+     stays the same on every device. Talks directly to Supabase Auth. */
+  var SB_URL = "https://ulqqsyxvnqsuohoxqdeo.supabase.co";
+  var SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVscXFzeXh2bnFzdW9ob3hxZGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MjU3MjIsImV4cCI6MjExMDQwMTcyMn0.8ZrMrf8_xpC2ZfjoWDkx7tQlsWUN2uFrhVX69gta5g4";
+  var session = null;
+
+  function sbSave() {
+    if (session) lsSet("ms_sb_session", JSON.stringify(session));
+    else { try { localStorage.removeItem("ms_sb_session"); } catch (e) {} }
+  }
+  function sbLoad() {
+    try { session = JSON.parse(lsGet("ms_sb_session") || "null"); } catch (e) { session = null; }
+    if (session && !session.access_token) session = null;
+  }
+  function sbHeaders() { return { apikey: SB_ANON, "content-type": "application/json" }; }
+  function setSession(d) {
+    if (!d || !d.access_token) return;
+    var u = d.user || (session && session.user) || {};
+    var meta = u.user_metadata || {};
+    session = {
+      access_token: d.access_token,
+      refresh_token: d.refresh_token || (session && session.refresh_token) || "",
+      expires_at: Date.now() + (parseInt(d.expires_in, 10) || 3600) * 1000,
+      user: { id: u.id || "", email: u.email || "",
+              name: meta.full_name || meta.name || "" },
+    };
+    sbSave();
+  }
+  async function sbRefresh() {
+    if (!session || !session.refresh_token) return false;
+    try {
+      const r = await fetch(SB_URL + "/auth/v1/token?grant_type=refresh_token", {
+        method: "POST", headers: sbHeaders(),
+        body: JSON.stringify({ refresh_token: session.refresh_token }),
+      });
+      if (!r.ok) { session = null; sbSave(); return false; }
+      setSession(await r.json());
+      return true;
+    } catch (e) { return false; }
+  }
+  async function ensureToken() {
+    if (!session) return "";
+    if (session.expires_at && Date.now() > session.expires_at - 60000) {
+      if (!(await sbRefresh())) return "";
+    }
+    return session.access_token || "";
+  }
+  function prefillName() {
+    var n = document.getElementById("egName");
+    if (n && session && session.user && session.user.name && !n.value) n.value = session.user.name;
+  }
+  function renderAuth() {
+    var el = document.getElementById("egAuth");
+    if (!el) return;
+    if (session && session.user && session.user.id) {
+      var nm = session.user.name || session.user.email || "Reader";
+      el.innerHTML = '<p class="eg-auth-in">Johar, <strong>' + esc(nm) + '</strong> — you are signed in. ' +
+        '<button type="button" class="eg-auth-link" id="egLogout">Logout</button></p>';
+      var lo = document.getElementById("egLogout");
+      if (lo) lo.addEventListener("click", function () {
+        if (session && session.access_token) {
+          fetch(SB_URL + "/auth/v1/logout", { method: "POST",
+            headers: { apikey: SB_ANON, authorization: "Bearer " + session.access_token } }).catch(function () {});
+        }
+        session = null; sbSave(); renderAuth();
+      });
+      return;
+    }
+    el.innerHTML =
+      '<p class="eg-auth-note">Want your own ID? Sign in once and your name and likes stay the same on every device. <strong>Login is optional</strong> — you can comment without it.</p>' +
+      '<div class="eg-auth-row"><button type="button" class="eg-google" id="egGoogle">Sign in with Google</button></div>' +
+      '<div class="eg-auth-row">' +
+        '<input type="email" id="egEmail" placeholder="Or write your email for a login code" autocomplete="email">' +
+        '<button type="button" class="eg-auth-btn" id="egSendCode">Send code</button>' +
+      '</div>' +
+      '<div class="eg-auth-row" id="egCodeRow" style="display:none">' +
+        '<input type="text" id="egCode" inputmode="numeric" maxlength="6" placeholder="6-digit code from your email">' +
+        '<button type="button" class="eg-auth-btn" id="egVerify">Verify &amp; sign in</button>' +
+      '</div>' +
+      '<p class="eg-msg" id="egAuthMsg" role="status"></p>';
+    wireAuth();
+  }
+  function wireAuth() {
+    var g = document.getElementById("egGoogle");
+    if (g) g.addEventListener("click", function () {
+      var back = location.href.split("#")[0];
+      location.href = SB_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(back);
+    });
+    var send = document.getElementById("egSendCode");
+    if (send) send.addEventListener("click", async function () {
+      var email = (document.getElementById("egEmail").value || "").trim();
+      var msg = document.getElementById("egAuthMsg");
+      if (!email || email.indexOf("@") < 0) { msg.textContent = "Please write a valid email address."; return; }
+      send.disabled = true; msg.textContent = "Sending code…";
+      try {
+        const r = await fetch(SB_URL + "/auth/v1/otp", { method: "POST", headers: sbHeaders(),
+          body: JSON.stringify({ email: email }) });
+        if (!r.ok) throw new Error("otp");
+        document.getElementById("egCodeRow").style.display = "";
+        msg.textContent = "Code sent — check your email and enter the 6-digit code.";
+      } catch (e) { msg.textContent = "The code could not be sent. Please try again."; }
+      send.disabled = false;
+    });
+    var ver = document.getElementById("egVerify");
+    if (ver) ver.addEventListener("click", async function () {
+      var email = (document.getElementById("egEmail").value || "").trim();
+      var code = (document.getElementById("egCode").value || "").trim();
+      var msg = document.getElementById("egAuthMsg");
+      if (!code) { msg.textContent = "Please enter the code from your email."; return; }
+      ver.disabled = true;
+      try {
+        const r = await fetch(SB_URL + "/auth/v1/verify", { method: "POST", headers: sbHeaders(),
+          body: JSON.stringify({ type: "email", email: email, token: code }) });
+        if (!r.ok) throw new Error("verify");
+        setSession(await r.json());
+        renderAuth(); prefillName();
+      } catch (e) { msg.textContent = "That code did not work. Please check it and try again."; }
+      ver.disabled = false;
+    });
+  }
+  // Google sign-in returns with the session in the URL hash — catch it.
+  (function catchOAuthReturn() {
+    if (!location.hash || location.hash.indexOf("access_token=") < 0) return;
+    var p = new URLSearchParams(location.hash.slice(1));
+    var tok = p.get("access_token");
+    var d = { access_token: tok, refresh_token: p.get("refresh_token"),
+              expires_in: p.get("expires_in") };
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+    fetch(SB_URL + "/auth/v1/user", { headers: { apikey: SB_ANON, authorization: "Bearer " + tok } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (u) { if (u) { d.user = u; setSession(d); renderAuth(); prefillName(); } })
+      .catch(function () {});
+  })();
+  sbLoad();
+  var authStyle = document.createElement("style");
+  authStyle.textContent = ".eg-auth{margin:4px 0 6px;padding:14px 16px;border:1px dashed var(--line,#d8ded6);border-radius:14px;background:var(--bg,#f6f4ec)}.eg-auth-note{margin:0;font-size:.92rem;color:var(--muted,#5a6b62)}.eg-auth-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.eg-auth-row input{flex:1 1 200px;box-sizing:border-box;background:#fff;border:1px solid var(--line,#d8ded6);border-radius:12px;padding:10px 12px;font:400 .95rem Inter,system-ui,sans-serif;color:var(--ink,#1b2b26)}.eg-auth-row input:focus{outline:2px solid var(--sun,#e4b95f);outline-offset:1px;border-color:var(--sun,#e4b95f)}.eg-google{background:#fff;border:1px solid var(--line,#d8ded6);color:#1b2b26;font:600 .95rem Inter,system-ui,sans-serif;padding:10px 18px;border-radius:99px;cursor:pointer}.eg-auth-btn{background:var(--g,#1f4a41);color:#fff;border:0;font:600 .95rem Inter,system-ui,sans-serif;padding:10px 18px;border-radius:99px;cursor:pointer}.eg-auth-btn:disabled{opacity:.6;cursor:default}.eg-auth-in{margin:0;font-size:.95rem}.eg-auth-link{background:none;border:0;color:var(--g,#1f4a41);font:600 .92rem Inter,system-ui,sans-serif;text-decoration:underline;cursor:pointer;padding:0}";
+  document.head.appendChild(authStyle);
+
   /* ---------- static skeleton ---------- */
   box.innerHTML =
     '<div class="engage-bar">' +
@@ -68,6 +208,7 @@
     '</div>' +
     '<h2 class="eg-h">Comments</h2>' +
     '<p class="eg-sub">Share your thoughts. Comments appear right away — please keep them kind and respectful.</p>' +
+    '<div class="eg-auth" id="egAuth"></div>' +
     '<form class="eg-form" id="egForm">' +
       '<label for="egName">Your name</label>' +
       '<input type="text" id="egName" maxlength="60" autocomplete="name" placeholder="Your name">' +
@@ -102,6 +243,8 @@
   var moreBtn = document.getElementById("egMore");
   var form = document.getElementById("egForm");
   var msgEl = document.getElementById("egMsg");
+  renderAuth();
+  prefillName();
   var rating = 0;
   var page = 1, totalComments = 0, loadedComments = 0;
 
@@ -185,7 +328,7 @@
     var on = likedSlugs().indexOf(slug) >= 0;
     likeBtn.disabled = true;
     try {
-      const r = await apiPost({ action: on ? "unlike" : "like", slug: slug, device_token: TOKEN });
+      const r = await apiPost({ action: on ? "unlike" : "like", slug: slug, device_token: TOKEN, access_token: await ensureToken() });
       if (r.data && r.data.ok) {
         setLiked(!!r.data.liked);
         renderLikeState(r.data.likes);
@@ -223,7 +366,7 @@
       const r = await apiPost({
         action: "comment", slug: slug, name: name,
         rating: rating || null, body: body,
-        device_token: TOKEN, turnstile: tsEl ? tsEl.value : "",
+        device_token: TOKEN, access_token: await ensureToken(), turnstile: tsEl ? tsEl.value : "",
       });
       if (r.data && r.data.ok) {
         lsSet("ms_name", name);

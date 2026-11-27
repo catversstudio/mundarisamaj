@@ -246,15 +246,28 @@ async function apiSearch(url, env) {
   return json({ ok: true, content: found, dictionary: d.results || [] });
 }
 
-/* ================= v90: engagement (likes / views / comments) =================
-   Likes + views live in D1; comments live in Supabase (project
-   mundari-engagement) behind the worker, using the SUPABASE_SERVICE_KEY
-   secret binding. Comments go LIVE immediately after an automatic
-   censorship filter (user decision 2026-11-25 — no manual pre-approval).
+/* ================= v90/v93: engagement (likes / views / comments) ==========
+   v93 (user decision 2026-11-27): comments and like records live in
+   Supabase (project mundari-engagement); visitors may optionally sign in
+   with Google or an email code (Supabase Auth) — never forced. Public
+   comment reads/writes and like records go through the worker with the
+   public ANON key (RLS allows live reads + live inserts), so they work
+   without any secret; the SUPABASE_SERVICE_KEY binding, once set, is
+   used instead and additionally unlocks admin comment moderation and
+   reports. The D1 engagement table keeps the displayed like/view
+   counters (and the legacy like_log stays as a dedup source + fallback).
+   Comments go LIVE immediately after an automatic censorship filter
+   (user decision 2026-11-25 — no manual pre-approval).
    Security: per-IP rate limits, an IP block list, an admin sign-in log
    and optional login alert emails via the ALERT_WEBHOOK_URL binding. */
 
-const SUPABASE_URL = "https://ulqqsyxvnqsuohoxqdeo.supabase.co/rest/v1";
+const SUPABASE_PROJECT_URL = "https://ulqqsyxvnqsuohoxqdeo.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVscXFzeXh2bnFzdW9ob3hxZGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MjU3MjIsImV4cCI6MjExMDQwMTcyMn0.8ZrMrf8_xpC2ZfjoWDkx7tQlsWUN2uFrhVX69gta5g4";
+function sbBase(env) { return (env && env.SUPABASE_URL) || SUPABASE_PROJECT_URL; }
+function sbRest(env) { return sbBase(env) + "/rest/v1"; }
+function sbKey(env) {
+  return (env && env.SUPABASE_SERVICE_KEY) || (env && env.SUPABASE_ANON_KEY) || SUPABASE_ANON_KEY;
+}
 const ENGAGE_RATE_LIMIT = 30;        // engage POST actions per IP per 10 min
 const COMMENT_RATE_LIMIT = 5;        // comments per IP per 10 min
 const RATE_WINDOW_MS = 10 * 60 * 1000;
@@ -348,11 +361,11 @@ async function ipBlocked(env, ip) {
 function supabaseReady(env) { return !!env.SUPABASE_SERVICE_KEY; }
 
 async function sbFetch(env, pathAndQuery, opts = {}) {
-  const r = await fetch(SUPABASE_URL + pathAndQuery, {
+  const r = await fetch(sbRest(env) + pathAndQuery, {
     ...opts,
     headers: {
-      apikey: env.SUPABASE_SERVICE_KEY,
-      authorization: "Bearer " + env.SUPABASE_SERVICE_KEY,
+      apikey: sbKey(env),
+      authorization: "Bearer " + sbKey(env),
       "content-type": "application/json",
       ...(opts.headers || {}),
     },
@@ -374,12 +387,12 @@ async function sbListComments(env, slug, page, per) {
 }
 
 async function sbCountComments(env, slug) {
-  const r = await fetch(SUPABASE_URL +
+  const r = await fetch(sbRest(env) +
     "/comments?select=id&slug=eq." + encodeURIComponent(slug) + "&status=eq.live",
     {
       headers: {
-        apikey: env.SUPABASE_SERVICE_KEY,
-        authorization: "Bearer " + env.SUPABASE_SERVICE_KEY,
+        apikey: sbKey(env),
+        authorization: "Bearer " + sbKey(env),
         prefer: "count=exact",
         range: "0-0",
       },
@@ -388,6 +401,76 @@ async function sbCountComments(env, slug) {
   const cr = r.headers.get("content-range") || "";
   const total = parseInt(cr.split("/")[1] || "0", 10);
   return Number.isFinite(total) ? total : 0;
+}
+
+
+/* ---- v93: visitor auth + Supabase like records ---- */
+
+// Verify a visitor's Supabase access token; returns {id, email, name} or null.
+async function sbAuthUser(env, accessToken) {
+  try {
+    const r = await fetch(sbBase(env) + "/auth/v1/user", {
+      headers: { apikey: sbKey(env), authorization: "Bearer " + accessToken },
+    });
+    if (!r.ok) return null;
+    const u = await r.json();
+    if (!u || !u.id) return null;
+    const meta = u.user_metadata || {};
+    return { id: u.id, email: u.email || "", name: meta.full_name || meta.name || "" };
+  } catch (e) { return null; }
+}
+
+function sbOrFilter(ip, deviceToken, userId) {
+  const parts = [];
+  if (ip) parts.push("ip.eq." + encodeURIComponent(ip));
+  if (deviceToken) parts.push("device_token.eq." + encodeURIComponent(deviceToken));
+  if (userId) parts.push("user_id.eq." + encodeURIComponent(userId));
+  return parts.join(",");
+}
+
+async function sbLikeExists(env, slug, ip, deviceToken, userId) {
+  const or = sbOrFilter(ip, deviceToken, userId);
+  if (!or) return false;
+  const r = await fetch(sbRest(env) + "/likes?select=id&slug=eq." + encodeURIComponent(slug) +
+    "&or=(" + or + ")&limit=1",
+    { headers: { apikey: sbKey(env), authorization: "Bearer " + sbKey(env) } });
+  if (!r.ok) throw new Error("supabase_" + r.status);
+  const rows = await r.json().catch(() => []);
+  return Array.isArray(rows) && rows.length > 0;
+}
+
+async function sbInsertLike(env, slug, ip, deviceToken, userId, accessToken) {
+  const key = sbKey(env);
+  const r = await fetch(sbRest(env) + "/likes", {
+    method: "POST",
+    headers: {
+      apikey: key,
+      authorization: "Bearer " + (userId && accessToken ? accessToken : key),
+      "content-type": "application/json",
+      prefer: "return=minimal",
+    },
+    body: JSON.stringify({ slug, ip, device_token: deviceToken, user_id: userId }),
+  });
+  return r.ok;
+}
+
+async function sbDeleteLike(env, slug, ip, deviceToken, userId, accessToken) {
+  const or = sbOrFilter(ip, deviceToken, userId);
+  if (!or) return 0;
+  const key = sbKey(env);
+  const r = await fetch(sbRest(env) + "/likes?slug=eq." + encodeURIComponent(slug) +
+    "&or=(" + or + ")",
+    {
+      method: "DELETE",
+      headers: {
+        apikey: key,
+        authorization: "Bearer " + (userId && accessToken ? accessToken : key),
+        prefer: "return=representation",
+      },
+    });
+  if (!r.ok) return 0;
+  const rows = await r.json().catch(() => []);
+  return Array.isArray(rows) ? rows.length : 0;
 }
 
 /* ---- automatic censorship filter ---- */
@@ -487,7 +570,7 @@ async function apiEngageGet(url, env) {
   const { page, per } = paginate(url, 10, 50);
   const counts = await getEngagement(env, slug);
   let comments = { items: [], total: 0, page, per };
-  if (supabaseReady(env)) {
+  {
     try {
       const [items, total] = await Promise.all([
         sbListComments(env, slug, page, per),
@@ -509,6 +592,9 @@ async function apiEngagePost(request, env) {
   const ip = clientIp(request);
   const ua = request.headers.get("user-agent") || "";
   const deviceToken = String(body.device_token || "").slice(0, 100);
+  const accessToken = String(body.access_token || "").slice(0, 2000);
+  const sbUser = accessToken ? await sbAuthUser(env, accessToken) : null;
+  const userId = sbUser ? sbUser.id : null;
 
   // Block list is checked before anything else.
   if (await ipBlocked(env, ip)) {
@@ -527,45 +613,59 @@ async function apiEngagePost(request, env) {
 
   if (action === "like" || action === "unlike") {
     if (!deviceToken) return json({ ok: false, error: "device_required" }, 400);
-    const existing = await env.DB.prepare(
+    const inD1 = await env.DB.prepare(
       "SELECT slug FROM like_log WHERE slug = ? AND (ip = ? OR device_token = ?) LIMIT 1"
     ).bind(slug, ip, deviceToken).first();
+    let inSB = false;
+    try { inSB = await sbLikeExists(env, slug, ip, deviceToken, userId); }
+    catch (e) { /* Supabase unreachable — the D1 record still protects dedup */ }
+    const existing = !!(inD1 || inSB);
     if (action === "like") {
       if (!existing) {
-        try {
-          await env.DB.prepare(
-            "INSERT INTO like_log (slug, ip, device_token, ua, created_at) VALUES (?, ?, ?, ?, ?)"
-          ).bind(slug, ip, deviceToken, ua, nowISO()).run();
-          await bumpEngagement(env, slug, "likes");
-        } catch (e) { /* UNIQUE race — a parallel like already counted */ }
+        let recorded = false;
+        try { recorded = await sbInsertLike(env, slug, ip, deviceToken, userId, accessToken); }
+        catch (e) { recorded = false; }
+        if (!recorded) {
+          // Fallback: keep the like in D1 so it is never lost.
+          try {
+            await env.DB.prepare(
+              "INSERT INTO like_log (slug, ip, device_token, ua, created_at) VALUES (?, ?, ?, ?, ?)"
+            ).bind(slug, ip, deviceToken, ua, nowISO()).run();
+          } catch (e) { /* UNIQUE race — a parallel like already counted */ }
+          recorded = true;
+        }
+        if (recorded) await bumpEngagement(env, slug, "likes");
       }
       const c = await getEngagement(env, slug);
       return json({ ok: true, slug, likes: c.likes, liked: true });
     }
-    // unlike
-    if (existing) {
+    // unlike: remove the record from both stores, then drop the counter once.
+    let changed = 0;
+    if (inD1) {
       const del = await env.DB.prepare(
         "DELETE FROM like_log WHERE slug = ? AND (ip = ? OR device_token = ?)"
       ).bind(slug, ip, deviceToken).run();
-      const changed = del && del.meta ? del.meta.changes || 0 : 0;
-      if (changed > 0) {
-        await env.DB.prepare(
-          "UPDATE engagement SET likes = MAX(likes - 1, 0), updated_at = ? WHERE slug = ?"
-        ).bind(nowISO(), slug).run();
-      }
+      changed += del && del.meta ? del.meta.changes || 0 : 0;
+    }
+    if (inSB) {
+      try { changed += await sbDeleteLike(env, slug, ip, deviceToken, userId, accessToken); }
+      catch (e) { /* ignore — counter only moves when a record went away */ }
+    }
+    if (changed > 0) {
+      await env.DB.prepare(
+        "UPDATE engagement SET likes = MAX(likes - 1, 0), updated_at = ? WHERE slug = ?"
+      ).bind(nowISO(), slug).run();
     }
     const c = await getEngagement(env, slug);
     return json({ ok: true, slug, likes: c.likes, liked: false });
   }
 
   if (action === "comment") {
-    if (!supabaseReady(env)) {
-      return json({ ok: false, error: "comments_unavailable", message: "Comments are not available right now. Please try again later." }, 503);
-    }
     if (!(await verifyTurnstile(env, body.turnstile, ip))) {
       return json({ ok: false, error: "captcha_failed", message: "The bot check failed. Please refresh the page and try again." }, 403);
     }
-    const name = String(body.name || "").trim().slice(0, 60);
+    let name = String(body.name || "").trim().slice(0, 60);
+    if (!name && sbUser && sbUser.name) name = String(sbUser.name).trim().slice(0, 60);
     const text = String(body.body || "").trim().slice(0, 1500);
     let rating = body.rating === null || body.rating === undefined || body.rating === ""
       ? null : parseInt(body.rating, 10);
@@ -587,6 +687,8 @@ async function apiEngagePost(request, env) {
         body: JSON.stringify({
           slug, name, rating, body: text,
           status: "live", // explicit — the table default is 'pending'
+          user_id: userId,
+          device_token: deviceToken,
           created_at: nowISO(),
         }),
       });

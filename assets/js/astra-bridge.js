@@ -182,7 +182,7 @@
       // blurs and freezes (the owner's order, 28 Nov 2026).
       "header.mast .mobilemenu[open] summary{position:relative;z-index:62}" +
       "header.mast .mobilemenu[open]::before{content:'';position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}" +
-      "header.mast .mobilemenu[open] nav{position:fixed;top:70px;right:12px;left:auto;z-index:61;width:min(272px,76vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:8px;display:grid;gap:0;animation:menupop .18s ease}@keyframes menupop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}.mobilemenu[open] nav.dummy{}" +
+      "header.mast .mobilemenu[open] nav{position:fixed;top:70px;right:12px;left:auto;z-index:61;width:min(208px,58vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:8px;display:grid;gap:0;animation:menupop .18s ease}@keyframes menupop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}.mobilemenu[open] nav.dummy{}" +
       "header.mast .mobilemenu[open] nav a{padding:9px 12px;border-radius:10px;font-size:14.5px;line-height:1.25;color:#20211e;text-decoration:none}" +
       "header.mast .mobilemenu[open] nav a:hover{background:#f1efe6}" +
       "body:has(.mobilemenu[open]){overflow:hidden}" +

@@ -19,7 +19,6 @@
   var SUBS = window.MSVSUBS || {};
   var PAGE_SIZE = 48;
   var API = "/api/engage";
-  var TS_SITEKEY = "0x4AAAAAAFyQTGNyCN1voCrR";
 
   var browse = document.getElementById("vbrowse");
   var grid = document.getElementById("vgrid");
@@ -90,9 +89,15 @@
     "padding:7px 15px;font:inherit;font-size:.85rem;cursor:pointer;margin:0 0 16px}" +
     ".vwatch-grid{display:grid;grid-template-columns:1fr;gap:26px}" +
     "@media(min-width:900px){.vwatch-grid{grid-template-columns:minmax(0,1fr) 340px}}" +
-    ".vframe{position:relative;padding-top:56.25%;background:#000;border-radius:3px;overflow:hidden}" +
-    "@media(max-width:699px){.vframe{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0}}" +
-    ".vframe.pin{position:fixed;top:0;left:0;right:0;width:100%;margin:0;border-radius:0;z-index:90;box-shadow:0 8px 22px rgba(0,0,0,.5)}" +
+    ".vframe-wrap{position:relative}" +
+    ".vglow{position:absolute;inset:-16px -12px;background-size:cover;background-position:center;" +
+    "filter:blur(36px) saturate(1.6);opacity:.5;z-index:0;border-radius:30px;pointer-events:none;" +
+    "animation:vglowPulse 7s ease-in-out infinite alternate}" +
+    "@keyframes vglowPulse{from{transform:scale(1);opacity:.42}to{transform:scale(1.05);opacity:.6}}" +
+    "@media(prefers-reduced-motion:reduce){.vglow{animation:none}}" +
+    ".vframe{position:relative;z-index:1;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden}" +
+    "@media(max-width:699px){.vframe-wrap{margin-left:calc(50% - 50vw + 12px);margin-right:calc(50% - 50vw + 12px)}}" +
+    ".vframe.pin{position:fixed;top:8px;left:12px;right:12px;width:auto;margin:0;border-radius:14px;z-index:90;box-shadow:0 8px 22px rgba(0,0,0,.5)}" +
     ".vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}" +
     ".vw-title{margin:14px 0 10px;font-size:1.25rem;line-height:1.3;color:#f1f1f1;letter-spacing:0!important}" +
     ".vw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}" +
@@ -111,20 +116,50 @@
     ".vact.liked{background:#e65330;color:#fff}" +
     ".vw-credit{color:#aaa;font-size:.85rem;margin:12px 0 0;line-height:1.5}" +
     ".vw-views{color:#f1f1f1;font-weight:500}" +
-    ".vw-comments{margin-top:26px;border-top:1px solid #272727;padding-top:16px}" +
-    ".vw-comments h3{margin:0 0 12px;color:#f1f1f1;letter-spacing:0!important}" +
-    ".vcomment{border-top:1px solid #272727;padding:10px 0}" +
-    ".vcomment b{font-size:.9rem}" +
-    ".vcomment time{color:#aaa;font-size:.75rem;margin-left:8px}" +
-    ".vcomment p{margin:4px 0 0;font-size:.94rem}" +
+    ".vw-likes{color:#aaa;font-size:.82rem}" +
+    ".vw-comments{margin-top:22px;border-top:1px solid #272727;padding-top:14px}" +
+    ".vc-teaser{display:flex;align-items:baseline;gap:8px;width:100%;background:#131313;border:1px solid #272727;" +
+    "border-radius:12px;padding:12px 14px;color:#f1f1f1;font:inherit;cursor:pointer;text-align:left}" +
+    ".vc-teaser-t{font-weight:600;font-size:.95rem}" +
+    ".vc-teaser-n{color:#aaa;font-size:.85rem}" +
+    ".vc-teaser-first{color:#aaa;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}" +
+    ".vc-teaser-arrow{color:#aaa}" +
+    ".vc-shade{position:fixed;inset:0;z-index:94;background:rgba(8,8,8,.5);backdrop-filter:blur(6px);" +
+    "-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s}" +
+    ".vc-shade.open{opacity:1;pointer-events:auto}" +
+    ".vc-sheet{position:fixed;left:0;right:0;bottom:0;z-index:95;background:#131313;color:#f1f1f1;" +
+    "border-radius:18px 18px 0 0;max-height:82vh;display:flex;flex-direction:column;" +
+    "transform:translateY(105%);transition:transform .34s cubic-bezier(.32,.72,.28,1);visibility:hidden}" +
+    ".vc-sheet.open{transform:none;visibility:visible}" +
+    "@media(min-width:900px){.vc-sheet{left:50%;right:auto;width:min(680px,94vw);transform:translate(-50%,105%)}" +
+    ".vc-sheet.open{transform:translate(-50%,0)}}" +
+    ".vc-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px}" +
+    ".vc-sheet-head h3{margin:0;font-size:1rem;color:#f1f1f1;letter-spacing:0!important}" +
+    ".vc-sheet-x{background:#272727;border:0;color:#f1f1f1;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.95rem}" +
+    ".vc-sheet-body{overflow-y:auto;padding:2px 18px 20px}" +
+    "body.vc-freeze{overflow:hidden}" +
+    "body.ytpage .newmenu[open] nav{background:#1d1d1d!important;border-color:#333!important}" +
+    "body.ytpage .newmenu[open] nav a{color:#f1f1f1!important}" +
+    "body.ytpage .newmenu[open] nav a:hover{background:#2a2a2a!important}" +
+    ".vcomment{padding:8px 0}" +
+    ".vcomment b{font-size:.86rem}" +
+    ".vcomment time{color:#aaa;font-size:.72rem;margin-left:8px}" +
+    ".vcomment p{margin:2px 0 0;font-size:.9rem}" +
     ".vreport{background:none;border:0;color:#aaa;font-size:.75rem;cursor:pointer;padding:4px 0}" +
-    ".vc-form textarea{width:100%;min-height:74px;padding:10px 12px;border:1px solid #303030;" +
-    "border-radius:8px;font:inherit;background:#121212;color:#f1f1f1}" +
-    ".vc-post{margin-top:10px;border:0;background:#f1f1f1;color:#0f0f0f;" +
-    "padding:9px 20px;font:inherit;font-weight:500;font-size:.88rem;cursor:pointer;border-radius:999px}" +
-    ".vc-msg{font-size:.85rem;margin:8px 0 0}" +
+    ".vc-collapsed{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #303030;" +
+    "color:#aaa;font:inherit;font-size:.9rem;padding:7px 1px;cursor:text}" +
+    ".vc-form textarea{width:100%;min-height:52px;padding:6px 1px;border:0;border-bottom:1px solid #f1f1f1;" +
+    "font:inherit;background:none;color:#f1f1f1;resize:vertical;outline:none}" +
+    ".vc-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}" +
+    ".vc-cancel{border:0;background:none;color:#f1f1f1;padding:8px 14px;font:inherit;" +
+    "font-size:.86rem;cursor:pointer;border-radius:999px}" +
+    ".vc-post{border:0;background:#f1f1f1;color:#0f0f0f;" +
+    "padding:8px 16px;font:inherit;font-weight:500;font-size:.86rem;cursor:pointer;border-radius:999px}" +
+    ".vc-post:disabled{background:#272727;color:#717171;cursor:default}" +
+    ".vc-msg{font-size:.82rem;margin:6px 0 0}" +
     ".vc-msg.bad{color:#ff7b72}.vc-msg.ok{color:#4cc38a}" +
-    ".vc-loginbox{border:1px solid #303030;border-radius:12px;padding:14px;text-align:center}" +
+    ".vc-loginbox{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 0}" +
+    ".vc-loginbox p{margin:0;color:#aaa;font-size:.88rem}" +
     ".vwatch-side h3{margin:2px 0 14px;font-size:1rem;color:#f1f1f1;letter-spacing:0!important}" +
     ".vrec{display:block;text-decoration:none;color:inherit;margin:0 0 22px;cursor:pointer}" +
     ".vrec .rt{position:relative;display:block}" +
@@ -413,6 +448,49 @@
   var recsEl = document.getElementById("vrecs");
   var likeState = { likes: null, liked: false };
 
+  /* The player sits in a wrap with a soft glow behind it, tinted by
+     the video's own thumbnail — its colours spread out past the
+     player's rounded corners, like the YouTube app's ambient mode. */
+  var frameWrap = document.createElement("div");
+  frameWrap.className = "vframe-wrap";
+  frame.parentNode.insertBefore(frameWrap, frame);
+  frameWrap.appendChild(frame);
+  var glow = document.createElement("div");
+  glow.className = "vglow";
+  frameWrap.insertBefore(glow, frame);
+
+  /* Comments live in a bottom sheet, like the YouTube app: the watch
+     page shows one slim Comments row, and tapping it opens the sheet
+     over a blurred, frozen background. */
+  var vcShade = document.createElement("div");
+  vcShade.className = "vc-shade";
+  var vcSheet = document.createElement("div");
+  vcSheet.className = "vc-sheet";
+  vcSheet.setAttribute("role", "dialog");
+  vcSheet.setAttribute("aria-label", "Comments");
+  vcSheet.innerHTML = '<div class="vc-sheet-head"><h3>Comments</h3>' +
+    '<button type="button" class="vc-sheet-x" aria-label="Close comments">✕</button></div>' +
+    '<div class="vc-sheet-body"></div>';
+  var vcBody = vcSheet.querySelector(".vc-sheet-body");
+  vcBody.appendChild(cList);
+  vcBody.appendChild(cForm);
+  document.body.appendChild(vcShade);
+  document.body.appendChild(vcSheet);
+  function openComments() {
+    vcShade.classList.add("open");
+    vcSheet.classList.add("open");
+    document.body.classList.add("vc-freeze");
+  }
+  function closeComments() {
+    vcShade.classList.remove("open");
+    vcSheet.classList.remove("open");
+    document.body.classList.remove("vc-freeze");
+  }
+  document.getElementById("vcTeaser").addEventListener("click", openComments);
+  vcShade.addEventListener("click", closeComments);
+  vcSheet.querySelector(".vc-sheet-x").addEventListener("click", closeComments);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeComments(); });
+
   function paintFollow() {
     if (!cur) return;
     var on = follows.indexOf(cur[2]) !== -1;
@@ -422,20 +500,29 @@
   function paintLike() {
     likeBtn.classList.toggle("liked", likeState.liked);
     likeBtn.setAttribute("aria-pressed", likeState.liked ? "true" : "false");
-    likeCount.textContent = likeState.likes === null ? "" : fmtCount(likeState.likes);
+    // The number on the button is the exact total: the video's likes
+    // on YouTube plus the likes readers have given it on this website.
+    var yt = cur && cur[9] ? cur[9] : 0;
+    var site = likeState.likes || 0;
+    likeCount.textContent = likeState.likes === null && !yt ? "" :
+      (yt + site).toLocaleString("en-US");
+    likeBtn.title = yt.toLocaleString("en-US") + " likes on YouTube + " +
+      site.toLocaleString("en-US") + " on this website";
+    var note = document.getElementById("vwlikes");
+    if (note && cur) {
+      note.textContent = "♥ " + (yt + site).toLocaleString("en-US") + " likes — " +
+        yt.toLocaleString("en-US") + " on YouTube + " +
+        site.toLocaleString("en-US") + " on this website";
+    }
   }
 
   function recsFor(v) {
-    var out = [], i, idx = DATA.indexOf(v);
-    for (i = 0; i < DATA.length && out.length < 4; i++) {
-      var o = DATA[i];
-      if (o !== v && !o[5] && o[2] === v[2]) out.push(o);
-    }
-    for (i = 1; i < DATA.length && out.length < 12; i++) {
-      var n = DATA[(idx + i) % DATA.length];
-      if (n !== v && !n[5] && out.indexOf(n) === -1) out.push(n);
-    }
-    return out;
+    // "Most suggested" first, like YouTube: more from this channel,
+    // then the most-watched videos of the whole collection.
+    function byViews(a, b) { return (b[7] || 0) - (a[7] || 0); }
+    var same = DATA.filter(function (o) { return o !== v && !o[5] && o[2] === v[2]; }).sort(byViews).slice(0, 4);
+    var rest = DATA.filter(function (o) { return o !== v && !o[5] && same.indexOf(o) === -1; }).sort(byViews);
+    return same.concat(rest).slice(0, 16);
   }
   function renderRecs() {
     recsEl.innerHTML = recsFor(cur).map(function (v) {
@@ -459,6 +546,10 @@
         var items = (d.comments && d.comments.items) || [];
         cList.innerHTML = items.length ? items.map(commentHTML).join("") :
           '<p style="color:#aaa">No comments yet — be the first to share your thoughts.</p>';
+        var cTotal = (d.comments && d.comments.total) || items.length;
+        document.getElementById("vcCount").textContent = cTotal ? String(cTotal) : "";
+        document.getElementById("vcFirst").textContent = items.length ?
+          (items[0].name || "Reader") + ": " + items[0].body : "Be the first to comment";
       }
     } catch (e) { /* offline — counts and comments just stay empty */ }
     renderCommentForm();
@@ -469,45 +560,43 @@
       '<button class="vreport" type="button">Report</button></div>';
   }
 
-  /* Turnstile (same pattern as the photo feed) */
-  var tsWidget = null;
-  function ensureTurnstile() {
-    if (window.turnstile) { renderTs(); return; }
-    if (document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) return;
-    var sc = document.createElement("script");
-    sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    sc.async = true; sc.defer = true;
-    sc.onload = renderTs;
-    document.head.appendChild(sc);
-  }
-  function renderTs() {
-    var el = document.getElementById("vwTs");
-    if (!el || tsWidget !== null || !window.turnstile) return;
-    try { tsWidget = window.turnstile.render(el, { sitekey: TS_SITEKEY }); } catch (e) {}
-  }
-  function tsToken() {
-    try { return window.turnstile && tsWidget !== null ? window.turnstile.getResponse(tsWidget) : ""; }
-    catch (e) { return ""; }
-  }
-  function tsReset() {
-    try { if (window.turnstile && tsWidget !== null) window.turnstile.reset(tsWidget); } catch (e) {}
-  }
-
+  /* The comment box stays one slim line — "Add a comment…" — and
+     opens only when tapped, the way the YouTube app does it. No
+     bot-check widget: signing in is what a comment needs. */
   function renderCommentForm() {
-    tsWidget = null;
     if (signedIn()) {
       cForm.innerHTML =
         '<form class="vc-form" id="vwForm">' +
-        '<label for="vwBody" style="display:block;font-size:.85rem;font-weight:600;margin:14px 0 6px">Your comment</label>' +
-        '<textarea id="vwBody" maxlength="1500" placeholder="Write your comment..."></textarea>' +
-        '<div id="vwTs" style="margin-top:12px"></div>' +
-        '<button type="submit" class="vc-post">Post comment</button>' +
+        '<button type="button" class="vc-collapsed" id="vwCollapsed">Add a comment…</button>' +
+        '<div class="vc-open" hidden>' +
+        '<textarea id="vwBody" maxlength="1500" placeholder="Add a comment…" aria-label="Add a comment"></textarea>' +
+        '<div class="vc-actions">' +
+        '<button type="button" class="vc-cancel" id="vwCancel">Cancel</button>' +
+        '<button type="submit" class="vc-post" id="vwPost" disabled>Comment</button>' +
+        "</div></div>" +
         '<p class="vc-msg" id="vwMsg" role="status"></p></form>';
-      ensureTurnstile();
+      var collapsed = document.getElementById("vwCollapsed");
+      var openBox = cForm.querySelector(".vc-open");
+      var bodyEl = document.getElementById("vwBody");
+      var postBtn = document.getElementById("vwPost");
+      collapsed.addEventListener("click", function () {
+        collapsed.hidden = true;
+        openBox.hidden = false;
+        bodyEl.focus();
+      });
+      bodyEl.addEventListener("input", function () {
+        postBtn.disabled = !bodyEl.value.trim();
+      });
+      document.getElementById("vwCancel").addEventListener("click", function () {
+        bodyEl.value = "";
+        postBtn.disabled = true;
+        openBox.hidden = true;
+        collapsed.hidden = false;
+      });
       document.getElementById("vwForm").addEventListener("submit", submitComment);
     } else {
       cForm.innerHTML =
-        '<div class="vc-loginbox"><p>Please login to write a comment.</p>' +
+        '<div class="vc-loginbox"><p>Login to comment</p>' +
         '<button type="button" class="vc-post" id="vwLogin">Login</button></div>';
       document.getElementById("vwLogin").addEventListener("click", openLogin);
     }
@@ -522,7 +611,7 @@
     try {
       const r = await apiPost({
         action: "comment", slug: slugOf(cur), name: "", rating: null, body: body,
-        device_token: TOKEN, access_token: await accountToken(), turnstile: tsToken(),
+        device_token: TOKEN, access_token: await accountToken(),
       });
       if (r.data && r.data.ok) {
         bodyEl.value = "";
@@ -539,7 +628,6 @@
       msg.textContent = "Your comment could not be posted. Please try again.";
       msg.classList.add("bad");
     }
-    tsReset();
   }
   cList.addEventListener("click", async function (e) {
     var btn = e.target.closest ? e.target.closest(".vreport") : null;
@@ -631,6 +719,7 @@
     watch.hidden = false;
     frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v[0] +
       '?autoplay=1&rel=0" title="' + esc(v[1]) + '" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    glow.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + v[0] + '/hqdefault.jpg")';
     titleEl.textContent = v[1];
     document.getElementById("vwava").outerHTML = avatarHTML(v[2], "vw-ava").replace('class="vw-ava"', 'class="vw-ava" id="vwava"');
     chanEl.textContent = v[2];
@@ -639,7 +728,8 @@
     ytLink.href = "https://www.youtube.com/watch?v=" + v[0];
     var statsLine = metaLine(v, false);
     creditEl.innerHTML = (statsLine ? '<span class="vw-views">' + esc(statsLine) + "</span><br>" : "") +
-      esc("Video by " + v[2] + " · via YouTube. All credit goes to the channel and YouTube.");
+      esc("Video by " + v[2] + " · via YouTube. All credit goes to the channel and YouTube.") +
+      '<br><span class="vw-likes" id="vwlikes"></span>';
     paintFollow();
     renderRecs();
     loadEngage();
@@ -650,6 +740,7 @@
   }
   function closeWatch(push) {
     unpin();
+    closeComments();
     cur = null;
     frame.innerHTML = "";
     watch.hidden = true;

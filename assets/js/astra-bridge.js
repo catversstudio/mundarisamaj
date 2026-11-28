@@ -98,6 +98,14 @@
       ".astra-bani .bani{font-family:'Noto Sans Nag Mundari',sans-serif;font-size:1.05rem;color:#20211e}" +
       ".astra-bani .r{font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.14em;color:#616159}" +
       ".msa-ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid currentColor;flex:none}" +
+      // The mobile menu opens as a popup card; the page behind it
+      // blurs and freezes (the owner's order, 28 Nov 2026).
+      "header.mast .mobilemenu[open] summary{position:relative;z-index:62}" +
+      "header.mast .mobilemenu[open]::before{content:'';position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.38);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}" +
+      "header.mast .mobilemenu[open] nav{position:fixed;top:76px;right:12px;left:auto;z-index:61;width:min(320px,86vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:10px;display:grid;gap:2px}" +
+      "header.mast .mobilemenu[open] nav a{padding:12px 14px;border-radius:10px;font-size:15px;color:#20211e;text-decoration:none}" +
+      "header.mast .mobilemenu[open] nav a:hover{background:#f1efe6}" +
+      "body:has(.mobilemenu[open]){overflow:hidden}" +
       ".astra-cats{padding:56px clamp(20px,4.45vw,85px) 8px;background:#f8f7f3}" +
       ".ac-kick{font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.14em;color:#616159;margin:0 0 8px}" +
       ".ac-head{font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.7rem,4.5vw,2.6rem);letter-spacing:-.03em;margin:0 0 26px;color:#20211e}" +

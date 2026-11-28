@@ -713,9 +713,9 @@ async function apiEngagePost(request, env) {
   }
 
   if (action === "comment") {
-    if (!(await verifyTurnstile(env, body.turnstile, ip))) {
-      return json({ ok: false, error: "captcha_failed", message: "The bot check failed. Please refresh the page and try again." }, 403);
-    }
+    // No bot-check widget on comments (the owner's order, 28 Nov 2026):
+    // a comment already needs a signed-in account, and the censor
+    // filter plus the per-IP rate limit below stay in force.
     let name = await sbProfileName(env, userId);
     if (!name && sbUser.name) name = String(sbUser.name).trim().slice(0, 60);
     if (!name && sbUser.email) name = sbUser.email.split("@")[0].slice(0, 60);

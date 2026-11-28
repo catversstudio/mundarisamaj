@@ -98,6 +98,10 @@
       ".astra-bani .bani{font-family:'Noto Sans Nag Mundari',sans-serif;font-size:1.05rem;color:#20211e}" +
       ".astra-bani .r{font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.14em;color:#616159}" +
       ".msa-ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid currentColor;flex:none}" +
+      // No slogan under the site name in the header (the owner's
+      // order, 28 Nov 2026) — the Next pages carry it in their
+      // markup, so it is hidden here; other pages had it removed.
+      "header.mast .brandmark small{display:none}" +
       // The mobile menu opens as a popup card; the page behind it
       // blurs and freezes (the owner's order, 28 Nov 2026).
       "header.mast .mobilemenu[open] summary{position:relative;z-index:62}" +

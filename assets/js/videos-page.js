@@ -5,10 +5,15 @@
    link straight to them; every other video opens the watch view below
    with YouTube's official embedded player — all credit stays with the
    channel and YouTube. Signed-in readers can follow a channel, like and
-   comment here through the site's own engagement service. */
+   comment here through the site's own engagement service — the likes
+   and comments live on this website, not on YouTube. window.MSVCH maps
+   channel names to their real YouTube channel logos, and
+   window.MSVSUBS maps them to their real YouTube subscriber counts. */
 (function () {
   "use strict";
   var DATA = window.MSVIDEOS || [];
+  var AVATARS = window.MSVCH || {};
+  var SUBS = window.MSVSUBS || {};
   var PAGE_SIZE = 48;
   var API = "/api/engage";
   var TS_SITEKEY = "0x4AAAAAAFyQTGNyCN1voCrR";
@@ -34,7 +39,14 @@
     "#vgrid .card h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
     "#vgrid .card p{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}" +
     ".vthumb{position:relative;display:block}" +
-    ".vthumb img{width:100%;display:block}" +
+    ".vthumb img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}" +
+    ".vmeta{display:flex;gap:10px;margin-top:10px}" +
+    ".vava{width:36px;height:36px;border-radius:50%;overflow:hidden;flex:0 0 auto;" +
+    "display:flex;align-items:center;justify-content:center;background:#20211e;color:#f7f6f1;font-weight:600}" +
+    ".vava img{width:100%;height:100%;object-fit:cover;display:block}" +
+    ".vmetat{min-width:0}" +
+    ".vmetat h3{margin:0}" +
+    ".vmetat p{margin:2px 0 0}" +
     ".vdur{position:absolute;right:6px;bottom:6px;background:rgba(10,10,10,.85);color:#fff;" +
     "font-family:'Courier New',monospace;font-size:.68rem;padding:2px 5px;border-radius:2px}" +
     ".vtag{position:absolute;left:6px;bottom:6px;font-family:'Courier New',monospace;font-size:.62rem;" +
@@ -51,6 +63,11 @@
     ".vw-title{margin:14px 0 10px;font-size:1.25rem;line-height:1.3}" +
     ".vw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}" +
     ".vw-chan{display:flex;align-items:center;gap:10px;font-weight:600}" +
+    ".vw-ava{width:40px;height:40px;border-radius:50%;overflow:hidden;flex:0 0 auto;" +
+    "display:flex;align-items:center;justify-content:center;background:#20211e;color:#f7f6f1;font-weight:600}" +
+    ".vw-ava img{width:100%;height:100%;object-fit:cover;display:block}" +
+    ".vw-chant{display:flex;flex-direction:column;line-height:1.3}" +
+    ".vw-chant small{color:#616159;font-weight:400;font-size:.76rem}" +
     ".vfollow{border:1px solid #20211e;background:#20211e;color:#f7f6f1;border-radius:999px;" +
     "padding:7px 16px;font:inherit;font-size:.82rem;cursor:pointer}" +
     ".vfollow.on{background:transparent;color:#20211e}" +
@@ -75,11 +92,11 @@
     ".vc-loginbox{border:1px solid #d7d5cc;padding:14px;text-align:center}" +
     ".vwatch-side h3{margin:2px 0 12px;font-family:'Courier New',monospace;font-size:.78rem;" +
     "letter-spacing:.14em;text-transform:uppercase;color:#616159}" +
-    ".vrec{display:flex;gap:10px;text-decoration:none;color:inherit;margin:0 0 12px;cursor:pointer}" +
-    ".vrec .rt{position:relative;flex:0 0 148px}" +
-    ".vrec img{width:148px;display:block;border-radius:2px}" +
-    ".vrec h4{margin:0;font-size:.88rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
-    ".vrec p{margin:3px 0 0;color:#616159;font-size:.76rem}" +
+    ".vrec{display:block;text-decoration:none;color:inherit;margin:0 0 20px;cursor:pointer}" +
+    ".vrec .rt{position:relative;display:block}" +
+    ".vrec img{width:100%;display:block;border-radius:3px;aspect-ratio:16/9;object-fit:cover}" +
+    ".vrec h4{margin:8px 0 0;font-size:.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
+    ".vrec p{margin:3px 0 0;color:#616159;font-size:.78rem}" +
     ".vtoast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;" +
     "background:#20211e;color:#f7f6f1;padding:10px 18px;border-radius:999px;font-size:.88rem;z-index:300;" +
     "transition:all .25s;pointer-events:none}" +
@@ -96,6 +113,20 @@
     if (!s) return "";
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
     return (h ? h + ":" + String(m).padStart(2, "0") : String(m)) + ":" + String(x).padStart(2, "0");
+  }
+  function fmtCount(n) {
+    if (n === null || n === undefined || isNaN(n)) return "";
+    n = +n;
+    if (n < 1000) return String(n);
+    if (n < 10000) { var k = (n / 1000).toFixed(1); return (k.slice(-2) === ".0" ? k.slice(0, -2) : k) + "K"; }
+    if (n < 1000000) return Math.round(n / 1000) + "K";
+    var m = (n / 1000000).toFixed(1);
+    return (m.slice(-2) === ".0" ? m.slice(0, -2) : m) + "M";
+  }
+  function avatarHTML(channel, cls) {
+    var url = AVATARS[channel];
+    if (url) return '<span class="' + cls + '"><img loading="lazy" src="' + esc(url) + '" alt=""></span>';
+    return '<span class="' + cls + '">' + esc((channel || "Y").charAt(0).toUpperCase()) + "</span>";
   }
   function fmtDate(iso) {
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
@@ -184,7 +215,8 @@
     var tag = v[4] === 1 ? '<span class="vtag">SHORTS</span>' : (v[4] === 2 ? '<span class="vtag">LIVE</span>' : "");
     var inner = '<span class="vthumb"><img loading="lazy" src="' + thumb + '" alt="">' + tag +
       (dur ? '<span class="vdur">' + dur + "</span>" : "") + "</span>" +
-      "<div><h3>" + esc(v[1]) + "</h3><p>" + esc(v[2]) + "</p></div>";
+      '<div class="vmeta">' + avatarHTML(v[2], "vava") +
+      '<div class="vmetat"><h3>' + esc(v[1]) + "</h3><p>" + esc(v[2]) + "</p></div></div>";
     if (v[5]) return '<a class="card" href="' + esc(v[5]) + '">' + inner + "</a>";
     return '<a class="card" href="?v=' + v[0] + '" data-yt="' + v[0] + '">' + inner + "</a>";
   }
@@ -263,7 +295,7 @@
   function paintLike() {
     likeBtn.classList.toggle("liked", likeState.liked);
     likeBtn.setAttribute("aria-pressed", likeState.liked ? "true" : "false");
-    likeCount.textContent = likeState.likes === null ? "" : likeState.likes;
+    likeCount.textContent = likeState.likes === null ? "" : fmtCount(likeState.likes);
   }
 
   function recsFor(v) {
@@ -284,7 +316,7 @@
       return '<a class="vrec" href="?v=' + v[0] + '" data-yt="' + v[0] + '">' +
         '<span class="rt"><img loading="lazy" src="https://i.ytimg.com/vi/' + v[0] + '/hqdefault.jpg" alt="">' +
         (dur ? '<span class="vdur">' + dur + "</span>" : "") + "</span>" +
-        "<span><h4>" + esc(v[1]) + "</h4><p>" + esc(v[2]) + "</p></span></a>";
+        "<h4>" + esc(v[1]) + "</h4><p>" + esc(v[2]) + "</p></a>";
     }).join("");
   }
 
@@ -453,7 +485,10 @@
     frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v[0] +
       '?autoplay=1&rel=0" title="' + esc(v[1]) + '" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     titleEl.textContent = v[1];
+    document.getElementById("vwava").outerHTML = avatarHTML(v[2], "vw-ava").replace('class="vw-ava"', 'class="vw-ava" id="vwava"');
     chanEl.textContent = v[2];
+    var subs = SUBS[v[2]];
+    document.getElementById("vwsubs").textContent = subs ? subs + " subscribers" : "";
     ytLink.href = "https://www.youtube.com/watch?v=" + v[0];
     creditEl.textContent = "Video by " + v[2] + " · via YouTube. All credit goes to the channel and YouTube.";
     paintFollow();

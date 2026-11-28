@@ -80,7 +80,11 @@
     ".eg-login-prompt{padding:16px;border:1px dashed var(--line,#d8ded6);border-radius:14px;text-align:center}" +
     ".eg-login-prompt p{margin:0 0 10px;color:var(--muted,#5a6b62);font-size:.94rem}" +
     ".eg-asline{margin:0 0 6px;font-size:.9rem;color:var(--muted,#5a6b62)}" +
-    ".eg-share{background:var(--card,#fff);border:1px solid var(--line,#d8ded6);color:var(--g,#1f4a41);font:600 .95rem Inter,system-ui,sans-serif;padding:10px 18px;border-radius:99px;cursor:pointer}";
+    ".eg-share{background:var(--card,#fff);border:1px solid var(--line,#d8ded6);color:var(--g,#1f4a41);font:600 .95rem Inter,system-ui,sans-serif;padding:10px 18px;border-radius:99px;cursor:pointer}" +
+    ".eg-del{margin-top:10px;margin-left:14px;background:none;border:0;padding:0;color:var(--mut,#5a6b62);font:500 .82rem Inter,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}" +
+    ".eg-del:hover{color:#a03d2a}" +
+    ".eg-del.armed{color:#b3261e;font-weight:700}" +
+    ".eg-del:disabled{opacity:.55;cursor:default}";
   document.head.appendChild(authStyle);
 
   function account() { return window.MSAccount || null; }
@@ -221,6 +225,7 @@
       '<span class="eg-date">' + esc(fmtDate(c.created_at)) + '</span></div>' +
       '<p class="eg-body">' + esc(c.body || "") + '</p>' +
       '<button type="button" class="eg-report">Report</button>' +
+      (c.own ? '<button type="button" class="eg-del">Delete</button>' : '') +
     '</div>';
   }
 
@@ -253,7 +258,9 @@
   }
 
   async function load(first) {
-    const d = await apiGet("slug=" + encodeURIComponent(slug) + "&page=" + page + "&per=10");
+    const tok = await accountToken();
+    const d = await apiGet("slug=" + encodeURIComponent(slug) + "&page=" + page + "&per=10" +
+      (tok ? "&access_token=" + encodeURIComponent(tok) : ""));
     if (!d || !d.ok) {
       if (first) {
         likeCount.textContent = "0";
@@ -367,6 +374,57 @@
     if (window.turnstile) { try { window.turnstile.reset(); } catch (e2) {} }
     submit.disabled = false;
   });
+
+  /* ---------- delete one of my own comments ----------
+     The button only renders on comments the worker flagged as the
+     reader's own; the worker checks ownership again before deleting. */
+  listEl.addEventListener("click", async function (e) {
+    var btn = e.target.closest ? e.target.closest(".eg-del") : null;
+    if (!btn) return;
+    var card = btn.closest(".eg-comment");
+    if (!card) return;
+    if (!btn.dataset.armed) {
+      btn.dataset.armed = "1";
+      btn.textContent = "Confirm delete?";
+      btn.classList.add("armed");
+      setTimeout(function () {
+        if (btn.isConnected) { delete btn.dataset.armed; btn.textContent = "Delete"; btn.classList.remove("armed"); }
+      }, 3000);
+      return;
+    }
+    btn.disabled = true;
+    try {
+      const r = await fetch("/api/account/comment-delete", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-requested-with": "fetch",
+          authorization: "Bearer " + (await accountToken()) },
+        body: JSON.stringify({ comment_id: card.dataset.id }),
+      });
+      const d = await r.json().catch(() => null);
+      if (d && d.ok) {
+        card.remove();
+        loadedComments = Math.max(0, loadedComments - 1);
+        totalComments = Math.max(0, totalComments - 1);
+        if (!listEl.querySelector(".eg-comment")) {
+          listEl.innerHTML = '<p class="eg-empty">No comments yet — be the first to share your thoughts.</p>';
+        }
+      } else {
+        btn.disabled = false;
+        delete btn.dataset.armed;
+        btn.textContent = "Delete";
+        btn.classList.remove("armed");
+      }
+    } catch (err) { btn.disabled = false; }
+  });
+
+  // When the reader signs in (or out), reload so the Delete buttons
+  // on their own comments appear or disappear with the session.
+  function reloadForAccount() {
+    page = 1; loadedComments = 0;
+    load(true);
+  }
+  window.addEventListener("ms-account", reloadForAccount);
+  window.addEventListener("ms-account-ready", reloadForAccount);
 
   /* ---------- report a comment ---------- */
   listEl.addEventListener("click", async function (e) {

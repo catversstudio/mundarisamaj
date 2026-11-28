@@ -354,7 +354,7 @@ footer .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
 
   var topBar=document.querySelector('.top');
   addEventListener('scroll',function(){
-    topBar.classList.toggle('scrolled',scrollY>30);
+    if(topBar)topBar.classList.toggle('scrolled',scrollY>30);
   },{passive:true});
 })();
 </script>

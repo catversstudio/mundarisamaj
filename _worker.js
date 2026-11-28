@@ -379,14 +379,20 @@ async function sbFetch(env, pathAndQuery, opts = {}) {
   return text ? JSON.parse(text) : null;
 }
 
-async function sbListComments(env, slug, page, per) {
+async function sbListComments(env, slug, page, per, viewerId) {
   const offset = (page - 1) * per;
   const items = await sbFetch(env,
-    "/comments?select=id,slug,name,rating,body,created_at" +
+    "/comments?select=id,slug,name,rating,body,created_at,user_id" +
     "&slug=eq." + encodeURIComponent(slug) +
     "&status=eq.live&order=created_at.desc,id.desc&limit=" + per + "&offset=" + offset,
     { headers: { prefer: "count=exact" } });
-  return items || [];
+  // Flag the viewer's own comments (they get a Delete button) without
+  // ever sending commenter user ids to the browser.
+  return (items || []).map((c) => {
+    const out = Object.assign({}, c, { own: !!viewerId && !!c.user_id && c.user_id === viewerId });
+    delete out.user_id;
+    return out;
+  });
 }
 
 async function sbCountComments(env, slug) {
@@ -564,6 +570,160 @@ async function censorRecord(env, ip, body, blocked) {
   } catch (e) { /* bookkeeping only */ }
 }
 
+/* ---- reader accounts: activity, deletion requests, own comments ----
+   Deletion (the owner's order, 28 Nov 2026): a signed-in reader asks
+   for deletion from the profile page (Turnstile-checked). The request
+   is stored in D1 and the reader is signed out. For seven days they
+   can still sign in and cancel from the same page (a banner shows the
+   date). This worker has no cron trigger, so expired requests are
+   carried out lazily: sweepDeletions() runs at the start of the
+   account endpoints and of every GET /api/engage, and permanently
+   removes the reader's Supabase auth user, profile, comments and
+   likes, plus their D1 follows, using the SUPABASE_SERVICE_KEY.
+   Without the service key a due request simply waits for a later
+   sweep — nothing is half-deleted. */
+
+const DELETION_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
+let _deletionTableReady = false;
+async function ensureDeletionTable(env) {
+  if (_deletionTableReady) return;
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS deletion_requests (user_id TEXT PRIMARY KEY, email TEXT, requested_at TEXT)"
+  ).run();
+  _deletionTableReady = true;
+}
+
+async function sbServiceDelete(env, pathAndQuery) {
+  const key = env.SUPABASE_SERVICE_KEY;
+  const r = await fetch(sbRest(env) + pathAndQuery, {
+    method: "DELETE",
+    headers: { apikey: key, authorization: "Bearer " + key, prefer: "return=minimal" },
+  });
+  return r.ok;
+}
+
+async function executeDeletion(env, userId) {
+  const uid = encodeURIComponent(userId);
+  // Supabase first: the reader's comments, likes and profile row,
+  // then the auth user itself. Any failure keeps the request queued.
+  if (!(await sbServiceDelete(env, "/comments?user_id=eq." + uid))) return false;
+  if (!(await sbServiceDelete(env, "/likes?user_id=eq." + uid))) return false;
+  if (!(await sbServiceDelete(env, "/profiles?id=eq." + uid))) return false;
+  const key = env.SUPABASE_SERVICE_KEY;
+  const r = await fetch(sbBase(env) + "/auth/v1/admin/users/" + uid, {
+    method: "DELETE",
+    headers: { apikey: key, authorization: "Bearer " + key },
+  });
+  if (!r.ok && r.status !== 404) return false;
+  await ensureEngageTables(env);
+  await env.DB.prepare("DELETE FROM follows WHERE user_id = ?").bind(userId).run();
+  await env.DB.prepare("DELETE FROM deletion_requests WHERE user_id = ?").bind(userId).run();
+  return true;
+}
+
+async function sweepDeletions(env) {
+  try {
+    if (!supabaseReady(env)) return;
+    await ensureDeletionTable(env);
+    const cutoff = new Date(Date.now() - DELETION_GRACE_MS).toISOString();
+    const rows = await env.DB.prepare(
+      "SELECT user_id FROM deletion_requests WHERE requested_at <= ?"
+    ).bind(cutoff).all();
+    for (const row of rows.results || []) {
+      try { await executeDeletion(env, row.user_id); }
+      catch (e) { /* one stuck request must not block the others */ }
+    }
+  } catch (e) { /* the sweep must never break the request that triggered it */ }
+}
+
+// The reader's token arrives as an Authorization header (the profile
+// page) or as an access_token field (the engage pattern).
+function accountToken(request, body, url) {
+  const auth = request.headers.get("authorization") || "";
+  if (auth.toLowerCase().startsWith("bearer ")) return auth.slice(7).trim().slice(0, 2000);
+  if (body && body.access_token) return String(body.access_token).slice(0, 2000);
+  if (url) return (url.searchParams.get("access_token") || "").slice(0, 2000);
+  return "";
+}
+
+async function apiAccount(request, env, path) {
+  await sweepDeletions(env);
+  await ensureDeletionTable(env);
+  if (path === "/api/account/delete-status") {
+    if (request.method !== "GET") return json({ ok: false, error: "method_not_allowed" }, 405);
+    const token = accountToken(request, null, new URL(request.url));
+    const user = token ? await sbAuthUser(env, token) : null;
+    if (!user) return json({ ok: false, error: "login_required" }, 401);
+    const row = await env.DB.prepare(
+      "SELECT requested_at FROM deletion_requests WHERE user_id = ?"
+    ).bind(user.id).first();
+    if (!row) return json({ ok: true, pending: false });
+    const deleteOn = new Date(new Date(row.requested_at).getTime() + DELETION_GRACE_MS).toISOString();
+    return json({ ok: true, pending: true, requested_at: row.requested_at, delete_on: deleteOn });
+  }
+  if (request.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
+  const body = await readBody(request);
+  if (!body) return json({ ok: false, error: "bad_json" }, 400);
+  const token = accountToken(request, body, null);
+  const user = token ? await sbAuthUser(env, token) : null;
+  if (!user) return json({ ok: false, error: "login_required" }, 401);
+
+  if (path === "/api/account/delete-request") {
+    if (!(await verifyTurnstile(env, body.turnstile, request.headers.get("cf-connecting-ip")))) {
+      return json({ ok: false, error: "captcha_failed", message: "Please complete the verification check." }, 403);
+    }
+    const now = nowISO();
+    await env.DB.prepare(
+      "INSERT INTO deletion_requests (user_id, email, requested_at) VALUES (?, ?, ?) " +
+      "ON CONFLICT(user_id) DO UPDATE SET email = excluded.email, requested_at = excluded.requested_at"
+    ).bind(user.id, user.email || "", now).run();
+    return json({ ok: true, requested_at: now,
+      delete_on: new Date(Date.now() + DELETION_GRACE_MS).toISOString() });
+  }
+  if (path === "/api/account/delete-cancel") {
+    await env.DB.prepare("DELETE FROM deletion_requests WHERE user_id = ?").bind(user.id).run();
+    return json({ ok: true, pending: false });
+  }
+  if (path === "/api/account/login-record") {
+    // Remember this login visit (the reader's own IP + time, taken
+    // from Cloudflare's header) and hand back the PREVIOUS recorded
+    // one — that is what the profile shows as "Last login". Only the
+    // caller's own row is ever read or written.
+    await env.DB.prepare(
+      "CREATE TABLE IF NOT EXISTS login_log (user_id TEXT PRIMARY KEY, ip TEXT, at TEXT)"
+    ).run();
+    const ip = request.headers.get("cf-connecting-ip") || "";
+    const prev = await env.DB.prepare(
+      "SELECT ip, at FROM login_log WHERE user_id = ?"
+    ).bind(user.id).first();
+    const now = nowISO();
+    await env.DB.prepare(
+      "INSERT INTO login_log (user_id, ip, at) VALUES (?, ?, ?) " +
+      "ON CONFLICT(user_id) DO UPDATE SET ip = excluded.ip, at = excluded.at"
+    ).bind(user.id, ip, now).run();
+    return json({ ok: true, last_login: prev ? { at: prev.at, ip: prev.ip || "" } : { at: now, ip } });
+  }
+  if (path === "/api/account/comment-delete") {
+    const cid = parseInt(body.comment_id, 10);
+    if (!cid) return json({ ok: false, error: "comment_required" }, 400);
+    if (!supabaseReady(env)) return json({ ok: false, error: "comments_unavailable" }, 503);
+    // Ownership is checked here, on the server: the comment must
+    // belong to the signed-in caller before anything is removed.
+    let row = null;
+    try {
+      const rows = await sbFetch(env, "/comments?select=id,user_id&id=eq." + cid + "&limit=1");
+      row = Array.isArray(rows) && rows.length ? rows[0] : null;
+    } catch (e) { return json({ ok: false, error: "lookup_failed" }, 502); }
+    if (!row) return json({ ok: false, error: "not_found" }, 404);
+    if (row.user_id !== user.id) return json({ ok: false, error: "not_yours" }, 403);
+    if (!(await sbServiceDelete(env, "/comments?id=eq." + cid))) {
+      return json({ ok: false, error: "delete_failed" }, 502);
+    }
+    return json({ ok: true });
+  }
+  return json({ ok: false, error: "not_found" }, 404);
+}
+
 /* ---- public engagement endpoints ---- */
 
 async function getEngagement(env, slug) {
@@ -582,6 +742,49 @@ async function bumpEngagement(env, slug, field) {
 }
 
 async function apiEngageGet(url, env) {
+  await sweepDeletions(env);
+  // A signed-in reader's own activity (the profile page's My Activity:
+  // their likes and comments from Supabase, their follows from D1).
+  if (url.searchParams.get("activity") === "1") {
+    await ensureEngageTables(env);
+    const token = (url.searchParams.get("access_token") || "").slice(0, 2000);
+    const user = token ? await sbAuthUser(env, token) : null;
+    if (!user) return json({ ok: true, likes: [], comments: [], follows: [] });
+    const uid = encodeURIComponent(user.id);
+    const headers = { apikey: sbKey(env), authorization: "Bearer " + sbKey(env) };
+    let likes = [];
+    try {
+      let r = await fetch(sbRest(env) + "/likes?select=slug,created_at&user_id=eq." + uid +
+        "&order=created_at.desc&limit=300", { headers });
+      if (!r.ok) {
+        r = await fetch(sbRest(env) + "/likes?select=slug&user_id=eq." + uid + "&limit=300", { headers });
+      }
+      if (r.ok) {
+        const rows = await r.json().catch(() => []);
+        if (Array.isArray(rows)) {
+          likes = rows.map((x) => ({ slug: x.slug, created_at: x.created_at || null }));
+        }
+      }
+    } catch (e) { /* activity is best-effort */ }
+    let comments = [];
+    try {
+      const r = await fetch(sbRest(env) + "/comments?select=id,slug,body,rating,created_at&user_id=eq." + uid +
+        "&status=eq.live&order=created_at.desc&limit=300", { headers });
+      if (r.ok) {
+        const rows = await r.json().catch(() => []);
+        if (Array.isArray(rows)) {
+          comments = rows.map((x) => ({ id: x.id, slug: x.slug,
+            body: String(x.body || "").slice(0, 300),
+            rating: x.rating || null, created_at: x.created_at || null }));
+        }
+      }
+    } catch (e) { /* best-effort */ }
+    const frows = await env.DB.prepare(
+      "SELECT channel FROM follows WHERE user_id = ? ORDER BY created_at ASC"
+    ).bind(user.id).all();
+    return json({ ok: true, likes, comments,
+      follows: (frows.results || []).map((r) => r.channel) });
+  }
   // A signed-in reader's followed channels (the Videos page Follow button).
   if (url.searchParams.get("follows") === "1") {
     await ensureEngageTables(env);
@@ -598,11 +801,13 @@ async function apiEngageGet(url, env) {
   await ensureEngageTables(env);
   const { page, per } = paginate(url, 10, 50);
   const counts = await getEngagement(env, slug);
+  const vToken = (url.searchParams.get("access_token") || "").slice(0, 2000);
+  const viewer = vToken ? await sbAuthUser(env, vToken) : null;
   let comments = { items: [], total: 0, page, per };
   {
     try {
       const [items, total] = await Promise.all([
-        sbListComments(env, slug, page, per),
+        sbListComments(env, slug, page, per, viewer ? viewer.id : null),
         sbCountComments(env, slug),
       ]);
       comments = { items, total, page, per };
@@ -1783,7 +1988,16 @@ export default {
         }
       }
     } else if (path.startsWith("/api/")) {
-      if (path === "/api/engage") {
+      if (path.startsWith("/api/account/")) {
+        // Reader account actions: deletion request/cancel/status and
+        // deleting one's own comment (all token-authenticated).
+        if (!env.DB) {
+          res = json({ ok: false, error: "database_not_bound" }, 503);
+        } else {
+          try { res = await apiAccount(request, env, path); }
+          catch (e) { res = json({ ok: false, error: "account_failed" }, 500); }
+        }
+      } else if (path === "/api/engage") {
         // v90 engagement: GET reads counts + comments, POST takes actions.
         if (!env.DB) {
           res = json({ ok: false, error: "database_not_bound" }, 503);

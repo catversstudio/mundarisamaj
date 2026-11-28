@@ -975,7 +975,7 @@ var topBar=document.querySelector('.top');
 
 addEventListener('scroll',function(){
 
-topBar.classList.toggle('scrolled',scrollY>30);
+if(topBar)topBar.classList.toggle('scrolled',scrollY>30);
 
 },{passive:true});
 

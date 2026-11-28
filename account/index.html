@@ -1,51 +1,98 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Account · Mundari Samaj</title><meta name="description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/style.css"><link rel="canonical" href="https://mundarisamaj.pages.dev/account/"><meta property="og:type" content="website"><meta property="og:site_name" content="Mundari Samaj"><meta property="og:title" content="Frequently Asked Questions · Mundari Samaj"><meta property="og:description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta property="og:url" content="https://mundarisamaj.pages.dev/account/"><meta property="og:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><meta property="og:image:alt" content="Sarhul at a sarna grove"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Frequently Asked Questions · Mundari Samaj"><meta name="twitter:description" content="Mundari language, script, history and culture."><meta name="twitter:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><script src="../assets/js/analytics.js" defer></script><style>
-.acct-card{background:#fff;border:1px solid #d8ded6;border-radius:18px;padding:24px;max-width:580px}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Account · Mundari Samaj</title><meta name="description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta name="theme-color" content="#1f4a41"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Nag+Mundari&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/style.css"><link rel="canonical" href="https://mundarisamaj.pages.dev/account/"><meta property="og:type" content="website"><meta property="og:site_name" content="Mundari Samaj"><meta property="og:title" content="My Account · Mundari Samaj"><meta property="og:description" content="Your Mundari Samaj reader account — your name, username and profile photo."><meta property="og:url" content="https://mundarisamaj.pages.dev/account/"><meta property="og:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><meta property="og:image:alt" content="Sarhul at a sarna grove"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="My Account · Mundari Samaj"><meta name="twitter:description" content="Mundari language, script, history and culture."><meta name="twitter:image" content="https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/sarhul-sarna-grove.jpg"><script src="../assets/js/analytics.js" defer></script><style>
+.acct-card{background:#fffdf8;border:1px solid #dcd9cd;border-radius:16px;padding:28px 26px;max-width:580px;box-shadow:0 18px 40px -28px rgba(20,20,18,.35)}
 .acct-card h2{margin-top:0}
+.acct-kicker{font-family:'Courier New',monospace;font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8a887c;margin:0 0 10px}
 .acct-head{display:flex;gap:16px;align-items:center;margin-bottom:8px}
-.acct-avatar{width:72px;height:72px;flex:0 0 72px;border-radius:50%;background:#1f4a41;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:600;overflow:hidden}
+.acct-avatar{width:72px;height:72px;flex:0 0 72px;border-radius:50%;background:#20211e;color:#f8f7f3;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:600;overflow:hidden}
 .acct-avatar img{width:100%;height:100%;object-fit:cover;color:transparent}
-.acct-mail{margin:2px 0 0;color:#5a6b62;font-size:.92rem}
-.acct-card label{display:block;margin:16px 0 6px;font-weight:600;font-size:.94rem}
-.acct-card input[type="text"]{width:100%;box-sizing:border-box;border:1px solid #d8ded6;border-radius:12px;padding:11px 13px;font-size:.98rem;background:#f6f4ec;color:#1b2b26}
-.acct-card input[type="text"]:focus{outline:2px solid #e4b95f;border-color:#e4b95f}
-.acct-hint{font-size:.84rem;color:#5a6b62;margin:6px 0 0}
+.acct-mail{margin:2px 0 0;color:#616159;font-size:.92rem}
+.acct-card label{display:block;margin:20px 0 7px;font-family:'Courier New',monospace;font-weight:700;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#616159}
+.acct-card label .acct-hint{font-family:Arial,Helvetica,sans-serif;text-transform:none;letter-spacing:normal;font-weight:400}
+.acct-card input[type="text"]{width:100%;box-sizing:border-box;border:1px solid #d7d5cc;border-radius:10px;padding:12px 14px;font-size:.98rem;background:#fff;color:#20211e;font-family:Arial,Helvetica,sans-serif}
+.acct-card input[type="text"]:focus{outline:none;border-color:#20211e;box-shadow:0 0 0 3px rgba(32,33,30,.1)}
+.acct-card input[type="file"]{font-size:.88rem;color:#616159;max-width:100%}
+.acct-card input[type="file"]::file-selector-button{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:.85rem;background:#20211e;color:#f8f7f3;border:1px solid #20211e;border-radius:3px;padding:8px 14px;margin-right:10px;cursor:pointer}
+.acct-card input[type="file"]::file-selector-button:hover{background:#e65330;border-color:#e65330}
+.acct-hint{font-size:.84rem;color:#616159;margin:6px 0 0;line-height:1.5}
 .acct-photo-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.acct-btn{background:#1f4a41;color:#fff;border:0;font-weight:600;font-size:.95rem;padding:11px 22px;border-radius:99px;cursor:pointer;margin-top:18px}
-.acct-btn.ghost{background:#fff;color:#1f4a41;border:1px solid #1f4a41;margin-left:8px}
+.acct-btn{background:#20211e;color:#fff;border:1px solid #20211e;font-weight:600;font-size:.95rem;padding:12px 22px;border-radius:3px;cursor:pointer;margin-top:20px;transition:background .18s ease,border-color .18s ease,transform .12s ease}
+.acct-btn:hover{background:#e65330;border-color:#e65330}
+.acct-btn:active{transform:scale(.98)}
+.acct-btn.ghost{background:transparent;color:#20211e;border:1px solid #20211e;margin-left:8px}
+.acct-btn.ghost:hover{background:#eceae2;border-color:#20211e}
 .acct-btn:disabled{opacity:.55;cursor:default}
-.acct-msg{min-height:1.2em;margin:12px 0 0;font-size:.92rem;color:#2f6b5d}
+.acct-msg{min-height:1.2em;margin:12px 0 0;font-size:.92rem;color:#616159}
 .acct-view{text-align:center;padding-top:0;overflow:hidden}
-.acct-band{height:86px;margin:0 -24px;background:linear-gradient(120deg,#1f4a41,#2f6b5d 60%,#e4b95f 130%)}
-.acct-avatar.big{width:98px;height:98px;flex-basis:98px;font-size:2.3rem;margin:-49px auto 0;border:4px solid #fff;box-shadow:0 10px 24px rgba(20,40,30,.18)}
-.acct-name{font-family:Fraunces,Georgia,serif;font-size:1.7rem;margin:14px 0 2px}
-.acct-username{color:#a65f43;font-weight:600;font-size:1.02rem;margin:0}
+.acct-band{height:88px;margin:0 -26px;background:#eae7df;border-bottom:1px solid #d7d5cc}
+.acct-avatar.big{width:98px;height:98px;flex-basis:98px;font-size:2.3rem;margin:-49px auto 0;border:4px solid #fffdf8;box-shadow:0 12px 26px rgba(20,20,18,.22)}
+.acct-name{font-size:1.75rem;margin:14px 0 2px}
+.acct-username{color:#e65330;font-weight:600;font-size:1.02rem;margin:0}
 .acct-view .acct-mail{margin-top:6px}
 .acct-check{font-size:.86rem;margin:6px 0 0;min-height:1.1em}
-.acct-check.ok{color:#2f6b5d}
+.acct-check.ok{color:#2f7d4f}
 .acct-check.bad{color:#b3261e}
-</style>
+.acct-banner{border:1px solid #c44728;background:#fff8f6;border-radius:16px;padding:20px 22px;max-width:580px;margin-bottom:18px}
+.acct-banner p{line-height:1.55}
+.acct-btn.danger{background:#b3261e;border-color:#b3261e;color:#fff}
+.acct-btn.danger:hover{background:#8f1d17;border-color:#8f1d17}
+.acct-danger h2{color:#b3261e}
+.act-group{margin-top:22px}
+.act-h{font-family:'Courier New',monospace;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#616159;margin:0 0 4px}
+.act-count{color:#e65330}
+.act-list{list-style:none;margin:6px 0 0;padding:0}
+.act-item{padding:9px 0;border-top:1px solid #eceade}
+.act-item:first-child{border-top:0}
+.act-main{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.act-main a{color:#20211e;font-weight:600;text-decoration:none}
+.act-main a:hover{text-decoration:underline}
+.act-date{color:#8a887c;font-size:.82rem;white-space:nowrap}
+.act-meta{color:#616159;font-size:.86rem;margin-top:2px}
+.act-del{background:none;border:0;padding:0;color:#616159;font:inherit;font-size:.82rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.act-del:hover{color:#b3261e}
+.act-del.armed{color:#b3261e;font-weight:700}
+.act-del:disabled{opacity:.55;cursor:default}
+.del-overlay{position:fixed;inset:0;z-index:2000;background:rgba(18,19,16,.45);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;transition:opacity .25s ease}
+.del-overlay.show{opacity:1}
+.del-card{background:#fffdf8;color:#20211e;max-width:420px;width:100%;border-radius:20px;padding:26px 24px 20px;box-shadow:0 30px 60px -20px rgba(20,20,18,.45);position:relative;transform:translateY(10px) scale(.98);transition:transform .25s ease}
+.del-overlay.show .del-card{transform:none}
+.del-card h3{margin:0 34px 8px 0;font-size:1.3rem}
+.del-card p{line-height:1.55;font-size:.95rem}
+.del-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid #dcd9cd;background:#fffdf8;font-size:1rem;cursor:pointer;color:#20211e}
+body.del-open{overflow:hidden}
+</style><link rel="stylesheet" href="/archive-theme.css">
 </head><body data-root="../"><a class="skip" href="#main">Skip to content</a>
-<header class="top" id="top"><a class="brand" href="../"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 6v18M6 15h18M8.6 8.6l12.8 12.8M21.4 8.6L8.6 21.4" stroke="#e4b95f" stroke-width="2" stroke-linecap="round"/></svg><span>Mundari Samaj</span></a><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button><nav class="menu"><a href="../">Home</a><a href="../language/">Language</a><a href="../heritage/">Heritage</a><a href="../culture/">Culture</a><a href="../library/">Library</a><a href="../media/">Media</a><a href="../news/">News</a><a href="../about/">About</a><a href="../search/">Search</a><a class="cta" href="../contribute/">Contribute</a><div class="msocial"><a href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener">Instagram</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></nav></header>
+<header class="newmast"><a class="newbrand" href="/" aria-label="Mundari Samaj homepage"><img src="/archive-mark.svg" alt=""><span>Mundari Samaj</span></a><nav aria-label="Main navigation" class="newnav"><a href="/explore/">Explore</a><a href="/language/">Language</a><a href="/heritage/">Heritage</a><a href="/culture/">Culture</a><a href="/library/">Library</a></nav><div class="newtools"><a class="searchtool" aria-label="Search the archive" href="/search/"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></a><a class="contrib" href="/contribute/">Contribute <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><details class="newmenu"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav><a href="/explore/">Explore</a><a href="/language/">Language</a><a href="/heritage/">Heritage</a><a href="/culture/">Culture</a><a href="/library/">Library</a><a href="/about/">About</a><a href="/contribute/">Contribute</a></nav></details></div></header>
 <main id="main"><section class="phero"><div class="wrap"><nav class="crumb"><a href="../">Home</a></nav><h1>My Account</h1><p class="lead">Your reader profile on Mundari Samaj — the name and username that appear with your likes and comments.</p></div></section>
 <section class="wrap sec narrow">
 <div id="acctLoading"><p>Loading…</p></div>
 <div id="acctOut" style="display:none">
 <div class="acct-card">
+<p class="acct-kicker">Reader account</p>
 <h2>You are not signed in</h2>
 <p>Sign in to like, comment and keep your name the same on every device.</p>
 <p><button type="button" class="acct-btn" id="acctLogin">Login</button></p>
+<p class="acct-msg" id="acctOutMsg" role="status"></p>
 </div>
 </div>
 <div id="acctIn" style="display:none">
+<div class="acct-banner" id="acctDelBanner" style="display:none">
+<p class="acct-kicker">Account deletion</p>
+<p id="acctDelBannerText" style="margin:0"></p>
+<p style="margin-bottom:0"><button type="button" class="acct-btn danger" id="acctDelCancelBtn">Cancel deletion</button></p>
+</div>
 <div class="acct-card acct-view" id="acctView">
 <div class="acct-band"></div>
 <div class="acct-avatar big"><span id="viewInitial">?</span><img id="viewPhoto" alt="Profile photo" style="display:none"></div>
 <h2 class="acct-name" id="viewName">Reader</h2>
 <p class="acct-username" id="viewUsername">@reader</p>
 <p class="acct-mail" id="viewEmail"></p>
+<p class="acct-mail" id="viewMember" style="display:none"></p>
+<p class="acct-mail" id="viewLastLogin" style="display:none"></p>
 <p><button type="button" class="acct-btn" id="acctEditBtn">Edit profile</button><button type="button" class="acct-btn ghost" id="acctLogout">Logout</button></p>
+<p><button type="button" class="acct-btn ghost" id="acctLogoutAll" style="margin-left:0">Logout all devices</button></p>
 </div>
 <div class="acct-card" id="acctEdit" style="display:none">
+<p class="acct-kicker">Reader account</p>
 <h2>Edit profile</h2>
 <label for="acctName">Your name</label>
 <input type="text" id="acctName" maxlength="60" placeholder="Your name">
@@ -62,8 +109,32 @@
 <p class="acct-msg" id="acctMsg" role="status"></p>
 <p><button type="button" class="acct-btn" id="acctSave">Save profile</button><button type="button" class="acct-btn ghost" id="acctCancel">Cancel</button></p>
 </div>
+<div class="acct-card" id="acctActivity" style="display:none">
+<p class="acct-kicker">Your activity</p>
+<h2>My Activity</h2>
+<div class="act-group"><h3 class="act-h">My Likes <span class="act-count" id="actLikeCount"></span></h3><div id="actLikes"><p class="acct-hint">Loading…</p></div></div>
+<div class="act-group"><h3 class="act-h">My Comments <span class="act-count" id="actCommentCount"></span></h3><div id="actComments"><p class="acct-hint">Loading…</p></div></div>
+<div class="act-group"><h3 class="act-h">My Follows <span class="act-count" id="actFollowCount"></span></h3><div id="actFollows"><p class="acct-hint">Loading…</p></div></div>
+</div>
+<div class="acct-card acct-danger" id="acctDanger">
+<p class="acct-kicker">Danger zone</p>
+<h2>Delete your Account</h2>
+<p>Your account and all your data on our server — profile, comments, likes and follows — will be permanently deleted automatically 7 days after you confirm, and cannot be recovered after that. If you sign in again within those 7 days, the deletion is cancelled automatically.</p>
+<p><button type="button" class="acct-btn danger" id="acctDeleteBtn">Delete your Account</button></p>
+</div>
 </div>
 </section></main>
+<div class="del-overlay" id="delOverlay" style="display:none">
+<div class="del-card" role="dialog" aria-modal="true" aria-label="Delete account">
+<button type="button" class="del-close" id="delClose" aria-label="Close">✕</button>
+<p class="acct-kicker">Delete your Account</p>
+<h3>Delete your Account?</h3>
+<p>If you confirm, you will be signed out now. Your account and <strong>all</strong> your data on our server — your profile, comments, likes and follows — will be <strong>permanently deleted automatically within 7 days</strong>. After that, it can <strong>not</strong> be recovered. If you sign in again before the 7 days are over, the deletion is cancelled automatically and your account continues as normal.</p>
+<div id="delTurnstile"></div>
+<p class="acct-msg" id="delMsg" role="status"></p>
+<p><button type="button" class="acct-btn danger" id="delConfirm" disabled>Delete your Account</button><button type="button" class="acct-btn ghost" id="delCancel">Keep my account</button></p>
+</div>
+</div>
 <footer><div class="wrap fgrid"><div><b>Mundari Samaj</b><p>Our language. Our identity. Our heritage.</p><p><span class="bani">𞓖𞓐𞓕𞓣 · 𞓖𞓕𞓓 𞓧𞓟𞓨𞓡𞓕𞓣𞓚</span><br>Johar! Jay Mundari!</p></div><div class="fcols"><div class="fcol"><h5>Explore</h5><div class="flinks"><a href="../">Home</a><a href="../language/">Language</a><a href="../heritage/">Heritage</a><a href="../culture/">Culture</a></div></div><div class="fcol"><h5>Learn</h5><div class="flinks"><a href="../language/script/">Bani Script</a><a href="../language/numbers/">Numbers &amp; Counting</a><a href="../language/dictionary/">Dictionary</a><a href="../language/learn/">Learn Mundari</a></div></div><div class="fcol"><h5>Community</h5><div class="flinks"><a href="../contribute/">Contribute</a><a href="../news/">News &amp; Updates</a><a href="mailto:mundarisamaj@outlook.com">Email Us</a><a href="https://www.threads.net/@mundaricommunity" target="_blank" rel="noopener">Threads</a></div></div><div class="fcol"><h5>About</h5><div class="flinks"><a href="../about/">About Us</a><a href="../library/">Library</a><a href="../media/">Media</a><a href="../search/">Search</a><a href="../privacy/">Privacy Policy</a><a href="../faq/">FAQ</a></div></div></div></div><div class="partners"><h4>Our Partners</h4><div class="prow"><a class="partner" href="https://www.instagram.com/mundarisamaj" target="_blank" rel="noopener"><b>Mundari Samaj</b><span class="ph">@mundarisamaj · Instagram</span><span class="pd">Our official Instagram page — Mundari culture, language, traditions and community news.</span></a><a class="partner" href="https://www.instagram.com/mundariarchive" target="_blank" rel="noopener"><b>Mundari Archive</b><span class="ph">@mundariarchive · Instagram</span><span class="pd">The cultural archive of the Mundari people — stories, traditions, history and heritage, preserved for the future.</span></a></div></div><p class="copy"><span>© 2026 Mundari Samaj</span><span class="fnote">Bani script · Unicode since 2022</span></p></footer>
 <script src="../assets/data/data.js"></script><script src="../assets/js/main.js"></script><script src="../assets/js/account.js"></script>
 <script>
@@ -104,6 +175,14 @@
     $("viewName").textContent = name;
     $("viewUsername").textContent = "@" + ((profile && profile.username) || "reader");
     $("viewEmail").textContent = u.email || "";
+    var mem = $("viewMember");
+    if (u.created_at) {
+      mem.textContent = "Member since " + fmtDay(u.created_at);
+      mem.style.display = "";
+    } else {
+      mem.style.display = "none";
+    }
+    fillLastLogin();
     setImg("viewPhoto", "viewInitial", photoFor(profile, u), name);
     $("acctView").style.display = "";
     $("acctEdit").style.display = "none";
@@ -129,7 +208,284 @@
     profile = await a.fetchProfile();
     if (!profile) profile = await a.ensureProfile();
     renderView();
+    checkDeletion();
+    loadActivity();
   }
+  /* ---------- member since, my activity, account deletion ---------- */
+  var activityFor = null;
+  function fmtDay(iso) {
+    var d = new Date(iso);
+    if (!iso || isNaN(d)) return "";
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  }
+  function fmtWhen(iso) {
+    var d = new Date(iso);
+    if (!iso || isNaN(d)) return "";
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) +
+      ", " + d.toLocaleTimeString("en-GB", { hour: "numeric", minute: "2-digit" });
+  }
+  /* "Last login" — account.js records each login visit with the
+     worker and keeps the previous visit in localStorage; show it
+     here, and refresh if it lands while the page is open. */
+  function fillLastLogin() {
+    var line = $("viewLastLogin");
+    var last = null;
+    try { last = JSON.parse(localStorage.getItem("ms_last_login") || "null"); } catch (e) { last = null; }
+    if (last && last.at) {
+      line.textContent = "Last login: " + fmtWhen(last.at) + (last.ip ? " · " + last.ip : "");
+      line.style.display = "";
+    } else {
+      line.style.display = "none";
+    }
+  }
+  window.addEventListener("ms-login-recorded", fillLastLogin);
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function pageTitle(slug) {
+    if (window.DATA && DATA.pages) {
+      for (var i = 0; i < DATA.pages.length; i++) {
+        if (DATA.pages[i].u === slug + "/") return DATA.pages[i].t;
+      }
+    }
+    return null;
+  }
+  function slugLabel(slug) {
+    var last = slug.split("/").pop().replace(/-/g, " ");
+    return last ? last.replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : slug;
+  }
+  function itemFor(slug) {
+    if (slug.indexOf("youtube/") === 0) {
+      var id = slug.slice(8), v = null;
+      if (window.MSVIDEOS) {
+        for (var i = 0; i < MSVIDEOS.length; i++) if (MSVIDEOS[i][0] === id) { v = MSVIDEOS[i]; break; }
+      }
+      return { href: "../media/videos/?v=" + encodeURIComponent(id), title: v ? v[1] : "A video" };
+    }
+    return { href: "../" + slug + "/", title: pageTitle(slug) || slugLabel(slug) };
+  }
+  function bumpCount(id, delta) {
+    var e = $(id);
+    var n = parseInt((e.textContent || "").replace(/[^0-9]/g, ""), 10);
+    if (isNaN(n)) return;
+    n = Math.max(0, n + delta);
+    e.textContent = n ? "(" + n + ")" : "";
+  }
+  // Two-step confirm on a small inline button: first click arms it,
+  // second click (within 3 seconds) runs the action.
+  function confirmInline(btn, fn) {
+    if (btn.dataset.armed) { fn(); return; }
+    var old = btn.textContent;
+    btn.dataset.armed = "1";
+    btn.textContent = "Confirm?";
+    btn.classList.add("armed");
+    setTimeout(function () {
+      if (btn.isConnected) { delete btn.dataset.armed; btn.textContent = old; btn.classList.remove("armed"); }
+    }, 3000);
+  }
+  async function apiPost(path, body, tok) {
+    var headers = { "content-type": "application/json", "x-requested-with": "fetch" };
+    if (tok) headers.authorization = "Bearer " + tok;
+    var r = await fetch(path, { method: "POST", headers: headers, body: JSON.stringify(body || {}) });
+    return r.json().catch(function () { return null; });
+  }
+  async function deleteOwnComment(id, li) {
+    var tok = await window.MSAccount.token();
+    var d = await apiPost("/api/account/comment-delete", { comment_id: id }, tok);
+    if (d && d.ok) {
+      li.remove();
+      bumpCount("actCommentCount", -1);
+      if (!$("actComments").querySelector("li")) {
+        $("actComments").appendChild(el("p", "acct-hint", "You have not commented yet."));
+      }
+    }
+  }
+  async function unfollowChannel(ch, li) {
+    var tok = await window.MSAccount.token();
+    var dt = "";
+    try { dt = localStorage.getItem("ms_device_token") || ""; } catch (e) {}
+    var d = await apiPost("/api/engage", { action: "unfollow", slug: "media/videos",
+      channel: ch, device_token: dt, access_token: tok || "" }, null);
+    if (d && d.ok) {
+      li.remove();
+      bumpCount("actFollowCount", -1);
+      if (!$("actFollows").querySelector("li")) {
+        $("actFollows").appendChild(el("p", "acct-hint", "You are not following any channel yet."));
+      }
+      return true;
+    }
+    return false;
+  }
+  function fillList(box, items, make, emptyText) {
+    box.innerHTML = "";
+    if (!items.length) { box.appendChild(el("p", "acct-hint", emptyText)); return; }
+    var ul = el("ul", "act-list");
+    items.forEach(function (x) { ul.appendChild(make(x)); });
+    box.appendChild(ul);
+  }
+  function renderActivity(d) {
+    var likes = d.likes || [], comments = d.comments || [], follows = d.follows || [];
+    $("actLikeCount").textContent = likes.length ? "(" + likes.length + ")" : "";
+    $("actCommentCount").textContent = comments.length ? "(" + comments.length + ")" : "";
+    $("actFollowCount").textContent = follows.length ? "(" + follows.length + ")" : "";
+    fillList($("actLikes"), likes.slice(0, 6), function (x) {
+      var it = itemFor(x.slug);
+      var li = el("li", "act-item");
+      var main = el("div", "act-main");
+      var a = el("a", null, it.title); a.href = it.href;
+      main.appendChild(a);
+      if (x.created_at) main.appendChild(el("span", "act-date", fmtDay(x.created_at)));
+      li.appendChild(main);
+      return li;
+    }, "You have not liked anything yet.");
+    fillList($("actComments"), comments.slice(0, 5), function (x) {
+      var it = itemFor(x.slug);
+      var li = el("li", "act-item");
+      var main = el("div", "act-main");
+      var body = String(x.body || "");
+      var a = el("a", null, "\u201C" + (body.length > 90 ? body.slice(0, 90) + "\u2026" : body) + "\u201D");
+      a.href = it.href;
+      main.appendChild(a);
+      var del = el("button", "act-del", "Delete");
+      del.type = "button";
+      del.addEventListener("click", function () {
+        confirmInline(del, function () { deleteOwnComment(x.id, li); });
+      });
+      main.appendChild(del);
+      li.appendChild(main);
+      li.appendChild(el("div", "act-meta", "on " + it.title + (x.created_at ? " \u00B7 " + fmtDay(x.created_at) : "")));
+      return li;
+    }, "You have not commented yet.");
+    fillList($("actFollows"), follows, function (ch) {
+      var li = el("li", "act-item");
+      var main = el("div", "act-main");
+      var a = el("a", null, ch); a.href = "../media/videos/";
+      main.appendChild(a);
+      var un = el("button", "act-del", "Unfollow");
+      un.type = "button";
+      un.addEventListener("click", async function () {
+        un.disabled = true;
+        if (!(await unfollowChannel(ch, li))) un.disabled = false;
+      });
+      main.appendChild(un);
+      li.appendChild(main);
+      return li;
+    }, "You are not following any channel yet.");
+  }
+  async function loadActivity() {
+    var a = window.MSAccount, u = a.user();
+    if (!u || activityFor === u.id) return;
+    activityFor = u.id;
+    $("acctActivity").style.display = "";
+    try {
+      var tok = await a.token();
+      var r = await fetch("/api/engage?activity=1&access_token=" + encodeURIComponent(tok || ""));
+      var d = await r.json().catch(function () { return null; });
+      if (!d || !d.ok) throw new Error("activity");
+      renderActivity(d);
+      var hasVideo = (d.likes || []).concat(d.comments || []).some(function (x) {
+        return String(x.slug).indexOf("youtube/") === 0;
+      });
+      if (hasVideo && !window.MSVIDEOS) {
+        var sc = document.createElement("script");
+        sc.src = "../assets/js/videos-data.js";
+        sc.onload = function () { renderActivity(d); };
+        document.head.appendChild(sc);
+      }
+    } catch (e) {
+      $("actLikes").innerHTML = '<p class="acct-hint">Your activity could not be loaded right now.</p>';
+      $("actComments").innerHTML = "";
+      $("actFollows").innerHTML = "";
+    }
+  }
+  /* Signing in cancels a pending deletion automatically (account.js
+     does it and leaves a flag + event); this page then shows the
+     "cancelled because you signed in" notice. If a request is somehow
+     still pending, the banner offers the manual cancel as well. */
+  var delNoticeShown = false;
+  function showCancelledNotice() {
+    delNoticeShown = true;
+    try { localStorage.removeItem("ms_deletion_cancelled"); } catch (e) { /* ignore */ }
+    $("acctDelBannerText").textContent = "Your scheduled account deletion was cancelled because you signed in. Your account is active as normal.";
+    $("acctDelCancelBtn").parentElement.style.display = "none";
+    $("acctDelBanner").style.display = "";
+  }
+  window.addEventListener("ms-deletion-cancelled", showCancelledNotice);
+  async function checkDeletion() {
+    var banner = $("acctDelBanner");
+    if (delNoticeShown) return;
+    var wasCancelled = false;
+    try { wasCancelled = !!localStorage.getItem("ms_deletion_cancelled"); } catch (e) { /* ignore */ }
+    if (wasCancelled) { showCancelledNotice(); return; }
+    try {
+      var tok = await window.MSAccount.token();
+      var r = await fetch("/api/account/delete-status", {
+        headers: { authorization: "Bearer " + (tok || "") },
+      });
+      var d = await r.json().catch(function () { return null; });
+      if (delNoticeShown) return;
+      if (d && d.ok && d.pending) {
+        $("acctDelBannerText").textContent = "Your account is scheduled for deletion on " + fmtDay(d.delete_on) +
+          ". Your profile, comments, likes and follows will be permanently removed on that date. Signing in cancels the deletion automatically; you can also cancel it here.";
+        $("acctDelCancelBtn").parentElement.style.display = "";
+        banner.style.display = "";
+        return;
+      }
+    } catch (e) { /* the banner simply stays hidden */ }
+    if (!delNoticeShown) banner.style.display = "none";
+  }
+
+  /* ---------- delete-account popup (Turnstile-checked) ---------- */
+  var delWidget = null, delToken = "";
+  function loadTurnstile(cb) {
+    if (window.turnstile) { cb(); return; }
+    if (document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) {
+      var iv = setInterval(function () { if (window.turnstile) { clearInterval(iv); cb(); } }, 150);
+      setTimeout(function () { clearInterval(iv); }, 8000);
+      return;
+    }
+    var sc = document.createElement("script");
+    sc.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    sc.async = true; sc.defer = true;
+    sc.onload = cb;
+    document.head.appendChild(sc);
+  }
+  function openDelete() {
+    delToken = "";
+    $("delConfirm").disabled = true;
+    $("delMsg").textContent = "";
+    var ov = $("delOverlay");
+    ov.style.display = "";
+    document.body.classList.add("del-open");
+    requestAnimationFrame(function () { ov.classList.add("show"); });
+    loadTurnstile(function () {
+      var box = $("delTurnstile");
+      box.innerHTML = "";
+      delWidget = null;
+      try {
+        delWidget = window.turnstile.render(box, {
+          sitekey: "0x4AAAAAAFyQTGNyCN1voCrR",
+          callback: function (t) { delToken = t; $("delConfirm").disabled = false; },
+          "expired-callback": function () { delToken = ""; $("delConfirm").disabled = true; },
+          "error-callback": function () { delToken = ""; $("delConfirm").disabled = true; },
+        });
+      } catch (e) { /* no widget — the confirm button stays disabled */ }
+    });
+  }
+  function closeDelete() {
+    var ov = $("delOverlay");
+    ov.classList.remove("show");
+    document.body.classList.remove("del-open");
+    setTimeout(function () { ov.style.display = "none"; }, 220);
+    if (window.turnstile && delWidget !== null) {
+      try { window.turnstile.remove(delWidget); } catch (e) {}
+      delWidget = null;
+    }
+  }
+
   function ready() {
     $("acctLogin").addEventListener("click", function () { window.MSAccount.openLogin(); });
     $("acctLogout").addEventListener("click", async function () {
@@ -138,6 +494,54 @@
       render();
     });
     $("acctEditBtn").addEventListener("click", renderEdit);
+    $("acctLogoutAll").addEventListener("click", async function () {
+      await window.MSAccount.signOutAll();
+      profile = null;
+      activityFor = null;
+      render();
+    });
+    $("acctDeleteBtn").addEventListener("click", openDelete);
+    $("delClose").addEventListener("click", closeDelete);
+    $("delCancel").addEventListener("click", closeDelete);
+    $("delOverlay").addEventListener("click", function (e) { if (e.target === this) closeDelete(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && $("delOverlay").style.display !== "none") closeDelete();
+    });
+    $("delConfirm").addEventListener("click", async function () {
+      var btn = $("delConfirm"), m = $("delMsg");
+      btn.disabled = true;
+      m.textContent = "Sending your request\u2026";
+      m.style.color = "";
+      var tok = await window.MSAccount.token();
+      var d = await apiPost("/api/account/delete-request", { turnstile: delToken }, tok);
+      if (d && d.ok) {
+        closeDelete();
+        await window.MSAccount.signOut();
+        profile = null;
+        activityFor = null;
+        var out = $("acctOutMsg");
+        if (out) out.textContent = "Your account is scheduled for deletion on " + fmtDay(d.delete_on) +
+          ". Sign in again before that date and cancel the deletion from this page if you change your mind.";
+        render();
+      } else {
+        m.textContent = d && d.error === "captcha_failed"
+          ? "The verification did not pass. Please solve it again and try."
+          : "The request could not be sent. Please try again.";
+        m.style.color = "#b3261e";
+        if (window.turnstile && delWidget !== null) {
+          try { window.turnstile.reset(delWidget); } catch (e) {}
+        }
+        delToken = "";
+      }
+    });
+    $("acctDelCancelBtn").addEventListener("click", async function () {
+      var btn = this;
+      btn.disabled = true;
+      var tok = await window.MSAccount.token();
+      var d = await apiPost("/api/account/delete-cancel", {}, tok);
+      if (d && d.ok) $("acctDelBanner").style.display = "none";
+      btn.disabled = false;
+    });
     $("acctCancel").addEventListener("click", renderView);
     $("acctFile").addEventListener("change", function () {
       var f = this.files && this.files[0];

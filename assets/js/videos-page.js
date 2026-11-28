@@ -45,6 +45,20 @@
     "background:#121212;font:inherit;font-size:.98rem;color:#f1f1f1;outline:none}" +
     ".vcontrols input::placeholder{color:#888}" +
     ".vcontrols input:focus{border-color:#3ea6ff}" +
+    ".vcontrols input{box-shadow:0 1px 3px rgba(0,0,0,.45)}" +
+    ".vcontrols input:focus{background:#1c1c1c;box-shadow:0 0 0 3px rgba(62,166,255,.22)}" +
+    /* ---- search suggestions dropdown ---- */
+    ".vsug{position:absolute;top:60px;left:0;right:0;z-index:45;background:#212121;" +
+    "border:1px solid #3d3d3d;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.55);" +
+    "padding:6px 0;max-height:min(64vh,460px);overflow-y:auto}" +
+    ".vsug-h{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;padding:8px 16px 3px}" +
+    ".vsug-it{display:flex;gap:12px;align-items:center;width:100%;background:none;border:0;" +
+    "font:inherit;color:#f1f1f1;text-align:left;padding:7px 14px;cursor:pointer}" +
+    ".vsug-it.on,.vsug-it:hover{background:#3d3d3d}" +
+    ".vsug-it .vsug-th{width:72px;height:41px;object-fit:cover;border-radius:7px;flex:0 0 auto;background:#121212}" +
+    ".vsug-it .vsug-av{width:30px;height:30px;border-radius:50%;object-fit:cover;flex:0 0 auto;background:#121212}" +
+    ".vsug-it .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.93rem}" +
+    ".vsug-it .s{display:block;font-size:.76rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}" +
     ".vchips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}" +
     ".vchips::-webkit-scrollbar{display:none}" +
     ".vchip{flex:0 0 auto;border:0;background:#272727;color:#f1f1f1;border-radius:8px;" +
@@ -146,6 +160,9 @@
     ".vcomment time{color:#aaa;font-size:.72rem;margin-left:8px}" +
     ".vcomment p{margin:2px 0 0;font-size:.9rem}" +
     ".vreport{background:none;border:0;color:#aaa;font-size:.75rem;cursor:pointer;padding:4px 0}" +
+    ".vdel{background:none;border:0;color:#aaa;font-size:.75rem;cursor:pointer;padding:4px 0;margin-left:12px;text-decoration:underline;text-underline-offset:3px}" +
+    ".vdel.armed{color:#ff7a66;font-weight:700}" +
+    ".vdel:disabled{opacity:.55;cursor:default}" +
     ".vc-collapsed{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #303030;" +
     "color:#aaa;font:inherit;font-size:.9rem;padding:7px 1px;cursor:text}" +
     ".vc-form textarea{width:100%;min-height:52px;padding:6px 1px;border:0;border-bottom:1px solid #f1f1f1;" +
@@ -420,6 +437,88 @@
     searchTimer = setTimeout(function () { query = searchBox.value; applyFilter(); }, 180);
   });
 
+  /* ---- search suggestions: a YouTube-style dropdown under the
+     search box. Channel rows apply the channel as the search;
+     video rows open the video in the watch view. ---- */
+  var sugBox = document.createElement("div");
+  sugBox.className = "vsug";
+  sugBox.hidden = true;
+  searchBox.parentNode.appendChild(sugBox);
+  var sugItems = [], sugIdx = -1;
+  function hideSug() { sugBox.hidden = true; sugBox.innerHTML = ""; sugItems = []; sugIdx = -1; }
+  function paintSug() {
+    var q = searchBox.value.trim().toLowerCase();
+    if (q.length < 2) { hideSug(); return; }
+    var chans = channels.filter(function (c) { return c.toLowerCase().indexOf(q) > -1; }).slice(0, 3);
+    var vids = DATA.filter(function (v) { return v[1].toLowerCase().indexOf(q) > -1; })
+      .sort(function (a, b) { return (b[7] || 0) - (a[7] || 0); }).slice(0, 7);
+    if (!chans.length && !vids.length) { hideSug(); return; }
+    var html = "", flat = [];
+    if (chans.length) {
+      html += '<div class="vsug-h">Channels</div>';
+      chans.forEach(function (c) {
+        flat.push({ kind: "channel", name: c });
+        html += '<button class="vsug-it" type="button" data-i="' + (flat.length - 1) + '">' +
+          (AVATARS[c] ? '<img class="vsug-av" src="' + esc(AVATARS[c]) + '" alt="">' : "") +
+          '<span class="t">' + esc(c) + '<span class="s">Channel' +
+          (SUBS[c] ? " · " + esc(SUBS[c]) + " subscribers" : "") + "</span></span></button>";
+      });
+    }
+    if (vids.length) {
+      html += '<div class="vsug-h">Videos</div>';
+      vids.forEach(function (v) {
+        flat.push({ kind: "video", v: v });
+        html += '<button class="vsug-it" type="button" data-i="' + (flat.length - 1) + '">' +
+          '<img class="vsug-th" src="https://i.ytimg.com/vi/' + v[0] + '/hqdefault.jpg" alt="">' +
+          '<span class="t">' + esc(v[1]) + '<span class="s">' + esc(v[2]) +
+          (v[7] ? " · " + fmtViews(v[7]) : "") + "</span></span></button>";
+      });
+    }
+    sugItems = flat;
+    sugIdx = -1;
+    sugBox.innerHTML = html;
+    sugBox.hidden = false;
+  }
+  function setSugIdx(n) {
+    var rows = sugBox.querySelectorAll(".vsug-it");
+    if (!rows.length) return;
+    sugIdx = (n + rows.length) % rows.length;
+    rows.forEach(function (r, i) { r.classList.toggle("on", i === sugIdx); });
+    rows[sugIdx].scrollIntoView({ block: "nearest" });
+  }
+  function pickSug(i) {
+    var it = sugItems[i];
+    if (!it) return;
+    hideSug();
+    if (it.kind === "channel") {
+      searchBox.value = it.name;
+      query = it.name;
+      applyFilter();
+    } else {
+      openWatch(it.v, true);
+    }
+  }
+  var sugTimer = null;
+  searchBox.addEventListener("input", function () {
+    clearTimeout(sugTimer);
+    sugTimer = setTimeout(paintSug, 120);
+  });
+  searchBox.addEventListener("focus", paintSug);
+  searchBox.addEventListener("keydown", function (e) {
+    if (sugBox.hidden) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); setSugIdx(sugIdx + 1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setSugIdx(sugIdx - 1); }
+    else if (e.key === "Enter" && sugIdx >= 0) { e.preventDefault(); pickSug(sugIdx); }
+    else if (e.key === "Escape") hideSug();
+  });
+  sugBox.addEventListener("mousedown", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-i]") : null;
+    if (b) { e.preventDefault(); pickSug(parseInt(b.getAttribute("data-i"), 10)); }
+  });
+  document.addEventListener("click", function (e) {
+    if (!sugBox.hidden && !sugBox.contains(e.target) && e.target !== searchBox) hideSug();
+  });
+
   /* ---------- follows ---------- */
   async function loadFollows() {
     if (!signedIn()) { follows = []; buildChips(); return; }
@@ -539,7 +638,9 @@
     paintLike();
     cList.innerHTML = "";
     try {
-      var d = await apiGet("slug=" + encodeURIComponent(slugOf(cur)) + "&page=1&per=50");
+      var tok = await accountToken();
+      var d = await apiGet("slug=" + encodeURIComponent(slugOf(cur)) + "&page=1&per=50" +
+        (tok ? "&access_token=" + encodeURIComponent(tok) : ""));
       if (d && d.ok) {
         likeState.likes = d.likes;
         paintLike();
@@ -557,7 +658,8 @@
   function commentHTML(c) {
     return '<div class="vcomment" data-id="' + esc(c.id) + '"><b>' + esc(c.name || "Reader") + "</b>" +
       "<time>" + esc(fmtDate(c.created_at)) + "</time><p>" + esc(c.body) + "</p>" +
-      '<button class="vreport" type="button">Report</button></div>';
+      '<button class="vreport" type="button">Report</button>' +
+      (c.own ? '<button class="vdel" type="button">Delete</button>' : "") + "</div>";
   }
 
   /* The comment box stays one slim line — "Add a comment…" — and
@@ -629,6 +731,44 @@
       msg.classList.add("bad");
     }
   }
+  // Delete one of my own comments (the button only renders on
+  // comments the worker flagged as the reader's own).
+  cList.addEventListener("click", async function (e) {
+    var btn = e.target.closest ? e.target.closest(".vdel") : null;
+    if (!btn) return;
+    var card = btn.closest(".vcomment");
+    if (!card) return;
+    if (!btn.dataset.armed) {
+      btn.dataset.armed = "1";
+      btn.textContent = "Confirm delete?";
+      btn.classList.add("armed");
+      setTimeout(function () {
+        if (btn.isConnected) { delete btn.dataset.armed; btn.textContent = "Delete"; btn.classList.remove("armed"); }
+      }, 3000);
+      return;
+    }
+    btn.disabled = true;
+    try {
+      const r = await fetch("/api/account/comment-delete", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-requested-with": "fetch",
+          authorization: "Bearer " + (await accountToken()) },
+        body: JSON.stringify({ comment_id: card.getAttribute("data-id") }),
+      });
+      const d = await r.json().catch(() => null);
+      if (d && d.ok) {
+        card.remove();
+        var cEl = document.getElementById("vcCount");
+        var n = parseInt(cEl.textContent || "0", 10);
+        if (!isNaN(n) && n > 0) cEl.textContent = n - 1 ? String(n - 1) : "";
+        var first = cList.querySelector(".vcomment");
+        document.getElementById("vcFirst").textContent = first ?
+          first.querySelector("b").textContent + ": " + first.querySelector("p").textContent :
+          "Be the first to comment";
+        showToast("Your comment was deleted.");
+      } else { btn.disabled = false; delete btn.dataset.armed; btn.textContent = "Delete"; btn.classList.remove("armed"); }
+    } catch (err) { btn.disabled = false; }
+  });
   cList.addEventListener("click", async function (e) {
     var btn = e.target.closest ? e.target.closest(".vreport") : null;
     if (!btn || !cur) return;
@@ -777,7 +917,10 @@
   // follow state and swaps the comment login box for the form.
   window.addEventListener("ms-account", function () {
     loadFollows();
-    if (cur) renderCommentForm();
+    if (cur) { renderCommentForm(); loadEngage(); }
+  });
+  window.addEventListener("ms-account-ready", function () {
+    if (cur) loadEngage();
   });
 
   // Deep link: /media/videos/?v=<id> opens the watch view directly.

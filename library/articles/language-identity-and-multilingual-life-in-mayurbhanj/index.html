@@ -649,7 +649,7 @@ footer .fstat{box-shadow:0 12px 30px -14px rgba(0,0,0,.55)}
   function s(){var h=document.documentElement;b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}
   addEventListener('scroll',s,{passive:true});s();
   var topBar=document.querySelector('.top');
-  addEventListener('scroll',function(){topBar.classList.toggle('scrolled',scrollY>30);},{passive:true});
+  addEventListener('scroll',function(){if(topBar)topBar.classList.toggle('scrolled',scrollY>30);},{passive:true});
 })();
 </script>
 <script>(function(){var t=document.querySelector('.top');if(!t)return;var ly=window.scrollY;addEventListener('scroll',function(){var y=window.scrollY;if(y>140&&y>ly+4)t.classList.add('hide');else if(y<ly-4||y<=140)t.classList.remove('hide');ly=y},{passive:true})})();</script>

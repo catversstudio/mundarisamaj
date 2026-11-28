@@ -46,12 +46,71 @@
         id: u.id || "",
         email: u.email || "",
         name: meta.full_name || meta.name || "",
-        picture: meta.avatar_url || meta.picture || ""
+        picture: meta.avatar_url || meta.picture || "",
+        created_at: u.created_at || (session && session.user ? session.user.created_at : "") || ""
       }
     };
     save();
     changed();
     ensureProfile();
+    autoCancelDeletion();
+    noteLogin();
+  }
+
+  /* Last login: on a fresh sign-in or a restored session (once per
+     tab session), tell the worker about this login visit; it stores
+     our IP + time and returns the PREVIOUS visit, which the profile
+     page shows as "Last login". */
+  var loginNotedFor = "";
+  async function noteLogin() {
+    if (!session || !session.access_token || !session.user || !session.user.id) return;
+    if (loginNotedFor === session.user.id) return;
+    try {
+      if (sessionStorage.getItem("ms_login_noted") === session.user.id) { loginNotedFor = session.user.id; return; }
+    } catch (e) { /* ignore */ }
+    loginNotedFor = session.user.id;
+    try {
+      var r = await fetch("/api/account/login-record", {
+        method: "POST",
+        headers: { authorization: "Bearer " + session.access_token, "content-type": "application/json" },
+        body: "{}"
+      });
+      var d = await r.json().catch(function () { return null; });
+      if (d && d.ok && d.last_login) {
+        try { localStorage.setItem("ms_last_login", JSON.stringify(d.last_login)); } catch (e) { /* ignore */ }
+        try { sessionStorage.setItem("ms_login_noted", session.user.id); } catch (e) { /* ignore */ }
+        try { window.dispatchEvent(new CustomEvent("ms-login-recorded")); } catch (e) { /* ignore */ }
+      }
+    } catch (e) { /* offline or API down — no note this time */ }
+  }
+
+  /* Account deletion rule (owner's spec): signing in cancels a
+     pending deletion. Whenever a session appears — a fresh sign-in
+     or a restored one — check for a pending request and cancel it,
+     leaving a note the profile page can show. Runs once per user
+     per page load; signing out re-arms it. */
+  var delCancelTried = "";
+  async function autoCancelDeletion() {
+    if (!session || !session.access_token || !session.user || !session.user.id) return;
+    if (delCancelTried === session.user.id) return;
+    delCancelTried = session.user.id;
+    try {
+      var r = await fetch("/api/account/delete-status", {
+        headers: { authorization: "Bearer " + session.access_token }
+      });
+      var d = await r.json().catch(function () { return null; });
+      if (!d || !d.ok || !d.pending) return;
+      var r2 = await fetch("/api/account/delete-cancel", {
+        method: "POST",
+        headers: { authorization: "Bearer " + session.access_token, "content-type": "application/json" },
+        body: "{}"
+      });
+      var d2 = await r2.json().catch(function () { return null; });
+      if (d2 && d2.ok) {
+        try { localStorage.setItem("ms_deletion_cancelled", new Date().toISOString()); } catch (e) { /* ignore */ }
+        try { window.dispatchEvent(new CustomEvent("ms-deletion-cancelled")); } catch (e) { /* ignore */ }
+      }
+    } catch (e) { /* offline or API down — the request simply stays pending */ }
   }
 
   function authHeaders() {
@@ -198,6 +257,28 @@
       } catch (e) { /* the local session is cleared either way */ }
     }
     session = null;
+    delCancelTried = "";
+    loginNotedFor = "";
+    try { sessionStorage.removeItem("ms_login_noted"); } catch (e) { /* ignore */ }
+    save();
+    changed();
+  }
+
+  // Sign out on every device: a global-scope logout asks Supabase to
+  // revoke all of the reader's refresh tokens, not just this one's.
+  async function signOutAll() {
+    if (session && session.access_token) {
+      try {
+        await fetch(SUPABASE_URL + "/auth/v1/logout?scope=global", {
+          method: "POST",
+          headers: { apikey: PUBLIC_KEY, authorization: "Bearer " + session.access_token }
+        });
+      } catch (e) { /* the local session is cleared either way */ }
+    }
+    session = null;
+    delCancelTried = "";
+    loginNotedFor = "";
+    try { sessionStorage.removeItem("ms_login_noted"); } catch (e) { /* ignore */ }
     save();
     changed();
   }
@@ -445,6 +526,7 @@
     openLogin: openLogin,
     closeLogin: closeLogin,
     signOut: signOut,
+    signOutAll: signOutAll,
     signInWithGoogle: signInWithGoogle,
     fetchProfile: fetchProfile,
     usernameTaken: usernameTaken,
@@ -459,5 +541,7 @@
     }
   };
 
+  autoCancelDeletion();
+  noteLogin();
   try { window.dispatchEvent(new CustomEvent("ms-account-ready")); } catch (e) { /* ignore */ }
 })();

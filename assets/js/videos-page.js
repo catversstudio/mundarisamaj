@@ -1,7 +1,10 @@
 /* Mundari Samaj — Videos page.
    The collection comes from window.MSVIDEOS (videos-data.js): the site's
    own video pages first, then every channel's videos mixed round-robin,
-   one video from each channel in turn. Cards for the site's own pages
+   one video from each channel in turn. The page is styled after the
+   YouTube app: a dark feed of full-width thumbnails with the channel's
+   logo, the original title, and YouTube's own view count and upload
+   time under it (row fields 8 and 9). Cards for the site's own pages
    link straight to them; every other video opens the watch view below
    with YouTube's official embedded player — all credit stays with the
    channel and YouTube. Signed-in readers can follow a channel, like and
@@ -28,77 +31,109 @@
 
   var style = document.createElement("style");
   style.textContent =
-    ".vcontrols{margin:0 0 18px}" +
-    ".vcontrols input{width:100%;padding:12px 18px;border:1px solid #d7d5cc;border-radius:999px;" +
-    "background:#fff;font:inherit;font-size:.98rem;color:#20211e}" +
-    ".vchips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}" +
+    /* ---- dark YouTube-app theme for this page only ---- */
+    "body.ytpage{background:#0f0f0f!important;color:#f1f1f1!important}" +
+    "body.ytpage .newmast{background:#0f0f0f;color:#fff;border-bottom:1px solid #272727}" +
+    "body.ytpage .newmenu nav{background:#0f0f0f;border-bottom:1px solid #272727}" +
+    "body.ytpage .newtools .contrib{background:#f1f1f1;color:#0f0f0f}" +
+    "body.ytpage footer{background:#0f0f0f!important}" +
+    "body.ytpage footer .partner{background:#1f1f1f!important}" +
+    "body.ytpage .sec{padding:14px 0 44px}" +
+    "body.ytpage #vgrid img,body.ytpage .vrec img,body.ytpage .vw-ava img{filter:none!important}" +
+    /* ---- controls: search + channel chips, sticky like the app ---- */
+    ".vcontrols{position:sticky;top:0;z-index:30;background:#0f0f0f;padding:10px 0 8px;margin:0 0 6px}" +
+    ".vcontrols input{width:100%;padding:11px 18px;border:1px solid #303030;border-radius:999px;" +
+    "background:#121212;font:inherit;font-size:.98rem;color:#f1f1f1;outline:none}" +
+    ".vcontrols input::placeholder{color:#888}" +
+    ".vcontrols input:focus{border-color:#3ea6ff}" +
+    ".vchips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}" +
     ".vchips::-webkit-scrollbar{display:none}" +
-    ".vchip{flex:0 0 auto;border:1px solid #20211e;background:transparent;color:#20211e;border-radius:999px;" +
-    "padding:6px 13px;font-family:'Courier New',monospace;font-size:.72rem;letter-spacing:.08em;cursor:pointer;text-transform:uppercase}" +
-    ".vchip.on{background:#20211e;color:#f7f6f1}" +
-    "#vgrid .card h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
-    "#vgrid .card p{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}" +
+    ".vchip{flex:0 0 auto;border:0;background:#272727;color:#f1f1f1;border-radius:8px;" +
+    "padding:7px 12px;font:inherit;font-weight:500;font-size:.85rem;cursor:pointer;white-space:nowrap}" +
+    ".vchip.on{background:#f1f1f1;color:#0f0f0f}" +
+    /* ---- feed cards ---- */
+    "body.ytpage #vgrid{display:grid;grid-template-columns:1fr;gap:34px 18px}" +
+    "@media(min-width:700px){body.ytpage #vgrid{grid-template-columns:repeat(2,1fr)}}" +
+    "@media(min-width:1100px){body.ytpage #vgrid{grid-template-columns:repeat(3,1fr)}}" +
+    "@media(max-width:699px){.vcontrols,#vgrid{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}}" +
+    ".vcard{display:block;text-decoration:none;color:inherit}" +
     ".vthumb{position:relative;display:block}" +
     ".vthumb img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}" +
-    ".vmeta{display:flex;gap:10px;margin-top:10px}" +
+    "@media(min-width:700px){.vthumb img{border-radius:12px}}" +
+    ".vmeta{display:flex;gap:12px;margin-top:11px;padding:0 12px}" +
+    "@media(min-width:700px){.vmeta{padding:0}}" +
     ".vava{width:36px;height:36px;border-radius:50%;overflow:hidden;flex:0 0 auto;" +
-    "display:flex;align-items:center;justify-content:center;background:#20211e;color:#f7f6f1;font-weight:600}" +
+    "display:flex;align-items:center;justify-content:center;background:#272727;color:#f1f1f1;font-weight:600}" +
     ".vava img{width:100%;height:100%;object-fit:cover;display:block}" +
-    ".vmetat{min-width:0}" +
-    ".vmetat h3{margin:0}" +
-    ".vmetat p{margin:2px 0 0}" +
-    ".vdur{position:absolute;right:6px;bottom:6px;background:rgba(10,10,10,.85);color:#fff;" +
-    "font-family:'Courier New',monospace;font-size:.68rem;padding:2px 5px;border-radius:2px}" +
-    ".vtag{position:absolute;left:6px;bottom:6px;font-family:'Courier New',monospace;font-size:.62rem;" +
-    "letter-spacing:.1em;background:#e65330;color:#fff;padding:2px 6px;border-radius:2px}" +
-    ".vmore{display:block;margin:26px auto 6px;border:1px solid #20211e;background:#20211e;color:#f7f6f1;" +
+    ".vmetat{min-width:0;flex:1}" +
+    ".vmetat h3{margin:0;font-size:.95rem;font-weight:500;line-height:1.35;color:#f1f1f1;letter-spacing:0!important;" +
+    "display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
+    ".vmetat p{margin:3px 0 0;color:#aaa;font-size:.82rem;line-height:1.4;" +
+    "display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}" +
+    ".vdots{flex:0 0 auto;background:none;border:0;color:#f1f1f1;font-size:20px;line-height:1;" +
+    "padding:2px 4px;cursor:pointer;height:fit-content}" +
+    ".vdur{position:absolute;right:8px;bottom:8px;background:rgba(10,10,10,.85);color:#fff;" +
+    "font-size:.72rem;font-weight:500;padding:2px 5px;border-radius:4px}" +
+    ".vtag{position:absolute;left:8px;bottom:8px;font-size:.62rem;font-weight:600;" +
+    "letter-spacing:.08em;background:#e65330;color:#fff;padding:2px 6px;border-radius:4px}" +
+    ".vmore{display:block;margin:30px auto 6px;border:0;background:#272727;color:#f1f1f1;" +
     "padding:12px 26px;font:inherit;font-size:.9rem;cursor:pointer;border-radius:999px}" +
-    ".vempty{grid-column:1/-1;text-align:center;color:#616159;padding:34px 0}" +
-    ".vback{border:1px solid #20211e;background:transparent;color:#20211e;border-radius:999px;" +
+    ".vempty{grid-column:1/-1;text-align:center;color:#aaa;padding:34px 0}" +
+    /* ---- card popup menu ---- */
+    ".vpop{position:fixed;z-index:400;background:#282828;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.55);" +
+    "padding:6px;min-width:210px}" +
+    ".vpop button{display:flex;width:100%;background:none;border:0;color:#f1f1f1;font:inherit;" +
+    "font-size:.92rem;padding:11px 14px;cursor:pointer;border-radius:8px;text-align:left}" +
+    ".vpop button:hover{background:#3d3d3d}" +
+    /* ---- watch view ---- */
+    ".vback{border:1px solid #303030;background:#272727;color:#f1f1f1;border-radius:999px;" +
     "padding:7px 15px;font:inherit;font-size:.85rem;cursor:pointer;margin:0 0 16px}" +
     ".vwatch-grid{display:grid;grid-template-columns:1fr;gap:26px}" +
-    "@media(min-width:900px){.vwatch-grid{grid-template-columns:minmax(0,1fr) 330px}}" +
+    "@media(min-width:900px){.vwatch-grid{grid-template-columns:minmax(0,1fr) 340px}}" +
     ".vframe{position:relative;padding-top:56.25%;background:#000;border-radius:3px;overflow:hidden}" +
+    "@media(max-width:699px){.vframe{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0}}" +
+    "@media(max-width:899px){.vframe{position:sticky;top:0;z-index:40}}" +
     ".vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}" +
-    ".vw-title{margin:14px 0 10px;font-size:1.25rem;line-height:1.3}" +
+    ".vw-title{margin:14px 0 10px;font-size:1.25rem;line-height:1.3;color:#f1f1f1;letter-spacing:0!important}" +
     ".vw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}" +
     ".vw-chan{display:flex;align-items:center;gap:10px;font-weight:600}" +
     ".vw-ava{width:40px;height:40px;border-radius:50%;overflow:hidden;flex:0 0 auto;" +
-    "display:flex;align-items:center;justify-content:center;background:#20211e;color:#f7f6f1;font-weight:600}" +
+    "display:flex;align-items:center;justify-content:center;background:#272727;color:#f1f1f1;font-weight:600}" +
     ".vw-ava img{width:100%;height:100%;object-fit:cover;display:block}" +
     ".vw-chant{display:flex;flex-direction:column;line-height:1.3}" +
-    ".vw-chant small{color:#616159;font-weight:400;font-size:.76rem}" +
-    ".vfollow{border:1px solid #20211e;background:#20211e;color:#f7f6f1;border-radius:999px;" +
-    "padding:7px 16px;font:inherit;font-size:.82rem;cursor:pointer}" +
-    ".vfollow.on{background:transparent;color:#20211e}" +
+    ".vw-chant small{color:#aaa;font-weight:400;font-size:.76rem}" +
+    ".vfollow{border:0;background:#f1f1f1;color:#0f0f0f;border-radius:999px;" +
+    "padding:8px 16px;font:inherit;font-weight:500;font-size:.85rem;cursor:pointer;margin-left:6px}" +
+    ".vfollow.on{background:#272727;color:#f1f1f1}" +
     ".vw-actions{display:flex;gap:8px;flex-wrap:wrap}" +
-    ".vact{border:1px solid #d7d5cc;background:#fff;color:#20211e;border-radius:999px;" +
-    "padding:7px 14px;font:inherit;font-size:.85rem;cursor:pointer;text-decoration:none}" +
-    ".vact.liked{background:#e65330;border-color:#e65330;color:#fff}" +
-    ".vw-credit{color:#616159;font-size:.82rem;margin:10px 0 0}" +
-    ".vw-comments{margin-top:26px;border-top:1px solid #d7d5cc;padding-top:16px}" +
-    ".vw-comments h3{margin:0 0 12px}" +
-    ".vcomment{border-top:1px solid #e7e5dc;padding:10px 0}" +
+    ".vact{border:0;background:#272727;color:#f1f1f1;border-radius:999px;" +
+    "padding:8px 15px;font:inherit;font-size:.85rem;cursor:pointer;text-decoration:none}" +
+    ".vact.liked{background:#e65330;color:#fff}" +
+    ".vw-credit{color:#aaa;font-size:.85rem;margin:12px 0 0;line-height:1.5}" +
+    ".vw-views{color:#f1f1f1;font-weight:500}" +
+    ".vw-comments{margin-top:26px;border-top:1px solid #272727;padding-top:16px}" +
+    ".vw-comments h3{margin:0 0 12px;color:#f1f1f1;letter-spacing:0!important}" +
+    ".vcomment{border-top:1px solid #272727;padding:10px 0}" +
     ".vcomment b{font-size:.9rem}" +
-    ".vcomment time{color:#616159;font-size:.75rem;margin-left:8px}" +
+    ".vcomment time{color:#aaa;font-size:.75rem;margin-left:8px}" +
     ".vcomment p{margin:4px 0 0;font-size:.94rem}" +
-    ".vreport{background:none;border:0;color:#616159;font-size:.75rem;cursor:pointer;padding:4px 0}" +
-    ".vc-form textarea{width:100%;min-height:74px;padding:10px 12px;border:1px solid #d7d5cc;" +
-    "border-radius:2px;font:inherit;background:#fff;color:#20211e}" +
-    ".vc-post{margin-top:10px;border:1px solid #20211e;background:#20211e;color:#f7f6f1;" +
-    "padding:9px 20px;font:inherit;font-size:.88rem;cursor:pointer;border-radius:999px}" +
+    ".vreport{background:none;border:0;color:#aaa;font-size:.75rem;cursor:pointer;padding:4px 0}" +
+    ".vc-form textarea{width:100%;min-height:74px;padding:10px 12px;border:1px solid #303030;" +
+    "border-radius:8px;font:inherit;background:#121212;color:#f1f1f1}" +
+    ".vc-post{margin-top:10px;border:0;background:#f1f1f1;color:#0f0f0f;" +
+    "padding:9px 20px;font:inherit;font-weight:500;font-size:.88rem;cursor:pointer;border-radius:999px}" +
     ".vc-msg{font-size:.85rem;margin:8px 0 0}" +
-    ".vc-msg.bad{color:#b3261e}.vc-msg.ok{color:#1e7a34}" +
-    ".vc-loginbox{border:1px solid #d7d5cc;padding:14px;text-align:center}" +
-    ".vwatch-side h3{margin:2px 0 12px;font-family:'Courier New',monospace;font-size:.78rem;" +
-    "letter-spacing:.14em;text-transform:uppercase;color:#616159}" +
-    ".vrec{display:block;text-decoration:none;color:inherit;margin:0 0 20px;cursor:pointer}" +
+    ".vc-msg.bad{color:#ff7b72}.vc-msg.ok{color:#4cc38a}" +
+    ".vc-loginbox{border:1px solid #303030;border-radius:12px;padding:14px;text-align:center}" +
+    ".vwatch-side h3{margin:2px 0 14px;font-size:1rem;color:#f1f1f1;letter-spacing:0!important}" +
+    ".vrec{display:block;text-decoration:none;color:inherit;margin:0 0 22px;cursor:pointer}" +
     ".vrec .rt{position:relative;display:block}" +
-    ".vrec img{width:100%;display:block;border-radius:3px;aspect-ratio:16/9;object-fit:cover}" +
-    ".vrec h4{margin:8px 0 0;font-size:.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
-    ".vrec p{margin:3px 0 0;color:#616159;font-size:.78rem}" +
+    ".vrec img{width:100%;display:block;border-radius:12px;aspect-ratio:16/9;object-fit:cover}" +
+    ".vrec h4{margin:8px 0 0;font-size:.92rem;font-weight:500;line-height:1.35;color:#f1f1f1;letter-spacing:0!important;" +
+    "display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}" +
+    ".vrec p{margin:3px 0 0;color:#aaa;font-size:.8rem}" +
     ".vtoast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;" +
-    "background:#20211e;color:#f7f6f1;padding:10px 18px;border-radius:999px;font-size:.88rem;z-index:300;" +
+    "background:#f1f1f1;color:#0f0f0f;padding:10px 18px;border-radius:8px;font-size:.88rem;z-index:500;" +
     "transition:all .25s;pointer-events:none}" +
     ".vtoast.show{opacity:1;transform:translateX(-50%) translateY(0)}";
   document.head.appendChild(style);
@@ -122,6 +157,38 @@
     if (n < 1000000) return Math.round(n / 1000) + "K";
     var m = (n / 1000000).toFixed(1);
     return (m.slice(-2) === ".0" ? m.slice(0, -2) : m) + "M";
+  }
+  /* YouTube's own display style for view counts: 749, 2k, 71k, 573k, 1.2M */
+  function fmtViews(n) {
+    if (n === null || n === undefined || isNaN(n)) return "";
+    n = +n;
+    if (n < 1000) return String(n);
+    if (n < 10000) { var k = (n / 1000).toFixed(1); return (k.slice(-2) === ".0" ? k.slice(0, -2) : k) + "k"; }
+    if (n < 1000000) return Math.round(n / 1000) + "k";
+    var m = (n / 1000000).toFixed(1);
+    return (m.slice(-2) === ".0" ? m.slice(0, -2) : m) + "M";
+  }
+  function timeAgo(ts) {
+    if (!ts) return "";
+    var d = Math.floor(Date.now() / 1000) - (+ts);
+    if (d < 60) return "just now";
+    function one(n, unit) { return n + " " + unit + (n === 1 ? "" : "s") + " ago"; }
+    if (d < 3600) return one(Math.floor(d / 60), "minute");
+    if (d < 86400) return one(Math.floor(d / 3600), "hour");
+    if (d < 86400 * 7) return one(Math.floor(d / 86400), "day");
+    if (d < 86400 * 30) return one(Math.floor(d / (86400 * 7)), "week");
+    if (d < 86400 * 365) return one(Math.floor(d / (86400 * 30)), "month");
+    return one(Math.floor(d / (86400 * 365)), "year");
+  }
+  /* "Channel · 573k views · 1 year ago" — parts appear only when known. */
+  function metaLine(v, withChannel) {
+    var parts = [];
+    if (withChannel) parts.push(esc(v[2]));
+    var vw = fmtViews(v[7]);
+    if (vw) parts.push(vw + " views");
+    var ago = timeAgo(v[8]);
+    if (ago) parts.push(ago);
+    return parts.join(" · ");
   }
   function avatarHTML(channel, cls) {
     var url = AVATARS[channel];
@@ -193,6 +260,56 @@
     toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
   }
 
+  /* ---------- share helper (cards and watch view) ---------- */
+  function shareVideo(v) {
+    var url = v[5] ? new URL(v[5], location.href).href
+                   : location.origin + location.pathname + "?v=" + v[0];
+    if (navigator.share) {
+      navigator.share({ title: v[1] + " — Mundari Samaj", url: url }).catch(function () {});
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(
+        function () { showToast("Link copied — share it anywhere."); },
+        function () { showToast("Copy the link from the address bar to share."); });
+    } else { showToast("Copy the link from the address bar to share."); }
+  }
+
+  /* ---------- card popup menu (the three dots) ---------- */
+  var pop = document.createElement("div");
+  pop.className = "vpop";
+  pop.hidden = true;
+  pop.innerHTML = '<button type="button" data-act="share">Share</button>' +
+    '<button type="button" data-act="yt">Watch on YouTube</button>';
+  document.body.appendChild(pop);
+  var popVideo = null, popOpenedAt = 0;
+  function closePop() { pop.hidden = true; popVideo = null; }
+  function openPop(btn, v) {
+    popVideo = v;
+    popOpenedAt = Date.now();
+    pop.hidden = false;
+    var r = btn.getBoundingClientRect();
+    var w = 220;
+    pop.style.top = Math.min(r.bottom + 6, window.innerHeight - 130) + "px";
+    pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + "px";
+  }
+  pop.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("button[data-act]") : null;
+    if (!b || !popVideo) return;
+    var v = popVideo;
+    closePop();
+    if (b.getAttribute("data-act") === "share") shareVideo(v);
+    else window.open("https://www.youtube.com/watch?v=" + v[0], "_blank", "noopener");
+  });
+  document.addEventListener("click", function (e) {
+    if (!pop.hidden && !pop.contains(e.target) && !(e.target.closest && e.target.closest(".vdots"))) closePop();
+  });
+  window.addEventListener("scroll", function () {
+    // Ignore the tail of a smooth scroll-into-view that opened the menu.
+    if (Date.now() - popOpenedAt > 500) closePop();
+  }, { passive: true });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePop(); });
+
   /* ---------- browse view (grid) ---------- */
   var channels = [], seenCh = {};
   DATA.forEach(function (v) { if (!seenCh[v[2]]) { seenCh[v[2]] = 1; channels.push(v[2]); } });
@@ -216,9 +333,10 @@
     var inner = '<span class="vthumb"><img loading="lazy" src="' + thumb + '" alt="">' + tag +
       (dur ? '<span class="vdur">' + dur + "</span>" : "") + "</span>" +
       '<div class="vmeta">' + avatarHTML(v[2], "vava") +
-      '<div class="vmetat"><h3>' + esc(v[1]) + "</h3><p>" + esc(v[2]) + "</p></div></div>";
-    if (v[5]) return '<a class="card" href="' + esc(v[5]) + '">' + inner + "</a>";
-    return '<a class="card" href="?v=' + v[0] + '" data-yt="' + v[0] + '">' + inner + "</a>";
+      '<div class="vmetat"><h3>' + esc(v[1]) + "</h3><p>" + metaLine(v, true) + "</p></div>" +
+      '<button class="vdots" type="button" aria-label="More actions" data-ytid="' + v[0] + '">&#8942;</button></div>';
+    if (v[5]) return '<a class="vcard" href="' + esc(v[5]) + '">' + inner + "</a>";
+    return '<a class="vcard" href="?v=' + v[0] + '" data-yt="' + v[0] + '">' + inner + "</a>";
   }
   function applyFilter() {
     var q = query.trim().toLowerCase();
@@ -251,6 +369,15 @@
     else { followFilter = false; activeChannel = b.getAttribute("data-ch") || ""; }
     buildChips();
     applyFilter();
+  });
+  grid.addEventListener("click", function (e) {
+    var d = e.target.closest ? e.target.closest(".vdots") : null;
+    if (!d) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var id = d.getAttribute("data-ytid"), v = null;
+    for (var i = 0; i < DATA.length; i++) if (DATA[i][0] === id) { v = DATA[i]; break; }
+    if (v) openPop(d, v);
   });
   var searchTimer = null;
   searchBox.addEventListener("input", function () {
@@ -316,7 +443,7 @@
       return '<a class="vrec" href="?v=' + v[0] + '" data-yt="' + v[0] + '">' +
         '<span class="rt"><img loading="lazy" src="https://i.ytimg.com/vi/' + v[0] + '/hqdefault.jpg" alt="">' +
         (dur ? '<span class="vdur">' + dur + "</span>" : "") + "</span>" +
-        "<h4>" + esc(v[1]) + "</h4><p>" + esc(v[2]) + "</p></a>";
+        "<h4>" + esc(v[1]) + "</h4><p>" + metaLine(v, true) + "</p></a>";
     }).join("");
   }
 
@@ -331,7 +458,7 @@
         paintLike();
         var items = (d.comments && d.comments.items) || [];
         cList.innerHTML = items.length ? items.map(commentHTML).join("") :
-          '<p style="color:#616159">No comments yet — be the first to share your thoughts.</p>';
+          '<p style="color:#aaa">No comments yet — be the first to share your thoughts.</p>';
       }
     } catch (e) { /* offline — counts and comments just stay empty */ }
     renderCommentForm();
@@ -466,20 +593,12 @@
 
   shareBtn.addEventListener("click", function () {
     if (!cur) return;
-    var url = location.origin + location.pathname + "?v=" + cur[0];
-    if (navigator.share) {
-      navigator.share({ title: cur[1] + " — Mundari Samaj", url: url }).catch(function () {});
-      return;
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(
-        function () { showToast("Link copied — share it anywhere."); },
-        function () { showToast("Copy the link from the address bar to share."); });
-    } else { showToast("Copy the link from the address bar to share."); }
+    shareVideo(cur);
   });
 
   function openWatch(v, push) {
     cur = v;
+    closePop();
     browse.hidden = true;
     watch.hidden = false;
     frame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v[0] +
@@ -490,7 +609,9 @@
     var subs = SUBS[v[2]];
     document.getElementById("vwsubs").textContent = subs ? subs + " subscribers" : "";
     ytLink.href = "https://www.youtube.com/watch?v=" + v[0];
-    creditEl.textContent = "Video by " + v[2] + " · via YouTube. All credit goes to the channel and YouTube.";
+    var statsLine = metaLine(v, false);
+    creditEl.innerHTML = (statsLine ? '<span class="vw-views">' + esc(statsLine) + "</span><br>" : "") +
+      esc("Video by " + v[2] + " · via YouTube. All credit goes to the channel and YouTube.");
     paintFollow();
     renderRecs();
     loadEngage();

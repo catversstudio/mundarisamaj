@@ -177,13 +177,13 @@
       // the same ✕ close button as the inner pages.
       "header.mast .tools .join{display:none}" +
       "body:has(.mobilemenu[open]) header.mast{position:relative;z-index:160}" +
-      ".mobilemenu nav .menux{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}" +
+      ".mobilemenu nav .menux{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}" +
       // The mobile menu opens as a popup card; the page behind it
       // blurs and freezes (the owner's order, 28 Nov 2026).
       "header.mast .mobilemenu[open] summary{position:relative;z-index:62}" +
-      "header.mast .mobilemenu[open]::before{content:'';position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.38);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}" +
-      "header.mast .mobilemenu[open] nav{position:fixed;top:76px;right:12px;left:auto;z-index:61;width:min(320px,86vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:10px;display:grid;gap:2px}" +
-      "header.mast .mobilemenu[open] nav a{padding:12px 14px;border-radius:10px;font-size:15px;color:#20211e;text-decoration:none}" +
+      "header.mast .mobilemenu[open]::before{content:'';position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}" +
+      "header.mast .mobilemenu[open] nav{position:fixed;top:70px;right:12px;left:auto;z-index:61;width:min(272px,76vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:8px;display:grid;gap:0;animation:menupop .18s ease}@keyframes menupop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}.mobilemenu[open] nav.dummy{}" +
+      "header.mast .mobilemenu[open] nav a{padding:9px 12px;border-radius:10px;font-size:14.5px;line-height:1.25;color:#20211e;text-decoration:none}" +
       "header.mast .mobilemenu[open] nav a:hover{background:#f1efe6}" +
       "body:has(.mobilemenu[open]){overflow:hidden}" +
       ".astra-cats{padding:56px clamp(20px,4.45vw,85px) 8px;background:#f8f7f3}" +

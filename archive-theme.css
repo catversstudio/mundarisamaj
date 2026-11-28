@@ -4,9 +4,9 @@
    drawer: the page behind it blurs and freezes until it closes. */
 @media(max-width:800px){
 .newmenu[open] summary{position:relative;z-index:62}
-.newmenu[open]::before{content:"";position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.38);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-.newmenu[open] nav{position:fixed;top:76px;right:12px;left:auto;z-index:61;width:min(320px,86vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:10px;display:grid;gap:2px}
-.newmenu[open] nav a{padding:12px 14px;border-radius:10px;font-size:15px;color:#20211e;text-decoration:none}
+.newmenu[open]::before{content:"";position:fixed;inset:0;z-index:60;background:rgba(18,19,16,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.newmenu[open] nav{position:fixed;top:70px;right:12px;left:auto;z-index:61;width:min(272px,76vw);background:#fffdf8;border:1px solid #e3e0d4;border-radius:16px;box-shadow:0 24px 60px rgba(20,20,18,.28);padding:8px;display:grid;gap:0;animation:menupop .18s ease}@keyframes menupop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+.newmenu[open] nav a{padding:9px 12px;border-radius:10px;font-size:14.5px;line-height:1.25;color:#20211e;text-decoration:none}
 .newmenu[open] nav a:hover{background:#f1efe6;text-decoration:none}
 body:has(.newmenu[open]){overflow:hidden}
 }
@@ -31,6 +31,6 @@ footer .copy{max-width:1120px;margin:28px auto 0;padding:18px 22px 32px;border-t
       injected by account.js); clicking outside also closes it.
    3) Pages without a footer get breathing room at the bottom. */
 body:has(.newmenu[open]) .newmast{z-index:160}
-.newmenu nav .menux{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.newmenu nav .menux{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .newmenu nav .menux:hover{background:#f3efe4}
 body:not(:has(>footer)) main{padding-bottom:64px}

@@ -305,7 +305,7 @@
 
   var CSS = [
     ".msa-overlay{position:fixed;inset:0;z-index:2000;background:rgba(12,22,17,.48);",
-    "-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);display:flex;align-items:center;",
+    "-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;align-items:center;",
     "justify-content:center;padding:18px;opacity:0;transition:opacity .25s ease}",
     ".msa-overlay.show{opacity:1}",
     ".msa-card{background:#fff;color:#1b2b26;max-width:400px;width:100%;border-radius:20px;",

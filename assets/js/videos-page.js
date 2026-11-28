@@ -138,8 +138,8 @@
     ".vc-teaser-n{color:#aaa;font-size:.85rem}" +
     ".vc-teaser-first{color:#aaa;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}" +
     ".vc-teaser-arrow{color:#aaa}" +
-    ".vc-shade{position:fixed;inset:0;z-index:94;background:rgba(8,8,8,.5);backdrop-filter:blur(7px);" +
-    "-webkit-backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .3s}" +
+    ".vc-shade{position:fixed;inset:0;z-index:94;background:rgba(8,8,8,.5);backdrop-filter:blur(14px);" +
+    "-webkit-backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .3s}" +
     ".vc-shade.open{opacity:1;pointer-events:auto}" +
     ".vc-sheet{position:fixed;left:0;right:0;bottom:0;z-index:95;background:#131313;color:#f1f1f1;" +
     "border-radius:18px 18px 0 0;max-height:82vh;display:flex;flex-direction:column;" +

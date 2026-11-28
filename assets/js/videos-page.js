@@ -92,7 +92,7 @@
     "@media(min-width:900px){.vwatch-grid{grid-template-columns:minmax(0,1fr) 340px}}" +
     ".vframe{position:relative;padding-top:56.25%;background:#000;border-radius:3px;overflow:hidden}" +
     "@media(max-width:699px){.vframe{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0}}" +
-    "@media(max-width:899px){.vframe{position:sticky;top:0;z-index:40}}" +
+    ".vframe.pin{position:fixed;top:0;left:0;right:0;width:100%;margin:0;border-radius:0;z-index:90;box-shadow:0 8px 22px rgba(0,0,0,.5)}" +
     ".vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}" +
     ".vw-title{margin:14px 0 10px;font-size:1.25rem;line-height:1.3;color:#f1f1f1;letter-spacing:0!important}" +
     ".vw-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}" +
@@ -596,7 +596,35 @@
     shareVideo(cur);
   });
 
+  /* On phones the player pins itself to the top of the screen once
+     the reader scrolls past it, so the video keeps playing in view
+     while they read comments and suggestions (the owner's order).
+     A spacer holds the player's place so the page does not jump. */
+  var pinSpacer = null;
+  function unpin() {
+    if (!pinSpacer) return;
+    frame.classList.remove("pin");
+    pinSpacer.remove();
+    pinSpacer = null;
+  }
+  function pinCheck() {
+    if (!cur || watch.hidden || window.innerWidth > 899) { unpin(); return; }
+    var anchor = pinSpacer || frame;
+    var top = anchor.getBoundingClientRect().top;
+    if (!pinSpacer && top < 0) {
+      pinSpacer = document.createElement("div");
+      pinSpacer.style.height = frame.offsetHeight + "px";
+      frame.parentNode.insertBefore(pinSpacer, frame);
+      frame.classList.add("pin");
+    } else if (pinSpacer && top >= 0) {
+      unpin();
+    }
+  }
+  window.addEventListener("scroll", pinCheck, { passive: true });
+  window.addEventListener("resize", pinCheck);
+
   function openWatch(v, push) {
+    unpin();
     cur = v;
     closePop();
     browse.hidden = true;
@@ -621,6 +649,7 @@
     window.scrollTo(0, 0);
   }
   function closeWatch(push) {
+    unpin();
     cur = null;
     frame.innerHTML = "";
     watch.hidden = true;

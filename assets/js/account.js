@@ -357,16 +357,35 @@
     return root + "account/";
   }
 
+  // In the top bar the account entry is a round profile symbol, not
+  // words (the owner's order, 28 Nov 2026); the menus keep the words,
+  // where a label is needed. One shared style keeps the symbol the
+  // same on every page.
+  var ACCOUNT_ICON = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>';
+  function iconLink(href) {
+    if (!document.getElementById("msa-ico-style")) {
+      var st = document.createElement("style");
+      st.id = "msa-ico-style";
+      st.textContent = ".msa-ico{display:inline-flex;align-items:center;justify-content:center;" +
+        "width:36px;height:36px;border-radius:50%;border:1.5px solid currentColor;flex:none}";
+      document.head.appendChild(st);
+    }
+    var a = document.createElement("a");
+    a.href = href;
+    a.className = "msa-account-link msa-ico";
+    a.setAttribute("aria-label", "My Account");
+    a.title = "My Account";
+    a.innerHTML = ACCOUNT_ICON;
+    return a;
+  }
+
   function addMenuEntry() {
     // Archive-style mastheads: the account entry sits in the tools row,
     // before the Contribute pill, and at the end of the mobile menu.
     var tools = document.querySelector(".newtools") || document.querySelector("header.mast .tools");
     if (tools) {
       if (!tools.querySelector(".msa-account-link")) {
-        var a2 = document.createElement("a");
-        a2.href = "/account/";
-        a2.className = "msa-account-link";
-        a2.textContent = "My Account";
+        var a2 = iconLink("/account/");
         var pill = tools.querySelector(".contrib, .join");
         if (pill) tools.insertBefore(a2, pill); else tools.appendChild(a2);
       }
@@ -403,14 +422,12 @@
       return;
     }
     // Reading pages carry a slim header without a menu; the account
-    // link sits at its right end instead.
+    // symbol sits at its right end instead.
     var top = document.querySelector("header.top");
     if (!top || top.querySelector(".msa-account-link")) return;
-    var link = document.createElement("a");
-    link.href = accountUrl();
-    link.className = "msa-account-link";
-    link.textContent = "My Account";
-    link.style.cssText = "font:500 .9rem Inter,sans-serif;color:var(--mut,#5a6b62);margin-left:auto";
+    var link = iconLink(accountUrl());
+    link.style.marginLeft = "auto";
+    link.style.color = "var(--mut,#5a6b62)";
     top.appendChild(link);
   }
 

@@ -32,10 +32,14 @@
     var tools = document.querySelector("header.mast .tools");
     if (!tools) return;
     if (!tools.querySelector(".msa-account-link")) {
+      // A round profile symbol in the top bar, not words (the owner's
+      // order); account.js draws the same symbol on every other page.
       var a = document.createElement("a");
       a.href = "/account/";
-      a.className = "msa-account-link";
-      a.textContent = "My Account";
+      a.className = "msa-account-link msa-ico";
+      a.setAttribute("aria-label", "My Account");
+      a.title = "My Account";
+      a.innerHTML = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>';
       var pill = tools.querySelector(".join");
       if (pill) tools.insertBefore(a, pill); else tools.appendChild(a);
     }
@@ -93,6 +97,7 @@
       "background:#f8f7f3;border-bottom:1px solid #d7d5cc;padding:9px 14px;text-align:center}" +
       ".astra-bani .bani{font-family:'Noto Sans Nag Mundari',sans-serif;font-size:1.05rem;color:#20211e}" +
       ".astra-bani .r{font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.14em;color:#616159}" +
+      ".msa-ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid currentColor;flex:none}" +
       ".astra-cats{padding:56px clamp(20px,4.45vw,85px) 8px;background:#f8f7f3}" +
       ".ac-kick{font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.14em;color:#616159;margin:0 0 8px}" +
       ".ac-head{font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.7rem,4.5vw,2.6rem);letter-spacing:-.03em;margin:0 0 26px;color:#20211e}" +

@@ -518,6 +518,39 @@
     addMenuEntry();
   }
 
+  /* ---------- popup menus: close button + outside click ----------
+     Every header menu (inner pages and the home/explore masthead)
+     gets a ✕ inside its card; clicking anywhere outside the card,
+     or pressing Esc, closes it. The blurred shade and the frozen
+     background come from the stylesheets. */
+  function menuBehaviour() {
+    document.querySelectorAll(".newmenu, .mobilemenu").forEach(function (d) {
+      var nav = d.querySelector("nav");
+      if (nav && !nav.querySelector(".menux")) {
+        var x = document.createElement("button");
+        x.type = "button";
+        x.className = "menux";
+        x.setAttribute("aria-label", "Close menu");
+        x.textContent = "✕";
+        x.addEventListener("click", function () { d.open = false; });
+        nav.appendChild(x);
+      }
+    });
+  }
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll(".newmenu[open], .mobilemenu[open]").forEach(function (d) {
+      var nav = d.querySelector("nav");
+      var sum = d.querySelector("summary");
+      if (nav && nav.contains(e.target)) return;
+      if (sum && sum.contains(e.target)) return;
+      d.open = false;
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    document.querySelectorAll(".newmenu[open], .mobilemenu[open]").forEach(function (d) { d.open = false; });
+  });
+
   /* ---------- public face ---------- */
 
   window.MSAccount = {
@@ -543,5 +576,8 @@
 
   autoCancelDeletion();
   noteLogin();
+  menuBehaviour();
+  setTimeout(menuBehaviour, 1500);
+  setTimeout(menuBehaviour, 3500);
   try { window.dispatchEvent(new CustomEvent("ms-account-ready")); } catch (e) { /* ignore */ }
 })();

@@ -22,3 +22,15 @@ footer .prow{display:grid;gap:12px;margin-top:14px}
 footer .partner{border:1px solid #3a3b36!important;border-radius:14px!important;padding:16px 18px}
 footer .partner .pd{opacity:.75;font-size:.86rem}
 footer .copy{max-width:1120px;margin:28px auto 0;padding:18px 22px 32px;border-top:1px solid #34352f;display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;color:#a9a79c!important;font-size:.8rem}
+
+/* ===== POPUP + HEADER/FOOTER FIXES (owner's order, 29 Nov 2026) =====
+   1) An open menu must sit ABOVE everything else on the page,
+      including the pinned video player: the masthead carries the
+      menu, so the masthead itself rises while the menu is open.
+   2) Every popup menu card carries a ✕ close button (.menux,
+      injected by account.js); clicking outside also closes it.
+   3) Pages without a footer get breathing room at the bottom. */
+body:has(.newmenu[open]) .newmast{z-index:160}
+.newmenu nav .menux{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.newmenu nav .menux:hover{background:#f3efe4}
+body:not(:has(>footer)) main{padding-bottom:64px}

@@ -57,7 +57,7 @@
      the rest follow by importance. Every tile is one whole link. */
   var CATS = [
     ["Music & Videos", "/media/videos/", "mandar-drum", "Songs and films to watch and learn"],
-    ["Library", "/library/", "birsa-munda-portrait", "Books, articles and stories"],
+    ["Library", "/library/", "mundari-samaj/books/mundari-primer-ciil-cover", "Books, articles and stories"],
     ["Script & Our Language", "/language/", "mundari-bani-script-chart", "Bani script, words and learning"],
     ["Culture", "/culture/", "karam-festival", "Festivals, art and traditions"],
     ["Gallery", "/media/gallery/", "sarhul-dance-ranchi", "Photographs from the community"],
@@ -85,7 +85,76 @@
     orig.removeAttribute("id");
     orig.style.display = "none";
   }
-  function ensure() { addBand(); addAccountLink(); addCats(); }
+  /* Hero slideshow: every photo from the gallery, changing on
+     its own every 10 seconds (the owner's order, 29 Nov 2026).
+     The built-in Previous/Next buttons keep working — a click
+     resets the timer and the cycle continues from the photo
+     shown. Captions and the counter follow the photo. */
+  var HEROPHOTOS = [
+    ["sohrai-painting-women", "Sohrai painting"],
+    ["sarhul-dance-ranchi", "Sarhul dancers, Ranchi"],
+    ["mundari-bani-script-chart", "The Mundari Bani script chart"],
+    ["sarhul-sarna-grove", "Sarhul at the sarna grove"],
+    ["sohrai-wall-art-isko", "Sohrai wall art at Isko village"],
+    ["karam-festival", "Karam festival"],
+    ["birsa-munda-portrait", "Birsa Munda (1875–1900)"],
+    ["birsa-munda-statue-patna", "Birsa Munda statue, Patna"],
+    ["netarhat", "Netarhat landscape"],
+    ["nag-birthday-celebration-01", "Ol Guru's birthday celebration"],
+    ["karam-puja", "Karam puja"],
+    ["mandar-drum", "The mandar drum"],
+    ["adiwasi-dance-khunti", "Folk dance in Khunti"]
+  ];
+  var heroTimer = null;
+  function heroIdxFromSrc(src) {
+    for (var i = 0; i < HEROPHOTOS.length; i++) if (src.indexOf(HEROPHOTOS[i][0]) !== -1) return i;
+    return 0;
+  }
+  function heroPaint(img, idx) {
+    var bar = document.querySelector(".platebar");
+    if (bar) {
+      var fig = bar.querySelector("span, div");
+      if (fig && /FIG\./.test(fig.textContent)) fig.textContent = "FIG. " + String(idx + 1).padStart(2, "0") + "  " + HEROPHOTOS[idx][1];
+      var ctr = document.querySelector(".platecontrols");
+      if (ctr) ctr.childNodes.forEach(function (n) {
+        if (n.nodeType === 3 && /\d+\s*\/\s*\d+/.test(n.textContent)) n.textContent = " " + String(idx + 1).padStart(2, "0") + " / " + HEROPHOTOS.length + " ";
+        else if (n.nodeType === 1 && /^\s*\d+\s*\/\s*\d+\s*$/.test(n.textContent)) n.textContent = String(idx + 1).padStart(2, "0") + " / " + HEROPHOTOS.length;
+      });
+    }
+    img.alt = HEROPHOTOS[idx][1];
+  }
+  function heroStep() {
+    var img = document.querySelector("section.front img.plate");
+    if (!img) return;
+    var idx = (heroIdxFromSrc(img.getAttribute("src") || "") + 1) % HEROPHOTOS.length;
+    var url = "https://res.cloudinary.com/lkgpy2ls/image/upload/f_auto,q_auto/" + HEROPHOTOS[idx][0] + ".jpg";
+    var pre = new Image();
+    pre.onload = function () {
+      img.style.opacity = "0";
+      setTimeout(function () {
+        img.src = url;
+        heroPaint(img, idx);
+        img.style.opacity = "1";
+      }, 480);
+    };
+    pre.src = url;
+  }
+  function heroStart() {
+    var img = document.querySelector("section.front img.plate");
+    if (!img || img.dataset.herocycle) return;
+    img.dataset.herocycle = "1";
+    img.style.transition = "opacity .45s ease";
+    heroPaint(img, heroIdxFromSrc(img.getAttribute("src") || ""));
+    if (heroTimer) clearInterval(heroTimer);
+    heroTimer = setInterval(function () { if (!document.hidden) heroStep(); }, 10000);
+    document.querySelectorAll(".platecontrols button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (heroTimer) { clearInterval(heroTimer); heroTimer = setInterval(function () { if (!document.hidden) heroStep(); }, 10000); }
+      });
+    });
+  }
+
+  function ensure() { addBand(); addAccountLink(); addCats(); heroStart(); }
   function init() {
     var font = document.createElement("link");
     font.rel = "stylesheet";
@@ -102,6 +171,13 @@
       // order, 28 Nov 2026) — the Next pages carry it in their
       // markup, so it is hidden here; other pages had it removed.
       "header.mast .brandmark small{display:none}" +
+      // No Contribute pill in the header (29 Nov 2026) — Contribute
+      // lives inside the menu now. An open menu also lifts the
+      // whole masthead above page content, and its card carries
+      // the same ✕ close button as the inner pages.
+      "header.mast .tools .join{display:none}" +
+      "body:has(.mobilemenu[open]) header.mast{position:relative;z-index:160}" +
+      ".mobilemenu nav .menux{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:1px solid #e3ddcf;background:#fffdf8;color:#20211e;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}" +
       // The mobile menu opens as a popup card; the page behind it
       // blurs and freezes (the owner's order, 28 Nov 2026).
       "header.mast .mobilemenu[open] summary{position:relative;z-index:62}" +

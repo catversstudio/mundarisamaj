@@ -290,6 +290,9 @@ async function ensureEngageTables(env) {
   await env.DB.prepare(
     "CREATE TABLE IF NOT EXISTS blocked_ips (ip TEXT PRIMARY KEY, reason TEXT, created_at TEXT)"
   ).run();
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS follows (user_id TEXT NOT NULL, channel TEXT NOT NULL, created_at TEXT, UNIQUE(user_id, channel))"
+  ).run();
   _engageTablesReady = true;
 }
 
@@ -579,6 +582,17 @@ async function bumpEngagement(env, slug, field) {
 }
 
 async function apiEngageGet(url, env) {
+  // A signed-in reader's followed channels (the Videos page Follow button).
+  if (url.searchParams.get("follows") === "1") {
+    await ensureEngageTables(env);
+    const token = (url.searchParams.get("access_token") || "").slice(0, 2000);
+    const user = token ? await sbAuthUser(env, token) : null;
+    if (!user) return json({ ok: true, follows: [] });
+    const rows = await env.DB.prepare(
+      "SELECT channel FROM follows WHERE user_id = ? ORDER BY created_at ASC"
+    ).bind(user.id).all();
+    return json({ ok: true, follows: (rows.results || []).map((r) => r.channel) });
+  }
   const slug = (url.searchParams.get("slug") || "").trim();
   if (!slug) return json({ ok: false, error: "slug_required" }, 400);
   await ensureEngageTables(env);
@@ -620,9 +634,27 @@ async function apiEngagePost(request, env) {
     return json({ ok: false, error: "rate_limited", message: "Too many actions. Please wait a little while and try again." }, 429);
   }
 
-  // Reading is open to everyone; liking and commenting need an account.
-  if ((action === "like" || action === "unlike" || action === "comment") && !sbUser) {
+  // Reading is open to everyone; liking, commenting and following need an account.
+  if ((action === "like" || action === "unlike" || action === "comment" || action === "follow" || action === "unfollow") && !sbUser) {
     return json({ ok: false, error: "login_required", message: "Please login to interact with us." }, 401);
+  }
+
+  if (action === "follow" || action === "unfollow") {
+    const channel = String(body.channel || "").trim().slice(0, 120);
+    if (!channel) return json({ ok: false, error: "channel_required" }, 400);
+    if (action === "follow") {
+      await env.DB.prepare(
+        "INSERT OR IGNORE INTO follows (user_id, channel, created_at) VALUES (?, ?, ?)"
+      ).bind(userId, channel, nowISO()).run();
+    } else {
+      await env.DB.prepare(
+        "DELETE FROM follows WHERE user_id = ? AND channel = ?"
+      ).bind(userId, channel).run();
+    }
+    const row = await env.DB.prepare(
+      "SELECT channel FROM follows WHERE user_id = ? AND channel = ?"
+    ).bind(userId, channel).first();
+    return json({ ok: true, channel, following: !!row });
   }
 
   if (action === "view") {
